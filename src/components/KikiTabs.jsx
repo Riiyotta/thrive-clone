@@ -50,19 +50,19 @@ export default function KikiTabs() {
       {/* 5a header */}
       <div className="padding-global">
         <div className="container-medium flex">
-          <div className="mt-[64px] w-[640px] max-w-full">
-            <div className="flex w-[640px] max-w-full flex-col items-start">
+          <div className="mt-[4rem] w-[40rem] max-w-full">
+            <div className="flex w-[40rem] max-w-full flex-col items-start">
               <h2 className="heading-h2">
                 Meet the AI helper that
                 <br />
                 knows your <em className="italic">people</em>
               </h2>
-              <p className="mt-[24px] w-[640px] max-w-full text-para text-grey">
+              <p className="mt-[1.5rem] w-[40rem] max-w-full text-para text-grey">
                 Nova is an assistant built into every corner of the platform, ready to help.
                 <br />
                 It learns from your own content, so every answer sounds like your team wrote it.
               </p>
-              <div className="mt-[20px] flex">
+              <div className="mt-[1.25rem] flex">
                 <Button variant="primary">Meet Nova →</Button>
               </div>
             </div>
@@ -71,14 +71,14 @@ export default function KikiTabs() {
       </div>
 
       {/* 5b autotabs */}
-      <div className="overflow-hidden py-[48px]">
+      <div className="overflow-hidden py-[3rem]">
         <div className="padding-global">
           <div className="container-large">
             <div className="container-medium">
-              <div className="flex flex-col gap-[8px]">
+              <div className="flex flex-col gap-[0.5rem]">
                 <div
                   role="tablist"
-                  className="flex gap-[12px] mob:overflow-auto xs:flex-wrap"
+                  className="flex gap-[0.75rem] mob:overflow-auto xs:flex-wrap"
                 >
                   {SLIDES.map((s, i) => (
                     <button
@@ -87,7 +87,7 @@ export default function KikiTabs() {
                       role="tab"
                       aria-selected={i === active}
                       onClick={() => c.goTo(i)}
-                      className={`flex h-[4.75rem] flex-1 items-center justify-center rounded-card p-[8px] text-kikitab text-ink mob:h-[3.5rem] mob:w-[200px] mob:flex-none mob:text-kikitab-xs xs:min-w-[150px] xs:flex-1 ${
+                      className={`flex h-[4.75rem] flex-1 items-center justify-center rounded-card p-[0.5rem] text-kikitab text-ink mob:h-[3.5rem] mob:w-[12.5rem] mob:flex-none mob:text-kikitab-xs xs:min-w-[9.375rem] xs:flex-1 ${
                         i === active ? 'bg-surface-3' : 'bg-surface-1'
                       }`}
                     >
@@ -100,30 +100,30 @@ export default function KikiTabs() {
                 <div className="w-full overflow-clip" data-carousel="kiki">
                   <div
                     {...c.trackProps}
-                    className={`flex gap-[24px] ${c.animate ? 'transition-transform duration-[800ms] ease-[ease]' : ''}`}
+                    className={`flex gap-[1.5rem] ${c.animate ? 'transition-transform duration-[800ms] ease-[ease]' : ''}`}
                     style={{
                       ...c.trackProps.style,
-                      transform: `translateX(calc(${-(c.pos + N)} * (100% + 24px) + ${c.dragX}px))`,
+                      transform: `translateX(calc(${-(c.pos + N)} * (100% + 1.5rem) + ${c.dragX}px))`,
                     }}
                   >
                     {all.map((s, i) => (
                       <div
                         key={i}
                         aria-hidden={i !== c.pos + N}
-                        className="relative isolate flex min-h-[520px] w-full shrink-0 flex-col overflow-clip rounded-panel bg-surface-1 pl-[40px] pt-[40px] mob:p-[24px] mob:pb-[72px] xs:min-h-[35rem]"
+                        className="relative isolate flex min-h-[32.5rem] w-full shrink-0 flex-col overflow-clip rounded-panel bg-surface-1 pl-[2.5rem] pt-[2.5rem] mob:p-[1.5rem] mob:pb-[4.5rem] xs:min-h-[35rem]"
                       >
-                        <div className="relative flex flex-1 flex-col justify-between mob:justify-start mob:gap-[24px]">
+                        <div className="relative flex flex-1 flex-col justify-between mob:justify-start mob:gap-[1.5rem]">
                           <div className="max-w-[65%] tab:max-w-full">
                             <p className="max-w-[85%] text-feature font-medium">
                               <span className="inline-block text-ink">{s.highlight}</span>{' '}
-                              <span className="inline-block tracking-[-0.4px] text-grey xs:mb-[20px]">{s.subdued}</span>
+                              <span className="inline-block tracking-[-0.025rem] text-grey xs:mb-[1.25rem]">{s.subdued}</span>
                             </p>
                           </div>
                           <Placeholder
                             tone={2}
                             label="Product video 1:1"
                             data-video-slot
-                            className="absolute bottom-0 right-0 z-[-1] aspect-square w-[45%] xs:static xs:aspect-auto xs:h-[352px] xs:w-full"
+                            className="absolute bottom-0 right-0 z-[-1] aspect-square w-[45%] xs:static xs:aspect-auto xs:h-[22rem] xs:w-full"
                           />
                         </div>
                       </div>

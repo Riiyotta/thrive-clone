@@ -30,28 +30,28 @@ export default function CaseStudyCarousel() {
   useEffect(() => setProgressKey((k) => k + 1), [c.settled, c.playing])
 
   return (
-    <section data-section="highlight" className="overflow-hidden py-[80px] tab:p-0">
+    <section data-section="highlight" className="overflow-hidden py-[5rem] tab:p-0">
       <div className="padding-global">
         <div className="container-medium">
-          <div className="flex flex-row items-end justify-between tab:flex-col tab:items-start tab:gap-[24px]">
-            <div className="flex w-[576px] max-w-full flex-col items-start gap-[16px]">
+          <div className="flex flex-row items-end justify-between tab:flex-col tab:items-start tab:gap-[1.5rem]">
+            <div className="flex w-[36rem] max-w-full flex-col items-start gap-[1rem]">
               <h2 className="heading-h2">Stories from teams that grew with us</h2>
               <div className="flex">
                 <Button variant="dark">Read customer stories</Button>
               </div>
             </div>
-            <p className="mb-[20px] max-w-[448px] text-para text-grey">
+            <p className="mb-[1.25rem] max-w-[28rem] text-para text-grey">
               See how teams in retail, travel and beyond turned everyday learning into results they can measure.
             </p>
           </div>
 
-          <div className="h-[80px] tab:h-[64px] mob:h-[48px]" />
+          <div className="h-[5rem] tab:h-[4rem] mob:h-[3rem]" />
 
-          <div className="flex flex-col items-center gap-[32px]">
+          <div className="flex flex-col items-center gap-[2rem]">
             <div
               ref={hoverRef}
               data-carousel="highlight"
-              className="relative w-full overflow-visible py-[40px] [container-type:inline-size] [--w:666px] tab:[--w:95cqw]"
+              className="relative w-full overflow-visible py-[2.5rem] [container-type:inline-size] [--w:41.625rem] tab:[--w:95cqw]"
             >
               <div
                 {...c.trackProps}
@@ -72,27 +72,27 @@ export default function CaseStudyCarousel() {
                         on ? 'z-[2] scale-[1.1] opacity-100' : 'scale-[0.95] opacity-20'
                       } transition-[opacity,transform] duration-300 ease-[ease]`}
                     >
-                      <div className="flex flex-col gap-[20px]">
+                      <div className="flex flex-col gap-[1.25rem]">
                         <div className="relative h-[30rem] overflow-clip rounded-panel mob:h-[24rem]">
                           <Placeholder src={`/assets/${CASE_IMGS[i % N][0]}`} alt="" tone={2} label="Brand photo 16:9" className="absolute inset-0" />
-                          <div className="absolute inset-0 p-[32px] mob:p-[24px]">
-                            <LogoPlaceholder src={`/assets/${CASE_IMGS[i % N][1]}`} alt="Customer logo" imgClassName="object-left" className="h-[3rem] w-[120px] justify-start text-[16px] mob:h-[1.5rem]" />
+                          <div className="absolute inset-0 p-[2rem] mob:p-[1.5rem]">
+                            <LogoPlaceholder src={`/assets/${CASE_IMGS[i % N][1]}`} alt="Customer logo" imgClassName="object-left" className="h-[3rem] w-[7.5rem] justify-start text-[1rem] mob:h-[1.5rem]" />
                           </div>
                         </div>
                         <div
-                          className={`flex flex-col gap-[16px] ${on ? 'visible opacity-100' : 'invisible opacity-0'} transition-[opacity,visibility] duration-300 ease-[ease]`}
+                          className={`flex flex-col gap-[1rem] ${on ? 'visible opacity-100' : 'invisible opacity-0'} transition-[opacity,visibility] duration-300 ease-[ease]`}
                         >
-                          <div className="grid grid-cols-[1fr_max-content] items-center gap-[32px] xs:flex xs:flex-col xs:items-start xs:gap-0">
-                            <p className="mb-[20px] line-clamp-2 text-para text-ink">{s.text}</p>
+                          <div className="grid grid-cols-[1fr_max-content] items-center gap-[2rem] xs:flex xs:flex-col xs:items-start xs:gap-0">
+                            <p className="mb-[1.25rem] line-clamp-2 text-para text-ink">{s.text}</p>
                             <div className="flex">
                               <Button variant="dark">Read more</Button>
                             </div>
                           </div>
-                          <div className="flex gap-[16px] xs:flex-col">
+                          <div className="flex gap-[1rem] xs:flex-col">
                             {s.stats.map(([n, l]) => (
                               <div
                                 key={l}
-                                className="flex flex-1 items-center justify-between gap-[48px] rounded-media bg-surface-2 px-[20px] py-[16px] xs:justify-start xs:gap-[16px]"
+                                className="flex flex-1 items-center justify-between gap-[3rem] rounded-media bg-surface-2 px-[1.25rem] py-[1rem] xs:justify-start xs:gap-[1rem]"
                               >
                                 <span className="text-xlarge font-semibold text-ink xs:text-xlarge-mob">{n}</span>
                                 <span className="text-small text-grey">{l}</span>

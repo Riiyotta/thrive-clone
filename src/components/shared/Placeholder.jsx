@@ -23,7 +23,7 @@ export default function Placeholder({ label, tone = 2, className = '', labelClas
       {...rest}
     >
       {label && (
-        <span className={`pointer-events-none select-none px-[8px] text-center text-[12px] leading-[16.8px] text-grey ${labelClassName}`}>
+        <span className={`pointer-events-none select-none px-[0.5rem] text-center text-[0.75rem] leading-[1.05rem] text-grey ${labelClassName}`}>
           {label}
         </span>
       )}

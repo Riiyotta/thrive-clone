@@ -13,21 +13,21 @@ const CARDS = [
 
 export default function Results() {
   return (
-    <div data-section="results" className="container-medium mb-[32px]">
-      <div className="flex flex-col items-center pb-[40px] pt-[40px]">
-        <h2 className="heading-h2 max-w-[960px] text-center">Real teams, real numbers, and the outcomes that keep them here</h2>
+    <div data-section="results" className="container-medium mb-[2rem]">
+      <div className="flex flex-col items-center pb-[2.5rem] pt-[2.5rem]">
+        <h2 className="heading-h2 max-w-[60rem] text-center">Real teams, real numbers, and the outcomes that keep them here</h2>
       </div>
 
-      <div className="grid grid-cols-4 gap-[16px] tab:grid-cols-2 xs:grid-cols-1">
+      <div className="grid grid-cols-4 gap-[1rem] tab:grid-cols-2 xs:grid-cols-1">
         {CARDS.map((c, i) => (
           <div
             key={c.stat}
-            className="flex flex-col items-start justify-between gap-[3.7rem] rounded-card bg-surface-1 px-[32px] pb-[32px] pt-[16px] tab:gap-[5rem] mob:p-[24px] xs:gap-[48px]"
+            className="flex flex-col items-start justify-between gap-[3.7rem] rounded-card bg-surface-1 px-[2rem] pb-[2rem] pt-[1rem] tab:gap-[5rem] mob:p-[1.5rem] xs:gap-[3rem]"
           >
-            <LogoPlaceholder src={`/assets/${CARD_LOGOS[i]}`} alt="Customer logo" imgClassName="object-left" className="h-[48px] w-[120px] max-w-[50%] text-[16px] mob:h-[32px]" />
-            <div className="flex flex-col gap-[16px]">
+            <LogoPlaceholder src={`/assets/${CARD_LOGOS[i]}`} alt="Customer logo" imgClassName="object-left" className="h-[3rem] w-[7.5rem] max-w-[50%] text-[1rem] mob:h-[2rem]" />
+            <div className="flex flex-col gap-[1rem]">
               <div className="text-stat font-semibold text-ink tab:text-stat-48 mob:text-stat-40 xs:text-stat-48">{c.stat}</div>
-              <p className="mb-[20px] text-body text-grey xs:text-body-xs">
+              <p className="mb-[1.25rem] text-body text-grey xs:text-body-xs">
                 <a href="#" className="inline-link">{c.brand}</a> {c.rest}
               </p>
             </div>
@@ -35,14 +35,14 @@ export default function Results() {
         ))}
       </div>
 
-      <div className="mx-auto mb-[16px] mt-[32px] flex max-w-[960px] flex-col items-center gap-[16px]">
+      <div className="mx-auto mb-[1rem] mt-[2rem] flex max-w-[60rem] flex-col items-center gap-[1rem]">
         <p className="flex flex-wrap text-left text-quote font-medium text-ink tab:text-quote-tab mob:text-quote-mob">
           “People reach for it on their phones, on the shop floor and in the back office. It has quietly become the one home for learning, team news and training, and it feels like it belongs to the whole team.”{' '}
           <br />
           <br />
         </p>
-        <div className="flex flex-col items-center gap-[12px]">
-          <Placeholder src="/assets/testimonial-avatar.png" alt="" tone={2} label="Avatar" className="h-[80px] w-[80px] rounded-[6px_0] wide:rounded-avatar" />
+        <div className="flex flex-col items-center gap-[0.75rem]">
+          <Placeholder src="/assets/testimonial-avatar.png" alt="" tone={2} label="Avatar" className="h-[5rem] w-[5rem] rounded-[0.375rem_0] wide:rounded-avatar" />
           <div className="flex flex-col items-center">
             <div className="text-para text-ink xs:text-body-xs">Jordan Ellis</div>
             <div className="text-body text-grey xs:text-small">
@@ -52,7 +52,7 @@ export default function Results() {
         </div>
       </div>
 
-      <div className="flex justify-center pb-[64px] pt-[24px]">
+      <div className="flex justify-center pb-[4rem] pt-[1.5rem]">
         <Button variant="primary">See Nimbus in action →</Button>
       </div>
     </div>

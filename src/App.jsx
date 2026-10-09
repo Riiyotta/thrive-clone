@@ -17,6 +17,12 @@ export default function App() {
               const Page = PAGE_COMPONENTS[r.path] || PendingPage
               return <Route key={r.path} path={r.path} element={<Page />} />
             })}
+            {/* Extra registered paths (e.g. /__preview/* section previews used during the build) */}
+            {Object.entries(PAGE_COMPONENTS)
+              .filter(([path]) => !ROUTES.some((r) => r.path === path))
+              .map(([path, Page]) => (
+                <Route key={path} path={path} element={<Page />} />
+              ))}
             <Route path="*" element={<PendingPage />} />
           </Route>
         </Routes>

@@ -5,10 +5,10 @@ import { useLayoutEffect, useRef } from 'react'
 import { gsap, SplitText } from '../../lib/gsap.js'
 
 const VARIANTS = {
-  primary: 'bg-ink text-surface-1 px-[20px] py-[12px] mob:py-[8px] text-btn hover:bg-green-hover',
-  'primary-small': 'bg-ink text-surface-1 px-[16px] py-[8px] text-btn-sm tracking-[-0.36px] hover:bg-green-hover',
-  dark: 'bg-surface-3 text-ink px-[20px] py-[12px] mob:py-[8px] text-btn hover:bg-ink hover:text-surface-1',
-  'dark-small': 'bg-surface-3 text-ink px-[16px] py-[8px] text-btn-dark-sm hover:bg-ink hover:text-surface-1',
+  primary: 'bg-ink text-surface-1 px-[1.25rem] py-[0.75rem] mob:py-[0.5rem] text-btn hover:bg-green-hover',
+  'primary-small': 'bg-ink text-surface-1 px-[1rem] py-[0.5rem] text-btn-sm tracking-[-0.0225rem] hover:bg-green-hover',
+  dark: 'bg-surface-3 text-ink px-[1.25rem] py-[0.75rem] mob:py-[0.5rem] text-btn hover:bg-ink hover:text-surface-1',
+  'dark-small': 'bg-surface-3 text-ink px-[1rem] py-[0.5rem] text-btn-dark-sm hover:bg-ink hover:text-surface-1',
 }
 
 export default function Button({ children, variant = 'primary', stretch = true, className = '', href = '#', ...rest }) {
@@ -48,7 +48,7 @@ export default function Button({ children, variant = 'primary', stretch = true, 
       } ${stretch ? 'xs:flex-auto xs:self-stretch' : ''} ${className}`}
       {...rest}
     >
-      <span className="flex h-[20px] items-center overflow-clip">
+      <span className="flex h-[1.25rem] items-center overflow-clip">
         <span data-button-animate className="btn-label whitespace-nowrap">
           {children}
         </span>

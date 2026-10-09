@@ -31,7 +31,7 @@ export default function Statement() {
 
   return (
     // overflow-x clip mirrors the original's body/page-wrapper overflow-x:hidden; vertical stays visible
-    <section data-section="statement" className="mt-[32px] flex flex-col overflow-x-clip">
+    <section data-section="statement" className="mt-[2rem] flex flex-col overflow-x-clip">
       <div ref={ref} className="relative">
         <Placeholder
           data-scroll-zoom
@@ -41,11 +41,11 @@ export default function Statement() {
         />
       </div>
       <div className="padding-global">
-        <div className="pb-[16px] pt-[80px] tab:pt-[64px] mob:pt-[48px]">
-          <div className="mx-auto flex max-w-[576px] flex-col items-center text-center">
-            <h2 className="heading-h2 max-w-[400px]">Built for how people really learn</h2>
-            <div className="h-[16px]" />
-            <p className="mb-[20px] text-para text-grey">
+        <div className="pb-[1rem] pt-[5rem] tab:pt-[4rem] mob:pt-[3rem]">
+          <div className="mx-auto flex max-w-[36rem] flex-col items-center text-center">
+            <h2 className="heading-h2 max-w-[25rem]">Built for how people really learn</h2>
+            <div className="h-[1rem]" />
+            <p className="mb-[1.25rem] text-para text-grey">
               Most training tools were designed for tracking, not for people.
               <br />
               We started from the other end, with curiosity and the small moments where people learn,

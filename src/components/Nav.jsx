@@ -87,18 +87,18 @@ const MENUS = [
 ]
 
 function DropdownColumn({ col, mobile = false }) {
-  const itemPad = mobile ? 'py-[10px] pr-[12px]' : 'px-[12px] py-[10px]'
+  const itemPad = mobile ? 'py-[0.625rem] pr-[0.75rem]' : 'px-[0.75rem] py-[0.625rem]'
   // Title-only columns (Features) are content-width on the original (99.7 / 123.9 / 83.6px);
   // columns with descriptions or customer rows are 208px with 13rem items.
   const titleOnly = col.items && col.items.every((it) => !it.desc)
   const minW = titleOnly ? '' : 'min-w-[13rem]'
   return (
-    <div className={`flex flex-col gap-[4px] ${mobile || titleOnly ? '' : 'w-[208px]'}`}>
+    <div className={`flex flex-col gap-[0.25rem] ${mobile || titleOnly ? '' : 'w-[13rem]'}`}>
       {col.header && (
-        <div className={`text-dd-head font-semibold text-grey ${mobile ? '' : 'pl-[12px]'}`}>{col.header}</div>
+        <div className={`text-dd-head font-semibold text-grey ${mobile ? '' : 'pl-[0.75rem]'}`}>{col.header}</div>
       )}
       {col.headerLink && (
-        <a href="#" className={`flex items-center gap-[4px] text-dd-head font-semibold text-grey ${mobile ? '' : 'pl-[12px]'}`}>
+        <a href="#" className={`flex items-center gap-[0.25rem] text-dd-head font-semibold text-grey ${mobile ? '' : 'pl-[0.75rem]'}`}>
           {col.headerLink}
           <span aria-hidden>↗</span>
         </a>
@@ -107,7 +107,7 @@ function DropdownColumn({ col, mobile = false }) {
         <a
           key={it.title}
           href="#"
-          className={`flex ${minW} flex-col gap-[4px] rounded-item transition-colors duration-[360ms] hover:bg-hover ${itemPad}`}
+          className={`flex ${minW} flex-col gap-[0.25rem] rounded-item transition-colors duration-[360ms] hover:bg-hover ${itemPad}`}
         >
           <span className="text-dd-title font-medium text-ink">{it.title}</span>
           {it.desc && <span className="text-small text-grey">{it.desc}</span>}
@@ -117,9 +117,9 @@ function DropdownColumn({ col, mobile = false }) {
         <a
           key={name}
           href="#"
-          className={`flex min-w-[13rem] items-center gap-[4px] rounded-item transition-colors duration-[360ms] hover:bg-hover ${itemPad}`}
+          className={`flex min-w-[13rem] items-center gap-[0.25rem] rounded-item transition-colors duration-[360ms] hover:bg-hover ${itemPad}`}
         >
-          <Placeholder tone={3} className="h-[24px] w-[24px] shrink-0 rounded-[4px]" />
+          <Placeholder tone={3} className="h-[1.5rem] w-[1.5rem] shrink-0 rounded-[0.25rem]" />
           <span className="text-dd-title font-medium text-ink">{name}</span>
         </a>
       ))}
@@ -129,7 +129,7 @@ function DropdownColumn({ col, mobile = false }) {
 
 function Chevron({ className = '' }) {
   return (
-    <span className={`flex h-[12px] w-[12px] items-center justify-center ${className}`} aria-hidden>
+    <span className={`flex h-[0.75rem] w-[0.75rem] items-center justify-center ${className}`} aria-hidden>
       <svg width="7" height="5" viewBox="0 0 7 5" fill="none">
         <path d="M.5.75 3.5 3.75 6.5.75" className="stroke-ink" strokeWidth="1.2" />
       </svg>
@@ -138,7 +138,7 @@ function Chevron({ className = '' }) {
 }
 
 function AiMark() {
-  return <Placeholder tone={3} className="h-[16px] w-[16px] shrink-0 rounded-full" aria-label="AI assistant icon" />
+  return <Placeholder tone={3} className="h-[1rem] w-[1rem] shrink-0 rounded-full" aria-label="AI assistant icon" />
 }
 
 export default function Nav() {
@@ -179,23 +179,23 @@ export default function Nav() {
     <nav data-nav className="fixed inset-x-0 top-0 z-[1000] bg-nav-transparent xs:bg-page">
       <div className="padding-global">
         <div className="container-large relative">
-          <div className="flex h-[64px] items-center justify-between gap-[16px] p-[16px]">
+          <div className="flex h-[4rem] items-center justify-between gap-[1rem] p-[1rem]">
             {/* Brand */}
             <div className="flex flex-1 items-center">
-              <a href="#" className="block max-w-[124px] xs:max-w-[6rem]">
-                <Wordmark className="h-[27px] w-[97px] xs:w-[96px]" textClassName="text-[22px] leading-none" />
+              <a href="#" className="block max-w-[7.75rem] xs:max-w-[6rem]">
+                <Wordmark className="h-[1.6875rem] w-[6.0625rem] xs:w-[6rem]" textClassName="text-[1.375rem] leading-none" />
               </a>
             </div>
 
             {/* Centre pill (desktop). The open panel is centred on the whole pill (measured x=479.8,
                 top=78.2 at 1440), not on the hovered toggle. */}
-            <div className="relative flex rounded-pill bg-surface-2 p-[4px] tab:hidden">
+            <div className="relative flex rounded-pill bg-surface-2 p-[0.25rem] tab:hidden">
               {MENUS.map((m) => (
                 <div key={m.label} onMouseEnter={() => enter(m.label)} onMouseLeave={leave}>
                   <button
                     type="button"
                     aria-expanded={openMenu === m.label}
-                    className={`flex h-[36px] items-center whitespace-nowrap rounded-pill px-[12px] py-[8px] text-small font-medium text-ink transition-colors duration-[320ms] hover:bg-hover ${
+                    className={`flex h-[2.25rem] items-center whitespace-nowrap rounded-pill px-[0.75rem] py-[0.5rem] text-small font-medium text-ink transition-colors duration-[320ms] hover:bg-hover ${
                       openMenu === m.label ? 'bg-hover' : ''
                     }`}
                   >
@@ -205,11 +205,11 @@ export default function Nav() {
               ))}
               {openMenu && (
                 <div
-                  className="absolute left-1/2 top-full -translate-x-1/2 pt-[8px]"
+                  className="absolute left-1/2 top-full -translate-x-1/2 pt-[0.5rem]"
                   onMouseEnter={() => enter(openMenu)}
                   onMouseLeave={leave}
                 >
-                  <div className="flex gap-[32px] rounded-card bg-surface-2 p-[16px]">
+                  <div className="flex gap-[2rem] rounded-card bg-surface-2 p-[1rem]">
                     {MENUS.find((m) => m.label === openMenu).columns.map((col, i) => (
                       <DropdownColumn key={i} col={col} />
                     ))}
@@ -219,10 +219,10 @@ export default function Nav() {
             </div>
 
             {/* CTA wrap */}
-            <div className="flex flex-1 items-center justify-end gap-[8px]">
+            <div className="flex flex-1 items-center justify-end gap-[0.5rem]">
               <a
                 href="#"
-                className="group flex h-[36px] w-[3.7rem] items-center gap-[6px] overflow-hidden whitespace-nowrap rounded-pill pl-[10px] text-small text-ink transition-[background-color,width] duration-[250ms,500ms] hover:w-[14.5rem] hover:bg-ai-hover tab:hidden"
+                className="group flex h-[2.25rem] w-[3.7rem] items-center gap-[0.375rem] overflow-hidden whitespace-nowrap rounded-pill pl-[0.625rem] text-small text-ink transition-[background-color,width] duration-[250ms,500ms] hover:w-[14.5rem] hover:bg-ai-hover tab:hidden"
               >
                 <AiMark />
                 <span>Ask why teams choose Nimbus</span>
@@ -235,7 +235,7 @@ export default function Nav() {
                 aria-label="Menu"
                 aria-expanded={phase === 'open' || phase === 'enter'}
                 onClick={toggleMobile}
-                className="hidden h-[32px] w-[32px] items-center justify-center rounded-full border border-ink bg-transparent tab:flex"
+                className="hidden h-[2rem] w-[2rem] items-center justify-center rounded-full border border-ink bg-transparent tab:flex"
               >
                 <svg width="12" height="10" viewBox="0 0 12 10" fill="none" aria-hidden>
                   <path d="M0 1h12M0 5h12M0 9h12" className="stroke-ink" strokeWidth="1.2" />
@@ -249,23 +249,23 @@ export default function Nav() {
             <div
               ref={menuRef}
               data-state={phase}
-              className="mobile-menu absolute left-0 top-0 mt-[64px] hidden w-full flex-col overflow-y-auto rounded-card bg-page p-[4px] tab:flex xs:h-[100vh]"
+              className="mobile-menu absolute left-0 top-0 mt-[4rem] hidden w-full flex-col overflow-y-auto rounded-card bg-page p-[0.25rem] tab:flex xs:h-[100vh]"
             >
               {MENUS.map((m) => {
                 const open = mobileSub === m.label
                 return (
-                  <div key={m.label} className="py-[8px]">
+                  <div key={m.label} className="py-[0.5rem]">
                     <button
                       type="button"
                       aria-expanded={open}
                       onClick={() => setMobileSub(open ? null : m.label)}
-                      className="flex h-[36px] w-full items-center justify-between px-[12px] text-small font-medium text-ink"
+                      className="flex h-[2.25rem] w-full items-center justify-between px-[0.75rem] text-small font-medium text-ink"
                     >
                       {m.label}
                       <Chevron />
                     </button>
                     {open && (
-                      <div className="mt-[1rem] flex flex-col gap-[16px] bg-transparent px-[12px]">
+                      <div className="mt-[1rem] flex flex-col gap-[1rem] bg-transparent px-[0.75rem]">
                         {m.columns.map((col, i) => (
                           <DropdownColumn key={i} col={col} mobile />
                         ))}
@@ -276,7 +276,7 @@ export default function Nav() {
               })}
               <a
                 href="#"
-                className="mx-auto mt-[16px] flex items-center gap-[6px] rounded-pill border border-link-hover px-[16px] py-[8px] text-small text-ink"
+                className="mx-auto mt-[1rem] flex items-center gap-[0.375rem] rounded-pill border border-link-hover px-[1rem] py-[0.5rem] text-small text-ink"
               >
                 <AiMark />
                 Ask why teams choose Nimbus

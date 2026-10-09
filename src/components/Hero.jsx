@@ -9,10 +9,10 @@ import { gsap } from '../lib/gsap.js'
 const REVEAL = [
   // [target, from, duration s, delay s]
   ['avatar', { opacity: 0, y: 40, scale: 0.9, skewX: 10 }, 0.5, 0],
-  ['h1', { opacity: 0, y: 40, scale: 0.9, skewX: 10, filter: 'blur(20px)' }, 1.25, 0],
-  ['subtitle', { opacity: 0, y: 10, skewX: 10, filter: 'blur(8px)' }, 1.25, 0.25],
-  ['badges', { opacity: 0, y: 10, skewX: 8, filter: 'blur(5px)' }, 1.25, 0.25],
-  ['buttons', { opacity: 0, y: 10, skewX: 10, filter: 'blur(20px)' }, 1.25, 0.35],
+  ['h1', { opacity: 0, y: 40, scale: 0.9, skewX: 10, filter: 'blur(1.25rem)' }, 1.25, 0],
+  ['subtitle', { opacity: 0, y: 10, skewX: 10, filter: 'blur(0.5rem)' }, 1.25, 0.25],
+  ['badges', { opacity: 0, y: 10, skewX: 8, filter: 'blur(0.3125rem)' }, 1.25, 0.25],
+  ['buttons', { opacity: 0, y: 10, skewX: 10, filter: 'blur(1.25rem)' }, 1.25, 0.35],
 ]
 
 export default function Hero() {
@@ -31,50 +31,50 @@ export default function Hero() {
   }, [])
 
   return (
-    <section ref={ref} data-section="hero" className="overflow-hidden pt-[64px]">
+    <section ref={ref} data-section="hero" className="overflow-hidden pt-[4rem]">
       <div className="padding-global">
         <div className="container-medium">
-          <div className="pb-[32px] pt-[80px] tab:pt-[64px] mob:pt-[48px]">
-            <div className="flex flex-row items-center justify-between gap-[48px] mob:flex-col mob:items-start">
+          <div className="pb-[2rem] pt-[5rem] tab:pt-[4rem] mob:pt-[3rem]">
+            <div className="flex flex-row items-center justify-between gap-[3rem] mob:flex-col mob:items-start">
               {/* Left column */}
-              <div className="mt-[-48px] w-full max-w-[42rem] shrink-0">
-                <div data-hero-reveal="avatar" className="flex h-[48px] items-center gap-[16px] pb-[16px] mob:h-auto">
-                  <div className="relative h-[32px] w-[72px] shrink-0" aria-label="Avatar strip placeholder" role="img">
+              <div className="mt-[-3rem] w-full max-w-[42rem] shrink-0">
+                <div data-hero-reveal="avatar" className="flex h-[3rem] items-center gap-[1rem] pb-[1rem] mob:h-auto">
+                  <div className="relative h-[2rem] w-[4.5rem] shrink-0" aria-label="Avatar strip placeholder" role="img">
                     {[0, 20, 40].map((x) => (
                       <span
                         key={x}
                         style={{ left: x }}
-                        className="absolute top-0 h-[32px] w-[32px] rounded-full border border-page bg-surface-3"
+                        className="absolute top-0 h-[2rem] w-[2rem] rounded-full border border-page bg-surface-3"
                       />
                     ))}
                   </div>
                   <p className="text-small text-grey">Trusted by two million learners in ninety countries</p>
                 </div>
-                <div className="h-[16px]" />
+                <div className="h-[1rem]" />
                 <h1
                   data-hero-reveal="h1"
                   className="origin-[50%_100%] font-serif text-h1 font-normal text-ink tab:text-h1-tab mob:text-h1-mob"
                 >
                   Workplace learning your people will genuinely look forward to
                 </h1>
-                <div className="h-[16px]" />
-                <p data-hero-reveal="subtitle" className="mb-[20px] max-w-[576px] text-medium text-ink xs:text-medium-xs">
+                <div className="h-[1rem]" />
+                <p data-hero-reveal="subtitle" className="mb-[1.25rem] max-w-[36rem] text-medium text-ink xs:text-medium-xs">
                   Learning, skills and mentoring, finally living in one place.
                 </p>
-                <div data-hero-reveal="badges" className="flex h-[80px] gap-[32px] pt-[16px] xs:h-auto">
+                <div data-hero-reveal="badges" className="flex h-[5rem] gap-[2rem] pt-[1rem] xs:h-auto">
                   {['badge-g2.svg', 'badge-capterra.svg', 'badge-software-advice.svg'].map((f, i) => (
                     <Placeholder
                       key={i}
                       src={`/assets/${f}`}
                       alt="Review badge"
                       fit="contain"
-                      className="h-[64px] w-[104px] max-w-[104px] rounded-media xs:h-[3rem] xs:w-[5rem] xs:max-w-[5rem]"
-                      labelClassName="text-[10px] leading-[12px]"
+                      className="h-[4rem] w-[6.5rem] max-w-[6.5rem] rounded-media xs:h-[3rem] xs:w-[5rem] xs:max-w-[5rem]"
+                      labelClassName="text-[0.625rem] leading-[0.75rem]"
                     />
                   ))}
                 </div>
-                <div className="pt-[32px] tab:pt-[24px] mob:pt-[20px]">
-                  <div data-hero-reveal="buttons" className="flex items-center gap-[16px] xs:flex-col xs:items-stretch">
+                <div className="pt-[2rem] tab:pt-[1.5rem] mob:pt-[1.25rem]">
+                  <div data-hero-reveal="buttons" className="flex items-center gap-[1rem] xs:flex-col xs:items-stretch">
                     <Button variant="primary">
                       Book a demo →
                     </Button>

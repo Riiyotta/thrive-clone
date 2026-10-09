@@ -15,8 +15,8 @@ export default function Pagination({
   onBulletClick,
 }) {
   return (
-    <div className="flex items-center gap-[12px]">
-      <div className="flex h-[40px] items-center gap-[8px] rounded-pill bg-surface-1 px-[20px] py-[8px]">
+    <div className="flex items-center gap-[0.75rem]">
+      <div className="flex h-[2.5rem] items-center gap-[0.5rem] rounded-pill bg-surface-1 px-[1.25rem] py-[0.5rem]">
         {Array.from({ length: count }).map((_, i) => {
           const on = i === active
           return (
@@ -25,7 +25,7 @@ export default function Pagination({
               data-bullet
               data-active={on}
               onClick={onBulletClick ? () => onBulletClick(i) : undefined}
-              className={`${onBulletClick ? '' : 'pointer-events-none'} relative h-[10px] overflow-hidden rounded-pill bg-track transition-[width] ease-[ease] ${bulletTransition}`}
+              className={`${onBulletClick ? '' : 'pointer-events-none'} relative h-[0.625rem] overflow-hidden rounded-pill bg-track transition-[width] ease-[ease] ${bulletTransition}`}
               style={{ width: on && playing ? activeWidth : 24 }}
             >
               {on && (
@@ -44,7 +44,7 @@ export default function Pagination({
         type="button"
         aria-label={playing ? 'Pause' : 'Play'}
         onClick={onTogglePlay}
-        className="flex h-[36px] w-[36px] items-center justify-center rounded-full bg-playbtn text-[16px] leading-none text-white"
+        className="flex h-[2.25rem] w-[2.25rem] items-center justify-center rounded-full bg-playbtn text-[1rem] leading-none text-white"
       >
         {playing ? '⏸' : '▶'}
       </button>

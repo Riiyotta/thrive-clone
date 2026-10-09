@@ -34,9 +34,9 @@ export default function QuoteHighlight() {
   return (
     <section data-section="quote">
       <div className="padding-global">
-        <div className="pb-[80px] pt-[32px] tab:pb-[64px] mob:pb-[48px]">
+        <div className="pb-[5rem] pt-[2rem] tab:pb-[4rem] mob:pb-[3rem]">
           <div className="flex flex-col items-center">
-            <div className="max-w-[672px]">
+            <div className="max-w-[42rem]">
               <p
                 ref={ref}
                 data-scroll-highlight

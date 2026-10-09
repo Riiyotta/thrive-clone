@@ -58,7 +58,7 @@ const ITEMS = [
 
 function CrossIcon({ open }) {
   return (
-    <svg data-open={open} className="faq-icon h-[20px] w-[20px] shrink-0 fill-icon" viewBox="0 0 20 20" aria-hidden>
+    <svg data-open={open} className="faq-icon h-[1.25rem] w-[1.25rem] shrink-0 fill-icon" viewBox="0 0 20 20" aria-hidden>
       <path d="M4.7 3.3 10 8.6l5.3-5.3 1.4 1.4L11.4 10l5.3 5.3-1.4 1.4L10 11.4l-5.3 5.3-1.4-1.4L8.6 10 3.3 4.7z" />
     </svg>
   )
@@ -67,21 +67,21 @@ function CrossIcon({ open }) {
 function FaqItem({ q, a }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className="rounded-card bg-surface-1 px-[24px] py-[20px]">
+    <div className="rounded-card bg-surface-1 px-[1.5rem] py-[1.25rem]">
       <div
         role="button"
         tabIndex={0}
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
         onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), setOpen((o) => !o))}
-        className="flex cursor-pointer items-center justify-between gap-[24px]"
+        className="flex cursor-pointer items-center justify-between gap-[1.5rem]"
       >
         <h3 className="text-faq font-medium text-ink">{q}</h3>
         <CrossIcon open={open} />
       </div>
       <div data-open={open} className="faq-body">
         <div className="min-h-0 overflow-clip">
-          <div className="pt-[16px]">
+          <div className="pt-[1rem]">
             <p className="text-body text-grey xs:text-body-xs">{a}</p>
           </div>
         </div>
@@ -94,14 +94,14 @@ export default function Faq() {
   return (
     <section data-section="faq">
       <div className="padding-global">
-        <div className="py-[80px] tab:py-[64px] mob:py-[48px]">
-          <div className="flex flex-col items-center gap-[70px]">
-            <h2 className="heading-h2 max-w-[960px] text-center">
+        <div className="py-[5rem] tab:py-[4rem] mob:py-[3rem]">
+          <div className="flex flex-col items-center gap-[4.375rem]">
+            <h2 className="heading-h2 max-w-[60rem] text-center">
               Your questions about Nimbus,
               <br />
               answered in plain words
             </h2>
-            <div className="flex w-full max-w-[672px] flex-col gap-[16px]">
+            <div className="flex w-full max-w-[42rem] flex-col gap-[1rem]">
               {ITEMS.map((it) => (
                 <FaqItem key={it.q} {...it} />
               ))}

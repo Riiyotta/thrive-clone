@@ -13,21 +13,21 @@ export default function LogoStrip() {
   return (
     <section data-section="logos">
       <div className="padding-global">
-        <div className="py-[48px] mob:py-[32px]">
+        <div className="py-[3rem] mob:py-[2rem]">
           <p className="w-full text-center text-body text-ink xs:text-body-xs">Chosen by teams at</p>
           <div className="container-medium">
-            <div className="flex flex-col items-center gap-[32px]">
-              <div className="mx-auto flex max-w-[960px] items-center justify-between gap-[48px] pt-[32px] mob:flex-wrap mob:justify-around mob:gap-[32px]">
+            <div className="flex flex-col items-center gap-[2rem]">
+              <div className="mx-auto flex max-w-[60rem] items-center justify-between gap-[3rem] pt-[2rem] mob:flex-wrap mob:justify-around mob:gap-[2rem]">
                 {LOGOS.map((f, i) => (
-                  <div key={i} className="flex w-[7rem] items-center justify-center overflow-clip mob:w-[80px] xs:w-[96px]">
-                    <LogoPlaceholder src={`/assets/${f}`} alt="Customer logo" className={`${ASPECT[f] || 'aspect-[112/45.7]'} max-h-[4rem] w-full text-[16px]`} />
+                  <div key={i} className="flex w-[7rem] items-center justify-center overflow-clip mob:w-[5rem] xs:w-[6rem]">
+                    <LogoPlaceholder src={`/assets/${f}`} alt="Customer logo" className={`${ASPECT[f] || 'aspect-[112/45.7]'} max-h-[4rem] w-full text-[1rem]`} />
                   </div>
                 ))}
               </div>
             </div>
           </div>
         </div>
-        <div className="h-[32px]" />
+        <div className="h-[2rem]" />
       </div>
     </section>
   )

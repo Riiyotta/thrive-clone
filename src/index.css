@@ -7,6 +7,23 @@
   html {
     font-size: 16px;
   }
+  /* Fluid root size used by most subpages on the original (global-styles embed).
+     Layout.jsx adds .fluid-rem per route; the homepage and FIXED_REM_PAGES stay at 16px. */
+  @media (max-width: 1440px) {
+    html.fluid-rem {
+      font-size: calc(0.4375rem + 0.725vw);
+    }
+  }
+  @media (max-width: 960px) {
+    html.fluid-rem {
+      font-size: calc(0.75052rem + 0.4158vw);
+    }
+  }
+  @media (max-width: 479px) {
+    html.fluid-rem {
+      font-size: calc(0.74948rem + 0.83682vw);
+    }
+  }
   body {
     @apply bg-page font-sans text-body font-normal text-ink antialiased;
     font-variation-settings: 'opsz' 24;
@@ -27,16 +44,16 @@
 /* §0.4 layout primitives */
 @layer components {
   .padding-global {
-    @apply px-[32px] mob:px-[20px];
+    @apply px-[2rem] mob:px-[1.25rem];
   }
   .container-medium {
-    @apply mx-auto w-full max-w-[1120px];
+    @apply mx-auto w-full max-w-[70rem];
   }
   .container-large {
-    @apply mx-auto w-full max-w-[1344px] pt-[16px];
+    @apply mx-auto w-full max-w-[84rem] pt-[1rem];
   }
   .heading-h2 {
-    @apply mt-[4px] font-serif text-h2 font-normal text-ink mob:text-h2-mob xs:text-h2-xs;
+    @apply mt-[0.25rem] font-serif text-h2 font-normal text-ink mob:text-h2-mob xs:text-h2-xs;
   }
   /* inline white underlined link inside grey paragraphs */
   .inline-link {
