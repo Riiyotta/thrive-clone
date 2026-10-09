@@ -1,0 +1,747 @@
+{
+  "$comment": "The citation ledger. Each entry's KEYWORDS must literally appear inside the cited range -- that catches the dangerous half of citation drift (a range that resolves but describes the wrong code). Keywords are code/measurement tokens only; none is original-site copy. extraction/verify_all.py re-checks every entry on each run, which is also how motion values are RE-GREPPED against current source.",
+  "version": "1.0.0",
+  "degradesGracefully": "Citations point at the SIBLING source project (paths relative to the folder containing design-repo/), which is build-time evidence and is NOT shipped. 'audit:<file>' entries point at the external pixel-audit dumps under auditRoot (relative to the same folder). When either is absent -- a standalone copy or an extracted zip -- verify_all.py WARNS and skips rather than failing. registry.manifest.json's entryPoints list only files inside design-repo/.",
+  "auditRoot": "../website-builder/.playwright-mcp/thrive-audit",
+  "sourceProject": {
+    "framework": "React 18.3.1 + Vite 5.4 + Tailwind CSS 3.4 + GSAP (package.json ^3.12.5; installed 3.15.0)",
+    "router": "none -- single page, single route '/'",
+    "ia": "ia.json at the project root (template.home, 15 sections) -- section ids here are aligned to it",
+    "note": "A design-repo is a snapshot: re-diff these against current source if the project moves on."
+  },
+  "citationCount": 82,
+  "citations": [
+    {
+      "group": "source",
+      "claim": "stack: React 18 + gsap 3.12 range in package.json",
+      "measuredFrom": "package.json:7-7",
+      "keywords": [
+        "\"react\": \"^18.3.1\"",
+        "\"gsap\": \"^3.12.5\""
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "stack: Vite 5 + Tailwind v3",
+      "measuredFrom": "package.json:8-8",
+      "keywords": [
+        "\"vite\": \"^5.4.10\"",
+        "\"tailwindcss\": \"^3.4.14\""
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "GSAP plugins registered once (installed gsap is 3.15, which ships SplitText)",
+      "measuredFrom": "src/lib/gsap.js:1-6",
+      "keywords": [
+        "gsap 3.15",
+        "gsap.registerPlugin(ScrollTrigger, SplitText)"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "single route, single page: App renders the 13 component files in order inside a 64px-top-padded wrapper",
+      "measuredFrom": "src/App.jsx:15-32",
+      "keywords": [
+        "bg-page pt-[64px]",
+        "<Nav />",
+        "<Hero />",
+        "<KikiTabs />",
+        "<Results />",
+        "<Faq />",
+        "<Footer />"
+      ]
+    },
+    {
+      "group": "ia",
+      "claim": "IA: one template, 15 sections, Results/Footer each render two sections",
+      "measuredFrom": "ia.json:113-134",
+      "keywords": [
+        "\"proof.results-stats\"",
+        "\"proof.testimonial\"",
+        "\"conversion.demo-form\"",
+        "\"shell.footer\""
+      ]
+    },
+    {
+      "group": "ia",
+      "claim": "IA: Results.jsx implements two sections",
+      "measuredFrom": "ia.json:56-60",
+      "keywords": [
+        "\"proof.results-stats\": {",
+        "\"implementedBy\": \"src/components/Results.jsx\""
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "palette: page, ink, grey, surfaces",
+      "measuredFrom": "tailwind.config.js:17-22",
+      "keywords": [
+        "page: '#000000'",
+        "ink: '#f5f6ff'",
+        "'surface-1': '#0b0b0b'",
+        "'surface-3': '#1a1a1a'"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "palette: accent green + hover",
+      "measuredFrom": "tailwind.config.js:26-27",
+      "keywords": [
+        "green: '#1de9b6'",
+        "'green-hover': '#00ffbf'"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "font families Inter (opsz 24) + Instrument Serif",
+      "measuredFrom": "tailwind.config.js:38-39",
+      "keywords": [
+        "sans: ['Inter'",
+        "serif: ['\"Instrument Serif\"'"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "fonts loaded from Google Fonts",
+      "measuredFrom": "index.html:11-11",
+      "keywords": [
+        "fonts.googleapis.com/css2?family=Inter",
+        "Instrument+Serif"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "type scale: H1 72/82.8, H2 64/73.6",
+      "measuredFrom": "tailwind.config.js:52-55",
+      "keywords": [
+        "h1: ['72px', '82.8px']",
+        "h2: ['64px', '73.6px']"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "type scale: quote 32/38.4 and stat 64/64",
+      "measuredFrom": "tailwind.config.js:74-79",
+      "keywords": [
+        "stat: ['64px', '64px']",
+        "quote: ['32px', '38.4px']"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "desktop-first screens tab<=991 mob<=767 xs<=479 wide>=1440 ultra>=1920",
+      "measuredFrom": "tailwind.config.js:9-13",
+      "keywords": [
+        "wide: { min: '1440px' }",
+        "ultra: { min: '1920px' }",
+        "tab: { max: '991px' }",
+        "mob: { max: '767px' }",
+        "xs: { max: '479px' }"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "radii pill/card/panel/media",
+      "measuredFrom": "tailwind.config.js:42-45",
+      "keywords": [
+        "pill: '999px'",
+        "card: '12px'",
+        "panel: '16px'",
+        "media: '8px'"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "easings out-quart / in-out-quart",
+      "measuredFrom": "tailwind.config.js:90-91",
+      "keywords": [
+        "'out-quart': 'cubic-bezier(0.165, 0.84, 0.44, 1)'",
+        "'in-out-quart': 'cubic-bezier(0.77, 0, 0.175, 1)'"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "every H2 carries margin-top 4px (pixel-audit correction)",
+      "measuredFrom": "src/index.css:38-39",
+      "keywords": [
+        ".heading-h2 {",
+        "mt-[4px]"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "padding-global 32px / 20px at <=767",
+      "measuredFrom": "src/index.css:29-30",
+      "keywords": [
+        ".padding-global {",
+        "px-[32px] mob:px-[20px]"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "container-medium 1120 / container-large 1344 + 16 top",
+      "measuredFrom": "src/index.css:33-36",
+      "keywords": [
+        "max-w-[1120px]",
+        "max-w-[1344px] pt-[16px]"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "paragraph margin-bottom 20px (hero subtitle)",
+      "measuredFrom": "src/components/Hero.jsx:61-61",
+      "keywords": [
+        "mb-[20px] max-w-[576px]"
+      ]
+    },
+    {
+      "group": "source",
+      "claim": "paragraph margin-bottom 20px (case-study intro)",
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:43-43",
+      "keywords": [
+        "mb-[20px] max-w-[448px] text-para text-grey"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "button roll-up: chars y -1.5em, 0.45s, stagger amount .25, power4.inOut",
+      "measuredFrom": "src/components/shared/Button.jsx:28-28",
+      "keywords": [
+        "y: '-1.5em'",
+        "duration: 0.45",
+        "stagger: { amount: 0.25 }",
+        "ease: 'power4.inOut'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "button roll-up plays on mouseenter, reverses on mouseleave",
+      "measuredFrom": "src/components/shared/Button.jsx:29-30",
+      "keywords": [
+        "tl.play()",
+        "tl.reverse()"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "button bg transition 240ms ease",
+      "measuredFrom": "src/components/shared/Button.jsx:46-46",
+      "keywords": [
+        "duration-[240ms] ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "hero reveal targets, durations 0.5/1.25s, delays 0/.25/.35",
+      "measuredFrom": "src/components/Hero.jsx:11-15",
+      "keywords": [
+        "['avatar'",
+        "0.5, 0]",
+        "1.25, 0.25]",
+        "1.25, 0.35]",
+        "blur(20px)"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "hero reveal ease power3.out (= IX2 outQuart)",
+      "measuredFrom": "src/components/Hero.jsx:24-24",
+      "keywords": [
+        "ease: 'power3.out'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "statement zoom: scale 2.5 / x 23 / y -447, top 55% -> top 5%, scrub 0.9",
+      "measuredFrom": "src/components/Statement.jsx:17-25",
+      "keywords": [
+        "scale: 2.5, x: 23, y: -447, opacity: 0",
+        "start: 'top 55%'",
+        "end: 'top 5%'",
+        "scrub: 0.9"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "quote: clamp(top 500) -> clamp(bottom 500), scrub 0.8, colour to #fff, 1.5s, stagger 10, power4.inOut",
+      "measuredFrom": "src/components/QuoteHighlight.jsx:6-29",
+      "keywords": [
+        "clamp(top 500)",
+        "clamp(bottom 500)",
+        "scrub: 0.8",
+        "color: '#ffffff', duration: 1.5, stagger: { amount: 10 }, ease: 'power4.inOut'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "quote base colour is surface-3 (#1a1a1a)",
+      "measuredFrom": "src/components/QuoteHighlight.jsx:43-43",
+      "keywords": [
+        "text-surface-3"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "3-col slider: autoplay delay 3000",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:23-23",
+      "keywords": [
+        "useAutoplay(c, { delay: 3000 })"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "3-col slider: starts once 40% visible, jumps to 0, then plays",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:35-38",
+      "keywords": [
+        "jump(0)",
+        "setPlaying(true)",
+        "{ threshold: 0.4 }"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "3-col slider: 800ms ease transition",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:66-66",
+      "keywords": [
+        "transition-transform duration-[800ms] ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "3-col slider: bullet widens to 48 over 500ms, 3s fill",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:93-95",
+      "keywords": [
+        "activeWidth={48}",
+        "bulletTransition=\"duration-[500ms]\"",
+        "progressDuration={3}"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "pagination: inactive/paused bullet 24px; fill = bulletProgress Ns linear",
+      "measuredFrom": "src/components/shared/Pagination.jsx:29-36",
+      "keywords": [
+        "activeWidth : 24",
+        "bulletProgress ${progressDuration}s linear forwards"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "highlight carousel: autoplay 4000, threshold 10, hover pause",
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:20-22",
+      "keywords": [
+        "threshold: 10",
+        "useAutoplay(c, { delay: 4000, hoverRef })"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "highlight carousel: centre scale 1.1 / sides .95 opacity .2, 300ms",
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:72-73",
+      "keywords": [
+        "scale-[1.1] opacity-100",
+        "scale-[0.95] opacity-20",
+        "duration-300 ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "highlight carousel: active bullet 40, 300ms, 4s fill",
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:115-117",
+      "keywords": [
+        "activeWidth={40}",
+        "bulletTransition=\"duration-300\"",
+        "progressDuration={4}"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "hover pause on pointerenter (mouse only), resume with remaining time",
+      "measuredFrom": "src/hooks/useLoopCarousel.js:234-243",
+      "keywords": [
+        "if (e.pointerType && e.pointerType !== 'mouse') return",
+        "el.addEventListener('pointerenter', enter)"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "drag: threshold px, 45deg touch angle",
+      "measuredFrom": "src/hooks/useLoopCarousel.js:96-97",
+      "keywords": [
+        "< threshold) return",
+        "> 45) {"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "drag: short swipe <300ms always advances, long swipe needs > 0.5 of a step",
+      "measuredFrom": "src/hooks/useLoopCarousel.js:120-120",
+      "keywords": [
+        "dt < 300",
+        "ratio - k > 0.5"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "assistant autotabs: threshold 5, no autoplay, 800ms",
+      "measuredFrom": "src/components/KikiTabs.jsx:43-44",
+      "keywords": [
+        "threshold 5 (default), no autoplay",
+        "useLoopCarousel(N, { threshold: 5 })"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "FAQ: close 650ms, open 450ms outQuart; icon 150ms inOutQuart",
+      "measuredFrom": "src/index.css:83-96",
+      "keywords": [
+        "grid-template-rows 0.65s cubic-bezier(0.165, 0.84, 0.44, 1)",
+        "transition-duration: 0.45s",
+        "transform 0.15s cubic-bezier(0.77, 0, 0.175, 1)"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "mobile menu: 650ms in",
+      "measuredFrom": "src/index.css:108-112",
+      "keywords": [
+        ".mobile-menu[data-state='open'] {",
+        "opacity 0.65s"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "mobile menu: 350ms out",
+      "measuredFrom": "src/index.css:116-120",
+      "keywords": [
+        ".mobile-menu[data-state='closing'] {",
+        "opacity 0.35s"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "mobile menu: unmount 400ms after closing starts",
+      "measuredFrom": "src/components/Nav.jsx:170-171",
+      "keywords": [
+        "if (phase === 'closing') {",
+        "setPhase('closed'), 400)"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "nav dropdown: 300ms hover-out close delay, no tween",
+      "measuredFrom": "src/components/Nav.jsx:157-157",
+      "keywords": [
+        "setTimeout(() => setOpenMenu(null), 300)"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "nav item hover 320ms; AI link 250ms bg / 500ms width to 14.5rem",
+      "measuredFrom": "src/components/Nav.jsx:225-225",
+      "keywords": [
+        "duration-[250ms,500ms] hover:w-[14.5rem]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "nav top-level hover 320ms",
+      "measuredFrom": "src/components/Nav.jsx:198-198",
+      "keywords": [
+        "transition-colors duration-[320ms]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "dropdown item hover 360ms",
+      "measuredFrom": "src/components/Nav.jsx:110-110",
+      "keywords": [
+        "transition-colors duration-[360ms]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product tabs fade: opacity + visibility .3s ease",
+      "measuredFrom": "src/index.css:48-53",
+      "keywords": [
+        ".fade-pane {",
+        "opacity 0.3s ease",
+        "visibility 0.3s ease"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "footer drop-up chevron 300ms ease rotate 180",
+      "measuredFrom": "src/components/Footer.jsx:62-63",
+      "keywords": [
+        "transition-transform duration-300 ease-[ease]",
+        "rotate-180"
+      ]
+    },
+    {
+      "group": "constraint",
+      "claim": "demo form is a static placeholder: preventDefault, disabled inputs + submit",
+      "measuredFrom": "src/components/Footer.jsx:83-95",
+      "keywords": [
+        "HubSpot form internals are unmeasurable",
+        "onSubmit={(e) => e.preventDefault()}",
+        "disabled"
+      ]
+    },
+    {
+      "group": "constraint",
+      "claim": "video is a static placeholder making no network call",
+      "measuredFrom": "src/components/VideoSection.jsx:3-3",
+      "keywords": [
+        "Static placeholder in place of the YouTube embed (no network calls)"
+      ]
+    },
+    {
+      "group": "constraint",
+      "claim": "placeholder brand wordmark (Nimbus)",
+      "measuredFrom": "src/components/shared/Wordmark.jsx:1-1",
+      "keywords": [
+        "\"Nimbus\" placeholder brand"
+      ]
+    },
+    {
+      "group": "constraint",
+      "claim": "placeholder assistant name (Nova)",
+      "measuredFrom": "src/components/KikiTabs.jsx:5-5",
+      "keywords": [
+        "Placeholder assistant name \"Nova\" replaces the original AI brand."
+      ]
+    },
+    {
+      "group": "constraint",
+      "claim": "results block intentionally not wrapped in padding-global",
+      "measuredFrom": "src/components/Results.jsx:4-4",
+      "keywords": [
+        "Intentionally NOT wrapped in .padding-global"
+      ]
+    },
+    {
+      "group": "constraint",
+      "claim": "public/assets usage: real logos fed to LogoPlaceholder in the logo row",
+      "measuredFrom": "src/components/LogoStrip.jsx:1-1",
+      "keywords": [
+        "logo-volvo.png",
+        "logo-burgerking.png"
+      ]
+    },
+    {
+      "group": "constraint",
+      "claim": "public/assets usage: real person photo in the testimonial",
+      "measuredFrom": "src/components/Results.jsx:45-45",
+      "keywords": [
+        "src=\"/assets/testimonial-avatar.png\""
+      ]
+    },
+    {
+      "group": "constraint",
+      "claim": "asset-manifest records the original CDN URLs and the two embeds",
+      "measuredFrom": "asset-manifest.json:2-2",
+      "keywords": [
+        "\"source\": \"https://www.thrivelearning.com/\""
+      ]
+    },
+    {
+      "group": "correction",
+      "claim": "3-col slider keeps 32px top padding on mobile (only bottom goes to 0)",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:49-49",
+      "keywords": [
+        "pb-[80px] pt-[32px] mob:pb-0"
+      ]
+    },
+    {
+      "group": "correction",
+      "claim": "assistant header margin-top 64 with no breakpoint override",
+      "measuredFrom": "src/components/KikiTabs.jsx:53-53",
+      "keywords": [
+        "mt-[64px] w-[640px] max-w-full"
+      ]
+    },
+    {
+      "group": "correction",
+      "claim": "SPEC claim (wrong vs code+audit): 3-col section padding 0 at 390",
+      "measuredFrom": "CLONE_SPEC.md:319-319",
+      "keywords": [
+        "**Mobile (390)**: section padding 0"
+      ]
+    },
+    {
+      "group": "correction",
+      "claim": "SPEC claim (wrong vs audit): assistant header margin 56 at <=767",
+      "measuredFrom": "CLONE_SPEC.md:262-262",
+      "keywords": [
+        "56 at ≤767"
+      ]
+    },
+    {
+      "group": "correction",
+      "claim": "SPEC claim: hero section padding-top 64 (the wrapper's own 64 is not mentioned)",
+      "measuredFrom": "CLONE_SPEC.md:161-161",
+      "keywords": [
+        "Section padding-top 64 (clears the fixed nav)"
+      ]
+    },
+    {
+      "group": "correction",
+      "claim": "SPEC internal inconsistency: quote base #1a1a1a (§9) vs #161616 (§13.6)",
+      "measuredFrom": "CLONE_SPEC.md:372-372",
+      "keywords": [
+        "Base color `#1a1a1a`"
+      ]
+    },
+    {
+      "group": "correction",
+      "claim": "SPEC internal inconsistency, second half",
+      "measuredFrom": "CLONE_SPEC.md:567-567",
+      "keywords": [
+        "(#161616)"
+      ]
+    },
+    {
+      "group": "correction",
+      "claim": "SPEC claim: dropdown panel sits under padding-top 16 (code uses 8 to hit the measured y=78)",
+      "measuredFrom": "CLONE_SPEC.md:125-125",
+      "keywords": [
+        "2rem below the toggle with padding-top 16"
+      ]
+    },
+    {
+      "group": "correction",
+      "claim": "code: dropdown panel pt-8 under the pill",
+      "measuredFrom": "src/components/Nav.jsx:208-208",
+      "keywords": [
+        "absolute left-1/2 top-full -translate-x-1/2 pt-[8px]"
+      ]
+    },
+    {
+      "group": "correction",
+      "claim": "SPEC claim: results header padding-top 32 (code: 40/40)",
+      "measuredFrom": "CLONE_SPEC.md:327-327",
+      "keywords": [
+        "**Header**: column, centred, padding-top 32."
+      ]
+    },
+    {
+      "group": "correction",
+      "claim": "code: results header pt-40 pb-40",
+      "measuredFrom": "src/components/Results.jsx:17-17",
+      "keywords": [
+        "pb-[40px] pt-[40px]"
+      ]
+    },
+    {
+      "group": "correction",
+      "claim": "SPEC claim: product tabs padding-top 32 at <=479 (code sets padding-BOTTOM back to 32)",
+      "measuredFrom": "CLONE_SPEC.md:248-248",
+      "keywords": [
+        "padding-top 32 (≤479)"
+      ]
+    },
+    {
+      "group": "correction",
+      "claim": "SPEC claim: video sub-paragraph margin-bottom 20 (code: 0, 44 at >=1440)",
+      "measuredFrom": "CLONE_SPEC.md:423-423",
+      "keywords": [
+        "~15 words, margin-bottom 20"
+      ]
+    },
+    {
+      "group": "spec",
+      "claim": "SPEC: no scroll fade-ins (confirmed in code: no generic reveal exists)",
+      "measuredFrom": "CLONE_SPEC.md:509-509",
+      "keywords": [
+        "Section headings, cards and images do not fade in on scroll."
+      ]
+    },
+    {
+      "group": "spec",
+      "claim": "SPEC: HubSpot form and YouTube chrome were not measurable",
+      "measuredFrom": "CLONE_SPEC.md:628-629",
+      "keywords": [
+        "HubSpot form internals (cross-origin iframe).",
+        "The YouTube player chrome"
+      ]
+    },
+    {
+      "group": "spec",
+      "claim": "SPEC: section offsets at 1440, hero at y=64",
+      "measuredFrom": "CLONE_SPEC.md:614-625",
+      "keywords": [
+        "| hero | 64 |",
+        "| footer | 9920 |"
+      ]
+    },
+    {
+      "group": "audit",
+      "claim": "audit: original hero top=64 at 1440",
+      "measuredFrom": "audit:orig1440.txt:2-2",
+      "keywords": [
+        "top=64 h=680"
+      ]
+    },
+    {
+      "group": "audit",
+      "claim": "audit: clone hero top=64 at 1440 after fix",
+      "measuredFrom": "audit:clone1440-after.txt:2-2",
+      "keywords": [
+        "hero top=64 h=680"
+      ]
+    },
+    {
+      "group": "audit",
+      "claim": "audit: original logo strip 337 tall at 390",
+      "measuredFrom": "audit:orig390.txt:13-13",
+      "keywords": [
+        "top=1024 h=337"
+      ]
+    },
+    {
+      "group": "audit",
+      "claim": "audit: clone logo strip 337 tall at 390",
+      "measuredFrom": "audit:clone390-after.txt:18-18",
+      "keywords": [
+        "logos top=1023 h=337"
+      ]
+    },
+    {
+      "group": "audit",
+      "claim": "audit: original 3-col H2 at y=36 at 390 (32 padding + 4 margin)",
+      "measuredFrom": "audit:orig390.txt:60-61",
+      "keywords": [
+        "top=3880 h=950",
+        "x=20 y=36 w=350"
+      ]
+    },
+    {
+      "group": "audit",
+      "claim": "audit: original assistant H2 at y=68 at 390 (64 margin + 4)",
+      "measuredFrom": "audit:orig390.txt:40-41",
+      "keywords": [
+        "top=2533 h=1347",
+        "x=20 y=68 w=310"
+      ]
+    },
+    {
+      "group": "audit",
+      "claim": "audit: H2 mt=4px and p mb=20px on the original",
+      "measuredFrom": "audit:orig-tree1.txt:1-1",
+      "keywords": [
+        "H2.new-heading_h2 mt=4px mb=0px",
+        "P.text-color-grey mt=0px mb=20px"
+      ]
+    },
+    {
+      "group": "audit",
+      "claim": "audit: assistant margin-huge 64 at 390",
+      "measuredFrom": "audit:orig-tree390.txt:1-1",
+      "keywords": [
+        "margin-huge mt=64px"
+      ]
+    }
+  ]
+}

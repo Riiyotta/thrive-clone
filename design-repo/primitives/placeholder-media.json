@@ -1,0 +1,30 @@
+{
+  "id": "primitive.placeholder-media",
+  "kind": "primitive",
+  "designSystem": "marketing",
+  "name": "Neutral media slot (Placeholder)",
+  "props": {
+    "label": {
+      "type": "string",
+      "maxWords": 4
+    },
+    "tone": {
+      "enum": [
+        1,
+        2,
+        3
+      ]
+    },
+    "fit": {
+      "enum": [
+        "cover",
+        "contain"
+      ]
+    }
+  },
+  "notes": [
+    "With no src it renders a surface-coloured block with a centred 12px grey label -- the ONLY permitted rendering for must-not-reuse / must-not-fabricate asset roles in generated pages.",
+    "The clone passes src= pointing at the user's local reference copies in public/assets/; generated pages must not."
+  ],
+  "measuredFrom": "src/components/shared/Placeholder.jsx:9-35"
+}

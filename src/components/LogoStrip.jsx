@@ -1,0 +1,34 @@
+const LOGOS = ['logo-volvo.png', 'logo-burgerking.png', 'logo-vodafone.png', 'logo-ba.png', 'logo-krispykreme.svg', 'logo-nothingbundt.png']
+import { LogoPlaceholder } from './shared/Placeholder.jsx'
+
+// Measured logo box heights at 112px wide (1440): 45.7 except Nothing Bundt 48.5 and
+// Krispy Kreme 37.8. Expressed as aspect ratios so they scale with the 80/96px mobile widths.
+const ASPECT = {
+  'logo-nothingbundt.png': 'aspect-[112/48.5]',
+  'logo-krispykreme.svg': 'aspect-[112/37.8]',
+}
+
+// §3 static customer-logo row (no motion)
+export default function LogoStrip() {
+  return (
+    <section data-section="logos">
+      <div className="padding-global">
+        <div className="py-[48px] mob:py-[32px]">
+          <p className="w-full text-center text-body text-ink xs:text-body-xs">Chosen by teams at</p>
+          <div className="container-medium">
+            <div className="flex flex-col items-center gap-[32px]">
+              <div className="mx-auto flex max-w-[960px] items-center justify-between gap-[48px] pt-[32px] mob:flex-wrap mob:justify-around mob:gap-[32px]">
+                {LOGOS.map((f, i) => (
+                  <div key={i} className="flex w-[7rem] items-center justify-center overflow-clip mob:w-[80px] xs:w-[96px]">
+                    <LogoPlaceholder src={`/assets/${f}`} alt="Customer logo" className={`${ASPECT[f] || 'aspect-[112/45.7]'} max-h-[4rem] w-full text-[16px]`} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="h-[32px]" />
+      </div>
+    </section>
+  )
+}

@@ -1,0 +1,14 @@
+{
+  "id": "component.testimonial-block",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "Testimonial quote + author",
+  "composes": [
+    "primitive.placeholder-media",
+    "primitive.inline-link"
+  ],
+  "notes": [
+    "Quote 32/38.4 500 left-aligned; author column centred gap 12; avatar 80x80."
+  ],
+  "measuredFrom": "src/components/Results.jsx:38-49"
+}

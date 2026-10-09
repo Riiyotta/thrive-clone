@@ -1,0 +1,11 @@
+{
+  "id": "primitive.tab-chip",
+  "kind": "primitive",
+  "designSystem": "marketing",
+  "name": "Active tab chip (18x8 green tag)",
+  "props": {},
+  "notes": [
+    "Background SVG, fill #1DE9B6, no-repeat 0% 50%; the active tab gets 32px left padding."
+  ],
+  "measuredFrom": "src/index.css:66-70"
+}

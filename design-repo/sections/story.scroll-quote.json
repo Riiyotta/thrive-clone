@@ -1,0 +1,90 @@
+{
+  "id": "story.scroll-quote",
+  "kind": "section",
+  "name": "Scroll-scrubbed per-letter highlight quote",
+  "purpose": "An analyst-style quote that lights up letter by letter as the reader scrolls through it.",
+  "category": "story",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/QuoteHighlight.jsx",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "quote": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 30,
+        "note": "Inter 32/38.4 500 in curly quotes, base colour #1a1a1a; 672 wide.",
+        "measuredLongestRealInstance": "26 words in the clone's own placeholder copy"
+      },
+      "attributionName": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "note": "Placeholder person name.",
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      },
+      "attributionTitle": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "quote",
+      "attributionName",
+      "attributionTitle"
+    ]
+  },
+  "constraints": {
+    "onePerPage": true,
+    "maxPerPage": 1
+  },
+  "motion": {
+    "allowedPatterns": [
+      "scroll.charColorScrub"
+    ],
+    "reducedMotionFallback": "instant-final-state",
+    "measuredFrom": "src/components/QuoteHighlight.jsx:23-29",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Bottom padding 80 -> 64 (48 at <=767).",
+      "tailwind": [
+        "pb-[80px] pt-[32px] tab:pb-[64px] mob:pb-[48px]"
+      ],
+      "measuredFrom": "src/components/QuoteHighlight.jsx:37-37"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Quote 32 -> 28 (24 at <=767).",
+      "tailwind": [
+        "text-quote font-medium text-surface-3 tab:text-quote-tab mob:text-quote-mob"
+      ],
+      "measuredFrom": "src/components/QuoteHighlight.jsx:43-43"
+    }
+  ],
+  "assetRoles": [],
+  "composes": [],
+  "compatibility": {
+    "recommendedAfter": [
+      "story.zoom-statement"
+    ],
+    "recommendedBefore": [
+      "proof.case-study-carousel"
+    ],
+    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+  },
+  "observedOn": [
+    "/"
+  ],
+  "measuredFrom": "src/components/QuoteHighlight.jsx:7-56",
+  "iaSectionId": "story.scroll-quote",
+  "specMeasuredFrom": "CLONE_SPEC.md:366-374"
+}

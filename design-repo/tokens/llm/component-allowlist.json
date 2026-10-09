@@ -1,0 +1,1259 @@
+{
+  "$comment": "The closed list of what an AI generator may set. GENERATED from the section contracts and re-derived from schema/pagespec.schema.json by extraction/verify_all.py::check_allowlist_schema, which compares EVERY settable path (not just top-level keys). Anything absent is not settable.",
+  "version": "1.0.0",
+  "globalRules": [
+    "Only one template ('home') and one route ('/') were measured. Do not invent templates or routes; a non-'/' route is allowed but flagged.",
+    "Set only the paths listed under settableProperties. Everything else (layout, tokens, button variants, breakpoints) is contract-owned.",
+    "Every text field respects maxWords. Write ORIGINAL placeholder copy -- never the original site's text, brand ('Thrive'), assistant ('Kiki') or real third-party names.",
+    "Every media field is {assetRole, ...} with a role from the field's own list. For any role that is not may-generate-new, render the neutral placeholder: no assetRef, no file path, no URL.",
+    "Never reference the source project's public/assets/ files -- they are the user's local reference copies of a real company's imagery.",
+    "The footer demo form stays a static placeholder (live:false); the video stays a static placeholder.",
+    "motion.pattern from the section's allowedMotionPatterns; reducedMotionFallback equal to the section's const.",
+    "There is NO per-instance style/token-override field. Styling is owned by the contracts; this is stated so nobody looks for a mechanism that was never built."
+  ],
+  "tokenOverridePolicy": {
+    "perInstanceOverrides": false,
+    "note": "No PageSpec field exists for token overrides; nothing to validate at the PageSpec layer."
+  },
+  "sections": {
+    "shell.nav": {
+      "contractFile": "sections/shell.nav.json",
+      "category": "shell",
+      "allowedMotionPatterns": [
+        "nav.hoverMenus"
+      ],
+      "reducedMotionFallback": "instant-toggle",
+      "requiredContentFields": [
+        "menus",
+        "aiLinkLabel",
+        "ctaLabel"
+      ],
+      "settableProperties": {
+        "aiLinkLabel": {
+          "settable": true,
+          "maxWords": 5
+        },
+        "ctaLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "menus": {
+          "settable": true
+        },
+        "menus[]": {
+          "settable": true
+        },
+        "menus[].columns": {
+          "settable": true
+        },
+        "menus[].columns[]": {
+          "settable": true
+        },
+        "menus[].columns[].customers": {
+          "settable": true
+        },
+        "menus[].columns[].customers[]": {
+          "settable": true
+        },
+        "menus[].columns[].customers[].icon": {
+          "settable": true,
+          "assetRoles": [
+            "logo.customer",
+            "placeholder.neutral"
+          ]
+        },
+        "menus[].columns[].customers[].icon.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "menus[].columns[].customers[].icon.assetRef": {
+          "settable": true
+        },
+        "menus[].columns[].customers[].icon.assetRole": {
+          "settable": true
+        },
+        "menus[].columns[].customers[].icon.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "menus[].columns[].customers[].name": {
+          "settable": true,
+          "maxWords": 3
+        },
+        "menus[].columns[].header": {
+          "settable": true,
+          "maxWords": 2
+        },
+        "menus[].columns[].headerLink": {
+          "settable": true,
+          "maxWords": 2
+        },
+        "menus[].columns[].items": {
+          "settable": true
+        },
+        "menus[].columns[].items[]": {
+          "settable": true
+        },
+        "menus[].columns[].items[].desc": {
+          "settable": true,
+          "maxWords": 7
+        },
+        "menus[].columns[].items[].title": {
+          "settable": true,
+          "maxWords": 3
+        },
+        "menus[].columns[].kind": {
+          "settable": true
+        },
+        "menus[].label": {
+          "settable": true,
+          "maxWords": 2
+        }
+      }
+    },
+    "hero.split-visual": {
+      "contractFile": "sections/hero.split-visual.json",
+      "category": "hero",
+      "allowedMotionPatterns": [
+        "hero.loadReveal"
+      ],
+      "reducedMotionFallback": "instant-final-state",
+      "requiredContentFields": [
+        "socialProof",
+        "avatarStrip",
+        "heading",
+        "subtitle",
+        "reviewBadges",
+        "primaryCtaLabel",
+        "secondaryCtaLabel",
+        "visual"
+      ],
+      "settableProperties": {
+        "avatarStrip": {
+          "settable": true,
+          "assetRoles": [
+            "placeholder.neutral"
+          ]
+        },
+        "avatarStrip.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "avatarStrip.assetRef": {
+          "settable": true
+        },
+        "avatarStrip.assetRole": {
+          "settable": true
+        },
+        "avatarStrip.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "heading": {
+          "settable": true,
+          "maxWords": 11
+        },
+        "primaryCtaLabel": {
+          "settable": true,
+          "maxWords": 5
+        },
+        "reviewBadges": {
+          "settable": true,
+          "assetRoles": [
+            "badge.review",
+            "placeholder.neutral"
+          ]
+        },
+        "reviewBadges.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "reviewBadges.assetRef": {
+          "settable": true
+        },
+        "reviewBadges.assetRole": {
+          "settable": true
+        },
+        "reviewBadges.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "reviewBadges.slotCount": {
+          "settable": true
+        },
+        "secondaryCtaLabel": {
+          "settable": true,
+          "maxWords": 3
+        },
+        "socialProof": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "subtitle": {
+          "settable": true,
+          "maxWords": 12
+        },
+        "visual": {
+          "settable": true,
+          "assetRoles": [
+            "product.screenshot",
+            "placeholder.neutral"
+          ]
+        },
+        "visual.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "visual.assetRef": {
+          "settable": true
+        },
+        "visual.assetRole": {
+          "settable": true
+        },
+        "visual.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        }
+      }
+    },
+    "proof.logo-row": {
+      "contractFile": "sections/proof.logo-row.json",
+      "category": "proof",
+      "allowedMotionPatterns": [
+        "none"
+      ],
+      "reducedMotionFallback": "none",
+      "requiredContentFields": [
+        "heading",
+        "logos"
+      ],
+      "settableProperties": {
+        "heading": {
+          "settable": true,
+          "maxWords": 6
+        },
+        "logos": {
+          "settable": true,
+          "assetRoles": [
+            "logo.customer",
+            "placeholder.neutral"
+          ]
+        },
+        "logos.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "logos.assetRef": {
+          "settable": true
+        },
+        "logos.assetRole": {
+          "settable": true
+        },
+        "logos.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "logos.slotCount": {
+          "settable": true
+        }
+      }
+    },
+    "product.feature-tabs": {
+      "contractFile": "sections/product.feature-tabs.json",
+      "category": "product",
+      "allowedMotionPatterns": [
+        "tabs.crossFade"
+      ],
+      "reducedMotionFallback": "instant-toggle",
+      "requiredContentFields": [
+        "heading",
+        "intro",
+        "tabs"
+      ],
+      "settableProperties": {
+        "heading": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "intro": {
+          "settable": true
+        },
+        "intro.linkPhrases": {
+          "settable": true
+        },
+        "intro.linkPhrases[]": {
+          "settable": true,
+          "maxWords": 5
+        },
+        "intro.text": {
+          "settable": true,
+          "maxWords": 26
+        },
+        "tabs": {
+          "settable": true
+        },
+        "tabs[]": {
+          "settable": true
+        },
+        "tabs[].copy": {
+          "settable": true,
+          "maxWords": 28
+        },
+        "tabs[].ctaLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "tabs[].label": {
+          "settable": true,
+          "maxWords": 12
+        },
+        "tabs[].shortLabel": {
+          "settable": true,
+          "maxWords": 2
+        },
+        "tabs[].visual": {
+          "settable": true,
+          "assetRoles": [
+            "product.screenshot",
+            "placeholder.neutral"
+          ]
+        },
+        "tabs[].visual.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "tabs[].visual.assetRef": {
+          "settable": true
+        },
+        "tabs[].visual.assetRole": {
+          "settable": true
+        },
+        "tabs[].visual.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        }
+      }
+    },
+    "product.assistant-tabs": {
+      "contractFile": "sections/product.assistant-tabs.json",
+      "category": "product",
+      "allowedMotionPatterns": [
+        "carousel.dragLoop"
+      ],
+      "reducedMotionFallback": "instant-slide-change",
+      "requiredContentFields": [
+        "headingLine1",
+        "headingLine2",
+        "headingEmphasis",
+        "assistantName",
+        "introLines",
+        "ctaLabel",
+        "tabs"
+      ],
+      "settableProperties": {
+        "assistantName": {
+          "settable": true,
+          "maxWords": 1
+        },
+        "ctaLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "headingEmphasis": {
+          "settable": true,
+          "maxWords": 1
+        },
+        "headingLine1": {
+          "settable": true,
+          "maxWords": 6
+        },
+        "headingLine2": {
+          "settable": true,
+          "maxWords": 3
+        },
+        "introLines": {
+          "settable": true
+        },
+        "introLines[]": {
+          "settable": true,
+          "maxWords": 16
+        },
+        "tabs": {
+          "settable": true
+        },
+        "tabs[]": {
+          "settable": true
+        },
+        "tabs[].highlight": {
+          "settable": true,
+          "maxWords": 6
+        },
+        "tabs[].subdued": {
+          "settable": true,
+          "maxWords": 34
+        },
+        "tabs[].tab": {
+          "settable": true,
+          "maxWords": 1
+        },
+        "tabs[].video": {
+          "settable": true,
+          "assetRoles": [
+            "product.video",
+            "placeholder.neutral"
+          ]
+        },
+        "tabs[].video.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "tabs[].video.assetRef": {
+          "settable": true
+        },
+        "tabs[].video.assetRole": {
+          "settable": true
+        },
+        "tabs[].video.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        }
+      }
+    },
+    "product.capability-slider": {
+      "contractFile": "sections/product.capability-slider.json",
+      "category": "product",
+      "allowedMotionPatterns": [
+        "carousel.autoplayOnView"
+      ],
+      "reducedMotionFallback": "autoplay-off-instant-slide-change",
+      "requiredContentFields": [
+        "heading",
+        "ctaLabel",
+        "slides"
+      ],
+      "settableProperties": {
+        "ctaLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "heading": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "slides": {
+          "settable": true
+        },
+        "slides[]": {
+          "settable": true
+        },
+        "slides[].highlight": {
+          "settable": true,
+          "maxWords": 6
+        },
+        "slides[].image": {
+          "settable": true,
+          "assetRoles": [
+            "product.screenshot",
+            "photo.event",
+            "placeholder.neutral"
+          ]
+        },
+        "slides[].image.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "slides[].image.assetRef": {
+          "settable": true
+        },
+        "slides[].image.assetRole": {
+          "settable": true
+        },
+        "slides[].image.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "slides[].subdued": {
+          "settable": true,
+          "maxWords": 20
+        }
+      }
+    },
+    "proof.results-stats": {
+      "contractFile": "sections/proof.results-stats.json",
+      "category": "proof",
+      "allowedMotionPatterns": [
+        "none"
+      ],
+      "reducedMotionFallback": "none",
+      "requiredContentFields": [
+        "heading",
+        "cards"
+      ],
+      "settableProperties": {
+        "cards": {
+          "settable": true
+        },
+        "cards[]": {
+          "settable": true
+        },
+        "cards[].brand": {
+          "settable": true,
+          "maxWords": 3
+        },
+        "cards[].logo": {
+          "settable": true,
+          "assetRoles": [
+            "logo.customer",
+            "placeholder.neutral"
+          ]
+        },
+        "cards[].logo.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "cards[].logo.assetRef": {
+          "settable": true
+        },
+        "cards[].logo.assetRole": {
+          "settable": true
+        },
+        "cards[].logo.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "cards[].rest": {
+          "settable": true,
+          "maxWords": 20
+        },
+        "cards[].stat": {
+          "settable": true,
+          "maxWords": 1
+        },
+        "heading": {
+          "settable": true,
+          "maxWords": 12
+        }
+      }
+    },
+    "proof.testimonial": {
+      "contractFile": "sections/proof.testimonial.json",
+      "category": "proof",
+      "allowedMotionPatterns": [
+        "none"
+      ],
+      "reducedMotionFallback": "none",
+      "requiredContentFields": [
+        "quote",
+        "author",
+        "ctaLabel"
+      ],
+      "settableProperties": {
+        "author": {
+          "settable": true
+        },
+        "author.avatar": {
+          "settable": true,
+          "assetRoles": [
+            "photo.person",
+            "placeholder.neutral"
+          ]
+        },
+        "author.avatar.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "author.avatar.assetRef": {
+          "settable": true
+        },
+        "author.avatar.assetRole": {
+          "settable": true
+        },
+        "author.avatar.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "author.company": {
+          "settable": true,
+          "maxWords": 3
+        },
+        "author.name": {
+          "settable": true,
+          "maxWords": 3
+        },
+        "author.role": {
+          "settable": true,
+          "maxWords": 6
+        },
+        "ctaLabel": {
+          "settable": true,
+          "maxWords": 6
+        },
+        "quote": {
+          "settable": true,
+          "maxWords": 40
+        }
+      }
+    },
+    "story.zoom-statement": {
+      "contractFile": "sections/story.zoom-statement.json",
+      "category": "story",
+      "allowedMotionPatterns": [
+        "scroll.zoomScrub"
+      ],
+      "reducedMotionFallback": "instant-final-state",
+      "requiredContentFields": [
+        "visual",
+        "heading",
+        "bodyLines"
+      ],
+      "settableProperties": {
+        "bodyLines": {
+          "settable": true
+        },
+        "bodyLines[]": {
+          "settable": true,
+          "maxWords": 16
+        },
+        "heading": {
+          "settable": true,
+          "maxWords": 7
+        },
+        "visual": {
+          "settable": true,
+          "assetRoles": [
+            "product.screenshot",
+            "placeholder.neutral"
+          ]
+        },
+        "visual.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "visual.assetRef": {
+          "settable": true
+        },
+        "visual.assetRole": {
+          "settable": true
+        },
+        "visual.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        }
+      }
+    },
+    "story.scroll-quote": {
+      "contractFile": "sections/story.scroll-quote.json",
+      "category": "story",
+      "allowedMotionPatterns": [
+        "scroll.charColorScrub"
+      ],
+      "reducedMotionFallback": "instant-final-state",
+      "requiredContentFields": [
+        "quote",
+        "attributionName",
+        "attributionTitle"
+      ],
+      "settableProperties": {
+        "attributionName": {
+          "settable": true,
+          "maxWords": 3
+        },
+        "attributionTitle": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "quote": {
+          "settable": true,
+          "maxWords": 30
+        }
+      }
+    },
+    "proof.case-study-carousel": {
+      "contractFile": "sections/proof.case-study-carousel.json",
+      "category": "proof",
+      "allowedMotionPatterns": [
+        "carousel.centeredAutoplay"
+      ],
+      "reducedMotionFallback": "autoplay-off-instant-slide-change",
+      "requiredContentFields": [
+        "heading",
+        "ctaLabel",
+        "intro",
+        "slides"
+      ],
+      "settableProperties": {
+        "ctaLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "heading": {
+          "settable": true,
+          "maxWords": 8
+        },
+        "intro": {
+          "settable": true,
+          "maxWords": 20
+        },
+        "slides": {
+          "settable": true
+        },
+        "slides[]": {
+          "settable": true
+        },
+        "slides[].ctaLabel": {
+          "settable": true,
+          "maxWords": 3
+        },
+        "slides[].logo": {
+          "settable": true,
+          "assetRoles": [
+            "logo.customer",
+            "placeholder.neutral"
+          ]
+        },
+        "slides[].logo.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "slides[].logo.assetRef": {
+          "settable": true
+        },
+        "slides[].logo.assetRole": {
+          "settable": true
+        },
+        "slides[].logo.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "slides[].photo": {
+          "settable": true,
+          "assetRoles": [
+            "photo.brand",
+            "placeholder.neutral"
+          ]
+        },
+        "slides[].photo.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "slides[].photo.assetRef": {
+          "settable": true
+        },
+        "slides[].photo.assetRole": {
+          "settable": true
+        },
+        "slides[].photo.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "slides[].stats": {
+          "settable": true
+        },
+        "slides[].stats[]": {
+          "settable": true
+        },
+        "slides[].stats[].label": {
+          "settable": true,
+          "maxWords": 8
+        },
+        "slides[].stats[].value": {
+          "settable": true,
+          "maxWords": 1
+        },
+        "slides[].text": {
+          "settable": true,
+          "maxWords": 16
+        }
+      }
+    },
+    "story.brand-video": {
+      "contractFile": "sections/story.brand-video.json",
+      "category": "story",
+      "allowedMotionPatterns": [
+        "none"
+      ],
+      "reducedMotionFallback": "none",
+      "requiredContentFields": [
+        "heading",
+        "subLines",
+        "video",
+        "description"
+      ],
+      "settableProperties": {
+        "description": {
+          "settable": true
+        },
+        "description.boldPhrases": {
+          "settable": true
+        },
+        "description.boldPhrases[]": {
+          "settable": true,
+          "maxWords": 5
+        },
+        "description.linkPhrases": {
+          "settable": true
+        },
+        "description.linkPhrases[]": {
+          "settable": true,
+          "maxWords": 5
+        },
+        "description.text": {
+          "settable": true,
+          "maxWords": 70
+        },
+        "heading": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "subLines": {
+          "settable": true
+        },
+        "subLines[]": {
+          "settable": true,
+          "maxWords": 8
+        },
+        "video": {
+          "settable": true,
+          "assetRoles": [
+            "product.video",
+            "placeholder.neutral"
+          ]
+        },
+        "video.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "video.assetRef": {
+          "settable": true
+        },
+        "video.assetRole": {
+          "settable": true
+        },
+        "video.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        }
+      }
+    },
+    "conversion.faq": {
+      "contractFile": "sections/conversion.faq.json",
+      "category": "conversion",
+      "allowedMotionPatterns": [
+        "accordion.faq"
+      ],
+      "reducedMotionFallback": "instant-toggle",
+      "requiredContentFields": [
+        "headingLines",
+        "items"
+      ],
+      "settableProperties": {
+        "headingLines": {
+          "settable": true
+        },
+        "headingLines[]": {
+          "settable": true,
+          "maxWords": 5
+        },
+        "items": {
+          "settable": true
+        },
+        "items[]": {
+          "settable": true
+        },
+        "items[].answer": {
+          "settable": true
+        },
+        "items[].answer.linkPhrases": {
+          "settable": true
+        },
+        "items[].answer.linkPhrases[]": {
+          "settable": true,
+          "maxWords": 5
+        },
+        "items[].answer.text": {
+          "settable": true,
+          "maxWords": 65
+        },
+        "items[].question": {
+          "settable": true,
+          "maxWords": 17
+        }
+      }
+    },
+    "conversion.demo-form": {
+      "contractFile": "sections/conversion.demo-form.json",
+      "category": "conversion",
+      "allowedMotionPatterns": [
+        "none"
+      ],
+      "reducedMotionFallback": "none",
+      "requiredContentFields": [
+        "heading",
+        "body",
+        "form"
+      ],
+      "settableProperties": {
+        "body": {
+          "settable": true,
+          "maxWords": 24
+        },
+        "form": {
+          "settable": true
+        },
+        "form.fieldLabels": {
+          "settable": true
+        },
+        "form.fieldLabels[]": {
+          "settable": true,
+          "maxWords": 2
+        },
+        "form.live": {
+          "settable": true
+        },
+        "form.submitLabel": {
+          "settable": true,
+          "maxWords": 2
+        },
+        "heading": {
+          "settable": true,
+          "maxWords": 11
+        }
+      }
+    },
+    "shell.footer": {
+      "contractFile": "sections/shell.footer.json",
+      "category": "shell",
+      "allowedMotionPatterns": [
+        "footer.dropup"
+      ],
+      "reducedMotionFallback": "instant-toggle",
+      "requiredContentFields": [
+        "aiPrompt",
+        "aiLinks",
+        "columns",
+        "ratingBadges",
+        "awardBadges",
+        "complianceLine",
+        "copyright",
+        "legalLinks",
+        "dropups"
+      ],
+      "settableProperties": {
+        "aiLinks": {
+          "settable": true,
+          "assetRoles": [
+            "logo.aiVendor",
+            "placeholder.neutral"
+          ]
+        },
+        "aiLinks.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "aiLinks.assetRef": {
+          "settable": true
+        },
+        "aiLinks.assetRole": {
+          "settable": true
+        },
+        "aiLinks.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "aiLinks.slotCount": {
+          "settable": true
+        },
+        "aiPrompt": {
+          "settable": true,
+          "maxWords": 5
+        },
+        "awardBadges": {
+          "settable": true,
+          "assetRoles": [
+            "badge.award",
+            "placeholder.neutral"
+          ]
+        },
+        "awardBadges.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "awardBadges.assetRef": {
+          "settable": true
+        },
+        "awardBadges.assetRole": {
+          "settable": true
+        },
+        "awardBadges.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "awardBadges.slotCount": {
+          "settable": true
+        },
+        "columns": {
+          "settable": true
+        },
+        "columns[]": {
+          "settable": true
+        },
+        "columns[].buttonLabel": {
+          "settable": true,
+          "maxWords": 5
+        },
+        "columns[].header": {
+          "settable": true,
+          "maxWords": 2
+        },
+        "columns[].headerIsLink": {
+          "settable": true
+        },
+        "columns[].links": {
+          "settable": true
+        },
+        "columns[].links[]": {
+          "settable": true,
+          "maxWords": 3
+        },
+        "complianceLine": {
+          "settable": true
+        },
+        "complianceLine.linkPhrases": {
+          "settable": true
+        },
+        "complianceLine.linkPhrases[]": {
+          "settable": true,
+          "maxWords": 5
+        },
+        "complianceLine.text": {
+          "settable": true,
+          "maxWords": 25
+        },
+        "copyright": {
+          "settable": true,
+          "maxWords": 5
+        },
+        "dropups": {
+          "settable": true
+        },
+        "dropups[]": {
+          "settable": true
+        },
+        "dropups[].label": {
+          "settable": true,
+          "maxWords": 3
+        },
+        "dropups[].links": {
+          "settable": true
+        },
+        "dropups[].links[]": {
+          "settable": true,
+          "maxWords": 3
+        },
+        "legalLinks": {
+          "settable": true
+        },
+        "legalLinks[]": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "ratingBadges": {
+          "settable": true,
+          "assetRoles": [
+            "badge.review",
+            "placeholder.neutral"
+          ]
+        },
+        "ratingBadges.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "ratingBadges.assetRef": {
+          "settable": true
+        },
+        "ratingBadges.assetRole": {
+          "settable": true
+        },
+        "ratingBadges.placeholderLabel": {
+          "settable": true,
+          "maxWords": 4
+        },
+        "ratingBadges.slotCount": {
+          "settable": true
+        }
+      }
+    }
+  },
+  "primitives": {
+    "button": {
+      "contractFile": "primitives/button.json",
+      "settableProps": [
+        "label",
+        "stretch",
+        "variant"
+      ]
+    },
+    "pagination": {
+      "contractFile": "primitives/pagination.json",
+      "settableProps": [
+        "activeWidth",
+        "bulletTransition",
+        "clickable",
+        "count",
+        "progressDuration"
+      ]
+    },
+    "placeholder-media": {
+      "contractFile": "primitives/placeholder-media.json",
+      "settableProps": [
+        "fit",
+        "label",
+        "tone"
+      ]
+    },
+    "logo-placeholder": {
+      "contractFile": "primitives/logo-placeholder.json",
+      "settableProps": [
+        "text"
+      ]
+    },
+    "wordmark": {
+      "contractFile": "primitives/wordmark.json",
+      "settableProps": []
+    },
+    "inline-link": {
+      "contractFile": "primitives/inline-link.json",
+      "settableProps": [
+        "text"
+      ]
+    },
+    "heading-h2": {
+      "contractFile": "primitives/heading-h2.json",
+      "settableProps": [
+        "text"
+      ]
+    },
+    "tab-chip": {
+      "contractFile": "primitives/tab-chip.json",
+      "settableProps": []
+    },
+    "cross-icon": {
+      "contractFile": "primitives/cross-icon.json",
+      "settableProps": [
+        "open"
+      ]
+    },
+    "play-button": {
+      "contractFile": "primitives/play-button.json",
+      "settableProps": []
+    }
+  },
+  "components": {
+    "loop-carousel": {
+      "contractFile": "components/loop-carousel.json"
+    },
+    "autoplay-controller": {
+      "contractFile": "components/autoplay-controller.json"
+    },
+    "nav-dropdown-panel": {
+      "contractFile": "components/nav-dropdown-panel.json"
+    },
+    "mobile-menu-panel": {
+      "contractFile": "components/mobile-menu-panel.json"
+    },
+    "feature-slide": {
+      "contractFile": "components/feature-slide.json"
+    },
+    "three-col-slide": {
+      "contractFile": "components/three-col-slide.json"
+    },
+    "stat-card": {
+      "contractFile": "components/stat-card.json"
+    },
+    "testimonial-block": {
+      "contractFile": "components/testimonial-block.json"
+    },
+    "highlight-slide": {
+      "contractFile": "components/highlight-slide.json"
+    },
+    "faq-item": {
+      "contractFile": "components/faq-item.json"
+    },
+    "placeholder-form": {
+      "contractFile": "components/placeholder-form.json"
+    },
+    "footer-link-column": {
+      "contractFile": "components/footer-link-column.json"
+    },
+    "footer-dropup": {
+      "contractFile": "components/footer-dropup.json"
+    },
+    "badge-row": {
+      "contractFile": "components/badge-row.json"
+    }
+  },
+  "assetRoles": {
+    "badge.award": {
+      "generationPolicy": "must-not-fabricate",
+      "exposedAsPageSpecField": true
+    },
+    "badge.review": {
+      "generationPolicy": "must-not-fabricate",
+      "exposedAsPageSpecField": true
+    },
+    "brand.wordmark": {
+      "generationPolicy": "must-reuse-exact",
+      "exposedAsPageSpecField": false
+    },
+    "logo.aiVendor": {
+      "generationPolicy": "must-not-reuse",
+      "exposedAsPageSpecField": true
+    },
+    "logo.customer": {
+      "generationPolicy": "must-not-reuse",
+      "exposedAsPageSpecField": true
+    },
+    "photo.brand": {
+      "generationPolicy": "must-not-reuse",
+      "exposedAsPageSpecField": true
+    },
+    "photo.event": {
+      "generationPolicy": "must-not-reuse",
+      "exposedAsPageSpecField": true
+    },
+    "photo.person": {
+      "generationPolicy": "must-not-fabricate",
+      "exposedAsPageSpecField": true
+    },
+    "placeholder.neutral": {
+      "generationPolicy": "may-generate-new",
+      "exposedAsPageSpecField": true
+    },
+    "product.screenshot": {
+      "generationPolicy": "must-not-reuse",
+      "exposedAsPageSpecField": true
+    },
+    "product.video": {
+      "generationPolicy": "must-not-reuse",
+      "exposedAsPageSpecField": true
+    }
+  },
+  "pinnedAssetPolicies": {
+    "logo.customer": "must-not-reuse",
+    "logo.aiVendor": "must-not-reuse",
+    "badge.review": "must-not-fabricate",
+    "badge.award": "must-not-fabricate",
+    "photo.person": "must-not-fabricate",
+    "photo.event": "must-not-reuse",
+    "photo.brand": "must-not-reuse",
+    "product.screenshot": "must-not-reuse",
+    "product.video": "must-not-reuse"
+  },
+  "counts": {
+    "sections": 15,
+    "primitives": 10,
+    "components": 14,
+    "assetRoles": 11,
+    "settablePropertyPaths": 216
+  }
+}

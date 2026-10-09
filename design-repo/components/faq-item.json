@@ -1,0 +1,13 @@
+{
+  "id": "component.faq-item",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "FAQ card",
+  "composes": [
+    "primitive.cross-icon"
+  ],
+  "notes": [
+    "surface-1, radius 12, padding 20 24; head is a role=button with Enter/Space support; body grid-rows animation."
+  ],
+  "measuredFrom": "src/components/Faq.jsx:67-93"
+}

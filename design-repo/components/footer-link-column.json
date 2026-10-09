@@ -1,0 +1,13 @@
+{
+  "id": "component.footer-link-column",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "Footer link column",
+  "composes": [
+    "primitive.button"
+  ],
+  "notes": [
+    "Header 18.4/21.16 500 (a link in 3 of 4 columns); links 16/22.4 grey -> #e6e7e7 hover 240ms; optional dark-small button inside the list."
+  ],
+  "measuredFrom": "src/components/Footer.jsx:158-175"
+}

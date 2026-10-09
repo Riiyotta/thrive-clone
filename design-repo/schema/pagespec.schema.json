@@ -1,0 +1,2341 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://design-repo.local/thrive-clone/pagespec.schema.json",
+  "title": "Nimbus (thrive clone) PageSpec",
+  "description": "The machine contract for a generated page. Closed template enum (ONE template), closed section enum, closed assetRole enum, closed motion object, additionalProperties:false everywhere. Structural rules JSON Schema cannot express live in compatibility/graph.json and are enforced by schema/semantic_validate.py -- a PageSpec is valid only if it passes BOTH.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pageSpecVersion",
+    "route",
+    "template",
+    "designSystem",
+    "theme",
+    "nodes"
+  ],
+  "x-assetRoleEnum": [
+    "badge.award",
+    "badge.review",
+    "brand.wordmark",
+    "logo.aiVendor",
+    "logo.customer",
+    "photo.brand",
+    "photo.event",
+    "photo.person",
+    "placeholder.neutral",
+    "product.screenshot",
+    "product.video"
+  ],
+  "x-pinnedAssetPolicies": {
+    "logo.customer": "must-not-reuse",
+    "logo.aiVendor": "must-not-reuse",
+    "badge.review": "must-not-fabricate",
+    "badge.award": "must-not-fabricate",
+    "photo.person": "must-not-fabricate",
+    "photo.event": "must-not-reuse",
+    "photo.brand": "must-not-reuse",
+    "product.screenshot": "must-not-reuse",
+    "product.video": "must-not-reuse"
+  },
+  "properties": {
+    "pageSpecVersion": {
+      "const": "1.0.0"
+    },
+    "route": {
+      "type": "string",
+      "pattern": "^/[a-z0-9/-]*$",
+      "description": "Target path. '/' is the only measured route; any other path is allowed but flagged (TEMPLATE_ROUTE_MEASURED, warn)."
+    },
+    "template": {
+      "enum": [
+        "home"
+      ],
+      "description": "Closed enum: this is a single-template repo."
+    },
+    "designSystem": {
+      "enum": [
+        "marketing"
+      ]
+    },
+    "theme": {
+      "enum": [
+        "nimbus-dark"
+      ],
+      "description": "Exactly one theme. No light mode exists."
+    },
+    "nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "section",
+          "content",
+          "motion"
+        ],
+        "properties": {
+          "section": {
+            "enum": [
+              "shell.nav",
+              "hero.split-visual",
+              "proof.logo-row",
+              "product.feature-tabs",
+              "product.assistant-tabs",
+              "product.capability-slider",
+              "proof.results-stats",
+              "proof.testimonial",
+              "story.zoom-statement",
+              "story.scroll-quote",
+              "proof.case-study-carousel",
+              "story.brand-video",
+              "conversion.faq",
+              "conversion.demo-form",
+              "shell.footer"
+            ]
+          },
+          "content": {
+            "type": "object"
+          },
+          "motion": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "pattern",
+              "reducedMotionFallback"
+            ],
+            "description": "CLOSED to the real, evidence-grounded motion fields. Values beyond pattern/fallback are optional but, when present, must be values measured for that pattern (MOTION_VALUES_MATCH_PATTERN). No stagger/parallax/scroll-reveal field exists.",
+            "properties": {
+              "pattern": {
+                "enum": [
+                  "accordion.faq",
+                  "carousel.autoplayOnView",
+                  "carousel.centeredAutoplay",
+                  "carousel.dragLoop",
+                  "footer.dropup",
+                  "hero.loadReveal",
+                  "nav.hoverMenus",
+                  "none",
+                  "scroll.charColorScrub",
+                  "scroll.zoomScrub",
+                  "tabs.crossFade"
+                ]
+              },
+              "reducedMotionFallback": {
+                "enum": [
+                  "autoplay-off-instant-slide-change",
+                  "instant-final-state",
+                  "instant-slide-change",
+                  "instant-toggle",
+                  "none"
+                ]
+              },
+              "trigger": {
+                "enum": [
+                  "none",
+                  "load",
+                  "hover",
+                  "click",
+                  "drag",
+                  "viewport-enter",
+                  "autoplay",
+                  "scroll-scrub"
+                ]
+              },
+              "durationMs": {
+                "type": "integer",
+                "enum": [
+                  150,
+                  200,
+                  240,
+                  250,
+                  300,
+                  320,
+                  350,
+                  360,
+                  450,
+                  500,
+                  650,
+                  800,
+                  1250,
+                  1500,
+                  3000,
+                  4000
+                ]
+              },
+              "delayMs": {
+                "type": "integer",
+                "enum": [
+                  0,
+                  250,
+                  300,
+                  350,
+                  400,
+                  3000,
+                  4000
+                ]
+              },
+              "easing": {
+                "enum": [
+                  "ease",
+                  "inOutQuart",
+                  "linear",
+                  "none",
+                  "outQuart",
+                  "power3.out",
+                  "power4.inOut",
+                  "tailwind-default"
+                ]
+              }
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "shell.nav"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "menus": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 5,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "label": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 2,
+                            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                          },
+                          "columns": {
+                            "type": "array",
+                            "minItems": 1,
+                            "maxItems": 3,
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "kind": {
+                                      "const": "links"
+                                    },
+                                    "header": {
+                                      "type": "string",
+                                      "minLength": 1,
+                                      "maxWords": 2,
+                                      "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                                    },
+                                    "items": {
+                                      "type": "array",
+                                      "minItems": 1,
+                                      "maxItems": 6,
+                                      "items": {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "title": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxWords": 3,
+                                            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                                          },
+                                          "desc": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxWords": 7,
+                                            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+                                          }
+                                        },
+                                        "required": [
+                                          "title"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "kind",
+                                    "items"
+                                  ],
+                                  "note": "Title-only or title+description items; header optional (the Content menu has none)."
+                                },
+                                {
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "kind": {
+                                      "const": "customers"
+                                    },
+                                    "headerLink": {
+                                      "type": "string",
+                                      "minLength": 1,
+                                      "maxWords": 2,
+                                      "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                                    },
+                                    "customers": {
+                                      "type": "array",
+                                      "minItems": 1,
+                                      "maxItems": 5,
+                                      "items": {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "name": {
+                                            "type": "string",
+                                            "minLength": 1,
+                                            "maxWords": 3,
+                                            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                                          },
+                                          "icon": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "x-allowedRoles": [
+                                              "logo.customer",
+                                              "placeholder.neutral"
+                                            ],
+                                            "properties": {
+                                              "assetRole": {
+                                                "enum": [
+                                                  "logo.customer",
+                                                  "placeholder.neutral"
+                                                ]
+                                              },
+                                              "placeholderLabel": {
+                                                "type": "string",
+                                                "minLength": 1,
+                                                "maxWords": 4,
+                                                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                                              },
+                                              "alt": {
+                                                "type": "string",
+                                                "minLength": 1,
+                                                "maxWords": 10
+                                              },
+                                              "assetRef": {
+                                                "type": "string",
+                                                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                                                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                                              }
+                                            },
+                                            "required": [
+                                              "assetRole"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "name",
+                                          "icon"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "kind",
+                                    "headerLink",
+                                    "customers"
+                                  ],
+                                  "note": "Case-study column: header link + rows of [24x24 customer icon, name]. Names must be placeholders; real customer names and logos are banned."
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "label",
+                          "columns"
+                        ]
+                      },
+                      "note": "The centre pill holds at most 5 toggles (411px wide at 1440)."
+                    },
+                    "aiLinkLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 5,
+                      "note": "Collapsed to its first word at 3.7rem, expands to 14.5rem on hover.",
+                      "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+                    },
+                    "ctaLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 4,
+                      "note": "Small primary button (primary-small).",
+                      "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                    }
+                  },
+                  "required": [
+                    "menus",
+                    "aiLinkLabel",
+                    "ctaLabel"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "nav.hoverMenus"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "instant-toggle"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "hero.split-visual"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "socialProof": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10,
+                      "note": "One line of 14px grey text beside the avatar strip; wraps to 2 lines at 390.",
+                      "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+                    },
+                    "avatarStrip": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "x-allowedRoles": [
+                        "placeholder.neutral"
+                      ],
+                      "properties": {
+                        "assetRole": {
+                          "enum": [
+                            "placeholder.neutral"
+                          ]
+                        },
+                        "placeholderLabel": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 4,
+                          "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                          "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                        },
+                        "alt": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 10
+                        },
+                        "assetRef": {
+                          "type": "string",
+                          "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                          "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                        }
+                      },
+                      "required": [
+                        "assetRole"
+                      ],
+                      "note": "Three overlapping 32px circles. The clone draws neutral CSS circles; the original's headshot strip is a real-person photo and is banned."
+                    },
+                    "heading": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 11,
+                      "note": "H1, Instrument Serif 72/82.8; 3 lines at 1440, 4 lines at 390 (672 wide column).",
+                      "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+                    },
+                    "subtitle": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 12,
+                      "note": "20/28 white, max-width 576, one line at 1440.",
+                      "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+                    },
+                    "reviewBadges": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "x-allowedRoles": [
+                        "badge.review",
+                        "placeholder.neutral"
+                      ],
+                      "properties": {
+                        "assetRole": {
+                          "enum": [
+                            "badge.review",
+                            "placeholder.neutral"
+                          ]
+                        },
+                        "placeholderLabel": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 4,
+                          "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                        },
+                        "alt": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 10,
+                          "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                        },
+                        "assetRef": {
+                          "type": "string",
+                          "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                          "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                        },
+                        "slotCount": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 3
+                        }
+                      },
+                      "required": [
+                        "assetRole",
+                        "slotCount"
+                      ],
+                      "note": "Up to three 104x64 badge slots. Rating/review badges are must-not-fabricate."
+                    },
+                    "primaryCtaLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 5,
+                      "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                    },
+                    "secondaryCtaLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 3,
+                      "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                    },
+                    "visual": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "x-allowedRoles": [
+                        "product.screenshot",
+                        "placeholder.neutral"
+                      ],
+                      "properties": {
+                        "assetRole": {
+                          "enum": [
+                            "product.screenshot",
+                            "placeholder.neutral"
+                          ]
+                        },
+                        "placeholderLabel": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 4,
+                          "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                        },
+                        "alt": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 10,
+                          "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                        },
+                        "assetRef": {
+                          "type": "string",
+                          "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                          "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                        }
+                      },
+                      "required": [
+                        "assetRole"
+                      ],
+                      "note": "80% of a right column that bleeds -30vw past the viewport; aspect 1440/1090; not animated."
+                    }
+                  },
+                  "required": [
+                    "socialProof",
+                    "avatarStrip",
+                    "heading",
+                    "subtitle",
+                    "reviewBadges",
+                    "primaryCtaLabel",
+                    "secondaryCtaLabel",
+                    "visual"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "hero.loadReveal"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "instant-final-state"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "proof.logo-row"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "heading": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "18/25.2 white, centred, outside the container.",
+                      "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                    },
+                    "logos": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "x-allowedRoles": [
+                        "logo.customer",
+                        "placeholder.neutral"
+                      ],
+                      "properties": {
+                        "assetRole": {
+                          "enum": [
+                            "logo.customer",
+                            "placeholder.neutral"
+                          ]
+                        },
+                        "placeholderLabel": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 4,
+                          "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                        },
+                        "alt": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 10,
+                          "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                        },
+                        "assetRef": {
+                          "type": "string",
+                          "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                          "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                        },
+                        "slotCount": {
+                          "type": "integer",
+                          "minimum": 4,
+                          "maximum": 6
+                        }
+                      },
+                      "required": [
+                        "assetRole",
+                        "slotCount"
+                      ],
+                      "note": "Six 112px-wide slots at 1440 (space-between, gap 48, max 960); 3 rows of 2 at 390. Real customer marks are must-not-reuse."
+                    }
+                  },
+                  "required": [
+                    "heading",
+                    "logos"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "none"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "none"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "product.feature-tabs"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "heading": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10,
+                      "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+                    },
+                    "intro": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "text": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 26,
+                          "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+                        },
+                        "linkPhrases": {
+                          "type": "array",
+                          "minItems": 0,
+                          "maxItems": 5,
+                          "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 5,
+                            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                          },
+                          "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered as a white underlined .inline-link."
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "linkPhrases"
+                      ],
+                      "note": "Grey 18.4/25.76 paragraph, max 448, with up to five white underlined pillar links.",
+                      "x-richText": true
+                    },
+                    "tabs": {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 4,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "label": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 12,
+                            "note": "Desktop tab sentence, 24/33.6; 1 line = 83px row, 2 lines = 116px row.",
+                            "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+                          },
+                          "shortLabel": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 2,
+                            "note": "Replaces label at <=767 (chips).",
+                            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                          },
+                          "copy": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 28,
+                            "note": "Grey 18/25.2 child copy in a 192px (12rem) box; 3 lines.",
+                            "measuredLongestRealInstance": "24 words in the clone's own placeholder copy"
+                          },
+                          "ctaLabel": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 4,
+                            "note": "Dark button.",
+                            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                          },
+                          "visual": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "x-allowedRoles": [
+                              "product.screenshot",
+                              "placeholder.neutral"
+                            ],
+                            "properties": {
+                              "assetRole": {
+                                "enum": [
+                                  "product.screenshot",
+                                  "placeholder.neutral"
+                                ]
+                              },
+                              "placeholderLabel": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxWords": 4,
+                                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                                "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                              },
+                              "alt": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxWords": 10
+                              },
+                              "assetRef": {
+                                "type": "string",
+                                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                              }
+                            },
+                            "required": [
+                              "assetRole"
+                            ],
+                            "note": "670:600 pane image, bleeds -10vw off the right edge."
+                          }
+                        },
+                        "required": [
+                          "label",
+                          "shortLabel",
+                          "copy",
+                          "ctaLabel",
+                          "visual"
+                        ]
+                      },
+                      "note": "The 592px (37rem) tab body fits at most four rows."
+                    }
+                  },
+                  "required": [
+                    "heading",
+                    "intro",
+                    "tabs"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "tabs.crossFade"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "instant-toggle"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "product.assistant-tabs"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "headingLine1": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "H2 first line; a <br> follows.",
+                      "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+                    },
+                    "headingLine2": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 3,
+                      "note": "Second line, before the italic word.",
+                      "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                    },
+                    "headingEmphasis": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 1,
+                      "note": "Last word, wrapped in <em> (Instrument Serif italic).",
+                      "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                    },
+                    "assistantName": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 1,
+                      "note": "Placeholder assistant name. The original product's AI brand name is banned (ORIGINAL_COPY_AND_MARKS_FORBIDDEN).",
+                      "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                    },
+                    "introLines": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 2,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 16,
+                        "measuredLongestRealInstance": "15 words in the clone's own placeholder copy"
+                      },
+                      "note": "Grey 18.4/25.76, 640 wide; lines separated by <br>."
+                    },
+                    "ctaLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 4,
+                      "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                    },
+                    "tabs": {
+                      "type": "array",
+                      "minItems": 2,
+                      "maxItems": 5,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "tab": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 1,
+                            "note": "One-word tab button, 214x76 at 1440.",
+                            "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                          },
+                          "highlight": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 6,
+                            "note": "White inline-block lead.",
+                            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+                          },
+                          "subdued": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 34,
+                            "note": "Grey continuation, letter-spacing -0.4px; 3 lines at 1440.",
+                            "measuredLongestRealInstance": "30 words in the clone's own placeholder copy"
+                          },
+                          "video": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "x-allowedRoles": [
+                              "product.video",
+                              "placeholder.neutral"
+                            ],
+                            "properties": {
+                              "assetRole": {
+                                "enum": [
+                                  "product.video",
+                                  "placeholder.neutral"
+                                ]
+                              },
+                              "placeholderLabel": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxWords": 4,
+                                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                                "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                              },
+                              "alt": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxWords": 10
+                              },
+                              "assetRef": {
+                                "type": "string",
+                                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                              }
+                            },
+                            "required": [
+                              "assetRole"
+                            ],
+                            "note": "1:1 slot, 45% wide, bottom-right, z -1. Clone renders a neutral placeholder; the original's product videos are must-not-reuse."
+                          }
+                        },
+                        "required": [
+                          "tab",
+                          "highlight",
+                          "subdued",
+                          "video"
+                        ]
+                      },
+                      "note": "Five tab buttons fill the 1120 container."
+                    }
+                  },
+                  "required": [
+                    "headingLine1",
+                    "headingLine2",
+                    "headingEmphasis",
+                    "assistantName",
+                    "introLines",
+                    "ctaLabel",
+                    "tabs"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "carousel.dragLoop"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "instant-slide-change"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "product.capability-slider"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "heading": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10,
+                      "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+                    },
+                    "ctaLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 4,
+                      "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                    },
+                    "slides": {
+                      "type": "array",
+                      "minItems": 4,
+                      "maxItems": 6,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "image": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "x-allowedRoles": [
+                              "product.screenshot",
+                              "photo.event",
+                              "placeholder.neutral"
+                            ],
+                            "properties": {
+                              "assetRole": {
+                                "enum": [
+                                  "product.screenshot",
+                                  "photo.event",
+                                  "placeholder.neutral"
+                                ]
+                              },
+                              "placeholderLabel": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxWords": 4,
+                                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                                "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                              },
+                              "alt": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxWords": 10
+                              },
+                              "assetRef": {
+                                "type": "string",
+                                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                              }
+                            },
+                            "required": [
+                              "assetRole"
+                            ],
+                            "note": "416px (26rem) tall, radius 8, cover."
+                          },
+                          "highlight": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 6,
+                            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+                          },
+                          "subdued": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 20,
+                            "measuredLongestRealInstance": "20 words in the clone's own placeholder copy"
+                          }
+                        },
+                        "required": [
+                          "image",
+                          "highlight",
+                          "subdued"
+                        ]
+                      },
+                      "note": "Loop with 3 per view needs at least 4 real slides; 6 measured."
+                    }
+                  },
+                  "required": [
+                    "heading",
+                    "ctaLabel",
+                    "slides"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "carousel.autoplayOnView"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "autoplay-off-instant-slide-change"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "proof.results-stats"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "heading": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 12,
+                      "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+                    },
+                    "cards": {
+                      "type": "array",
+                      "minItems": 4,
+                      "maxItems": 4,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "logo": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "x-allowedRoles": [
+                              "logo.customer",
+                              "placeholder.neutral"
+                            ],
+                            "properties": {
+                              "assetRole": {
+                                "enum": [
+                                  "logo.customer",
+                                  "placeholder.neutral"
+                                ]
+                              },
+                              "placeholderLabel": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxWords": 4,
+                                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                              },
+                              "alt": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxWords": 10,
+                                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                              },
+                              "assetRef": {
+                                "type": "string",
+                                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                              }
+                            },
+                            "required": [
+                              "assetRole"
+                            ],
+                            "note": "48px tall, max 50% wide, left-aligned."
+                          },
+                          "stat": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 1,
+                            "note": "64/64 semibold, e.g. '2.1x'.",
+                            "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                          },
+                          "brand": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 3,
+                            "note": "White underlined link inside the card copy. Must be a placeholder company name.",
+                            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                          },
+                          "rest": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 20,
+                            "note": "Grey continuation after the brand link.",
+                            "measuredLongestRealInstance": "17 words in the clone's own placeholder copy"
+                          }
+                        },
+                        "required": [
+                          "logo",
+                          "stat",
+                          "brand",
+                          "rest"
+                        ]
+                      },
+                      "note": "A 4-column grid (2 at <=991, 1 at <=479)."
+                    }
+                  },
+                  "required": [
+                    "heading",
+                    "cards"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "none"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "none"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "proof.testimonial"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "quote": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 40,
+                      "note": "Inter 32/38.4 500 white, left-aligned, max 960.",
+                      "measuredLongestRealInstance": "39 words in the clone's own placeholder copy"
+                    },
+                    "author": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 3,
+                          "note": "Placeholder person name.",
+                          "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                        },
+                        "role": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 6,
+                          "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                        },
+                        "company": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 3,
+                          "note": "White underlined link.",
+                          "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                        },
+                        "avatar": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "x-allowedRoles": [
+                            "photo.person",
+                            "placeholder.neutral"
+                          ],
+                          "properties": {
+                            "assetRole": {
+                              "enum": [
+                                "photo.person",
+                                "placeholder.neutral"
+                              ]
+                            },
+                            "placeholderLabel": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxWords": 4,
+                              "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                              "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                            },
+                            "alt": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxWords": 10
+                            },
+                            "assetRef": {
+                              "type": "string",
+                              "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                              "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                            }
+                          },
+                          "required": [
+                            "assetRole"
+                          ],
+                          "note": "80x80; radius 100px at >=1440, '6px 0' below. Real-person photos are must-not-fabricate."
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "role",
+                        "company",
+                        "avatar"
+                      ]
+                    },
+                    "ctaLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+                    }
+                  },
+                  "required": [
+                    "quote",
+                    "author",
+                    "ctaLabel"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "none"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "none"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "story.zoom-statement"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "visual": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "x-allowedRoles": [
+                        "product.screenshot",
+                        "placeholder.neutral"
+                      ],
+                      "properties": {
+                        "assetRole": {
+                          "enum": [
+                            "product.screenshot",
+                            "placeholder.neutral"
+                          ]
+                        },
+                        "placeholderLabel": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 4,
+                          "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                        },
+                        "alt": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 10,
+                          "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                        },
+                        "assetRef": {
+                          "type": "string",
+                          "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                          "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                        }
+                      },
+                      "required": [
+                        "assetRole"
+                      ],
+                      "note": "100vw wide, aspect 1440/598, no radius; the scroll-zoom target."
+                    },
+                    "heading": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 7,
+                      "note": "H2, max-width 400, 2 lines.",
+                      "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+                    },
+                    "bodyLines": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 5,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 16,
+                        "measuredLongestRealInstance": "15 words in the clone's own placeholder copy"
+                      },
+                      "note": "Grey centred paragraph, max 576; lines separated by <br>."
+                    }
+                  },
+                  "required": [
+                    "visual",
+                    "heading",
+                    "bodyLines"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "scroll.zoomScrub"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "instant-final-state"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "story.scroll-quote"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "quote": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 30,
+                      "note": "Inter 32/38.4 500 in curly quotes, base colour #1a1a1a; 672 wide.",
+                      "measuredLongestRealInstance": "26 words in the clone's own placeholder copy"
+                    },
+                    "attributionName": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 3,
+                      "note": "Placeholder person name.",
+                      "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                    },
+                    "attributionTitle": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 4,
+                      "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                    }
+                  },
+                  "required": [
+                    "quote",
+                    "attributionName",
+                    "attributionTitle"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "scroll.charColorScrub"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "instant-final-state"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "proof.case-study-carousel"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "heading": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 8,
+                      "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+                    },
+                    "ctaLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 4,
+                      "note": "Dark button under the heading.",
+                      "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                    },
+                    "intro": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 20,
+                      "note": "Grey 18.4, max 448, right of the header at desktop.",
+                      "measuredLongestRealInstance": "16 words in the clone's own placeholder copy"
+                    },
+                    "slides": {
+                      "type": "array",
+                      "minItems": 3,
+                      "maxItems": 5,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "photo": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "x-allowedRoles": [
+                              "photo.brand",
+                              "placeholder.neutral"
+                            ],
+                            "properties": {
+                              "assetRole": {
+                                "enum": [
+                                  "photo.brand",
+                                  "placeholder.neutral"
+                                ]
+                              },
+                              "placeholderLabel": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxWords": 4,
+                                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                                "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                              },
+                              "alt": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxWords": 10
+                              },
+                              "assetRef": {
+                                "type": "string",
+                                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                              }
+                            },
+                            "required": [
+                              "assetRole"
+                            ],
+                            "note": "480px (30rem) tall, radius 16, cover."
+                          },
+                          "logo": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "x-allowedRoles": [
+                              "logo.customer",
+                              "placeholder.neutral"
+                            ],
+                            "properties": {
+                              "assetRole": {
+                                "enum": [
+                                  "logo.customer",
+                                  "placeholder.neutral"
+                                ]
+                              },
+                              "placeholderLabel": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxWords": 4,
+                                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                              },
+                              "alt": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxWords": 10,
+                                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                              },
+                              "assetRef": {
+                                "type": "string",
+                                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                              }
+                            },
+                            "required": [
+                              "assetRole"
+                            ],
+                            "note": "Overlay brand mark, 48px tall, top-left, padding 32."
+                          },
+                          "text": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 16,
+                            "note": "line-clamp-2, white 18.4/25.76.",
+                            "measuredLongestRealInstance": "16 words in the clone's own placeholder copy"
+                          },
+                          "ctaLabel": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 3,
+                            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                          },
+                          "stats": {
+                            "type": "array",
+                            "minItems": 2,
+                            "maxItems": 2,
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "value": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxWords": 1,
+                                  "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                                },
+                                "label": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxWords": 8,
+                                  "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+                                }
+                              },
+                              "required": [
+                                "value",
+                                "label"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "photo",
+                          "logo",
+                          "text",
+                          "ctaLabel",
+                          "stats"
+                        ]
+                      },
+                      "note": "5 measured; centredSlides + loop needs at least 3."
+                    }
+                  },
+                  "required": [
+                    "heading",
+                    "ctaLabel",
+                    "intro",
+                    "slides"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "carousel.centeredAutoplay"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "autoplay-off-instant-slide-change"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "story.brand-video"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "heading": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 4,
+                      "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                    },
+                    "subLines": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 2,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 8,
+                        "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+                      },
+                      "note": "Grey centred; lines separated by <br>."
+                    },
+                    "video": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "x-allowedRoles": [
+                        "product.video",
+                        "placeholder.neutral"
+                      ],
+                      "properties": {
+                        "assetRole": {
+                          "enum": [
+                            "product.video",
+                            "placeholder.neutral"
+                          ]
+                        },
+                        "placeholderLabel": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 4,
+                          "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                          "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                        },
+                        "alt": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 10
+                        },
+                        "assetRef": {
+                          "type": "string",
+                          "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                          "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                        }
+                      },
+                      "required": [
+                        "assetRole"
+                      ],
+                      "note": "16:9, radius 16, with a 36px play button. STATIC: the original's YouTube/embedly iframe is not reproduced and there is no embed field (VIDEO_STAYS_PLACEHOLDER)."
+                    },
+                    "description": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "text": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 70,
+                          "measuredLongestRealInstance": "60 words in the clone's own placeholder copy"
+                        },
+                        "linkPhrases": {
+                          "type": "array",
+                          "minItems": 0,
+                          "maxItems": 3,
+                          "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 5,
+                            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                          },
+                          "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered as a white underlined .inline-link."
+                        },
+                        "boldPhrases": {
+                          "type": "array",
+                          "minItems": 0,
+                          "maxItems": 3,
+                          "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 5,
+                            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                          },
+                          "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered font-semibold."
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "linkPhrases",
+                        "boldPhrases"
+                      ],
+                      "note": "max 800, centred 18/25.2 white; some phrases semibold, some semibold underlined links.",
+                      "x-richText": true
+                    }
+                  },
+                  "required": [
+                    "heading",
+                    "subLines",
+                    "video",
+                    "description"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "none"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "none"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "conversion.faq"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "headingLines": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 2,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 5,
+                        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                      },
+                      "note": "Centred H2, max 960, lines separated by <br>."
+                    },
+                    "items": {
+                      "type": "array",
+                      "minItems": 3,
+                      "maxItems": 6,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "question": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 17,
+                            "note": "h3 20/23 500; 1-2 lines.",
+                            "measuredLongestRealInstance": "17 words in the clone's own placeholder copy"
+                          },
+                          "answer": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                              "text": {
+                                "type": "string",
+                                "minLength": 1,
+                                "maxWords": 65,
+                                "measuredLongestRealInstance": "61 words in the clone's own placeholder copy"
+                              },
+                              "linkPhrases": {
+                                "type": "array",
+                                "minItems": 0,
+                                "maxItems": 2,
+                                "items": {
+                                  "type": "string",
+                                  "minLength": 1,
+                                  "maxWords": 5,
+                                  "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                                },
+                                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered as a white underlined .inline-link."
+                              }
+                            },
+                            "required": [
+                              "text",
+                              "linkPhrases"
+                            ],
+                            "note": "Grey 18/25.2 rich text with white underlined links.",
+                            "x-richText": true
+                          }
+                        },
+                        "required": [
+                          "question",
+                          "answer"
+                        ]
+                      },
+                      "note": "5 measured."
+                    }
+                  },
+                  "required": [
+                    "headingLines",
+                    "items"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "accordion.faq"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "instant-toggle"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "conversion.demo-form"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "heading": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 11,
+                      "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+                    },
+                    "body": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 24,
+                      "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+                    },
+                    "form": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "live": {
+                          "const": false,
+                          "note": "STATIC placeholder (original: cross-origin HubSpot iframe that could not be measured). No endpoint, inputs disabled, submit prevented. A PageSpec may never make it live (DEMO_FORM_STAYS_STATIC)."
+                        },
+                        "fieldLabels": {
+                          "type": "array",
+                          "minItems": 1,
+                          "maxItems": 4,
+                          "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 2,
+                            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                          }
+                        },
+                        "submitLabel": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 2,
+                          "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                        }
+                      },
+                      "required": [
+                        "live",
+                        "fieldLabels",
+                        "submitLabel"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "heading",
+                    "body",
+                    "form"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "none"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "none"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "shell.footer"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "aiPrompt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 5,
+                      "note": "Line above the AI-assistant link row.",
+                      "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                    },
+                    "aiLinks": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "x-allowedRoles": [
+                        "logo.aiVendor",
+                        "placeholder.neutral"
+                      ],
+                      "properties": {
+                        "assetRole": {
+                          "enum": [
+                            "logo.aiVendor",
+                            "placeholder.neutral"
+                          ]
+                        },
+                        "placeholderLabel": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 4,
+                          "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                        },
+                        "alt": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 10
+                        },
+                        "assetRef": {
+                          "type": "string",
+                          "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                          "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                        },
+                        "slotCount": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 4
+                        }
+                      },
+                      "required": [
+                        "assetRole",
+                        "slotCount"
+                      ],
+                      "note": "48x48 slots (40 at <=991). Third-party AI vendor marks are must-not-reuse."
+                    },
+                    "columns": {
+                      "type": "array",
+                      "minItems": 4,
+                      "maxItems": 4,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "header": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 2,
+                            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                          },
+                          "headerIsLink": {
+                            "type": "boolean"
+                          },
+                          "links": {
+                            "type": "array",
+                            "minItems": 1,
+                            "maxItems": 6,
+                            "items": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxWords": 3,
+                              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                            }
+                          },
+                          "buttonLabel": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 5,
+                            "note": "Optional dark-small button inside the link list.",
+                            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+                          }
+                        },
+                        "required": [
+                          "header",
+                          "headerIsLink",
+                          "links"
+                        ]
+                      },
+                      "note": "4-column grid (3 at <=991, 2 at <=479)."
+                    },
+                    "ratingBadges": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "x-allowedRoles": [
+                        "badge.review",
+                        "placeholder.neutral"
+                      ],
+                      "properties": {
+                        "assetRole": {
+                          "enum": [
+                            "badge.review",
+                            "placeholder.neutral"
+                          ]
+                        },
+                        "placeholderLabel": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 4,
+                          "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                        },
+                        "alt": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 10,
+                          "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                        },
+                        "assetRef": {
+                          "type": "string",
+                          "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                          "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                        },
+                        "slotCount": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 2
+                        }
+                      },
+                      "required": [
+                        "assetRole",
+                        "slotCount"
+                      ]
+                    },
+                    "awardBadges": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "x-allowedRoles": [
+                        "badge.award",
+                        "placeholder.neutral"
+                      ],
+                      "properties": {
+                        "assetRole": {
+                          "enum": [
+                            "badge.award",
+                            "placeholder.neutral"
+                          ]
+                        },
+                        "placeholderLabel": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 4,
+                          "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                        },
+                        "alt": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 10,
+                          "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                        },
+                        "assetRef": {
+                          "type": "string",
+                          "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                          "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                        },
+                        "slotCount": {
+                          "type": "integer",
+                          "minimum": 1,
+                          "maximum": 4
+                        }
+                      },
+                      "required": [
+                        "assetRole",
+                        "slotCount"
+                      ]
+                    },
+                    "complianceLine": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "text": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 25,
+                          "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+                        },
+                        "linkPhrases": {
+                          "type": "array",
+                          "minItems": 0,
+                          "maxItems": 3,
+                          "items": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 5,
+                            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                          },
+                          "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered as a white underlined .inline-link."
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "linkPhrases"
+                      ],
+                      "x-richText": true
+                    },
+                    "copyright": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 5,
+                      "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                    },
+                    "legalLinks": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 2,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 4,
+                        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                      }
+                    },
+                    "dropups": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 2,
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                          "label": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 3,
+                            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                          },
+                          "links": {
+                            "type": "array",
+                            "minItems": 1,
+                            "maxItems": 6,
+                            "items": {
+                              "type": "string",
+                              "minLength": 1,
+                              "maxWords": 3,
+                              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                            }
+                          }
+                        },
+                        "required": [
+                          "label",
+                          "links"
+                        ]
+                      },
+                      "note": "Open upward on click (inline at <=767)."
+                    }
+                  },
+                  "required": [
+                    "aiPrompt",
+                    "aiLinks",
+                    "columns",
+                    "ratingBadges",
+                    "awardBadges",
+                    "complianceLine",
+                    "copyright",
+                    "legalLinks",
+                    "dropups"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "footer.dropup"
+                      ]
+                    },
+                    "reducedMotionFallback": {
+                      "const": "instant-toggle"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

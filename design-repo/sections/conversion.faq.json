@@ -1,0 +1,141 @@
+{
+  "id": "conversion.faq",
+  "kind": "section",
+  "name": "Independent-toggle FAQ accordion",
+  "purpose": "Answer the last objections (pricing, integrations, migration, differentiation, timeline) right before the footer CTA.",
+  "category": "conversion",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/Faq.jsx",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "headingLines": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 2,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 5,
+          "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+        },
+        "note": "Centred H2, max 960, lines separated by <br>."
+      },
+      "items": {
+        "type": "array",
+        "minItems": 3,
+        "maxItems": 6,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "question": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 17,
+              "note": "h3 20/23 500; 1-2 lines.",
+              "measuredLongestRealInstance": "17 words in the clone's own placeholder copy"
+            },
+            "answer": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 65,
+                  "measuredLongestRealInstance": "61 words in the clone's own placeholder copy"
+                },
+                "linkPhrases": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 2,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 5,
+                    "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                  },
+                  "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered as a white underlined .inline-link."
+                }
+              },
+              "required": [
+                "text",
+                "linkPhrases"
+              ],
+              "note": "Grey 18/25.2 rich text with white underlined links.",
+              "x-richText": true
+            }
+          },
+          "required": [
+            "question",
+            "answer"
+          ]
+        },
+        "note": "5 measured."
+      }
+    },
+    "required": [
+      "headingLines",
+      "items"
+    ]
+  },
+  "constraints": {
+    "onePerPage": true,
+    "maxPerPage": 1,
+    "mustImmediatelyPrecede": "conversion.demo-form",
+    "neighbourRuleId": "FAQ_PRECEDES_DEMO_FORM"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "accordion.faq"
+    ],
+    "reducedMotionFallback": "instant-toggle",
+    "measuredFrom": "src/index.css:76-99",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Vertical padding 80 -> 64 (48 at <=767).",
+      "tailwind": [
+        "py-[80px] tab:py-[64px] mob:py-[48px]"
+      ],
+      "measuredFrom": "src/components/Faq.jsx:97-97"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "changes": "Answer 18 -> 17.6px.",
+      "tailwind": [
+        "text-body text-grey xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/Faq.jsx:85-85"
+    }
+  ],
+  "assetRoles": [],
+  "composes": [
+    "primitive.heading-h2",
+    "primitive.inline-link",
+    "primitive.cross-icon",
+    "component.faq-item"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "story.brand-video"
+    ],
+    "recommendedBefore": [
+      "conversion.demo-form"
+    ],
+    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+  },
+  "observedOn": [
+    "/"
+  ],
+  "measuredFrom": "src/components/Faq.jsx:93-114",
+  "iaSectionId": "conversion.faq",
+  "specMeasuredFrom": "CLONE_SPEC.md:435-447"
+}

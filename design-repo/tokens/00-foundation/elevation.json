@@ -1,0 +1,7 @@
+{
+  "id": "tokens.foundation.elevation",
+  "designSystem": "marketing",
+  "tokens": {},
+  "statement": "There are NO elevation tokens. Every box-shadow, gradient and backdrop-filter computes to none on the original; depth comes only from the stepped surface colours. The button label's text-shadow (0 1.5em surface-1) is a masking technique for the roll-up, not elevation.",
+  "measuredFrom": "CLONE_SPEC.md:42-42"
+}

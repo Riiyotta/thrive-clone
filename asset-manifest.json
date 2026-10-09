@@ -1,0 +1,769 @@
+{
+  "source": "https://www.thrivelearning.com/",
+  "generated": "2026-10-09",
+  "images_and_video": [
+    {
+      "section": "newnav",
+      "role": "thrive-logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/68ffaadf7a085fc0c5fb95f2_Nav%20logo.svg",
+      "format": "svg",
+      "natural": "97x27",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "newnav_dropdown-list",
+      "role": "arrow-image",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/69371f9e5984efd011d0c6fb_next.png",
+      "format": "png",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "newnav_dropdown-list",
+      "role": "newnav_link-icon",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/69a5b5d2996f0a3434cc801f_1.png",
+      "format": "png",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "newnav_dropdown-list",
+      "role": "newnav_link-icon",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/6a6c74a7ad377d28bfea5433_BA%20logo%202.png",
+      "format": "png",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "newnav_dropdown-list",
+      "role": "newnav_link-icon",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/6995add6055bd0f358ca04c6_icon3.png",
+      "format": "png",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "newnav_dropdown-list",
+      "role": "newnav_link-icon",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/695f8bed1b406d4dd29f5f6b_IWG%20BLACK%20(1).jpg",
+      "format": "jpg",
+      "natural": "0x0",
+      "alt": "IWG logo in black",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "newnav_dropdown-list",
+      "role": "newnav_link-icon",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/6a156dc0ad8b8521167a64cd_Nothing%20Bundt%20Cakes%20Logo.webp",
+      "format": "webp",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "newnav_dropdown-list",
+      "role": "newnav_link-icon",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/693029a7925a1ac86445dcde_nhs_properties_icon.jpeg.png",
+      "format": "png",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "newnav_dropdown-list",
+      "role": "newnav_link-icon",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/693026d6adc8839595b8279a_specsavers_icon.jpeg.png",
+      "format": "png",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "newnav_dropdown-list",
+      "role": "newnav_link-icon",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/6930269595a7e484f64348d5_nandos_icon.jpeg.png",
+      "format": "png",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "newnav_dropdown-list",
+      "role": "newnav_link-icon",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/69302961d0650227b1876ea0_morrisons_icon.jpeg.png",
+      "format": "png",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "newnav_dropdown-list",
+      "role": "newnav_link-icon",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/693029952b085b794ab57717_momentum_groups_icon.png.png",
+      "format": "png",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "newnav",
+      "role": "icon-1x1-small",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6a4e02ee1be2b14052a121dc_ChatGPT_Logo_White.png",
+      "format": "png",
+      "natural": "1440x1459",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowh-hero",
+      "role": "user-avatar",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/691b0343e173dd725d09027d_user-avatar.png",
+      "format": "png",
+      "natural": "144x64",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowh-hero",
+      "role": "bagdge_stars-img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/69702d37668470e6c10b59be_g2.svg",
+      "format": "svg",
+      "natural": "71x63",
+      "alt": "G2 badge",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowh-hero",
+      "role": "bagdge_stars-img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/691d9338292e189d5f828669_Capterra%20Badge.svg",
+      "format": "svg",
+      "natural": "288x150",
+      "alt": "Capterra badge",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowh-hero",
+      "role": "bagdge_stars-img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/68de28376b46c0c1a5330de5_65520c01d1edfd18ad4c0b9c_Software%20Advice-stars.svg",
+      "format": "svg",
+      "natural": "121x64",
+      "alt": "Software Advice badge",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowh-hero",
+      "role": "wowh_visual",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/69f0ade5e9183e5788653017_Frame%202147224651%20(1).webp",
+      "format": "webp",
+      "natural": "1440x1089",
+      "alt": "Thrive desktop and mobile screens showing mentoring, chat, rewards, a branded learning hub and AI assistant reports",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowh-hero",
+      "role": "wowh-hero_img-base",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/692c7dad02b2a9bae9bbd1ae_wowhome%20(1).avif",
+      "format": "avif",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": false
+    },
+    {
+      "section": "section_wowh-hero",
+      "role": "wowh-ui_left",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/692c7dbe66b7c7edf82a4e6d_wowhome-oncard%20(1).avif",
+      "format": "avif",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": false
+    },
+    {
+      "section": "section_wowh-hero",
+      "role": "wowh-ui_right",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/693165e51a886cc421f12529_Card%20-%20Learn%20-%20Wide.png",
+      "format": "png",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": false
+    },
+    {
+      "section": "section_wowh-hero",
+      "role": "wowh_visual",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/69ef1653834a69b7a43ba5e2_Volvo%20Hub.avif",
+      "format": "avif",
+      "natural": "0x0",
+      "alt": "",
+      "usedOnHomepageVisible": false
+    },
+    {
+      "section": "section_wowlogos",
+      "role": "wowlogos_logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/69d78470ca2af442940bb0b5_output_Volvo%20Homepage.png",
+      "format": "png",
+      "natural": "120x49",
+      "alt": "Volvo logo",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowlogos",
+      "role": "wowlogos_logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/69d7844aad2497469fa3d5e1_output_Burger%20King%20Homepage.png",
+      "format": "png",
+      "natural": "120x49",
+      "alt": "Volvo logo",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowlogos",
+      "role": "wowlogos_logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/69d7848a5e36b3538c04bc9d_output_Vodafone%20homepage.png",
+      "format": "png",
+      "natural": "120x49",
+      "alt": "Vodafone logo",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowlogos",
+      "role": "wowlogos_logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6a9942f2894568fd53c56d0f_Aston%20martin%20Home%20logo.svg",
+      "format": "svg",
+      "natural": "0x0",
+      "alt": "Vodafone logo",
+      "usedOnHomepageVisible": false
+    },
+    {
+      "section": "section_wowlogos",
+      "role": "wowlogos_logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/69d611a64df20eaaa4c8cc2c_British%20Airways%20(White)%20-%20Bigger.png",
+      "format": "png",
+      "natural": "120x49",
+      "alt": "British Airways logo",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowlogos",
+      "role": "wowlogos_logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/692d228b92cbf0e373f11aae_KrispyKreme-w.svg",
+      "format": "svg",
+      "natural": "300x101",
+      "alt": "British Airways logo",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowlogos",
+      "role": "wowlogos_logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/69e6165be79e050449cb7a26_Nothing%20Bundt%20Cakes%202.png",
+      "format": "png",
+      "natural": "612x265",
+      "alt": "Nothing Bundt Cakes logo",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowlogos",
+      "role": "wowlogos_logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6ac7acead484e88043af5ecb_Hogan%20US%20Homepage.png",
+      "format": "png",
+      "natural": "0x0",
+      "alt": "Krispy Kreme logo",
+      "usedOnHomepageVisible": false
+    },
+    {
+      "section": "section_wowcustom-tabs",
+      "role": "wowtabs_visual h-100-mob",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6a4fae3a2a22f383d6a0dd8c_Spaces%20overview.png",
+      "format": "png",
+      "natural": "670x599",
+      "alt": "Thrive Spaces community page for a leadership programme, with learner posts and comments",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowcustom-tabs",
+      "role": "wowtabs_visual h-100-mob",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6a03389f1c92792c7e48d8e8_Homepage%20-%20Pathways.png",
+      "format": "png",
+      "natural": "670x600",
+      "alt": "GDPR Essentials pathway in Thrive LMS",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowcustom-tabs",
+      "role": "wowtabs_visual h-100-mob",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6a03398d33f5638a80adfd55_Homepage%20-%20Mentoring.png",
+      "format": "png",
+      "natural": "670x600",
+      "alt": "Thrive mentoring screens showing skill selection for mentor matching and a confirmation that a mentor match has been made",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowcustom-tabs",
+      "role": "wowtabs_visual h-100-mob",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6a03393bd91fea32adbf6edd_Homepage%20-%20Spaces%20(1).png",
+      "format": "png",
+      "natural": "670x600",
+      "alt": "Thrive Spaces page for a Future Leaders programme, with learner posts, likes and comments alongside the programme welcome page",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wow3col-slider",
+      "role": "wow3col_img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/692e87ba213272a1a7ab176e_Pro%20Serve%20-%20Implemenation.jpg",
+      "format": "jpg",
+      "natural": "408x272",
+      "alt": "Man wearing a Thrive lanyard in conversation with another guest at the Thrive Live customer conference",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wow3col-slider",
+      "role": "wow3col_img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/69b96fbfc14dd42c5d0875ec_Support.png",
+      "format": "png",
+      "natural": "408x272",
+      "alt": "Speaker in a Thrive sweatshirt presenting to a small audience at the Thrive Live customer conference",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wow3col-slider",
+      "role": "wow3col_img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6932dfafbcd753bc5c11a522_Intergrations.png",
+      "format": "png",
+      "natural": "408x408",
+      "alt": "Logos of apps that integrate with Thrive, including Microsoft Teams, Slack, Zoom, Workday, Salesforce and HubSpot",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wow3col-slider",
+      "role": "wow3col_img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/692cc94d88a2044665030111_Security.png",
+      "format": "png",
+      "natural": "408x408",
+      "alt": "Thrive login screen with two-factor authentication and single sign-on options for Google and Azure",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wow3col-slider",
+      "role": "wow3col_img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/68077aa91c29ea815aa33524_Kiki%20arabic%20Dark.png",
+      "format": "png",
+      "natural": "408x264",
+      "alt": "Thrive platform in Arabic with a right-to-left layout, showing Kiki the AI assistant answering a question about holiday policy",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wow3col-slider",
+      "role": "wow3col_img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/69ba8fe16e25d787018a16cb_Closed%20Captions.png",
+      "format": "png",
+      "natural": "408x317",
+      "alt": "Thrive LMS video recording with automatic captions, showing two people talking into podcast microphones",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "container-medium",
+      "role": "wowresults_card-logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6925a0a9ec7ca5ab55c83ec6_all-logos-all-white_0019_Burger-King-Logo.png",
+      "format": "png",
+      "natural": "1080x1080",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "container-medium",
+      "role": "wowresults_card-logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6915d34fdc57292329d16df6_avon_logo.svg.svg",
+      "format": "svg",
+      "natural": "94x19",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "container-medium",
+      "role": "wowresults_card-logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6944565b728f9e4cb465241d_AA%20large.avif",
+      "format": "avif",
+      "natural": "388x272",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "container-medium",
+      "role": "wowresults_card-logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/69f33402e8491e38901ce8c8_Princes.svg",
+      "format": "svg",
+      "natural": "220x150",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "container-medium",
+      "role": "meta_author-img is-wow-author platform",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6ab3c143cd66b7974db96983_Isla%20Korn.png",
+      "format": "png",
+      "natural": "72x62",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowostandout",
+      "role": "wowh_big-visual-img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/691a18fb9a3e63b26c13cc55_Callout-Big.avif",
+      "format": "avif",
+      "natural": "1440x598",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowhighlight-slider",
+      "role": "case-study_slide-img",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/6846ec8fd850e6ff88c91384_67adbb0aeb6b3781457ebad5_Screenshot%25202024-07-17%2520123657.avif",
+      "format": "avif",
+      "natural": "1900x764",
+      "alt": "Reiss Retail Store Interior",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowhighlight-slider",
+      "role": "case-study_brand-logo",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/6842ba6410f6187e1be511d0_67adbb0aeb6b3781457eba97_Reiss%2520logo%2520white.avif",
+      "format": "avif",
+      "natural": "479x84",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowhighlight-slider",
+      "role": "case-study_slide-img",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/697b3db8e35b527314acda06_Screenshot%202026-01-28%20104328.jpg",
+      "format": "jpg",
+      "natural": "1440x721",
+      "alt": "Ann Summers lingerie retail storefront",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowhighlight-slider",
+      "role": "case-study_brand-logo",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/6842ba5962d63a724f1d7d75_67adbb0aeb6b3781457eb574_6505a3942fbcaf0f982c20e9_ann-summers-w.svg",
+      "format": "svg",
+      "natural": "300x42",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowhighlight-slider",
+      "role": "case-study_slide-img",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/6846ec77e1809561779d0743_67adbb0aeb6b3781457eba78_driving-school-mobile-1.avif",
+      "format": "avif",
+      "natural": "1440x810",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowhighlight-slider",
+      "role": "case-study_brand-logo",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/692c861012aee87044c1f0d5_AA.avif",
+      "format": "avif",
+      "natural": "388x272",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowhighlight-slider",
+      "role": "case-study_slide-img",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/6846ec7c7d89a8feefe4b195_67adbb0aeb6b3781457eb5a6_Deciem%2520(The%2520Ordinary)%25201.avif",
+      "format": "avif",
+      "natural": "2048x1365",
+      "alt": "DECIEM store interior skincare product display",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowhighlight-slider",
+      "role": "case-study_brand-logo",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/6842ba5cc59016b7011c3d07_67adbb09eb6b3781457eadd8_Deciem-w.svg",
+      "format": "svg",
+      "natural": "300x74",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowhighlight-slider",
+      "role": "case-study_slide-img",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/6846ec879625329c2f4aa313_67adbb0aeb6b3781457eb5a8_Krispy%2520Kreme%2520Card.avif",
+      "format": "avif",
+      "natural": "4660x3107",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowhighlight-slider",
+      "role": "case-study_brand-logo",
+      "url": "https://cdn.prod.website-files.com/683ac98b89e2394cc132480d/6842ba5e85e9fb23dbc27313_67adbb09eb6b3781457ead8e_KrispyKreme-w.svg",
+      "format": "svg",
+      "natural": "300x101",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "footer",
+      "role": "footer_logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/692d2060b07f7e24bf4441f1_Thrive%20(light).svg",
+      "format": "svg",
+      "natural": "300x85",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "footer",
+      "role": "newfooter_ai-logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6a4e030932e0e9aaf67b2093_Perplexity_Logo_White.png",
+      "format": "png",
+      "natural": "1440x1676",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "footer",
+      "role": "newfooter_ai-logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6a4d2f6b593e744a057e8698_Gemini%20Logo%20White%20(3).png",
+      "format": "png",
+      "natural": "512x512",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "footer",
+      "role": "newfooter_ai-logo",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6a4e02eea96e1da5bb5fcad4_Claude_Logo_White.png",
+      "format": "png",
+      "natural": "1440x1442",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "footer",
+      "role": "newfooter_badges-img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/690dcd476a1f4b887b7cb51a_Frame%201597883703.svg",
+      "format": "svg",
+      "natural": "104x75",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "footer",
+      "role": "newfooter_badges-img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/690dcd03b5050854a372b0ba_Frame%201597883698.svg",
+      "format": "svg",
+      "natural": "104x75",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "footer",
+      "role": "newfooter_badges-img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/690dcd31fcf6091a1ce15bac_Frame%201597883699.svg",
+      "format": "svg",
+      "natural": "104x75",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "footer",
+      "role": "newfooter_badges-img",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/690dcd526b8622ff96b24c3b_Frame%201597883700.svg",
+      "format": "svg",
+      "natural": "100x75",
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "video",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabab5c40bee7b8ced0aba1_COACH%20-%20Kiki%20web%20animation%20Grey%20V2_mp4.mp4",
+      "format": "mp4",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "video",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabab5c40bee7b8ced0aba1_COACH%20-%20Kiki%20web%20animation%20Grey%20V2_webm.webm",
+      "format": "webm",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "video",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabb29a63d87840db04fd45_CONTENT%20CREATOR%20-%20Kiki%20web%20animation%20Grey%20V2_mp4.mp4",
+      "format": "mp4",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "video",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabb29a63d87840db04fd45_CONTENT%20CREATOR%20-%20Kiki%20web%20animation%20Grey%20V2_webm.webm",
+      "format": "webm",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "video",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabb30045489a66fe96d987_ANALYST%20-%20Kiki%20web%20animation%20Grey%20V2_mp4.mp4",
+      "format": "mp4",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "video",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabb30045489a66fe96d987_ANALYST%20-%20Kiki%20web%20animation%20Grey%20V2_webm.webm",
+      "format": "webm",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "video",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabb325a623e8559b235bab_ADMIN%20-%20Kiki%20web%20animation%20Grey%20V2_mp4.mp4",
+      "format": "mp4",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "video",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabb325a623e8559b235bab_ADMIN%20-%20Kiki%20web%20animation%20Grey%20V2_webm.webm",
+      "format": "webm",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "video",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabb34b5e196ab94d451aad_ASSISTANT%20-%20Kiki%20web%20animation%20Grey%20V2_mp4.mp4",
+      "format": "mp4",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "video",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabb34b5e196ab94d451aad_ASSISTANT%20-%20Kiki%20web%20animation%20Grey%20V2_webm.webm",
+      "format": "webm",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "poster",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabab5c40bee7b8ced0aba1_COACH%20-%20Kiki%20web%20animation%20Grey%20V2_poster.0000000.jpg",
+      "format": "jpg",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "poster",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabb29a63d87840db04fd45_CONTENT%20CREATOR%20-%20Kiki%20web%20animation%20Grey%20V2_poster.0000000.jpg",
+      "format": "jpg",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "poster",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabb30045489a66fe96d987_ANALYST%20-%20Kiki%20web%20animation%20Grey%20V2_poster.0000000.jpg",
+      "format": "jpg",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "poster",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabb325a623e8559b235bab_ADMIN%20-%20Kiki%20web%20animation%20Grey%20V2_poster.0000000.jpg",
+      "format": "jpg",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "section_wowautotabs",
+      "role": "poster",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb%2F6aabb34b5e196ab94d451aad_ASSISTANT%20-%20Kiki%20web%20animation%20Grey%20V2_poster.0000000.jpg",
+      "format": "jpg",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    },
+    {
+      "section": "tabs",
+      "role": "tabs-chip bg",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/6911e8aa0f77c851eb9b9297_tabs-chip.svg",
+      "format": "svg",
+      "natural": null,
+      "alt": "",
+      "usedOnHomepageVisible": true
+    }
+  ],
+  "fonts": [
+    {
+      "family": "Inter 24 Pt (Inter, opsz 24)",
+      "weight": 400,
+      "style": "normal",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/690cacbc26d55699a3b9cb28_Inter_24pt-Regular.woff2",
+      "googleFontsEquivalent": "Inter (opsz axis 24)"
+    },
+    {
+      "family": "Inter 24 Pt (Inter, opsz 24)",
+      "weight": 500,
+      "style": "normal",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/690cacbcda493959f90ce1f2_Inter_24pt-Medium.woff2",
+      "googleFontsEquivalent": "Inter (opsz axis 24)"
+    },
+    {
+      "family": "Instrumentserif",
+      "weight": 400,
+      "style": "normal",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/690cacbc680337e9738e8fb2_InstrumentSerif-Regular.woff2",
+      "googleFontsEquivalent": "Instrument Serif 400"
+    },
+    {
+      "family": "Instrumentserif",
+      "weight": 400,
+      "style": "italic",
+      "url": "https://cdn.prod.website-files.com/67d17176e214a152b78d0edb/690cacbcbda73594fe5ac227_InstrumentSerif-Italic.woff2",
+      "googleFontsEquivalent": "Instrument Serif 400 italic"
+    }
+  ],
+  "embeds": [
+    {
+      "role": "YouTube embed (This is Thrive video, via embedly)",
+      "url": "https://www.youtube.com/embed/27Z_YlmgGAY"
+    },
+    {
+      "role": "HubSpot demo form (footer)",
+      "portalId": "4722527",
+      "formId": "57925d00-4ffe-4d43-a508-adaf0cbd5c45",
+      "region": "na1",
+      "note": "cross-origin iframe; internals not measurable"
+    }
+  ]
+}

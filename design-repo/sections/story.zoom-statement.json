@@ -1,0 +1,132 @@
+{
+  "id": "story.zoom-statement",
+  "kind": "section",
+  "name": "Full-bleed scroll-zoom visual + centred statement",
+  "purpose": "A cinematic pause: the product montage zooms into place on scroll, then a short manifesto.",
+  "category": "story",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/Statement.jsx",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "visual": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "product.screenshot",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "product.screenshot",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "100vw wide, aspect 1440/598, no radius; the scroll-zoom target."
+      },
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "note": "H2, max-width 400, 2 lines.",
+        "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+      },
+      "bodyLines": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 5,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 16,
+          "measuredLongestRealInstance": "15 words in the clone's own placeholder copy"
+        },
+        "note": "Grey centred paragraph, max 576; lines separated by <br>."
+      }
+    },
+    "required": [
+      "visual",
+      "heading",
+      "bodyLines"
+    ]
+  },
+  "constraints": {
+    "onePerPage": true,
+    "maxPerPage": 1
+  },
+  "motion": {
+    "allowedPatterns": [
+      "scroll.zoomScrub"
+    ],
+    "reducedMotionFallback": "instant-final-state",
+    "measuredFrom": "src/components/Statement.jsx:17-25",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Text block top padding 80 -> 64 (48 at <=767).",
+      "tailwind": [
+        "pb-[16px] pt-[80px] tab:pt-[64px] mob:pt-[48px]"
+      ],
+      "measuredFrom": "src/components/Statement.jsx:44-44"
+    },
+    {
+      "breakpoint": "all",
+      "query": "every width",
+      "changes": "Visual keeps aspect 1440/598 at every width (about 162px tall at 390); zoom x/y stay in px.",
+      "tailwind": [
+        "aspect-[1440/598] w-full origin-center"
+      ],
+      "measuredFrom": "src/components/Statement.jsx:40-40"
+    }
+  ],
+  "assetRoles": [
+    "product.screenshot",
+    "placeholder.neutral"
+  ],
+  "composes": [
+    "primitive.heading-h2",
+    "primitive.placeholder-media"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.testimonial"
+    ],
+    "recommendedBefore": [
+      "story.scroll-quote"
+    ],
+    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+  },
+  "observedOn": [
+    "/"
+  ],
+  "measuredFrom": "src/components/Statement.jsx:9-62",
+  "iaSectionId": "story.zoom-statement",
+  "specMeasuredFrom": "CLONE_SPEC.md:349-362"
+}

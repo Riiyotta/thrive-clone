@@ -1,0 +1,38 @@
+{
+  "id": "primitive.button",
+  "kind": "primitive",
+  "designSystem": "marketing",
+  "name": "Pill button with masked letter roll-up label",
+  "props": {
+    "variant": {
+      "enum": [
+        "primary",
+        "primary-small",
+        "dark",
+        "dark-small"
+      ],
+      "default": "primary"
+    },
+    "label": {
+      "type": "string",
+      "maxWords": 6,
+      "note": "Arrows are part of the label text (e.g. ' →'), not an icon."
+    },
+    "stretch": {
+      "type": "boolean",
+      "default": true,
+      "note": "At <=479 the button flexes to full width (xs:flex-auto xs:self-stretch)."
+    }
+  },
+  "variants": {
+    "primary": "bg ink #f5f6ff, text surface-1 #0b0b0b, padding 12px 20px (8px vertical <=767), 16/16 500; hover bg #00ffbf",
+    "primary-small": "bg ink, padding 8px 16px, 14.4/16, letter-spacing -0.36px; hover bg #00ffbf",
+    "dark": "bg surface-3 #1a1a1a, text ink, padding 12px 20px; hover bg ink, text surface-1",
+    "dark-small": "bg surface-3, padding 8px 16px, 14/16; hover bg ink, text surface-1"
+  },
+  "motion": "button.letterRollUp (see tokens/00-foundation/motion.json primitivePatterns)",
+  "measuredFrom": "src/components/shared/Button.jsx:7-12",
+  "alsoMeasuredFrom": [
+    "src/index.css:61-63"
+  ]
+}

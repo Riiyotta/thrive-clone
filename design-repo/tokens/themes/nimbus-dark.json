@@ -1,0 +1,21 @@
+{
+  "id": "theme.nimbus-dark",
+  "designSystem": "marketing",
+  "default": true,
+  "note": "The site has exactly ONE theme: dark. There is no light mode, no theme switcher and no prefers-color-scheme handling in the source.",
+  "resolves": {
+    "surface.page": "color.page",
+    "surface.card": "color.surface-1",
+    "surface.raised": "color.surface-2",
+    "surface.control": "color.surface-3",
+    "surface.hover": "color.hover",
+    "text.primary": "color.ink",
+    "text.secondary": "color.grey",
+    "text.onPrimaryButton": "color.surface-1",
+    "text.quoteBase": "color.surface-3",
+    "accent.chip": "color.green",
+    "accent.primaryHover": "color.green-hover",
+    "border.divider": "color.surface-3",
+    "icon.muted": "color.icon"
+  }
+}

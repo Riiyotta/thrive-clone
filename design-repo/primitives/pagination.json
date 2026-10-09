@@ -1,0 +1,40 @@
+{
+  "id": "primitive.pagination",
+  "kind": "primitive",
+  "designSystem": "marketing",
+  "name": "Bullet pill + play/pause control",
+  "props": {
+    "count": {
+      "type": "integer"
+    },
+    "activeWidth": {
+      "enum": [
+        40,
+        48
+      ]
+    },
+    "progressDuration": {
+      "enum": [
+        3,
+        4
+      ]
+    },
+    "bulletTransition": {
+      "enum": [
+        "duration-[500ms]",
+        "duration-300"
+      ]
+    },
+    "clickable": {
+      "type": "boolean"
+    }
+  },
+  "notes": [
+    "Pill bg surface-1, height 40, padding 8px 20px, gap 8. Bullets 24x10 track #222; the active bullet widens only while playing and runs bulletProgress <n>s linear.",
+    "Play/pause: 36px circle bg #111, glyph swap."
+  ],
+  "measuredFrom": "src/components/shared/Pagination.jsx:6-53",
+  "alsoMeasuredFrom": [
+    "src/index.css:126-133"
+  ]
+}

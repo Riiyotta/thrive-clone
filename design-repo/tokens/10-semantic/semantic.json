@@ -1,0 +1,59 @@
+{
+  "id": "tokens.semantic",
+  "designSystem": "marketing",
+  "note": "Semantic roles built only from foundation colours that exist in tailwind.config.js. No role invents a colour.",
+  "roles": {
+    "surface.page": {
+      "ref": "color.page",
+      "observedOn": "body, page wrapper, footer, nav at <=479"
+    },
+    "surface.card": {
+      "ref": "color.surface-1",
+      "observedOn": "results cards, FAQ cards, feature slides, footer card, pagination pill"
+    },
+    "surface.raised": {
+      "ref": "color.surface-2",
+      "observedOn": "nav pill, dropdown panel, case-study stat blocks, placeholders"
+    },
+    "surface.control": {
+      "ref": "color.surface-3",
+      "observedOn": "dark buttons, active assistant tab"
+    },
+    "surface.hover": {
+      "ref": "color.hover",
+      "observedOn": "nav items, dropdown items, social icons"
+    },
+    "text.primary": {
+      "ref": "color.ink",
+      "observedOn": "headings, white text"
+    },
+    "text.secondary": {
+      "ref": "color.grey",
+      "observedOn": "paragraphs, subdued text, footer links"
+    },
+    "text.onPrimaryButton": {
+      "ref": "color.surface-1",
+      "observedOn": "primary button label"
+    },
+    "text.quoteBase": {
+      "ref": "color.surface-3",
+      "observedOn": "scroll-highlight quote before it is scrubbed to white"
+    },
+    "accent.chip": {
+      "ref": "color.green",
+      "observedOn": "active product tab chip"
+    },
+    "accent.primaryHover": {
+      "ref": "color.green-hover",
+      "observedOn": "primary button hover"
+    },
+    "border.divider": {
+      "ref": "color.surface-3",
+      "observedOn": "product tab rows (1px)"
+    },
+    "icon.muted": {
+      "ref": "color.icon",
+      "observedOn": "FAQ cross, drop-up chevron"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "component.loop-carousel",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "Swiper-like loop carousel state (useLoopCarousel)",
+  "composes": [],
+  "notes": [
+    "Renders clones|real|clones; snaps back without transition after crossing into clones.",
+    "Drag: threshold px (5 default, 10 highlight), 45deg touch angle, short swipe <300ms always advances, long swipe advances past 0.5 of a step, release transition = 800ms ease, preventClicks after drag."
+  ],
+  "measuredFrom": "src/hooks/useLoopCarousel.js:12-176"
+}

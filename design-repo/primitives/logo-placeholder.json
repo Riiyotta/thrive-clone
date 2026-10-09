@@ -1,0 +1,17 @@
+{
+  "id": "primitive.logo-placeholder",
+  "kind": "primitive",
+  "designSystem": "marketing",
+  "name": "Logo slot (LogoPlaceholder)",
+  "props": {
+    "text": {
+      "type": "string",
+      "maxWords": 1,
+      "default": "Logo"
+    }
+  },
+  "notes": [
+    "With no src: grey uppercase semibold 'LOGO' text with 0.08em tracking. This is what a generated page renders for logo.customer / logo.aiVendor roles."
+  ],
+  "measuredFrom": "src/components/shared/Placeholder.jsx:36-53"
+}

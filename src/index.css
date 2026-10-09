@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* §0.1 body defaults */
+@layer base {
+  html {
+    font-size: 16px;
+  }
+  body {
+    @apply bg-page font-sans text-body font-normal text-ink antialiased;
+    font-variation-settings: 'opsz' 24;
+  }
+  @media (max-width: 479px) {
+    body {
+      @apply text-body-xs;
+    }
+  }
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+}
+
+/* §0.4 layout primitives */
+@layer components {
+  .padding-global {
+    @apply px-[32px] mob:px-[20px];
+  }
+  .container-medium {
+    @apply mx-auto w-full max-w-[1120px];
+  }
+  .container-large {
+    @apply mx-auto w-full max-w-[1344px] pt-[16px];
+  }
+  .heading-h2 {
+    @apply mt-[4px] font-serif text-h2 font-normal text-ink mob:text-h2-mob xs:text-h2-xs;
+  }
+  /* inline white underlined link inside grey paragraphs */
+  .inline-link {
+    @apply text-ink underline;
+  }
+}
+
+/* §4 tab pane / child fade: opacity + visibility .3s ease */
+.fade-pane {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+}
+.fade-pane[data-active='true'] {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* §0.6 button label mask: duplicate label drawn 1.5em below */
+.btn-label {
+  text-shadow: 0 1.5em theme('colors.surface-1');
+}
+
+/* §4 active tab chip: 18x8 green tag shape */
+.tab-chip {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='8' viewBox='0 0 18 8'%3E%3Cpath d='M0 4a4 4 0 0 1 4-4h10l4 4-4 4H4a4 4 0 0 1-4-4z' fill='%231DE9B6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
+}
+
+/* §12a / §13.8 FAQ accordion (state-driven CSS transitions), IX2 a-103/a-104:
+   open 450ms outQuart, close 650ms outQuart, icon 150ms inOutQuart. */
+/* IX2 outQuart / inOutQuart are true quartics (GSAP power3.out / power3.inOut). The cubic-bezier
+   approximations stay as fallback; linear() reproduces the exact curves where supported. */
+.faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transform: scaleY(0.7);
+  transform-origin: top;
+  transition:
+    grid-template-rows 0.65s cubic-bezier(0.165, 0.84, 0.44, 1),
+    opacity 0.65s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.65s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition-timing-function: linear(0, 0.0776 2%, 0.1855 5%, 0.2836 8%, 0.4003 12%, 0.5021 16%, 0.5904 20%, 0.6836 25%, 0.7599 30%, 0.8215 35%, 0.8704 40%, 0.9085 45%, 0.9375 50%, 0.959 55%, 0.9744 60%, 0.985 65%, 0.9919 70%, 0.9961 75%, 0.9984 80%, 0.9995 85%, 0.9999 90%, 1);
+}
+.faq-body[data-open='true'] {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: scaleY(1);
+  transition-duration: 0.45s;
+}
+.faq-icon {
+  transform: rotate(45deg);
+  transition: transform 0.15s cubic-bezier(0.77, 0, 0.175, 1);
+  transition-timing-function: linear(0, 0.0003 8%, 0.0017 12%, 0.0052 16%, 0.0128 20%, 0.0312 25%, 0.0648 30%, 0.12 35%, 0.2048 40%, 0.3281 45%, 0.5 50%, 0.672 55%, 0.7952 60%, 0.88 65%, 0.9352 70%, 0.9688 75%, 0.9872 80%, 0.996 85%, 0.9992 90%, 1);
+}
+.faq-icon[data-open='true'] {
+  transform: rotate(0deg);
+}
+
+/* §1 mobile menu open/close (IX2 NewNav Menu Open) */
+.mobile-menu {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.mobile-menu[data-state='open'] {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.65s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.65s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition-timing-function: linear(0, 0.0776 2%, 0.1855 5%, 0.2836 8%, 0.4003 12%, 0.5021 16%, 0.5904 20%, 0.6836 25%, 0.7599 30%, 0.8215 35%, 0.8704 40%, 0.9085 45%, 0.9375 50%, 0.959 55%, 0.9744 60%, 0.985 65%, 0.9919 70%, 0.9961 75%, 0.9984 80%, 0.9995 85%, 0.9999 90%, 1);
+}
+.mobile-menu[data-state='closing'] {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.35s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition-timing-function: linear(0, 0.0776 2%, 0.1855 5%, 0.2836 8%, 0.4003 12%, 0.5021 16%, 0.5904 20%, 0.6836 25%, 0.7599 30%, 0.8215 35%, 0.8704 40%, 0.9085 45%, 0.9375 50%, 0.959 55%, 0.9744 60%, 0.985 65%, 0.9919 70%, 0.9961 75%, 0.9984 80%, 0.9995 85%, 0.9999 90%, 1);
+}
+
+/* §6 / §10 bullet progress fill (original keyframes, verbatim) */
+@keyframes bulletProgress {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "id": "tokens.component",
+  "designSystem": "marketing",
+  "button": {
+    "radius": "radius.pill",
+    "fontWeight": "fontWeight.medium",
+    "primary": {
+      "bg": "color.ink",
+      "text": "color.surface-1",
+      "hoverBg": "color.green-hover",
+      "fontSize": "fontSize.btn",
+      "padding": "12px 20px (8px 20px <=767)"
+    },
+    "primary-small": {
+      "bg": "color.ink",
+      "text": "color.surface-1",
+      "hoverBg": "color.green-hover",
+      "fontSize": "fontSize.btn-sm",
+      "padding": "8px 16px",
+      "letterSpacing": "-0.36px"
+    },
+    "dark": {
+      "bg": "color.surface-3",
+      "text": "color.ink",
+      "hoverBg": "color.ink",
+      "hoverText": "color.surface-1",
+      "fontSize": "fontSize.btn",
+      "padding": "12px 20px (8px 20px <=767)"
+    },
+    "dark-small": {
+      "bg": "color.surface-3",
+      "text": "color.ink",
+      "hoverBg": "color.ink",
+      "hoverText": "color.surface-1",
+      "fontSize": "fontSize.btn-dark-sm",
+      "padding": "8px 16px"
+    },
+    "labelMask": {
+      "height": "20px",
+      "textShadow": "0 1.5em color.surface-1"
+    },
+    "measuredFrom": "src/components/shared/Button.jsx:7-12"
+  },
+  "card": {
+    "bg": "color.surface-1",
+    "radius": "radius.card"
+  },
+  "panel": {
+    "bg": "color.surface-1",
+    "radius": "radius.panel"
+  },
+  "pagination": {
+    "pillBg": "color.surface-1",
+    "bulletTrack": "color.track",
+    "bulletSize": "24x10",
+    "fill": "color.progress",
+    "playButtonBg": "color.playbtn",
+    "playButtonSize": "36px"
+  },
+  "dropup": {
+    "bg": "color.dropup",
+    "border": "1px solid color.dropup-border",
+    "radius": "radius.dropup",
+    "padding": "16px",
+    "gap": "6px"
+  }
+}

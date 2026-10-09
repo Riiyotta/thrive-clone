@@ -1,0 +1,179 @@
+{
+  "id": "proof.testimonial",
+  "kind": "section",
+  "name": "Named testimonial + demo CTA",
+  "purpose": "One large pull quote with author, then a demo CTA. Shares the results container (rendered by the same component).",
+  "category": "proof",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/Results.jsx",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "quote": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 40,
+        "note": "Inter 32/38.4 500 white, left-aligned, max 960.",
+        "measuredLongestRealInstance": "39 words in the clone's own placeholder copy"
+      },
+      "author": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "Placeholder person name.",
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          },
+          "company": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "White underlined link.",
+            "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+          },
+          "avatar": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "photo.person",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "photo.person",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 4,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "80x80; radius 100px at >=1440, '6px 0' below. Real-person photos are must-not-fabricate."
+          }
+        },
+        "required": [
+          "name",
+          "role",
+          "company",
+          "avatar"
+        ]
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 6,
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "quote",
+      "author",
+      "ctaLabel"
+    ]
+  },
+  "constraints": {
+    "onePerPage": true,
+    "maxPerPage": 1,
+    "mustImmediatelyFollow": "proof.results-stats",
+    "neighbourRuleId": "TESTIMONIAL_FOLLOWS_STATS"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/Results.jsx:4-4",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Quote 32 -> 28 (24 at <=767).",
+      "tailwind": [
+        "tab:text-quote-tab mob:text-quote-mob"
+      ],
+      "measuredFrom": "src/components/Results.jsx:39-39"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "changes": "Author name 18.4 -> 17.6px.",
+      "tailwind": [
+        "text-para text-ink xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/Results.jsx:47-47"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "changes": "Author role 18 -> 14px.",
+      "tailwind": [
+        "text-body text-grey xs:text-small"
+      ],
+      "measuredFrom": "src/components/Results.jsx:48-48"
+    },
+    {
+      "breakpoint": "wide",
+      "query": "min-width: 1440px",
+      "changes": "Avatar fully round at >=1440 ('6px 0' corners below).",
+      "tailwind": [
+        "rounded-[6px_0] wide:rounded-avatar"
+      ],
+      "measuredFrom": "src/components/Results.jsx:45-45"
+    }
+  ],
+  "assetRoles": [
+    "photo.person",
+    "placeholder.neutral"
+  ],
+  "composes": [
+    "primitive.inline-link",
+    "primitive.button",
+    "component.testimonial-block"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.results-stats"
+    ],
+    "recommendedBefore": [
+      "story.zoom-statement"
+    ],
+    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+  },
+  "observedOn": [
+    "/"
+  ],
+  "measuredFrom": "src/components/Results.jsx:38-56",
+  "iaSectionId": "proof.testimonial",
+  "specMeasuredFrom": "CLONE_SPEC.md:334-340"
+}

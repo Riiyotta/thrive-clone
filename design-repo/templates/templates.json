@@ -1,0 +1,113 @@
+{
+  "$comment": "One entry per distinct PAGE SHAPE. This is a SINGLE-ROUTE, SINGLE-TEMPLATE repo: the source app renders exactly one route ('/') and has no router. No other template or route exists, and none may be invented.",
+  "version": "1.0.0",
+  "templateCount": 1,
+  "routePatternCount": 1,
+  "routeToTemplate": {
+    "/": "home"
+  },
+  "routeCoverageNote": "src/App.jsx renders one page with no router; '/' is the only route and maps to 'home'. Asserted by verify_all.py::check_route_coverage.",
+  "deliberatelyAbsent": {},
+  "templates": {
+    "home": {
+      "id": "home",
+      "name": "Marketing homepage",
+      "designSystem": "marketing",
+      "evidenceLevel": "measured",
+      "routes": [
+        "/"
+      ],
+      "wrapper": {
+        "className": "bg-page pt-[64px]",
+        "note": "The page wrapper's 64px top padding clears the fixed nav; the hero then adds its own 64px.",
+        "measuredFrom": "src/App.jsx:17-17"
+      },
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "hero.split-visual",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "proof.logo-row",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "product.feature-tabs",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "product.assistant-tabs",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "product.capability-slider",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "proof.results-stats",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "proof.testimonial",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "story.zoom-statement",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "story.scroll-quote",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "proof.case-study-carousel",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "story.brand-video",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "conversion.demo-form",
+          "required": true,
+          "repeatable": false
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false
+        }
+      ],
+      "measuredFrom": "src/App.jsx:15-35",
+      "auditMeasuredFrom": "audit:orig1440.txt:2-2",
+      "notes": [
+        "Node order is the exact JSX order in App.jsx: Nav, then <main> with Hero, LogoStrip, ProductTabs, KikiTabs, EnterpriseSlider, Results, Statement, QuoteHighlight, CaseStudyCarousel, VideoSection, Faq, then Footer.",
+        "proof.results-stats and proof.testimonial share one bare container-medium (no <section>, no padding-global) rendered by Results.jsx -- intentional, it runs edge to edge at 390.",
+        "conversion.demo-form and shell.footer are both rendered inside the single <footer> element by Footer.jsx.",
+        "Section ids, categories and order are aligned 1:1 with the project's IA (ia.json -> template.home); extraction/verify_all.py::check_ia_alignment re-checks this whenever ia.json is present."
+      ],
+      "iaTemplateId": "template.home"
+    }
+  }
+}

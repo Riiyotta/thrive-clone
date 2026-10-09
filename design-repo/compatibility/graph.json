@@ -1,0 +1,247 @@
+{
+  "$comment": "Rhythm/position/motion/asset rules JSON Schema cannot express. Every rule names the function that enforces it; extraction/verify_all.py::check_graph_validator_agreement asserts each named function exists and that every derived set still equals what templates.json says.",
+  "version": "1.0.0",
+  "severities": {
+    "error": "hard failure",
+    "warn": "non-fatal notice"
+  },
+  "derivedSets": {
+    "NO_HERO_TEMPLATES": {
+      "value": [],
+      "derivedBy": "templates with no hero-category node",
+      "count": 0
+    },
+    "SECTION_CATEGORIES": {
+      "value": {
+        "shell.nav": "shell",
+        "hero.split-visual": "hero",
+        "proof.logo-row": "proof",
+        "product.feature-tabs": "product",
+        "product.assistant-tabs": "product",
+        "product.capability-slider": "product",
+        "proof.results-stats": "proof",
+        "proof.testimonial": "proof",
+        "story.zoom-statement": "story",
+        "story.scroll-quote": "story",
+        "proof.case-study-carousel": "proof",
+        "story.brand-video": "story",
+        "conversion.faq": "conversion",
+        "conversion.demo-form": "conversion",
+        "shell.footer": "shell"
+      },
+      "derivedBy": "sections/*.json -> category"
+    },
+    "CANONICAL_ORDER": {
+      "value": [
+        "shell.nav",
+        "hero.split-visual",
+        "proof.logo-row",
+        "product.feature-tabs",
+        "product.assistant-tabs",
+        "product.capability-slider",
+        "proof.results-stats",
+        "proof.testimonial",
+        "story.zoom-statement",
+        "story.scroll-quote",
+        "proof.case-study-carousel",
+        "story.brand-video",
+        "conversion.faq",
+        "conversion.demo-form",
+        "shell.footer"
+      ],
+      "derivedBy": "templates.json -> home.nodes[].section"
+    },
+    "REAL_SAME_CATEGORY_PAIRS": {
+      "value": [
+        [
+          "product.feature-tabs",
+          "product.assistant-tabs"
+        ],
+        [
+          "product.assistant-tabs",
+          "product.capability-slider"
+        ],
+        [
+          "proof.results-stats",
+          "proof.testimonial"
+        ],
+        [
+          "story.zoom-statement",
+          "story.scroll-quote"
+        ],
+        [
+          "conversion.faq",
+          "conversion.demo-form"
+        ]
+      ],
+      "derivedBy": "adjacent nodes of templates.json -> home whose sections share a category",
+      "count": 5
+    }
+  },
+  "rules": [
+    {
+      "id": "TEMPLATE_NODE_SEQUENCE_MATCH",
+      "severity": "error",
+      "rule": "A PageSpec's nodes[] must match, in order, the node list of the template its 'template' field DECLARES (required/repeatable honoured). Cross-references the declared template; never inspects nodes[] in isolation.",
+      "enforcedBy": "semantic_validate.py::check_template_sequence"
+    },
+    {
+      "id": "TEMPLATE_ROUTE_MEASURED",
+      "severity": "warn",
+      "rule": "A route other than the template's measured routes ('/' for home) is allowed -- a generated page may live elsewhere -- but is FLAGGED, because only '/' was measured.",
+      "enforcedBy": "semantic_validate.py::check_template_sequence"
+    },
+    {
+      "id": "NAV_FIRST",
+      "severity": "error",
+      "rule": "shell.nav must be node 0.",
+      "enforcedBy": "semantic_validate.py::check_chrome_position"
+    },
+    {
+      "id": "FOOTER_LAST",
+      "severity": "error",
+      "rule": "shell.footer must be the last node.",
+      "enforcedBy": "semantic_validate.py::check_chrome_position"
+    },
+    {
+      "id": "HERO_FOLLOWS_NAV",
+      "severity": "error",
+      "rule": "hero.split-visual (constraints.mustImmediatelyFollow) sits immediately after shell.nav.",
+      "enforcedBy": "semantic_validate.py::check_pinned_neighbours"
+    },
+    {
+      "id": "TESTIMONIAL_FOLLOWS_STATS",
+      "severity": "error",
+      "rule": "proof.testimonial sits immediately after proof.results-stats: they share one container and one component (Results.jsx).",
+      "enforcedBy": "semantic_validate.py::check_pinned_neighbours"
+    },
+    {
+      "id": "DEMO_FORM_PRECEDES_FOOTER",
+      "severity": "error",
+      "rule": "conversion.demo-form sits immediately before shell.footer: both are inside the one <footer> element (Footer.jsx).",
+      "enforcedBy": "semantic_validate.py::check_pinned_neighbours"
+    },
+    {
+      "id": "FAQ_PRECEDES_DEMO_FORM",
+      "severity": "error",
+      "rule": "conversion.faq sits immediately before conversion.demo-form (the last objections are answered right before the ask).",
+      "enforcedBy": "semantic_validate.py::check_pinned_neighbours"
+    },
+    {
+      "id": "ONE_HERO_PER_PAGE",
+      "severity": "error",
+      "rule": "Exactly one hero-category node, unless the template is in derivedSets.NO_HERO_TEMPLATES.",
+      "exception": "derivedSets.NO_HERO_TEMPLATES is EMPTY: the only template has a hero. Derived from the node sequence, so it cannot silently diverge from the validator.",
+      "enforcedBy": "semantic_validate.py::check_one_hero"
+    },
+    {
+      "id": "NO_DUPLICATE_SINGLETON",
+      "severity": "error",
+      "rule": "Every section here is onePerPage (no section legitimately repeats on the real page, so no (section, variant) keying is needed).",
+      "enforcedBy": "semantic_validate.py::check_duplicates"
+    },
+    {
+      "id": "NO_ADJACENT_SAME_CATEGORY",
+      "severity": "warn",
+      "rule": "Two adjacent nodes of the same category are flagged, except the pairs that are adjacent on the real page.",
+      "exemptPairs": [
+        [
+          "product.feature-tabs",
+          "product.assistant-tabs"
+        ],
+        [
+          "product.assistant-tabs",
+          "product.capability-slider"
+        ],
+        [
+          "proof.results-stats",
+          "proof.testimonial"
+        ],
+        [
+          "story.zoom-statement",
+          "story.scroll-quote"
+        ],
+        [
+          "conversion.faq",
+          "conversion.demo-form"
+        ]
+      ],
+      "exception": "REAL AND REQUIRED: the IA categories put 5 same-category pairs next to each other on the only real page (three product modules in a row, stats+testimonial, statement+quote, faq+demo-form). They are derived from the node sequence (derivedSets.REAL_SAME_CATEGORY_PAIRS), so the rule cannot reject the real page.",
+      "exemptPairsDerivedFrom": "derivedSets.REAL_SAME_CATEGORY_PAIRS",
+      "enforcedBy": "semantic_validate.py::check_adjacency"
+    },
+    {
+      "id": "MOTION_PATTERN_CLOSED",
+      "severity": "error",
+      "rule": "motion.pattern must be in the section's allowedPatterns. There is no generic scroll fade-in pattern: sections do not fade in on scroll.",
+      "enforcedBy": "semantic_validate.py::check_motion_pattern"
+    },
+    {
+      "id": "REDUCED_MOTION_FALLBACK_REQUIRED",
+      "severity": "error",
+      "rule": "Every node declares reducedMotionFallback, equal to the section contract's const. Required for generated pages even though the source implements none.",
+      "enforcedBy": "semantic_validate.py::check_reduced_motion"
+    },
+    {
+      "id": "MOTION_VALUES_MATCH_PATTERN",
+      "severity": "error",
+      "rule": "Optional motion.trigger / durationMs / delayMs / easing must be values MEASURED for that pattern in tokens/00-foundation/motion.json (a value valid for another pattern is rejected).",
+      "enforcedBy": "semantic_validate.py::check_motion_values"
+    },
+    {
+      "id": "ASSET_ROLE_CLOSED",
+      "severity": "error",
+      "rule": "Every media object's assetRole is in the closed enum AND in that field's own allowed roles; roles with exposedAsPageSpecField:false never appear.",
+      "enforcedBy": "semantic_validate.py::check_asset_roles"
+    },
+    {
+      "id": "ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE",
+      "severity": "error",
+      "rule": "assetRef is accepted only for may-generate-new roles; must-not-reuse / must-not-fabricate roles render a neutral placeholder and carry no file reference.",
+      "enforcedBy": "semantic_validate.py::check_asset_roles"
+    },
+    {
+      "id": "NO_SOURCE_OR_EXTERNAL_ASSET_PATHS",
+      "severity": "error",
+      "rule": "No string anywhere in a PageSpec may reference /assets/, public/assets/ or an http(s) URL.",
+      "enforcedBy": "semantic_validate.py::check_asset_paths"
+    },
+    {
+      "id": "PINNED_ASSET_POLICIES",
+      "severity": "error",
+      "rule": "The nine real-third-party roles hold their exact pinned generationPolicy in assets/asset-roles.json and the allowlist.",
+      "enforcedBy": "verify_all.py::check_pinned_asset_policies; semantic_validate.py::pinned_policy_problems"
+    },
+    {
+      "id": "ORIGINAL_COPY_AND_MARKS_FORBIDDEN",
+      "severity": "error",
+      "rule": "No PageSpec string may contain the original brand/assistant names or the real third-party names listed in assets/asset-roles.json -> bannedTerms. Copy must be original placeholder copy.",
+      "enforcedBy": "semantic_validate.py::check_original_terms"
+    },
+    {
+      "id": "DEMO_FORM_STAYS_STATIC",
+      "severity": "error",
+      "rule": "conversion.demo-form.form.live is const false; no action/endpoint/method/portalId/formId/hubspot field may appear anywhere in a PageSpec.",
+      "enforcedBy": "semantic_validate.py::check_static_form"
+    },
+    {
+      "id": "VIDEO_STAYS_PLACEHOLDER",
+      "severity": "error",
+      "rule": "Video fields carry no embed/iframe/autoplay/youtube field: the video is a static placeholder making no network request.",
+      "enforcedBy": "semantic_validate.py::check_static_form"
+    },
+    {
+      "id": "INLINE_PHRASES_PRESENT",
+      "severity": "error",
+      "rule": "Every linkPhrases / boldPhrases entry occurs verbatim in its sibling text.",
+      "enforcedBy": "semantic_validate.py::check_inline_phrases"
+    },
+    {
+      "id": "MAX_WORDS_BUDGETS",
+      "severity": "error",
+      "rule": "Every text field respects its maxWords budget, per instance.",
+      "enforcedBy": "semantic_validate.py::check_max_words"
+    }
+  ],
+  "ruleCount": 23
+}

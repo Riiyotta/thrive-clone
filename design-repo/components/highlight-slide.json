@@ -1,0 +1,15 @@
+{
+  "id": "component.highlight-slide",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "Case-study highlight slide",
+  "composes": [
+    "primitive.placeholder-media",
+    "primitive.logo-placeholder",
+    "primitive.button"
+  ],
+  "notes": [
+    "666px layout width; centre scale 1.1 / opacity 1, sides .95 / .2; info panel hidden unless centred; two surface-2 stat blocks."
+  ],
+  "measuredFrom": "src/components/CaseStudyCarousel.jsx:64-106"
+}

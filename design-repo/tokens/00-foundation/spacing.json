@@ -1,0 +1,58 @@
+{
+  "id": "tokens.foundation.spacing",
+  "designSystem": "marketing",
+  "note": "Spacing values that recur as Tailwind arbitrary values in src/ and as Webflow utility classes in the spec. Section-level paddings live in tokens/30-layout.",
+  "tokens": {
+    "space.4": {
+      "$value": "4px",
+      "usage": "H2 margin-top (every H2), dropdown column gap",
+      "measuredFrom": "src/index.css:39-39"
+    },
+    "space.8": {
+      "$value": "8px",
+      "usage": "CTA wrap gap, pagination bullet gap, footer link gap"
+    },
+    "space.12": {
+      "$value": "12px",
+      "usage": "assistant tab gap, controls gap"
+    },
+    "space.16": {
+      "$value": "16px",
+      "usage": "spacer-small, card grid gap, container-large padding-top"
+    },
+    "space.20": {
+      "$value": "20px",
+      "usage": "paragraph margin-bottom (most paragraphs), mobile gutter"
+    },
+    "space.24": {
+      "$value": "24px",
+      "usage": "slide gap, button-group gap, header column gap <=991"
+    },
+    "space.32": {
+      "$value": "32px",
+      "usage": "spacer-medium, gutter, section-small mobile"
+    },
+    "space.48": {
+      "$value": "48px",
+      "usage": "hero row gap, section-small"
+    },
+    "space.64": {
+      "$value": "64px",
+      "usage": "page-wrapper top padding, hero top padding, assistant header margin-top"
+    },
+    "space.80": {
+      "$value": "80px",
+      "usage": "spacer-xxlarge, section-medium"
+    },
+    "space.112": {
+      "$value": "112px",
+      "usage": "section-large"
+    }
+  },
+  "paragraphMarginBottom": {
+    "$value": "20px",
+    "note": "Most paragraphs carry margin-bottom 20px (pixel-audit correction: 9x p.text-color-grey, 11x subdued-text, ... all mb=20px on the original).",
+    "measuredFrom": "src/components/ProductTabs.jsx:48-48"
+  },
+  "specMeasuredFrom": "CLONE_SPEC.md:52-58"
+}

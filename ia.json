@@ -1,0 +1,138 @@
+{
+  "$comment": "IA of the local React clone in this folder (src/App.jsx). Structure measured from the live original (https://www.thrivelearning.com/) via CLONE_SPEC.md and pixel-audited; copy in the clone is original placeholder text (brand 'Nimbus', assistant 'Nova'). The clone's nav/footer links are '#' stubs, so only one route exists.",
+  "meta": {
+    "source": "Local clone of https://www.thrivelearning.com/ homepage (src/App.jsx)",
+    "status": "measured-from-codebase",
+    "productionApproved": false,
+    "totalRoutes": 1,
+    "totalTemplates": 1,
+    "generatedBy": "ia-builder skill"
+  },
+  "categories": {
+    "SHELL": "Site chrome present on every route: fixed navigation and footer.",
+    "HERO": "Page-opening, above-the-fold block.",
+    "PROOF": "Social proof: customer logos, outcome stats, testimonials, case studies.",
+    "PRODUCT": "Product explanation modules: feature tabs, AI assistant, capability slider.",
+    "STORY": "Editorial brand moments: statement copy, scroll-driven quote, brand video.",
+    "CONVERSION": "Blocks whose job is to capture a demo request or answer pre-sale objections."
+  },
+  "sections": {
+    "shell.nav": {
+      "category": "SHELL",
+      "description": "Fixed, transparent top bar: wordmark, centred pill of hover-open dropdown menus (300ms close delay), AI 'Ask' link, primary 'Book a demo' button; collapses to a full-screen menu at <=991px.",
+      "scope": "Present on the 1 route.",
+      "implementedBy": "src/components/Nav.jsx"
+    },
+    "hero.split-visual": {
+      "category": "HERO",
+      "description": "Two-column hero: avatar row + trust line, serif H1, subtitle, three review badges, primary + dark buttons on the left; a 1440:1089 product collage bleeding past the right viewport edge. Load-time staggered blur/skew reveal.",
+      "scope": "Opens the 1 route.",
+      "implementedBy": "src/components/Hero.jsx"
+    },
+    "proof.logo-row": {
+      "category": "PROOF",
+      "description": "Static (non-scrolling) row of six customer logos under a one-line caption; wraps to a grid on mobile.",
+      "scope": "Directly under the hero on the 1 route.",
+      "implementedBy": "src/components/LogoStrip.jsx"
+    },
+    "product.feature-tabs": {
+      "category": "PRODUCT",
+      "description": "Section H2 plus four click-driven accordion-style tab rows on the left; matching 670:600 product screenshot fades (.3s) in a pane that bleeds off the right edge. No autoplay.",
+      "scope": "On the 1 route.",
+      "implementedBy": "src/components/ProductTabs.jsx"
+    },
+    "product.assistant-tabs": {
+      "category": "PRODUCT",
+      "description": "AI-assistant intro header followed by five persona tab buttons driving a looping, draggable slide track (800ms ease); each slide pairs title + copy with a square animation slot.",
+      "scope": "On the 1 route.",
+      "implementedBy": "src/components/KikiTabs.jsx"
+    },
+    "product.capability-slider": {
+      "category": "PRODUCT",
+      "description": "Three-up looping slider of six enterprise capability cards (image + highlighted lead phrase + grey body); autoplays every 3s once 40% visible, with widening progress bullets and a play/pause button.",
+      "scope": "On the 1 route.",
+      "implementedBy": "src/components/EnterpriseSlider.jsx"
+    },
+    "proof.results-stats": {
+      "category": "PROOF",
+      "description": "Centred H2 over a 4-column grid of dark stat cards (customer logo, large stat, grey sentence with inline brand link); 2 columns at <=991px, 1 at <=479px.",
+      "scope": "On the 1 route, immediately followed by proof.testimonial in the same container.",
+      "implementedBy": "src/components/Results.jsx"
+    },
+    "proof.testimonial": {
+      "category": "PROOF",
+      "description": "Single large pull quote with 80px avatar, name and role/company line, centred under the stats grid.",
+      "scope": "On the 1 route.",
+      "implementedBy": "src/components/Results.jsx"
+    },
+    "story.zoom-statement": {
+      "category": "STORY",
+      "description": "Full-bleed 1440:598 image that scroll-scrubs from 2.5x/transparent to 1x/opaque, followed by a centred serif H2 and multi-line grey statement paragraph.",
+      "scope": "On the 1 route.",
+      "implementedBy": "src/components/Statement.jsx"
+    },
+    "story.scroll-quote": {
+      "category": "STORY",
+      "description": "Short analyst-style quote whose letters scroll-scrub from near-black to white one by one; the page's only ScrollTrigger-driven text effect.",
+      "scope": "On the 1 route.",
+      "implementedBy": "src/components/QuoteHighlight.jsx"
+    },
+    "proof.case-study-carousel": {
+      "category": "PROOF",
+      "description": "Header (H2 + button left, paragraph right) over a centred, looping carousel of five case-study cards (photo with brand logo, title, two stats); centre card scaled 1.1, neighbours at 20% opacity; 4s autoplay paused on hover.",
+      "scope": "On the 1 route.",
+      "implementedBy": "src/components/CaseStudyCarousel.jsx"
+    },
+    "story.brand-video": {
+      "category": "STORY",
+      "description": "H2 and intro paragraph above a 16:9 video slot with play button (static placeholder; the original embeds YouTube), with a closing paragraph below.",
+      "scope": "On the 1 route.",
+      "implementedBy": "src/components/VideoSection.jsx"
+    },
+    "conversion.faq": {
+      "category": "CONVERSION",
+      "description": "FAQ H2 with five independently toggling accordion items (open 450ms / close 650ms outQuart, plus-icon rotation).",
+      "scope": "On the 1 route.",
+      "implementedBy": "src/components/Faq.jsx"
+    },
+    "conversion.demo-form": {
+      "category": "CONVERSION",
+      "description": "Demo-request block at the top of the footer: heading and copy beside a 300px form (static placeholder standing in for the original HubSpot embed).",
+      "scope": "Opens the footer on the 1 route.",
+      "implementedBy": "src/components/Footer.jsx"
+    },
+    "shell.footer": {
+      "category": "SHELL",
+      "description": "Dark rounded footer card: 'ask an AI' icon row, wordmark + socials, four link columns, rating and award badges, compliance line and legal drop-up menus.",
+      "scope": "Closes the 1 route.",
+      "implementedBy": "src/components/Footer.jsx"
+    }
+  },
+  "templates": [
+    {
+      "id": "template.home",
+      "name": "Homepage",
+      "routeCount": 1,
+      "routes": ["/"],
+      "routePattern": null,
+      "chrome": "full",
+      "sections": [
+        "shell.nav",
+        "hero.split-visual",
+        "proof.logo-row",
+        "product.feature-tabs",
+        "product.assistant-tabs",
+        "product.capability-slider",
+        "proof.results-stats",
+        "proof.testimonial",
+        "story.zoom-statement",
+        "story.scroll-quote",
+        "proof.case-study-carousel",
+        "story.brand-video",
+        "conversion.faq",
+        "conversion.demo-form",
+        "shell.footer"
+      ]
+    }
+  ]
+}

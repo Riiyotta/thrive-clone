@@ -1,0 +1,13 @@
+{
+  "id": "component.mobile-menu-panel",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "Mobile menu panel (<=991)",
+  "composes": [
+    "component.nav-dropdown-panel"
+  ],
+  "notes": [
+    "Phases closed -> enter -> open -> closing -> closed; 650ms in, 350ms out, unmount at 400ms."
+  ],
+  "measuredFrom": "src/components/Nav.jsx:247-282"
+}

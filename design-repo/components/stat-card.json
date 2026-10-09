@@ -1,0 +1,14 @@
+{
+  "id": "component.stat-card",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "Results stat card",
+  "composes": [
+    "primitive.logo-placeholder",
+    "primitive.inline-link"
+  ],
+  "notes": [
+    "surface-1, radius 12, padding 16 32 32 32, gap 3.7rem; logo 48px; stat 64/64 600; grey copy with a white brand link."
+  ],
+  "measuredFrom": "src/components/Results.jsx:22-35"
+}

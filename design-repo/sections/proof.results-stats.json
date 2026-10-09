@@ -1,0 +1,197 @@
+{
+  "id": "proof.results-stats",
+  "kind": "section",
+  "name": "Results stat cards",
+  "purpose": "Quantified customer outcomes in four scannable cards.",
+  "category": "proof",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/Results.jsx",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 12,
+        "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+      },
+      "cards": {
+        "type": "array",
+        "minItems": 4,
+        "maxItems": 4,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "logo": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "logo.customer",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "logo.customer",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 4,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10,
+                  "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "48px tall, max 50% wide, left-aligned."
+            },
+            "stat": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 1,
+              "note": "64/64 semibold, e.g. '2.1x'.",
+              "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+            },
+            "brand": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "note": "White underlined link inside the card copy. Must be a placeholder company name.",
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "rest": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 20,
+              "note": "Grey continuation after the brand link.",
+              "measuredLongestRealInstance": "17 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "logo",
+            "stat",
+            "brand",
+            "rest"
+          ]
+        },
+        "note": "A 4-column grid (2 at <=991, 1 at <=479)."
+      }
+    },
+    "required": [
+      "heading",
+      "cards"
+    ]
+  },
+  "constraints": {
+    "onePerPage": true,
+    "maxPerPage": 1,
+    "notWrappedInPaddingGlobal": true
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/Results.jsx:4-4",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+  },
+  "responsive": [
+    {
+      "breakpoint": "all",
+      "query": "every width",
+      "changes": "Not wrapped in .padding-global: a bare container-medium, so at 390 the cards run edge to edge.",
+      "tailwind": [
+        "data-section=\"results\" className=\"container-medium mb-[32px]\""
+      ],
+      "measuredFrom": "src/components/Results.jsx:16-16"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Grid 4 -> 2 columns.",
+      "tailwind": [
+        "grid grid-cols-4 gap-[16px] tab:grid-cols-2 xs:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/Results.jsx:21-21"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Card gap 3.7rem -> 5rem; mob padding 24; xs gap 48.",
+      "tailwind": [
+        "gap-[3.7rem]",
+        "tab:gap-[5rem] mob:p-[24px] xs:gap-[48px]"
+      ],
+      "measuredFrom": "src/components/Results.jsx:25-25"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Stat 64 -> 48 (40 at <=767, 48 at <=479).",
+      "tailwind": [
+        "text-stat font-semibold text-ink tab:text-stat-48 mob:text-stat-40 xs:text-stat-48"
+      ],
+      "measuredFrom": "src/components/Results.jsx:29-29"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Card logo 48 -> 32px tall.",
+      "tailwind": [
+        "mob:h-[32px]"
+      ],
+      "measuredFrom": "src/components/Results.jsx:27-27"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "changes": "Grid becomes 1 column.",
+      "tailwind": [
+        "xs:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/Results.jsx:21-21"
+    }
+  ],
+  "assetRoles": [
+    "logo.customer",
+    "placeholder.neutral"
+  ],
+  "composes": [
+    "primitive.heading-h2",
+    "primitive.inline-link",
+    "primitive.logo-placeholder",
+    "component.stat-card"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.capability-slider"
+    ],
+    "recommendedBefore": [
+      "proof.testimonial"
+    ],
+    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+  },
+  "observedOn": [
+    "/"
+  ],
+  "measuredFrom": "src/components/Results.jsx:16-35",
+  "iaSectionId": "proof.results-stats",
+  "specMeasuredFrom": "CLONE_SPEC.md:323-344"
+}

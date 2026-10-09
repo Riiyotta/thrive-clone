@@ -1,0 +1,37 @@
+{
+  "id": "tokens.layout",
+  "designSystem": "marketing",
+  "pageWrapper": {
+    "className": "bg-page pt-[64px]",
+    "note": "The wrapper itself carries 64px top padding, so the hero section starts at y=64 (pixel-audit correction; CLONE_SPEC only mentions the hero's own padding).",
+    "measuredFrom": "src/App.jsx:17-17"
+  },
+  "paddingGlobal": {
+    "$value": "32px sides (20px <=767)",
+    "measuredFrom": "src/index.css:29-31"
+  },
+  "containerMedium": {
+    "$value": "max-width 1120px, centred",
+    "measuredFrom": "src/index.css:32-34"
+  },
+  "containerLarge": {
+    "$value": "max-width 1344px, padding-top 16px",
+    "measuredFrom": "src/index.css:35-37"
+  },
+  "sectionPadding": {
+    "small": "48px vertical (32 <=767)",
+    "medium": "80px (64 <=991, 48 <=767)",
+    "large": "112px (96 <=991, 64 <=767)",
+    "measuredFrom": "CLONE_SPEC.md:56-56"
+  },
+  "spacers": {
+    "small": "16",
+    "medium": "32 (24 <=991, 20 <=767)",
+    "xxlarge": "80 (64 <=991, 48 <=767)",
+    "measuredFrom": "CLONE_SPEC.md:57-57"
+  },
+  "navHeight": {
+    "$value": "64px bar inside a 16px-top container (80 total)",
+    "measuredFrom": "src/components/Nav.jsx:182-182"
+  }
+}

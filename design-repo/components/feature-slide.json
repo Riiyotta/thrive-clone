@@ -1,0 +1,13 @@
+{
+  "id": "component.feature-slide",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "Assistant feature slide",
+  "composes": [
+    "primitive.placeholder-media"
+  ],
+  "notes": [
+    "surface-1, radius 16, min-height 520, padding 40 0 0 40; highlight + subdued inline-blocks; 1:1 video slot bottom-right at 45%."
+  ],
+  "measuredFrom": "src/components/KikiTabs.jsx:113-125"
+}

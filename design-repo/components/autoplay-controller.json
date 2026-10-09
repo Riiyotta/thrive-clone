@@ -1,0 +1,13 @@
+{
+  "id": "component.autoplay-controller",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "Swiper-11-like autoplay (useAutoplay)",
+  "composes": [
+    "component.loop-carousel"
+  ],
+  "notes": [
+    "Delay restarts after each settle (period = transition + delay); hover pause resumes with remaining time (mouse only); a drag pauses; any transition cancels the pending timer."
+  ],
+  "measuredFrom": "src/hooks/useLoopCarousel.js:180-250"
+}

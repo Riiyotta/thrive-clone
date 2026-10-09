@@ -1,0 +1,263 @@
+{
+  "id": "assets.roles",
+  "version": "1.0.0",
+  "note": "Closed assetRole vocabulary DERIVED FROM REAL USAGE SITES (grep of src= / Placeholder / LogoPlaceholder in src/). Every media field in schema/pagespec.schema.json is an object whose assetRole comes from this enum, restricted per field; no section exposes a bare image/src string.",
+  "generationPolicyEnum": [
+    "may-generate-new",
+    "must-reuse-exact",
+    "must-not-reuse",
+    "must-not-fabricate"
+  ],
+  "generationPolicyMeaning": {
+    "may-generate-new": "A generator may render the neutral placeholder or supply a NEWLY generated, original asset under generated/ (assetRef).",
+    "must-reuse-exact": "Only the existing in-repo component may be used (e.g. the Wordmark). Not settable from a PageSpec.",
+    "must-not-reuse": "HARD BAN. Real third-party or proprietary imagery. The generator must not emit the file, a copy, a crop, a trace or an imitation, and must not reference its path. The PageSpec field carries a role and optional geometry-only label; it renders as a neutral placeholder. No assetRef is accepted (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE).",
+    "must-not-fabricate": "HARD BAN on reuse AND on synthesis: covers real ratings, awards and real people's likeness, where even a look-alike makes a false claim. Renders as a neutral placeholder; no assetRef accepted."
+  },
+  "pinnedPolicies": {
+    "note": "These roles are PINNED to an exact policy value, not merely constrained to the enum. extraction/verify_all.py::check_pinned_asset_policies fails the run if any drifts -- including to a DIFFERENT-BUT-VALID enum member such as may-generate-new -- and both verify_all.py --prove-drift and schema/tests/adversarial_test.py prove that exact mutation is caught. Membership-in-a-closed-set is a weaker claim than 'this role must hold this value'.",
+    "logo.customer": "must-not-reuse",
+    "logo.aiVendor": "must-not-reuse",
+    "badge.review": "must-not-fabricate",
+    "badge.award": "must-not-fabricate",
+    "photo.person": "must-not-fabricate",
+    "photo.event": "must-not-reuse",
+    "photo.brand": "must-not-reuse",
+    "product.screenshot": "must-not-reuse",
+    "product.video": "must-not-reuse"
+  },
+  "sourceIsARealCompany": {
+    "value": true,
+    "statement": "The cloned source is thrivelearning.com, a real, live company's site. The clone deliberately uses ORIGINAL placeholder copy (brand 'Nimbus', AI assistant 'Nova'). Nothing in this design-repo licenses reuse of the original's text, marks or imagery.",
+    "localReferenceImages": "The source project's public/assets/ holds 56 images the user copied from their own saved page of the original site for local reference: real customer logos, real product screenshots, a real named person's photo, review/award badges and AI-vendor logos. NONE of them is copied into design-repo/, and none may appear in generated output.",
+    "bannedTerms": [
+      "Thrive",
+      "thrivelearning",
+      "Kiki",
+      "Volvo",
+      "Burger King",
+      "Vodafone",
+      "British Airways",
+      "Krispy Kreme",
+      "Nothing Bundt",
+      "Avon",
+      "DECIEM",
+      "Reiss",
+      "Ann Summers",
+      "Morrisons",
+      "Nando's",
+      "Specsavers",
+      "Princes",
+      "ChatGPT",
+      "Perplexity",
+      "Gemini",
+      "Claude",
+      "G2",
+      "Capterra",
+      "Software Advice",
+      "HubSpot"
+    ],
+    "bannedTermsNote": "Enforced on every string of every PageSpec by semantic_validate.py::check_original_terms (ORIGINAL_COPY_AND_MARKS_FORBIDDEN): the original brand and assistant names, and the third-party company / vendor / review-site names visible in the reference imagery or recon. Case-sensitive whole-word match.",
+    "doNotPublish": "This design-repo is not to be published and the repository is not to be made public."
+  },
+  "roles": {
+    "brand.wordmark": {
+      "generationPolicy": "must-reuse-exact",
+      "exposedAsPageSpecField": false,
+      "files": [
+        "src/components/shared/Wordmark.jsx (text wordmark, no image)"
+      ],
+      "reason": "The clone's OWN invented placeholder brand (Nimbus). Chrome-owned; the nav and footer always render the Wordmark component. A PageSpec cannot set it.",
+      "usageSites": [
+        "src/components/Nav.jsx:186-186",
+        "src/components/Footer.jsx:125-125"
+      ]
+    },
+    "placeholder.neutral": {
+      "generationPolicy": "may-generate-new",
+      "exposedAsPageSpecField": true,
+      "files": [],
+      "reason": "A neutral surface-coloured slot with a short grey label (Placeholder.jsx without src). Contains no third-party content. A generator may also supply a NEWLY generated, original image under generated/ for this role.",
+      "usageSites": [
+        "src/components/KikiTabs.jsx:124-124",
+        "src/components/VideoSection.jsx:21-21",
+        "src/components/Nav.jsx:122-122",
+        "src/components/Hero.jsx:42-42"
+      ]
+    },
+    "logo.customer": {
+      "generationPolicy": "must-not-reuse",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": true,
+      "files": [
+        "public/assets/logo-volvo.png",
+        "public/assets/logo-burgerking.png",
+        "public/assets/logo-vodafone.png",
+        "public/assets/logo-ba.png",
+        "public/assets/logo-krispykreme.svg",
+        "public/assets/logo-nothingbundt.png",
+        "public/assets/result-logo-1.png",
+        "public/assets/result-logo-2.svg",
+        "public/assets/result-logo-3.avif",
+        "public/assets/result-logo-4.svg",
+        "public/assets/case-1-logo.avif",
+        "public/assets/case-2-logo.svg",
+        "public/assets/case-3-logo.avif",
+        "public/assets/case-4-logo.svg",
+        "public/assets/case-5-logo.svg"
+      ],
+      "reason": "Real third-party customer trademarks (e.g. Volvo, Burger King, Vodafone, British Airways, Krispy Kreme) copied by the user from their saved page of the original site, for local reference only. Never emit, copy, trace, recolour or imitate them; never invent a fake-real customer mark. Generated pages render primitive.logo-placeholder (grey 'LOGO' text) and the slot is filled only after a human supplies licensed logos.",
+      "usageSites": [
+        "src/components/LogoStrip.jsx:23-23",
+        "src/components/Results.jsx:27-27",
+        "src/components/CaseStudyCarousel.jsx:79-79"
+      ]
+    },
+    "logo.aiVendor": {
+      "generationPolicy": "must-not-reuse",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": true,
+      "files": [
+        "public/assets/ai-chatgpt.png",
+        "public/assets/ai-perplexity.png",
+        "public/assets/ai-gemini.png",
+        "public/assets/ai-claude.png"
+      ],
+      "reason": "Real AI vendors' trademarks. Never emit or imitate. Generated pages render neutral slots.",
+      "usageSites": [
+        "src/components/Footer.jsx:139-139"
+      ]
+    },
+    "badge.review": {
+      "generationPolicy": "must-not-fabricate",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": true,
+      "files": [
+        "public/assets/badge-g2.svg",
+        "public/assets/badge-capterra.svg",
+        "public/assets/badge-software-advice.svg"
+      ],
+      "reason": "Real review-site badges carrying real ratings and scores (G2, Capterra, Software Advice). Reusing them misattributes a real company's ratings; fabricating a look-alike invents a rating that was never awarded. Neither is allowed: render neutral slots only.",
+      "usageSites": [
+        "src/components/Hero.jsx:65-65",
+        "src/components/Footer.jsx:191-191",
+        "src/components/Footer.jsx:192-192"
+      ]
+    },
+    "badge.award": {
+      "generationPolicy": "must-not-fabricate",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": true,
+      "files": [
+        "public/assets/award-1.svg",
+        "public/assets/award-2.svg",
+        "public/assets/award-3.svg",
+        "public/assets/award-4.svg"
+      ],
+      "reason": "Real award shields issued to the original company. Never reuse; never fabricate an award.",
+      "usageSites": [
+        "src/components/Footer.jsx:198-198"
+      ]
+    },
+    "photo.person": {
+      "generationPolicy": "must-not-fabricate",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": true,
+      "files": [
+        "public/assets/testimonial-avatar.png",
+        "public/assets/hero-avatars.png"
+      ],
+      "reason": "A real, named person's photograph (the original testimonial author) and a strip of real headshots. Never reuse a real person's likeness and never synthesise a photo presented as a real testimonial giver. Render the neutral 80x80 slot.",
+      "usageSites": [
+        "src/components/Results.jsx:45-45"
+      ]
+    },
+    "photo.event": {
+      "generationPolicy": "must-not-reuse",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": true,
+      "files": [
+        "public/assets/slide-1.jpg",
+        "public/assets/slide-2.png"
+      ],
+      "reason": "Real event photography (conference speaker / attendees) featuring real people. Never reuse or imitate.",
+      "usageSites": [
+        "src/components/EnterpriseSlider.jsx:8-8"
+      ]
+    },
+    "photo.brand": {
+      "generationPolicy": "must-not-reuse",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": true,
+      "files": [
+        "public/assets/case-1.avif",
+        "public/assets/case-2.jpg",
+        "public/assets/case-3.avif",
+        "public/assets/case-4.avif",
+        "public/assets/case-5.avif"
+      ],
+      "reason": "Real customers' brand / retail photography. Never reuse or imitate.",
+      "usageSites": [
+        "src/components/CaseStudyCarousel.jsx:77-77"
+      ]
+    },
+    "product.screenshot": {
+      "generationPolicy": "must-not-reuse",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": true,
+      "files": [
+        "public/assets/hero-visual.webp",
+        "public/assets/tab-1.png",
+        "public/assets/tab-2.png",
+        "public/assets/tab-3.png",
+        "public/assets/tab-4.png",
+        "public/assets/slide-3.png",
+        "public/assets/slide-4.png",
+        "public/assets/slide-5.png",
+        "public/assets/slide-6.png",
+        "public/assets/statement-visual.avif"
+      ],
+      "reason": "The original company's real, proprietary product UI screenshots and montages. Never reuse, trace or imitate. Generated pages render neutral placeholder slots with geometry-only labels (e.g. 'Product UI 670:600').",
+      "usageSites": [
+        "src/components/Hero.jsx:91-91",
+        "src/components/ProductTabs.jsx:89-89",
+        "src/components/EnterpriseSlider.jsx:78-78",
+        "src/components/Statement.jsx:38-38"
+      ]
+    },
+    "product.video": {
+      "generationPolicy": "must-not-reuse",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": true,
+      "files": [],
+      "reason": "The original's product videos (assistant chat UI loops; the YouTube product tour). They exist only as CDN URLs in asset-manifest.json and were never copied locally; the clone renders neutral placeholders and makes no network request. Never embed, reuse or imitate.",
+      "usageSites": [
+        "src/components/KikiTabs.jsx:125-125",
+        "src/components/VideoSection.jsx:21-21"
+      ]
+    }
+  },
+  "unreferencedReferenceFiles": {
+    "files": [
+      "public/assets/hero-avatars.png",
+      "public/assets/nav-arrow.png",
+      "public/assets/nav-icon-1.png",
+      "public/assets/nav-icon-3.png",
+      "public/assets/nav-cust-ba.png",
+      "public/assets/nav-cust-iwg.jpg",
+      "public/assets/nav-cust-momentum.png",
+      "public/assets/nav-cust-morrisons.png",
+      "public/assets/nav-cust-nandos.png",
+      "public/assets/nav-cust-nbc.webp",
+      "public/assets/nav-cust-nhs.png",
+      "public/assets/nav-cust-specsavers.png"
+    ],
+    "note": "Present in the source project's public/assets/ but referenced by no src= site (nav customer icons, nav arrow/icons, the headshot strip). They are the same class of real third-party imagery and fall under the same bans; they back no role because no component uses them."
+  },
+  "fileCount": {
+    "publicAssets": 56,
+    "referencedByRoles": 45,
+    "unreferenced": 12,
+    "note": "hero-avatars.png is listed under photo.person AND as unreferenced (the clone draws CSS circles instead)."
+  }
+}

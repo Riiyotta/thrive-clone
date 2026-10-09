@@ -1,0 +1,29 @@
+{
+  "id": "tokens.foundation.breakpoint",
+  "designSystem": "marketing",
+  "model": "DESKTOP-FIRST (Webflow): unprefixed classes are desktop; tab/mob/xs are max-width overrides; wide/ultra are min-width enhancements. Tailwind's default sm/md/lg/xl screens are REPLACED, not extended.",
+  "tokens": {
+    "breakpoint.wide": {
+      "$value": "min-width: 1440px",
+      "measuredFrom": "tailwind.config.js:9-9"
+    },
+    "breakpoint.ultra": {
+      "$value": "min-width: 1920px",
+      "measuredFrom": "tailwind.config.js:10-10"
+    },
+    "breakpoint.tab": {
+      "$value": "max-width: 991px",
+      "measuredFrom": "tailwind.config.js:11-11"
+    },
+    "breakpoint.mob": {
+      "$value": "max-width: 767px",
+      "measuredFrom": "tailwind.config.js:12-12"
+    },
+    "breakpoint.xs": {
+      "$value": "max-width: 479px",
+      "measuredFrom": "tailwind.config.js:13-13"
+    }
+  },
+  "measuredFrom": "tailwind.config.js:8-13",
+  "specMeasuredFrom": "CLONE_SPEC.md:597-606"
+}

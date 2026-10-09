@@ -1,0 +1,11 @@
+{
+  "id": "primitive.wordmark",
+  "kind": "primitive",
+  "designSystem": "marketing",
+  "name": "Nimbus placeholder wordmark",
+  "props": {},
+  "notes": [
+    "The clone's own invented brand: an ink square + 'nimbus' text. It replaces the original's real wordmark. Chrome-owned; not settable from a PageSpec (brand.wordmark is exposedAsPageSpecField:false)."
+  ],
+  "measuredFrom": "src/components/shared/Wordmark.jsx:2-9"
+}

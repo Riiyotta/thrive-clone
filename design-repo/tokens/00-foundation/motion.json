@@ -1,0 +1,298 @@
+{
+  "id": "tokens.foundation.motion",
+  "designSystem": "marketing",
+  "engine": "GSAP 3.15 (ScrollTrigger, SplitText) for the button roll-up, hero reveal, statement zoom and quote highlight; CSS transitions for tabs, FAQ, mobile menu, carousels; a custom Swiper-like hook for carousels.",
+  "gsapSetup": {
+    "measuredFrom": "src/lib/gsap.js:6-6",
+    "note": "Single plugin registration point; ScrollTrigger.refresh() on document height changes and fonts.ready."
+  },
+  "noScrollFadeIns": {
+    "value": true,
+    "statement": "Sections, headings, cards and images do NOT fade in on scroll. There is no generic reveal pattern, and the closed pattern enum deliberately has none.",
+    "measuredFrom": "CLONE_SPEC.md:509-509"
+  },
+  "reducedMotion": {
+    "sourceImplements": false,
+    "statement": "Neither the original site nor this clone has any prefers-reduced-motion handling (grep of src/, index.html and tailwind.config.js finds none). The PageSpec schema nevertheless REQUIRES a reducedMotionFallback on every node so generated pages get one; each fallback below is a generation requirement, not a description of the source."
+  },
+  "easing": {
+    "outQuart": "cubic-bezier(0.165, 0.84, 0.44, 1) (CSS fallback; linear() quartic where supported) -- Webflow IX2 outQuart",
+    "inOutQuart": "cubic-bezier(0.77, 0, 0.175, 1) (CSS fallback; linear() quartic where supported)",
+    "power3.out": "GSAP power3.out (= IX2 outQuart, quartic)",
+    "power4.inOut": "GSAP power4.inOut (= IX3 ease index 12)",
+    "ease": "CSS ease",
+    "linear": "linear (bullet progress fill)",
+    "none": "GSAP ease none (scrubbed timeline)",
+    "tailwind-default": "Tailwind's default transition timing cubic-bezier(0.4, 0, 0.2, 1), applied where the clone sets a duration class but no ease class"
+  },
+  "easingMeasuredFrom": "tailwind.config.js:89-91",
+  "reducedMotionFallbacks": {
+    "none": "Nothing to reduce.",
+    "instant-toggle": "Switch open/closed or active state immediately, without the transition.",
+    "instant-final-state": "Render the end state immediately (fully visible, unscaled, final colour). No scroll scrub, no load reveal.",
+    "instant-slide-change": "Change slides without the 800ms transform transition; manual controls keep working.",
+    "autoplay-off-instant-slide-change": "Do not autoplay; render paused with the play control available; slide changes are instant."
+  },
+  "triggers": [
+    "none",
+    "load",
+    "hover",
+    "click",
+    "drag",
+    "viewport-enter",
+    "autoplay",
+    "scroll-scrub"
+  ],
+  "patterns": {
+    "none": {
+      "trigger": [
+        "none"
+      ],
+      "durationsMs": [],
+      "delaysMs": [],
+      "easings": [],
+      "reducedMotionFallback": "none",
+      "description": "No section-level motion. Hover colour transitions on buttons/links and the button letter roll-up are primitive behaviour, not section motion.",
+      "measuredFrom": "CLONE_SPEC.md:509-509"
+    },
+    "nav.hoverMenus": {
+      "trigger": [
+        "hover",
+        "click"
+      ],
+      "durationsMs": [
+        250,
+        320,
+        350,
+        360,
+        500,
+        650
+      ],
+      "delaysMs": [
+        300,
+        400
+      ],
+      "easings": [
+        "outQuart",
+        "tailwind-default"
+      ],
+      "reducedMotionFallback": "instant-toggle",
+      "description": "Desktop dropdowns open instantly on hover and close 300ms after pointer-leave (no tween). Top-level item hover bg 320ms, dropdown item hover 360ms, AI link bg 250ms / width 500ms. Mobile menu (<=991): opacity 0->1 + translateY 20->0 over 650ms outQuart in; close to opacity 0 / y 10 over 350ms, unmounted after 400ms.",
+      "measuredFrom": "src/components/Nav.jsx:157-157",
+      "alsoMeasuredFrom": [
+        "src/index.css:108-113",
+        "src/index.css:116-121",
+        "src/components/Nav.jsx:170-171"
+      ]
+    },
+    "hero.loadReveal": {
+      "trigger": [
+        "load"
+      ],
+      "durationsMs": [
+        500,
+        1250
+      ],
+      "delaysMs": [
+        0,
+        250,
+        350
+      ],
+      "easings": [
+        "power3.out"
+      ],
+      "reducedMotionFallback": "instant-final-state",
+      "description": "On load: avatar row (500ms), h1 (1250ms), subtitle and badges (1250ms, +250ms), buttons (1250ms, +350ms) from opacity 0 / y 40|10 / scale .9 / skewX 10|8 / blur 20|8|5px to rest. GSAP power3.out (= IX2 outQuart). Initial states set in a layout effect before first paint. The hero image is NOT animated.",
+      "measuredFrom": "src/components/Hero.jsx:9-16",
+      "alsoMeasuredFrom": [
+        "src/components/Hero.jsx:24-24"
+      ]
+    },
+    "tabs.crossFade": {
+      "trigger": [
+        "click"
+      ],
+      "durationsMs": [
+        300
+      ],
+      "delaysMs": [],
+      "easings": [
+        "ease"
+      ],
+      "reducedMotionFallback": "instant-toggle",
+      "description": "Click-driven pane + copy cross-fade: opacity and visibility .3s ease. No autoplay.",
+      "measuredFrom": "src/index.css:48-55"
+    },
+    "carousel.dragLoop": {
+      "trigger": [
+        "click",
+        "drag"
+      ],
+      "durationsMs": [
+        800
+      ],
+      "delaysMs": [],
+      "easings": [
+        "ease"
+      ],
+      "reducedMotionFallback": "instant-slide-change",
+      "description": "Swiper-like loop, 1 slide per view, 24px gap, 800ms CSS ease slide transition; tab click goes to slide; drag threshold 5px, 45deg touch angle, short swipe (<300ms) always advances, long swipe advances past 50% of a step. NO autoplay.",
+      "measuredFrom": "src/components/KikiTabs.jsx:44-44",
+      "alsoMeasuredFrom": [
+        "src/components/KikiTabs.jsx:103-103",
+        "src/hooks/useLoopCarousel.js:96-97",
+        "src/hooks/useLoopCarousel.js:120-120"
+      ]
+    },
+    "carousel.autoplayOnView": {
+      "trigger": [
+        "viewport-enter",
+        "autoplay",
+        "click",
+        "drag"
+      ],
+      "durationsMs": [
+        500,
+        800,
+        3000
+      ],
+      "delaysMs": [
+        3000
+      ],
+      "easings": [
+        "ease",
+        "linear"
+      ],
+      "reducedMotionFallback": "autoplay-off-instant-slide-change",
+      "description": "Autoplay starts once 40% of the slider container is visible (IntersectionObserver 0.4, once): jump to slide 0, then play. Delay 3000ms after each 800ms ease transition. Active bullet widens 24->48px (500ms ease) while playing; its fill runs bulletProgress 3s linear. Play/pause toggle. Drag threshold 5px.",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:23-23",
+      "alsoMeasuredFrom": [
+        "src/components/EnterpriseSlider.jsx:38-38",
+        "src/components/EnterpriseSlider.jsx:93-95",
+        "src/components/shared/Pagination.jsx:29-29"
+      ]
+    },
+    "scroll.zoomScrub": {
+      "trigger": [
+        "scroll-scrub"
+      ],
+      "durationsMs": [],
+      "delaysMs": [],
+      "easings": [
+        "none"
+      ],
+      "reducedMotionFallback": "instant-final-state",
+      "description": "GSAP ScrollTrigger scrub 0.9 on the statement visual: scale 2.5 / x 23 / y -447 / opacity 0 -> identity / opacity 1, start 'top 55%', end 'top 5%', ease none, origin centre.",
+      "scrub": 0.9,
+      "start": "top 55%",
+      "end": "top 5%",
+      "measuredFrom": "src/components/Statement.jsx:17-25"
+    },
+    "scroll.charColorScrub": {
+      "trigger": [
+        "scroll-scrub"
+      ],
+      "durationsMs": [
+        1500
+      ],
+      "delaysMs": [],
+      "easings": [
+        "power4.inOut"
+      ],
+      "reducedMotionFallback": "instant-final-state",
+      "description": "SplitText chars on the quote tween colour from the base #1a1a1a (surface-3) to #fff: 1.5s per char, stagger {amount: 10}, power4.inOut, ScrollTrigger start clamp(top 500) / end clamp(bottom 500), scrub 0.8.",
+      "scrub": 0.8,
+      "start": "clamp(top 500)",
+      "end": "clamp(bottom 500)",
+      "measuredFrom": "src/components/QuoteHighlight.jsx:23-29"
+    },
+    "carousel.centeredAutoplay": {
+      "trigger": [
+        "autoplay",
+        "hover",
+        "drag"
+      ],
+      "durationsMs": [
+        300,
+        800,
+        4000
+      ],
+      "delaysMs": [
+        4000
+      ],
+      "easings": [
+        "ease",
+        "linear"
+      ],
+      "reducedMotionFallback": "autoplay-off-instant-slide-change",
+      "description": "Centred loop carousel, autoplay from init with 4000ms delay, pauses while the pointer is over it (mouse only) and resumes with the remaining time. Centre slide scale 1.1 / opacity 1, others .95 / .2 (300ms ease); info panel fades in 300ms; active bullet 40px (300ms) with a 4s linear fill; bullets are not clickable. Drag threshold 10px.",
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:20-22",
+      "alsoMeasuredFrom": [
+        "src/components/CaseStudyCarousel.jsx:72-73",
+        "src/components/CaseStudyCarousel.jsx:115-117",
+        "src/hooks/useLoopCarousel.js:243-243"
+      ]
+    },
+    "accordion.faq": {
+      "trigger": [
+        "click"
+      ],
+      "durationsMs": [
+        150,
+        450,
+        650
+      ],
+      "delaysMs": [],
+      "easings": [
+        "outQuart",
+        "inOutQuart"
+      ],
+      "reducedMotionFallback": "instant-toggle",
+      "description": "Each item toggles independently. Open: body grid-rows 0fr->1fr, opacity 0->1, scaleY .7->1 over 450ms outQuart. Close: 650ms outQuart. Icon rotates 45deg->0 over 150ms inOutQuart. CSS transitions with cubic-bezier fallbacks and linear() quartic curves.",
+      "measuredFrom": "src/index.css:76-99"
+    },
+    "footer.dropup": {
+      "trigger": [
+        "click",
+        "hover"
+      ],
+      "durationsMs": [
+        200,
+        240,
+        300
+      ],
+      "delaysMs": [],
+      "easings": [
+        "ease",
+        "tailwind-default"
+      ],
+      "reducedMotionFallback": "instant-toggle",
+      "description": "Legal drop-ups open upward on click (inline at <=767); chevron rotates 0->180deg over 300ms ease. Link/social hover colour 240ms; column-header hover 200ms (>=1440 only).",
+      "measuredFrom": "src/components/Footer.jsx:62-62",
+      "alsoMeasuredFrom": [
+        "src/components/Footer.jsx:163-163"
+      ]
+    }
+  },
+  "primitivePatterns": {
+    "button.letterRollUp": {
+      "trigger": [
+        "hover"
+      ],
+      "durationsMs": [
+        450,
+        240
+      ],
+      "easings": [
+        "power4.inOut",
+        "ease"
+      ],
+      "description": "Every Button: SplitText words+chars on the label; chars y 0 -> -1.5em, 0.45s, stagger {amount: .25}, power4.inOut; mouseenter plays, mouseleave reverses. The label's text-shadow copy (0 1.5em) rolls up into the 20px mask. Background colour transition 240ms ease in parallel.",
+      "measuredFrom": "src/components/shared/Button.jsx:28-28",
+      "alsoMeasuredFrom": [
+        "src/components/shared/Button.jsx:29-30",
+        "src/components/shared/Button.jsx:46-46"
+      ]
+    }
+  }
+}

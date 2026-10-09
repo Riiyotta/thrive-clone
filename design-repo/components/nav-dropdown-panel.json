@@ -1,0 +1,11 @@
+{
+  "id": "component.nav-dropdown-panel",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "Desktop dropdown panel",
+  "composes": [],
+  "notes": [
+    "Centred under the whole pill (top ~78px at 1440), surface-2, radius 12, padding 16, gap 32. Columns 208 wide unless title-only (content width)."
+  ],
+  "measuredFrom": "src/components/Nav.jsx:89-130"
+}

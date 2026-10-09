@@ -1,0 +1,11 @@
+{
+  "id": "primitive.play-button",
+  "kind": "primitive",
+  "designSystem": "marketing",
+  "name": "36px circular play button",
+  "props": {},
+  "notes": [
+    "bg #111 (playbtn), white 16px glyph. Decorative in the video placeholder: it starts nothing."
+  ],
+  "measuredFrom": "src/components/VideoSection.jsx:27-30"
+}

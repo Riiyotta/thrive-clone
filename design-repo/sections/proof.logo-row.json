@@ -1,0 +1,151 @@
+{
+  "id": "proof.logo-row",
+  "kind": "section",
+  "name": "Static customer logo row",
+  "purpose": "Borrow credibility from recognisable customers immediately after the hero. Static: no marquee, no motion.",
+  "category": "proof",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/LogoStrip.jsx",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 6,
+        "note": "18/25.2 white, centred, outside the container.",
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "logos": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "logo.customer",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "logo.customer",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 4,
+            "maximum": 6
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ],
+        "note": "Six 112px-wide slots at 1440 (space-between, gap 48, max 960); 3 rows of 2 at 390. Real customer marks are must-not-reuse."
+      }
+    },
+    "required": [
+      "heading",
+      "logos"
+    ]
+  },
+  "constraints": {
+    "onePerPage": true,
+    "maxPerPage": 1
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/LogoStrip.jsx:11-11",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Vertical padding 48 -> 32.",
+      "tailwind": [
+        "py-[48px] mob:py-[32px]"
+      ],
+      "measuredFrom": "src/components/LogoStrip.jsx:16-16"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Row wraps with space-around, gap 32.",
+      "tailwind": [
+        "mob:flex-wrap mob:justify-around mob:gap-[32px]"
+      ],
+      "measuredFrom": "src/components/LogoStrip.jsx:20-20"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Logo slot width 112 -> 80px.",
+      "tailwind": [
+        "mob:w-[80px]"
+      ],
+      "measuredFrom": "src/components/LogoStrip.jsx:22-22"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "changes": "Logo slot width 96px (3 rows of 2; section 337px tall at 390).",
+      "tailwind": [
+        "xs:w-[96px]"
+      ],
+      "measuredFrom": "src/components/LogoStrip.jsx:22-22"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "changes": "Heading 18 -> 17.6px.",
+      "tailwind": [
+        "text-center text-body text-ink xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/LogoStrip.jsx:17-17"
+    }
+  ],
+  "assetRoles": [
+    "logo.customer",
+    "placeholder.neutral"
+  ],
+  "composes": [
+    "primitive.logo-placeholder"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "hero.split-visual"
+    ],
+    "recommendedBefore": [
+      "product.feature-tabs"
+    ],
+    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+  },
+  "observedOn": [
+    "/"
+  ],
+  "measuredFrom": "src/components/LogoStrip.jsx:12-34",
+  "iaSectionId": "proof.logo-row",
+  "specMeasuredFrom": "CLONE_SPEC.md:197-211"
+}

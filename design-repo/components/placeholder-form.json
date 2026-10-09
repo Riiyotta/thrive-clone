@@ -1,0 +1,11 @@
+{
+  "id": "component.placeholder-form",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "Static demo-form placeholder",
+  "composes": [],
+  "notes": [
+    "300 wide, 356.5 tall; four DISABLED text inputs and a DISABLED submit; onSubmit preventDefault; no action, no endpoint, no network. Original was a cross-origin HubSpot iframe that could not be measured."
+  ],
+  "measuredFrom": "src/components/Footer.jsx:82-103"
+}

@@ -1,0 +1,122 @@
+{
+  "id": "conversion.demo-form",
+  "kind": "section",
+  "name": "Demo-request block (static form placeholder)",
+  "purpose": "Final conversion ask: wordmark, heading, one line of copy and a demo-request form. Opens the <footer> element.",
+  "category": "conversion",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/Footer.jsx",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 11,
+        "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+      },
+      "body": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 24,
+        "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+      },
+      "form": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "live": {
+            "const": false,
+            "note": "STATIC placeholder (original: cross-origin HubSpot iframe that could not be measured). No endpoint, inputs disabled, submit prevented. A PageSpec may never make it live (DEMO_FORM_STAYS_STATIC)."
+          },
+          "fieldLabels": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 2,
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            }
+          },
+          "submitLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 2,
+            "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "live",
+          "fieldLabels",
+          "submitLabel"
+        ]
+      }
+    },
+    "required": [
+      "heading",
+      "body",
+      "form"
+    ]
+  },
+  "constraints": {
+    "onePerPage": true,
+    "maxPerPage": 1,
+    "mustImmediatelyPrecede": "shell.footer",
+    "neighbourRuleId": "DEMO_FORM_PRECEDES_FOOTER"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/Footer.jsx:83-83",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+  },
+  "responsive": [
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "changes": "CTA block padding 48 -> 24.",
+      "tailwind": [
+        "p-[48px] xs:p-[24px]"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:123-123"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "changes": "Body copy 18 -> 17.6px.",
+      "tailwind": [
+        "mb-[4px] max-w-[512px] text-body text-ink xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:127-127"
+    }
+  ],
+  "assetRoles": [
+    "brand.wordmark"
+  ],
+  "composes": [
+    "primitive.wordmark",
+    "primitive.heading-h2",
+    "component.placeholder-form"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "conversion.faq"
+    ],
+    "recommendedBefore": [
+      "shell.footer"
+    ],
+    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+  },
+  "observedOn": [
+    "/"
+  ],
+  "measuredFrom": "src/components/Footer.jsx:122-130",
+  "iaSectionId": "conversion.demo-form",
+  "specMeasuredFrom": "CLONE_SPEC.md:452-456"
+}

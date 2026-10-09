@@ -1,0 +1,13 @@
+{
+  "id": "component.badge-row",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "Rating + award badge row",
+  "composes": [
+    "primitive.placeholder-media"
+  ],
+  "notes": [
+    "Two rating slots (104x54, 71x63) left; four award slots (~110x79) right. Badges are must-not-fabricate: generated pages render neutral slots only."
+  ],
+  "measuredFrom": "src/components/Footer.jsx:189-203"
+}

@@ -1,0 +1,14 @@
+(function() {
+try {
+    var fcmp = typeof __cmp == 'function';
+    var rnd = Math.random();
+    var img = document.createElement("img");
+    var exptid = encodeURIComponent("");
+    var url = window.top.location === window.location ? window.location.toString() : document.referrer;
+    img.src = "https://pd.sharethis.com/pd/apt1?_t_=px&url=" + encodeURIComponent(url) + "&event_source=apt1" + "&rnd=" + rnd + "&exptid=" + exptid + "&fcmp=" + fcmp;
+    img.style = "display: none;";
+    img.async = true
+    document.body.appendChild(img);
+} catch (err) {
+}
+})()

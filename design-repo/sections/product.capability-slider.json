@@ -1,0 +1,187 @@
+{
+  "id": "product.capability-slider",
+  "kind": "section",
+  "name": "Three-up autoplay slider with progress bullets",
+  "purpose": "Reassure enterprise buyers (integrations, security, localisation, accessibility, partnership, community) in a skimmable auto-advancing row.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/EnterpriseSlider.jsx",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 10,
+        "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "slides": {
+        "type": "array",
+        "minItems": 4,
+        "maxItems": 6,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "image": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "product.screenshot",
+                "photo.event",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "product.screenshot",
+                    "photo.event",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 4,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "416px (26rem) tall, radius 8, cover."
+            },
+            "highlight": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 6,
+              "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+            },
+            "subdued": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 20,
+              "measuredLongestRealInstance": "20 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "image",
+            "highlight",
+            "subdued"
+          ]
+        },
+        "note": "Loop with 3 per view needs at least 4 real slides; 6 measured."
+      }
+    },
+    "required": [
+      "heading",
+      "ctaLabel",
+      "slides"
+    ]
+  },
+  "constraints": {
+    "onePerPage": true,
+    "maxPerPage": 1
+  },
+  "motion": {
+    "allowedPatterns": [
+      "carousel.autoplayOnView"
+    ],
+    "reducedMotionFallback": "autoplay-off-instant-slide-change",
+    "measuredFrom": "src/components/EnterpriseSlider.jsx:23-23",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "2 slides per view (768-991).",
+      "tailwind": [
+        "[--n:3] tab:[--n:2] mob:[--n:1]"
+      ],
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:63-63"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "1 slide per view (<768).",
+      "tailwind": [
+        "mob:[--n:1]"
+      ],
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:63-63"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Section bottom padding 80 -> 0; TOP padding stays 32 (the spec's 'section padding 0' is wrong -- audit shows the H2 at y=36 at 390).",
+      "tailwind": [
+        "pb-[80px] pt-[32px] mob:pb-0"
+      ],
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:49-49"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Header spacer 32 -> 24 (20 at <=767).",
+      "tailwind": [
+        "pt-[32px] tab:pt-[24px] mob:pt-[20px]"
+      ],
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:54-54"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Slide text 16/22.4 -> 20/28.",
+      "tailwind": [
+        "mob:text-slide-mob"
+      ],
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:79-79"
+    }
+  ],
+  "assetRoles": [
+    "product.screenshot",
+    "photo.event",
+    "placeholder.neutral"
+  ],
+  "composes": [
+    "primitive.heading-h2",
+    "primitive.button",
+    "primitive.pagination",
+    "component.loop-carousel",
+    "component.autoplay-controller"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.assistant-tabs"
+    ],
+    "recommendedBefore": [
+      "proof.results-stats"
+    ],
+    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+  },
+  "observedOn": [
+    "/"
+  ],
+  "measuredFrom": "src/components/EnterpriseSlider.jsx:19-105",
+  "iaSectionId": "product.capability-slider",
+  "specMeasuredFrom": "CLONE_SPEC.md:294-319"
+}

@@ -1,0 +1,13 @@
+{
+  "id": "component.three-col-slide",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "Three-up slide",
+  "composes": [
+    "primitive.placeholder-media"
+  ],
+  "notes": [
+    "Column, gap 20, radius 12; image 26rem tall radius 8; 16/22.4 500 text, subdued -0.02em."
+  ],
+  "measuredFrom": "src/components/EnterpriseSlider.jsx:76-81"
+}

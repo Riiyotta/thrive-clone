@@ -1,0 +1,11 @@
+{
+  "id": "component.footer-dropup",
+  "kind": "component",
+  "designSystem": "marketing",
+  "name": "Legal drop-up",
+  "composes": [],
+  "notes": [
+    "Toggle min-height 50, padding 4 30 4 10; list opens upward (bottom 50, right 0) as a #2f2f2f card, border rgba(214,214,214,.16), radius 10; static at <=767; closes on outside click."
+  ],
+  "measuredFrom": "src/components/Footer.jsx:49-82"
+}

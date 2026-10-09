@@ -1,0 +1,13 @@
+{
+  "id": "primitive.inline-link",
+  "kind": "primitive",
+  "designSystem": "marketing",
+  "name": "White underlined inline link inside grey copy",
+  "props": {
+    "text": {
+      "type": "string",
+      "maxWords": 5
+    }
+  },
+  "measuredFrom": "src/index.css:42-44"
+}

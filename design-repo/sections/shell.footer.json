@@ -1,0 +1,436 @@
+{
+  "id": "shell.footer",
+  "kind": "section",
+  "name": "Footer card",
+  "purpose": "Site map, AI-assistant links, ratings/awards, compliance line and legal links.",
+  "category": "shell",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/Footer.jsx",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "aiPrompt": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "note": "Line above the AI-assistant link row.",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "aiLinks": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "logo.aiVendor",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "logo.aiVendor",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ],
+        "note": "48x48 slots (40 at <=991). Third-party AI vendor marks are must-not-reuse."
+      },
+      "columns": {
+        "type": "array",
+        "minItems": 4,
+        "maxItems": 4,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "header": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 2,
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "headerIsLink": {
+              "type": "boolean"
+            },
+            "links": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 6,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              }
+            },
+            "buttonLabel": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "note": "Optional dark-small button inside the link list.",
+              "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "header",
+            "headerIsLink",
+            "links"
+          ]
+        },
+        "note": "4-column grid (3 at <=991, 2 at <=479)."
+      },
+      "ratingBadges": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "badge.review",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "badge.review",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 2
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ]
+      },
+      "awardBadges": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "badge.award",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "badge.award",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ]
+      },
+      "complianceLine": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 25,
+            "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+          },
+          "linkPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 3,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered as a white underlined .inline-link."
+          }
+        },
+        "required": [
+          "text",
+          "linkPhrases"
+        ],
+        "x-richText": true
+      },
+      "copyright": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "legalLinks": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 2,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 4,
+          "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+        }
+      },
+      "dropups": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 2,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+            },
+            "links": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 6,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              }
+            }
+          },
+          "required": [
+            "label",
+            "links"
+          ]
+        },
+        "note": "Open upward on click (inline at <=767)."
+      }
+    },
+    "required": [
+      "aiPrompt",
+      "aiLinks",
+      "columns",
+      "ratingBadges",
+      "awardBadges",
+      "complianceLine",
+      "copyright",
+      "legalLinks",
+      "dropups"
+    ]
+  },
+  "constraints": {
+    "onePerPage": true,
+    "maxPerPage": 1,
+    "mustBeLast": true
+  },
+  "motion": {
+    "allowedPatterns": [
+      "footer.dropup"
+    ],
+    "reducedMotionFallback": "instant-toggle",
+    "measuredFrom": "src/components/Footer.jsx:62-62",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Footer card padding 48 -> 32 (16 at <=479).",
+      "tailwind": [
+        "rounded-panel bg-surface-1 p-[48px] tab:p-[32px] xs:p-[16px]"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:135-135"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "AI logo slots 48 -> 40px.",
+      "tailwind": [
+        "tab:h-[40px] tab:w-[40px]"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:141-141"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Menu grid 4 -> 3 columns, row gap 48 (24 at <=767; 2 columns at <=479).",
+      "tailwind": [
+        "grid grid-cols-4",
+        "tab:grid-cols-3 tab:gap-y-[48px] mob:gap-y-[24px] xs:grid-cols-2"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:157-157"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Badges row becomes a column, gap 24.",
+      "tailwind": [
+        "mb-[32px] flex justify-between tab:flex-col tab:items-start tab:gap-[24px]"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:189-189"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Award badges margin-left -24 (-16 at <=479).",
+      "tailwind": [
+        "tab:ml-[-24px]",
+        "xs:ml-[-16px]"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:194-194"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Legal row becomes a column, gap 16 (24 at <=767).",
+      "tailwind": [
+        "tab:h-auto tab:flex-col tab:gap-[16px] mob:gap-[24px]"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:215-215"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Column header 18.4 -> 18px.",
+      "tailwind": [
+        "mob:text-footer-head-mob"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:163-163"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Link list gap 8 -> 4.",
+      "tailwind": [
+        "flex flex-col gap-[8px] self-stretch mob:gap-[4px]"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:170-170"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Drop-up lists open inline (static).",
+      "tailwind": [
+        "mob:static"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:70-70"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "changes": "Wordmark/social row becomes a column, gap 24.",
+      "tailwind": [
+        "flex items-center justify-between xs:flex-col xs:items-start xs:gap-[24px]"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:148-148"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "changes": "Legal links stack centred, gap 4.",
+      "tailwind": [
+        "flex items-center gap-[24px] xs:flex-col xs:gap-[4px]"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:218-218"
+    },
+    {
+      "breakpoint": "wide",
+      "query": "min-width: 1440px",
+      "changes": "Column header hover colour (grey) only at >=1440.",
+      "tailwind": [
+        "wide:hover:text-grey"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:163-163"
+    }
+  ],
+  "assetRoles": [
+    "brand.wordmark",
+    "logo.aiVendor",
+    "badge.review",
+    "badge.award",
+    "placeholder.neutral"
+  ],
+  "composes": [
+    "primitive.wordmark",
+    "primitive.button",
+    "primitive.inline-link",
+    "component.footer-link-column",
+    "component.footer-dropup",
+    "component.badge-row"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "conversion.demo-form"
+    ],
+    "recommendedBefore": [],
+    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+  },
+  "observedOn": [
+    "/"
+  ],
+  "measuredFrom": "src/components/Footer.jsx:134-239",
+  "iaSectionId": "shell.footer",
+  "specMeasuredFrom": "CLONE_SPEC.md:458-498"
+}

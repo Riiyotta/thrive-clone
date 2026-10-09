@@ -1,0 +1,17 @@
+section,category,templates,routes,Homepage
+shell.nav,SHELL,1,1,x
+hero.split-visual,HERO,1,1,x
+proof.logo-row,PROOF,1,1,x
+product.feature-tabs,PRODUCT,1,1,x
+product.assistant-tabs,PRODUCT,1,1,x
+product.capability-slider,PRODUCT,1,1,x
+proof.results-stats,PROOF,1,1,x
+proof.testimonial,PROOF,1,1,x
+story.zoom-statement,STORY,1,1,x
+story.scroll-quote,STORY,1,1,x
+proof.case-study-carousel,PROOF,1,1,x
+story.brand-video,STORY,1,1,x
+conversion.faq,CONVERSION,1,1,x
+conversion.demo-form,CONVERSION,1,1,x
+shell.footer,SHELL,1,1,x
+ROUTE COUNT,,,1,1

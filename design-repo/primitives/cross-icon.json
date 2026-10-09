@@ -1,0 +1,15 @@
+{
+  "id": "primitive.cross-icon",
+  "kind": "primitive",
+  "designSystem": "marketing",
+  "name": "FAQ cross icon",
+  "props": {
+    "open": {
+      "type": "boolean"
+    }
+  },
+  "notes": [
+    "20x20 SVG, fill #808080; rotated 45deg (reads as '+') when closed, 0deg when open, 150ms inOutQuart."
+  ],
+  "measuredFrom": "src/components/Faq.jsx:59-63"
+}

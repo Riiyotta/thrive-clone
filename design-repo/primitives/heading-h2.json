@@ -1,0 +1,15 @@
+{
+  "id": "primitive.heading-h2",
+  "kind": "primitive",
+  "designSystem": "marketing",
+  "name": "Section H2",
+  "props": {
+    "text": {
+      "type": "string"
+    }
+  },
+  "notes": [
+    "Instrument Serif 400, 64/73.6 (56/64.4 <=767, 40/46 <=479), colour ink, margin-top 4px on EVERY H2 (pixel-audit correction; the spec never states it)."
+  ],
+  "measuredFrom": "src/index.css:38-40"
+}

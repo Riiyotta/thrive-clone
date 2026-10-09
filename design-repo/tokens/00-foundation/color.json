@@ -1,0 +1,104 @@
+{
+  "id": "tokens.foundation.color",
+  "designSystem": "marketing",
+  "note": "The complete palette, read from tailwind.config.js theme.extend.colors (which mirrors CLONE_SPEC.md §0.2). Nothing may be added without a stylesheet citation. There are no gradients, shadows or backdrop filters on the page.",
+  "measuredFrom": "tailwind.config.js:16-35",
+  "specMeasuredFrom": "CLONE_SPEC.md:24-42",
+  "tokens": {
+    "color.page": {
+      "$value": "#000000",
+      "usage": "page/body/footer background",
+      "measuredFrom": "tailwind.config.js:17-17"
+    },
+    "color.ink": {
+      "$value": "#f5f6ff",
+      "usage": "text primary, primary button bg",
+      "measuredFrom": "tailwind.config.js:18-18"
+    },
+    "color.grey": {
+      "$value": "#a4a4a4",
+      "usage": "paragraphs, subdued text, footer links",
+      "measuredFrom": "tailwind.config.js:19-19"
+    },
+    "color.surface-1": {
+      "$value": "#0b0b0b",
+      "usage": "cards, pagination pill, primary button text",
+      "measuredFrom": "tailwind.config.js:20-20"
+    },
+    "color.surface-2": {
+      "$value": "#131313",
+      "usage": "nav pill, dropdown panel, case-study stat blocks",
+      "measuredFrom": "tailwind.config.js:21-21"
+    },
+    "color.surface-3": {
+      "$value": "#1a1a1a",
+      "usage": "dark button, active assistant tab, tab dividers, quote base colour",
+      "measuredFrom": "tailwind.config.js:22-22"
+    },
+    "color.hover": {
+      "$value": "#262626",
+      "usage": "nav/dropdown/social hover",
+      "measuredFrom": "tailwind.config.js:23-23"
+    },
+    "color.track": {
+      "$value": "#222222",
+      "usage": "swiper bullets",
+      "measuredFrom": "tailwind.config.js:24-24"
+    },
+    "color.playbtn": {
+      "$value": "#111111",
+      "usage": "play/pause button",
+      "measuredFrom": "tailwind.config.js:25-25"
+    },
+    "color.green": {
+      "$value": "#1de9b6",
+      "usage": "active tab chip",
+      "measuredFrom": "tailwind.config.js:26-26"
+    },
+    "color.green-hover": {
+      "$value": "#00ffbf",
+      "usage": "primary button hover",
+      "measuredFrom": "tailwind.config.js:27-27"
+    },
+    "color.link-hover": {
+      "$value": "#e6e7e7",
+      "usage": "footer link hover, mobile AI link border",
+      "measuredFrom": "tailwind.config.js:28-28"
+    },
+    "color.icon": {
+      "$value": "#808080",
+      "usage": "FAQ cross, drop-up chevron",
+      "measuredFrom": "tailwind.config.js:29-29"
+    },
+    "color.dropup": {
+      "$value": "#2f2f2f",
+      "usage": "drop-up list card",
+      "measuredFrom": "tailwind.config.js:30-30"
+    },
+    "color.dropup-border": {
+      "$value": "rgba(214,214,214,.16)",
+      "usage": "drop-up border",
+      "measuredFrom": "tailwind.config.js:31-31"
+    },
+    "color.ai-hover": {
+      "$value": "rgba(230,231,231,.2)",
+      "usage": "nav AI link hover",
+      "measuredFrom": "tailwind.config.js:32-32"
+    },
+    "color.tab-inactive": {
+      "$value": "rgba(255,255,255,.3)",
+      "usage": "inactive product tab label",
+      "measuredFrom": "tailwind.config.js:33-33"
+    },
+    "color.nav-transparent": {
+      "$value": "rgba(0,10,6,0)",
+      "usage": "nav bg >=480",
+      "measuredFrom": "tailwind.config.js:34-34"
+    },
+    "color.progress": {
+      "$value": "#ffffff",
+      "usage": "bullet progress fill",
+      "measuredFrom": "tailwind.config.js:35-35"
+    }
+  }
+}

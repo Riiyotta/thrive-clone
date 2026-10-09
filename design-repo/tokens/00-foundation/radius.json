@@ -1,0 +1,42 @@
+{
+  "id": "tokens.foundation.radius",
+  "designSystem": "marketing",
+  "tokens": {
+    "radius.pill": {
+      "$value": "999px",
+      "measuredFrom": "tailwind.config.js:42-42"
+    },
+    "radius.card": {
+      "$value": "12px",
+      "measuredFrom": "tailwind.config.js:43-43"
+    },
+    "radius.panel": {
+      "$value": "16px",
+      "measuredFrom": "tailwind.config.js:44-44"
+    },
+    "radius.media": {
+      "$value": "8px",
+      "measuredFrom": "tailwind.config.js:45-45"
+    },
+    "radius.item": {
+      "$value": "6px",
+      "measuredFrom": "tailwind.config.js:46-46"
+    },
+    "radius.dropup": {
+      "$value": "10px",
+      "measuredFrom": "tailwind.config.js:47-47"
+    },
+    "radius.avatar": {
+      "$value": "100px",
+      "measuredFrom": "tailwind.config.js:48-48"
+    }
+  },
+  "literals": {
+    "avatarBelow1440": {
+      "$value": "6px 0",
+      "note": "Testimonial avatar corners below 1440 (top-left + bottom-right only).",
+      "measuredFrom": "src/components/Results.jsx:45-45"
+    }
+  },
+  "specMeasuredFrom": "CLONE_SPEC.md:44-50"
+}

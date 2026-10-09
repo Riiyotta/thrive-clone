@@ -1,0 +1,281 @@
+{
+  "id": "product.feature-tabs",
+  "kind": "section",
+  "name": "Click tabs with bleeding product pane",
+  "purpose": "Walk through the platform's pillars one at a time; each tab swaps a product visual and a short pitch with its own CTA.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/ProductTabs.jsx",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 10,
+        "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+      },
+      "intro": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 26,
+            "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+          },
+          "linkPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 5,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered as a white underlined .inline-link."
+          }
+        },
+        "required": [
+          "text",
+          "linkPhrases"
+        ],
+        "note": "Grey 18.4/25.76 paragraph, max 448, with up to five white underlined pillar links.",
+        "x-richText": true
+      },
+      "tabs": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 4,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 12,
+              "note": "Desktop tab sentence, 24/33.6; 1 line = 83px row, 2 lines = 116px row.",
+              "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+            },
+            "shortLabel": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 2,
+              "note": "Replaces label at <=767 (chips).",
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "copy": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 28,
+              "note": "Grey 18/25.2 child copy in a 192px (12rem) box; 3 lines.",
+              "measuredLongestRealInstance": "24 words in the clone's own placeholder copy"
+            },
+            "ctaLabel": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 4,
+              "note": "Dark button.",
+              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+            },
+            "visual": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "product.screenshot",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "product.screenshot",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 4,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "670:600 pane image, bleeds -10vw off the right edge."
+            }
+          },
+          "required": [
+            "label",
+            "shortLabel",
+            "copy",
+            "ctaLabel",
+            "visual"
+          ]
+        },
+        "note": "The 592px (37rem) tab body fits at most four rows."
+      }
+    },
+    "required": [
+      "heading",
+      "intro",
+      "tabs"
+    ]
+  },
+  "constraints": {
+    "onePerPage": true,
+    "maxPerPage": 1
+  },
+  "motion": {
+    "allowedPatterns": [
+      "tabs.crossFade"
+    ],
+    "reducedMotionFallback": "instant-toggle",
+    "measuredFrom": "src/index.css:48-55",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Header row becomes a column, gap 24.",
+      "tailwind": [
+        "tab:flex-col tab:items-start tab:gap-[24px]"
+      ],
+      "measuredFrom": "src/components/ProductTabs.jsx:45-45"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "changes": "Header-to-body spacer 80 -> 64 (48 at <=767).",
+      "tailwind": [
+        "h-[80px] tab:h-[64px] mob:h-[48px]"
+      ],
+      "measuredFrom": "src/components/ProductTabs.jsx:59-59"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Section bottom padding 0.",
+      "tailwind": [
+        "py-[32px] mob:pb-0 xs:pb-[32px]"
+      ],
+      "measuredFrom": "src/components/ProductTabs.jsx:41-41"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Tab body height auto.",
+      "tailwind": [
+        "h-[592px]",
+        "mob:h-auto"
+      ],
+      "measuredFrom": "src/components/ProductTabs.jsx:62-62"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Tab list becomes wrapped chips, gap 24, margin-bottom 48.",
+      "tailwind": [
+        "mob:mb-[48px] mob:flex-row mob:flex-wrap mob:gap-[24px]"
+      ],
+      "measuredFrom": "src/components/ProductTabs.jsx:64-64"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Desktop sentence hidden.",
+      "tailwind": [
+        "mob:hidden"
+      ],
+      "measuredFrom": "src/components/ProductTabs.jsx:78-78"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Short label shown.",
+      "tailwind": [
+        "hidden mob:inline"
+      ],
+      "measuredFrom": "src/components/ProductTabs.jsx:79-79"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Pane becomes relative, full width, 60dvh, no bleed.",
+      "tailwind": [
+        "mob:relative mob:m-0 mob:mb-[48px] mob:h-[60dvh] mob:w-full"
+      ],
+      "measuredFrom": "src/components/ProductTabs.jsx:86-86"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "changes": "Child copy full width, 14rem tall.",
+      "tailwind": [
+        "mob:h-[14rem] mob:w-full"
+      ],
+      "measuredFrom": "src/components/ProductTabs.jsx:96-96"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "changes": "Section bottom padding back to 32.",
+      "tailwind": [
+        "xs:pb-[32px]"
+      ],
+      "measuredFrom": "src/components/ProductTabs.jsx:41-41"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "changes": "Pane height 40dvh.",
+      "tailwind": [
+        "xs:h-[40dvh]"
+      ],
+      "measuredFrom": "src/components/ProductTabs.jsx:86-86"
+    }
+  ],
+  "assetRoles": [
+    "product.screenshot",
+    "placeholder.neutral"
+  ],
+  "composes": [
+    "primitive.heading-h2",
+    "primitive.inline-link",
+    "primitive.tab-chip",
+    "primitive.button",
+    "primitive.placeholder-media"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.logo-row"
+    ],
+    "recommendedBefore": [
+      "product.assistant-tabs"
+    ],
+    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+  },
+  "observedOn": [
+    "/"
+  ],
+  "measuredFrom": "src/components/ProductTabs.jsx:37-115",
+  "iaSectionId": "product.feature-tabs",
+  "specMeasuredFrom": "CLONE_SPEC.md:215-248"
+}
