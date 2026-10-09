@@ -1,21 +1,45 @@
 import Button from './shared/Button.jsx'
 import Placeholder, { LogoPlaceholder } from './shared/Placeholder.jsx'
 import Pagination from './shared/Pagination.jsx'
+import Eyebrow from './shared/Eyebrow.jsx'
 import { useEffect, useRef, useState } from 'react'
 import useLoopCarousel, { useAutoplay } from '../hooks/useLoopCarousel.js'
 
 // §10 centred highlight carousel (slidesPerView auto, centeredSlides, loop).
 const CASE_IMGS = [['case-3.avif', 'case-3-logo.avif'], ['case-4.avif', 'case-4-logo.svg'], ['case-5.avif', 'case-5-logo.svg'], ['case-1.avif', 'case-1-logo.avif'], ['case-2.jpg', 'case-2-logo.svg']]
-const SLIDES = [
+const HOME_SLIDES_DATA = [
   { text: 'How a roadside rescue team made learning part of every shift', stats: [['75%', 'of staff active every month'], ['3x', 'more courses completed']] },
   { text: 'A skincare brand that onboards new store staff in days', stats: [['500k+', 'learning moments logged'], ['40%', 'faster time to confidence']] },
   { text: 'Building a sweeter culture across hundreds of bakeries', stats: [['88%', 'of store managers now mentoring new starters'], ['2x', 'internal promotions']] },
   { text: 'A fashion retailer that turned everyday training into a habit its store teams look forward to', stats: [['92%', 'compliance completion'], ['60%', 'less admin time each week']] },
   { text: 'Keeping a fast-moving retail team learning together', stats: [['70%', 'weekly active learners'], ['4.8', 'average course rating']] },
 ]
-const N = SLIDES.length
+const HOME_SLIDES = HOME_SLIDES_DATA.map((sl, i) => ({ ...sl, image: `/assets/${CASE_IMGS[i][0]}`, logo: `/assets/${CASE_IMGS[i][1]}` }))
 
-export default function CaseStudyCarousel() {
+/**
+ * §10 `.section_wowhighlight-slider` centred highlight carousel (slidesPerView auto, centeredSlides,
+ * loop, autoplay 4000). Defaults reproduce the homepage. Subpage variants add an eyebrow chip,
+ * drop the header button and use a 32px (not 80px) spacer above the slider (/lms/features).
+ * @param {React.ReactNode} [props.eyebrow] eyebrow chip label above the H2
+ * @param {React.ReactNode} [props.heading] H2 (left column, max 36rem)
+ * @param {{label: React.ReactNode, to?: string}|null} [props.cta] dark button under the H2; null hides it
+ * @param {React.ReactNode} [props.intro] grey paragraph (right column)
+ * @param {string} [props.spacerClassName='h-[5rem] tab:h-[4rem] mob:h-[3rem]'] gap between header and slider
+ * @param {Array<{text: React.ReactNode, stats: Array<[string, string]>, image?: string|null, logo?: string|null}>} [props.slides]
+ *   slide copy + two stat chips; `image`/`logo` srcs (null → placeholders). Default: 5 homepage slides.
+ * @param {string} [props.className='overflow-hidden py-[5rem] tab:p-0'] section classes
+ */
+export default function CaseStudyCarousel({
+  eyebrow,
+  heading = 'Stories from teams that grew with us',
+  cta = { label: 'Read customer stories', to: '/case-studies/lms' },
+  intro = 'See how teams in retail, travel and beyond turned everyday learning into results they can measure.',
+  spacerClassName = 'h-[5rem] tab:h-[4rem] mob:h-[3rem]',
+  slides = HOME_SLIDES,
+  className = 'overflow-hidden py-[5rem] tab:p-0',
+}) {
+  const SLIDES = slides
+  const N = SLIDES.length
   // Original Swiper: threshold 10, speed 800, loop, grabCursor, autoplay 4000 / pauseOnMouseEnter.
   const c = useLoopCarousel(N, { initialPlaying: true, threshold: 10 })
   const hoverRef = useRef(null)
@@ -30,22 +54,25 @@ export default function CaseStudyCarousel() {
   useEffect(() => setProgressKey((k) => k + 1), [c.settled, c.playing])
 
   return (
-    <section data-section="highlight" className="overflow-hidden py-[5rem] tab:p-0">
+    <section data-section="highlight" className={className}>
       <div className="padding-global">
         <div className="container-medium">
           <div className="flex flex-row items-end justify-between tab:flex-col tab:items-start tab:gap-[1.5rem]">
             <div className="flex w-[36rem] max-w-full flex-col items-start gap-[1rem]">
-              <h2 className="heading-h2">Stories from teams that grew with us</h2>
-              <div className="flex">
-                <Button variant="dark">Read customer stories</Button>
-              </div>
+              {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+              <h2 className="heading-h2">{heading}</h2>
+              {cta && (
+                <div className="flex">
+                  <Button variant="dark" to={cta.to}>
+                    {cta.label}
+                  </Button>
+                </div>
+              )}
             </div>
-            <p className="mb-[1.25rem] max-w-[28rem] text-para text-grey">
-              See how teams in retail, travel and beyond turned everyday learning into results they can measure.
-            </p>
+            <p className="mb-[1.25rem] max-w-[28rem] text-para text-grey">{intro}</p>
           </div>
 
-          <div className="h-[5rem] tab:h-[4rem] mob:h-[3rem]" />
+          <div className={spacerClassName} />
 
           <div className="flex flex-col items-center gap-[2rem]">
             <div
@@ -74,9 +101,9 @@ export default function CaseStudyCarousel() {
                     >
                       <div className="flex flex-col gap-[1.25rem]">
                         <div className="relative h-[30rem] overflow-clip rounded-panel mob:h-[24rem]">
-                          <Placeholder src={`/assets/${CASE_IMGS[i % N][0]}`} alt="" tone={2} label="Brand photo 16:9" className="absolute inset-0" />
+                          <Placeholder src={s.image || undefined} alt="" tone={2} label="Brand photo 16:9" className="absolute inset-0" />
                           <div className="absolute inset-0 p-[2rem] mob:p-[1.5rem]">
-                            <LogoPlaceholder src={`/assets/${CASE_IMGS[i % N][1]}`} alt="Customer logo" imgClassName="object-left" className="h-[3rem] w-[7.5rem] justify-start text-[1rem] mob:h-[1.5rem]" />
+                            <LogoPlaceholder src={s.logo || undefined} alt="Customer logo" imgClassName="object-left" className="h-[3rem] w-[7.5rem] justify-start text-[1rem] mob:h-[1.5rem]" />
                           </div>
                         </div>
                         <div

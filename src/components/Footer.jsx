@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Button from './shared/Button.jsx'
 import Wordmark from './shared/Wordmark.jsx'
 import Placeholder from './shared/Placeholder.jsx'
@@ -104,7 +105,28 @@ function PlaceholderForm() {
   )
 }
 
-export default function Footer() {
+// Subpage CTA copy (placeholder; word/line counts match the original's subpage block:
+// H2 8 words / 2 lines with a 3-word italic tail, paragraph 18 words / 2 lines at 1440).
+const SUBPAGE_CTA = {
+  heading: (
+    <>
+      Give your team a home <em>for real growth</em>
+    </>
+  ),
+  body: 'Bring your questions and we will walk you through the platform, the content and the results teams like yours see.',
+  button: 'Let’s talk',
+}
+
+/**
+ * Global footer, rendered once by Layout.
+ * @param {object} props
+ * @param {'home'|'subpage'} [props.variant='home'] CTA block above the footer card.
+ *   'home': 768px heading block (48rem) with the 300×351 HubSpot form stand-in (homepage, /company).
+ *   'subpage': 640px heading block (40rem) with a green "Book a demo"-style button linking to
+ *   /lms/demo-platform instead of the form (`footer.contact-us-footer` on every other subpage).
+ *   The footer card below is identical in both variants.
+ */
+export default function Footer({ variant = 'home' }) {
   const [dropup, setDropup] = useState(null)
   const legalRef = useRef(null)
 
@@ -115,20 +137,35 @@ export default function Footer() {
     return () => document.removeEventListener('click', close)
   }, [dropup])
 
+  const sub = variant === 'subpage'
+
   return (
-    <footer data-section="footer" className="bg-page pb-[1.5rem]">
+    <footer data-section="footer" data-variant={variant} className="bg-page pb-[1.5rem]">
       <div className="padding-global">
         <div className="container-large">
           {/* CTA block */}
           <div className="p-[3rem] xs:p-[1.5rem]">
-            <div className="mx-auto flex max-w-[48rem] flex-col items-center gap-[2rem] text-center">
-              <Wordmark className="h-[2rem] w-[7rem]" textClassName="text-[1.625rem] leading-none" />
-              <h2 className="heading-h2">Ready to give your people a place they love to learn?</h2>
-              <p className="mb-[0.25rem] max-w-[32rem] text-body text-ink xs:text-body-xs">
-                Tell us a little about your team and we will set up a tour around the things you care about most.
-              </p>
-              <PlaceholderForm />
-            </div>
+            {sub ? (
+              <div className="mx-auto flex max-w-[40rem] flex-col items-center gap-[2rem] text-center">
+                <Wordmark className="h-[2rem] w-[7rem]" textClassName="text-[1.625rem] leading-none" />
+                <h2 className="heading-h2 [&_em]:italic">{SUBPAGE_CTA.heading}</h2>
+                <p className="mb-[0.25rem] max-w-[32rem] text-body text-ink xs:text-body-xs">{SUBPAGE_CTA.body}</p>
+                <div className="flex gap-[1rem]">
+                  <Button as={Link} to="/lms/demo-platform" variant="accent" stretch={false}>
+                    {SUBPAGE_CTA.button}
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="mx-auto flex max-w-[48rem] flex-col items-center gap-[2rem] text-center">
+                <Wordmark className="h-[2rem] w-[7rem]" textClassName="text-[1.625rem] leading-none" />
+                <h2 className="heading-h2">Ready to give your people a place they love to learn?</h2>
+                <p className="mb-[0.25rem] max-w-[32rem] text-body text-ink xs:text-body-xs">
+                  Tell us a little about your team and we will set up a tour around the things you care about most.
+                </p>
+                <PlaceholderForm />
+              </div>
+            )}
           </div>
 
           {/* Footer card */}

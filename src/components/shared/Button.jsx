@@ -2,6 +2,7 @@
 // §13.1 hover: SplitText chars on [data-button-animate], y 0 -> -1.5em, 0.45s, stagger {amount:.25},
 // power4.inOut; mouseenter plays, mouseleave reverses (measured on the original IX3 interaction).
 import { useLayoutEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { gsap, SplitText } from '../../lib/gsap.js'
 
 const VARIANTS = {
@@ -9,9 +10,20 @@ const VARIANTS = {
   'primary-small': 'bg-ink text-surface-1 px-[1rem] py-[0.5rem] text-btn-sm tracking-[-0.0225rem] hover:bg-green-hover',
   dark: 'bg-surface-3 text-ink px-[1.25rem] py-[0.75rem] mob:py-[0.5rem] text-btn hover:bg-ink hover:text-surface-1',
   'dark-small': 'bg-surface-3 text-ink px-[1rem] py-[0.5rem] text-btn-dark-sm hover:bg-ink hover:text-surface-1',
+  // Subpage footer CTA (`.footer_button-block .btn_global` green variant): #1ee9b6 rest, ink on hover.
+  accent: 'bg-green text-surface-1 px-[1.25rem] py-[0.75rem] mob:py-[0.5rem] text-btn hover:bg-ink',
 }
 
-export default function Button({ children, variant = 'primary', stretch = true, className = '', href = '#', ...rest }) {
+/**
+ * @param {object} props
+ * @param {'primary'|'primary-small'|'dark'|'dark-small'|'accent'} [props.variant='primary']
+ * @param {boolean} [props.stretch=true] stretch to full row at ≤479 (xs:flex-auto self-stretch)
+ * @param {string} [props.to] clone route path: renders a react-router <Link> (same <a> markup)
+ * @param {string} [props.href='#'] used when rendering a plain <a> (no `to`)
+ * @param {React.ElementType} [props.as] override the rendered element/component
+ */
+export default function Button({ children, variant = 'primary', stretch = true, className = '', href = '#', as, ...rest }) {
+  const Comp = as || (rest.to ? Link : 'a')
   const ref = useRef(null)
 
   useLayoutEffect(() => {
@@ -39,20 +51,21 @@ export default function Button({ children, variant = 'primary', stretch = true, 
   }, [])
 
   return (
-    <a
+    <Comp
       ref={ref}
-      href={href}
+      {...(Comp === 'a' ? { href } : {})}
       data-button
       className={`inline-flex shrink-0 items-center justify-center rounded-pill font-medium no-underline transition-[background-color] duration-[240ms] ease-[ease] ${
         VARIANTS[variant]
       } ${stretch ? 'xs:flex-auto xs:self-stretch' : ''} ${className}`}
       {...rest}
     >
-      <span className="flex h-[1.25rem] items-center overflow-clip">
+      {/* .btn_global-text-block is a fixed 20px on the original (does not scale with the fluid root) */}
+      <span className="flex h-[20px] items-center overflow-clip">
         <span data-button-animate className="btn-label whitespace-nowrap">
           {children}
         </span>
       </span>
-    </a>
+    </Comp>
   )
 }

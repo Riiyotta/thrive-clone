@@ -18,6 +18,10 @@ const FIXED_REM_PAGES = new Set([
   '/resources/lms-glossary',
 ])
 
+// Pages whose footer CTA keeps the homepage HubSpot-form block (measured live 2026-10-09:
+// '/' and '/company'); every other route uses the subpage button variant.
+const FORM_FOOTER_PAGES = new Set(['/', '/company'])
+
 export default function Layout() {
   const { pathname } = useLocation()
   // Before paint, so rem-based layout never renders at the wrong scale.
@@ -35,7 +39,7 @@ export default function Layout() {
       <main>
         <Outlet />
       </main>
-      <Footer />
+      <Footer variant={FORM_FOOTER_PAGES.has(pathname) ? 'home' : 'subpage'} />
     </div>
   )
 }

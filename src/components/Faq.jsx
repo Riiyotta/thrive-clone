@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 // §12a FAQ: each item toggles independently. Timings per §13.8 are CSS (index.css .faq-*).
-const ITEMS = [
+const HOME_ITEMS = [
   {
     q: 'How is pricing worked out?',
     a: (
@@ -90,20 +90,35 @@ function FaqItem({ q, a }) {
   )
 }
 
-export default function Faq() {
+const HOME_HEADING = (
+  <>
+    Your questions about Nimbus,
+    <br />
+    answered in plain words
+  </>
+)
+
+/**
+ * §12a `.section_wowfaqs`: centred H2 + independent accordion items (timings per §13.8 in index.css).
+ * Defaults reproduce the homepage (5 items). Subpages change the heading and the item count (5–11).
+ * @param {React.ReactNode} [props.heading] centred H2 (max 60rem)
+ * @param {Array<{q: React.ReactNode, a: React.ReactNode}>} [props.items] questions/answers
+ * @param {string} [props.paddingClassName='py-[5rem] tab:py-[4rem] mob:py-[3rem]'] vertical padding
+ */
+export default function Faq({
+  heading = HOME_HEADING,
+  items = HOME_ITEMS,
+  paddingClassName = 'py-[5rem] tab:py-[4rem] mob:py-[3rem]',
+}) {
   return (
     <section data-section="faq">
       <div className="padding-global">
-        <div className="py-[5rem] tab:py-[4rem] mob:py-[3rem]">
+        <div className={paddingClassName}>
           <div className="flex flex-col items-center gap-[4.375rem]">
-            <h2 className="heading-h2 max-w-[60rem] text-center">
-              Your questions about Nimbus,
-              <br />
-              answered in plain words
-            </h2>
+            <h2 className="heading-h2 max-w-[60rem] text-center">{heading}</h2>
             <div className="flex w-full max-w-[42rem] flex-col gap-[1rem]">
-              {ITEMS.map((it) => (
-                <FaqItem key={it.q} {...it} />
+              {items.map((it, i) => (
+                <FaqItem key={i} {...it} />
               ))}
             </div>
           </div>
