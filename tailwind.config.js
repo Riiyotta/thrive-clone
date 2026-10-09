@@ -33,10 +33,34 @@ export default {
         'tab-inactive': 'rgba(255,255,255,.3)',
         'nav-transparent': 'rgba(0,10,6,0)',
         progress: '#ffffff',
+        // Subpage additions (wave 1 requests)
+        'eyebrow-grey': '#666c6a', // eyebrow label, slider arrows
+        subdued: '#888888', // autotab image-slide secondary text
+        hairline: '#303030', // stat-card hairlines
+        'brand-blue': '#2a63f6', // mentoring brand button
+        // Legacy page themes (older Webflow pages): green, content-yellow, impact-pink
+        'legacy-green': '#1ee9b6',
+        'legacy-green-hover': '#016b57',
+        'legacy-green-ink': '#000a06',
+        'legacy-green-hover-text': '#eafff7',
+        'legacy-green-border': '#00251e',
+        'legacy-green-eyebrow-border': '#01584b',
+        'legacy-green-bg-2': '#001811',
+        'legacy-green-accent': '#00886d',
+        'legacy-light': '#fafefe',
+        'content-bg': '#0a0700',
+        'content-yellow': '#eee96d',
+        'content-yellow-hover': '#edcf00',
+        'content-border': '#2d2919',
+        'content-bg-2': '#232011',
+        'content-border-2': '#301b08',
+        'impact-pink': '#570039',
+        'impact-pink-deep': '#3b041d',
       },
       fontFamily: {
         sans: ['Inter', '"Inter 24 Pt"', 'Arial', 'sans-serif'],
         serif: ['"Instrument Serif"', 'Instrumentserif', 'Georgia', 'sans-serif'],
+        'source-serif': ['"Source Serif 4"', 'Georgia', 'serif'],
       },
       borderRadius: {
         pill: '62.4375rem',

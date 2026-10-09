@@ -12,11 +12,13 @@ const VARIANTS = {
   'dark-small': 'bg-surface-3 text-ink px-[1rem] py-[0.5rem] text-btn-dark-sm hover:bg-ink hover:text-surface-1',
   // Subpage footer CTA (`.footer_button-block .btn_global` green variant): #1ee9b6 rest, ink on hover.
   accent: 'bg-green text-surface-1 px-[1.25rem] py-[0.75rem] mob:py-[0.5rem] text-btn hover:bg-ink',
+  // Mentoring brand button (Webflow variant 7b18dcb4): blue rest; ink bg + #131313 text on hover.
+  brand: 'bg-brand-blue text-white px-[1.25rem] py-[0.75rem] mob:py-[0.5rem] text-btn hover:bg-ink hover:text-surface-2',
 }
 
 /**
  * @param {object} props
- * @param {'primary'|'primary-small'|'dark'|'dark-small'|'accent'} [props.variant='primary']
+ * @param {'primary'|'primary-small'|'dark'|'dark-small'|'accent'|'brand'} [props.variant='primary']
  * @param {boolean} [props.stretch=true] stretch to full row at ≤479 (xs:flex-auto self-stretch)
  * @param {string} [props.to] clone route path: renders a react-router <Link> (same <a> markup)
  * @param {string} [props.href='#'] used when rendering a plain <a> (no `to`)

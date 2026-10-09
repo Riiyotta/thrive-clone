@@ -22,6 +22,11 @@ const FIXED_REM_PAGES = new Set([
 // '/' and '/company'); every other route uses the subpage button variant.
 const FORM_FOOTER_PAGES = new Set(['/', '/company'])
 
+// Content-theme pages sit on a warm near-black body (#0a0700) on the original; all others on #000.
+const isContentTheme = (path) =>
+  ['/content', '/content/topics', '/content/sector-suites', '/case-studies/content'].includes(path) ||
+  path.startsWith('/case-studies-contents/')
+
 export default function Layout() {
   const { pathname } = useLocation()
   // Before paint, so rem-based layout never renders at the wrong scale.
@@ -34,7 +39,7 @@ export default function Layout() {
   }, [pathname])
 
   return (
-    <div className="bg-page pt-[4rem]">
+    <div className={`${isContentTheme(pathname) ? 'bg-content-bg' : 'bg-page'} pt-[4rem]`}>
       <Nav />
       <main>
         <Outlet />
