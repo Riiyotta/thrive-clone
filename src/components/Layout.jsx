@@ -38,8 +38,10 @@ export default function Layout() {
     ScrollTrigger.refresh()
   }, [pathname])
 
+  // overflow-x: clip like the original's .page-wrapper: hides bleeding images/reveal offsets without
+  // creating a scroll container, so position: sticky keeps working.
   return (
-    <div className={`${isContentTheme(pathname) ? 'bg-content-bg' : 'bg-page'} pt-[4rem]`}>
+    <div className={`${isContentTheme(pathname) ? 'bg-content-bg' : 'bg-page'} overflow-x-clip pt-[4rem]`}>
       <Nav />
       <main>
         <Outlet />

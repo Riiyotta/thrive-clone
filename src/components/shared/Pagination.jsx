@@ -40,11 +40,12 @@ export default function Pagination({
           )
         })}
       </div>
+      {/* The original's play/pause button is a fixed 36px (it doesn't scale with the fluid root). */}
       <button
         type="button"
         aria-label={playing ? 'Pause' : 'Play'}
         onClick={onTogglePlay}
-        className="flex h-[2.25rem] w-[2.25rem] items-center justify-center rounded-full bg-playbtn text-[1rem] leading-none text-white"
+        className="flex h-[36px] w-[36px] items-center justify-center rounded-full bg-playbtn text-[16px] leading-none text-white"
       >
         {playing ? '⏸' : '▶'}
       </button>
