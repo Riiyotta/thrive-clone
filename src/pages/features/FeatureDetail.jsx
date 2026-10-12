@@ -13,7 +13,26 @@ import ReviewsSlider from '../../components/sections/ReviewsSlider.jsx'
 import Button from '../../components/shared/Button.jsx'
 import { FEATURE_DETAIL } from './featureDetailData.js'
 
-const LOGOS = Array.from({ length: 6 }, () => ({ text: 'Logo', aspect: 'aspect-[112/45.7]' }))
+// Logo boxes mirror the original's image boxes inside the 7rem blocks (full width ≥768, 86% ≤767, max-h 4rem):
+// the 4th is a tall mark (capped by max-h on desktop), so the 390 rows come out 37/61/37 tall like the live page.
+// (`aspect` is interpolated into the placeholder's className, so it also carries the mobile width.)
+const LOGOS = ['aspect-[92/37]', 'aspect-[92/37]', 'aspect-[92/25]', 'aspect-[92/61]', 'aspect-[92/37]', 'aspect-[92/31]'].map(
+  (aspect) => ({ text: 'Logo', aspect: `${aspect} mob:!w-[86%]` }),
+)
+// 57rem logo row centred over the 45.25rem container (it overflows both sides equally); ≤991 it wraps,
+// centred, 2rem/3rem gaps; ≤767 space-around with 2rem gaps.
+const LOGO_WRAP =
+  'ml-[-5.875rem] min-h-[4rem] w-[57rem] max-w-none tab:ml-0 tab:w-full tab:flex-wrap tab:justify-center tab:gap-y-[2rem] mob:justify-around mob:gap-[2rem]'
+// <1440 the reviews arrows sit as inline-blocks on a body-text line (block wrap), adding the strut's descent below them.
+const NAV_INLINE =
+  'flex text-body [@media(max-width:1439px)]:block [@media(max-width:1439px)]:[&>button]:inline-block'
+// .wow-slider-content on the feature pages: min-h 32rem ≤991 / 28rem ≤767, 1.5rem padding ≤767 (no bottom ≤479);
+// copy and button stack ≤767 with a 3rem gap, and the button fills the row ≤479.
+const EXPLORE_SLIDE = {
+  slideClassName: 'tab:min-h-[32rem] mob:min-h-[28rem] mob:p-[1.5rem] xs:pb-0',
+  rowClassName: 'mob:flex-col mob:items-start mob:gap-[3rem]',
+  ctaStretch: true,
+}
 const EXPLORE_HEADING = 'Explore further features built to support your entire learning programme'
 const FAQ_ANSWER =
   'Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.'
@@ -57,11 +76,11 @@ function FaqEmpty() {
 
 // CMS empty state of .section_hero-platform (both lists empty): header + two grey bars.
 function ExploreEmpty() {
-  const bar = <div className="bg-[#dddddd] p-[0.575rem] text-body text-ink xs:p-[0.6875rem] xs:text-body-xs">No items found.</div>
+  const bar = <div className="bg-[#dddddd] p-[10px] text-body text-ink xs:text-body-xs">No items found.</div>
   return (
     <section data-section="kiki" data-variant="empty" className="pb-[2rem] pt-[5rem] mob:pt-[3rem]">
       <ExploreHeader />
-      <div className="overflow-hidden py-[3rem]">
+      <div className="overflow-hidden px-[2rem] py-[3rem] mob:px-[1.25rem]">
         <div className="padding-global">
           <div className="container-large pt-[1rem]">
             <div className="container-medium">
@@ -113,7 +132,7 @@ export default function FeatureDetail() {
         headingPlacement="inside"
         container="small"
         paddingClassName="py-[5rem] mob:py-[3rem]"
-        wrapClassName="min-h-[4rem] w-[57rem] max-w-none mob:w-full mob:flex-wrap mob:justify-around mob:gap-[2rem]"
+        wrapClassName={LOGO_WRAP}
         logoClassName="w-[7rem]"
         logos={LOGOS}
         trailingSpacer={false}
@@ -127,8 +146,12 @@ export default function FeatureDetail() {
         className="pb-[5rem] pt-[2rem] mob:pb-0"
         innerClassName="py-[5rem] mob:py-[3rem]"
         headingClassName=""
-        introClassName="mb-0"
+        // Without an intro the original keeps its empty 28rem column, so the heading stays 667px wide.
+        introClassName={d.tabsIntro ? 'mb-0' : 'mb-0 w-[28rem] tab:w-auto'}
         paneAspect={paneAspect}
+        // .wowtabs_child-wrap: 12rem tall but shrinkable, 2.5rem under the tabs (1.25rem / 14rem ≤767), pinned to
+        // the bottom of the 37rem body by justify-between.
+        childHeightClassName="mt-[2.5rem] h-[12rem] mob:mt-[1.25rem] mob:h-[14rem]"
       />
       </div>
       <CtaStrip variant="heading" />
@@ -136,13 +159,20 @@ export default function FeatureDetail() {
         <VideoSection
           heading={d.video[0]}
           body={d.video[1]}
-          headingClassName="mb-[1rem]"
+          // The header sits in a 36rem column (.max-width-medium). <1440 the original header is block, so the
+          // H2's top margin collapses out of the section and the
+          // video's .margin-large (3rem, 2.5rem tab, 1.5rem mob) collapses with the paragraph margins.
+          headingClassName="mb-[1rem] max-w-[36rem] [@media(max-width:1439px)]:mt-0"
           blockClassName=""
-          videoClassName="mt-[3rem]"
+          videoClassName="mt-[3rem] tab:mt-[2.5rem] mob:mt-[1.5rem]"
           footnote={null}
         />
       )}
-      {d.empty ? <ReviewsSlider order="quote-first" slides={[]} /> : <ReviewsSlider order="quote-first" />}
+      {d.empty ? (
+        <ReviewsSlider order="quote-first" slides={[]} navWrapClassName={NAV_INLINE} />
+      ) : (
+        <ReviewsSlider order="quote-first" navWrapClassName={NAV_INLINE} />
+      )}
       {d.empty ? <FaqEmpty /> : <Faq heading="Frequently asked questions" items={d.faq.map((q) => ({ q, a: FAQ_ANSWER }))} />}
       {d.empty ? (
         <ExploreEmpty />
@@ -150,8 +180,11 @@ export default function FeatureDetail() {
         <KikiTabs
           media="image"
           imageAspect="aspect-[2914/2610]"
-          slideInsetClassName="px-[0.53rem] mob:px-0"
+          slideInsetClassName="px-[10px]"
           className="pb-[2rem] pt-[5rem] mob:pt-[3rem]"
+          // .section_wowautotabs sits inside the section's padding-global and adds its own, so the gutter doubles.
+          tabsClassName="overflow-hidden px-[2rem] py-[3rem] mob:px-[1.25rem]"
+          imageSlideOptions={EXPLORE_SLIDE}
           header={<ExploreHeader />}
           tabs={d.explore.map(([tab, text]) => ({
             tab,

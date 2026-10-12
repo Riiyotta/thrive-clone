@@ -37,6 +37,8 @@ export default function CaseStudyCarousel({
   spacerClassName = 'h-[5rem] tab:h-[4rem] mob:h-[3rem]',
   slides = HOME_SLIDES,
   className = 'overflow-hidden py-[5rem] tab:p-0',
+  // Optional: clamp classes of the slide copy (default 'line-clamp-2'); '' = unclamped (/lms/features).
+  textClampClassName = 'line-clamp-2',
 }) {
   const SLIDES = slides
   const N = SLIDES.length
@@ -110,7 +112,7 @@ export default function CaseStudyCarousel({
                           className={`flex flex-col gap-[1rem] ${on ? 'visible opacity-100' : 'invisible opacity-0'} transition-[opacity,visibility] duration-300 ease-[ease]`}
                         >
                           <div className="grid grid-cols-[1fr_max-content] items-center gap-[2rem] xs:flex xs:flex-col xs:items-start xs:gap-0">
-                            <p className="mb-[1.25rem] line-clamp-2 text-para text-ink">{s.text}</p>
+                            <p className={`mb-[1.25rem] ${textClampClassName} text-para text-ink`}>{s.text}</p>
                             <div className="flex">
                               <Button variant="dark">Read more</Button>
                             </div>

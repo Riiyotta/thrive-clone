@@ -4,6 +4,7 @@ import Placeholder, { LogoPlaceholder } from '../shared/Placeholder.jsx'
 // platform-hero: /lms `.section_hero-platform.platform-hero` (margin-top -1rem).
 // Split hero: H1 (3.8rem/1.15 serif, 2.5rem <=479), grey paragraph, inline quote with avatar,
 // primary CTA; product visual right (object-fit contain, 1440x1339). Below: centred line + 8 logo row
+// (the two trailing placeholder logos mirror the original's wide 85x15 mark and tall 63x70 mark, which sets the 70px row height)
 // (`.wowlogos_wrap.platform-logos`: flex space-between gap 3rem max-w 60rem; wraps/space-around <=767).
 const LOGOS = ['logo-volvo.png', 'logo-burgerking.png', 'logo-vodafone.png', 'logo-ba.png', 'logo-krispykreme.svg', 'logo-nothingbundt.png', null, null]
 
@@ -67,7 +68,7 @@ export default function PlatformHero(props) {
                   <div className="flex max-w-[60rem] items-center justify-between gap-[3rem] pt-[0.5rem] tab:flex-wrap tab:justify-center tab:gap-y-[2rem] mob:justify-around xs:gap-[2rem]">
                     {p.logos.map((f, i) => (
                       <div key={i} className="flex w-[7rem] items-center justify-center overflow-clip">
-                        <LogoPlaceholder src={f ? `/assets/${f}` : undefined} alt="Customer logo" className={`${f ? 'aspect-[120/49]' : 'aspect-[388/272]'} max-h-[4rem] w-full text-[0.75rem]`} />
+                        <LogoPlaceholder src={f ? `/assets/${f}` : undefined} alt="Customer logo" className={`${f ? 'aspect-[120/49]' : i === p.logos.length - 1 ? 'aspect-[9/10]' : 'aspect-[17/3]'} max-h-[4rem] w-full text-[0.75rem]`} />
                       </div>
                     ))}
                   </div>

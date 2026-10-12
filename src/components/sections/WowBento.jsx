@@ -91,10 +91,10 @@ const CARDS = [
   { lead: 'Team updates.', text: 'No scattered group chats or email chains.', link: 'Chat', after: ', share news and connect your whole team in Spaces, keeping updates and company news all in one place.' },
 ]
 
-function Cards({ cards = CARDS, button }) {
+function Cards({ cards = CARDS, button, cardGap = 'gap-[0.5rem]' }) {
   const [a, b, ...rest] = cards
   const col = (c, shape, i) => (
-    <div key={i} data-thrivecard className="flex h-full w-full flex-1 flex-col items-start justify-start gap-[0.5rem] tab:min-h-[20rem]">
+    <div key={i} data-thrivecard className={`flex h-full w-full flex-1 flex-col items-start justify-start ${cardGap} tab:min-h-[20rem]`}>
       <div className="w-full rounded-card xs:min-h-[20rem]">
         <Placeholder
           label="Product visual"
@@ -128,13 +128,16 @@ function WowCol({ card, wider }) {
   return (
     <div className={`flex flex-col items-start justify-start gap-[0.5rem] tab:min-h-[20rem] tab:w-full ${wider ? 'w-[150%]' : 'w-full'}`}>
       <div className="m-[-39px] flex h-full min-h-[25.875rem] w-full items-center justify-center overflow-clip rounded-card p-[30px] xs:min-h-[20rem]">
-        <Placeholder label={card.media || 'Feature visual'} tone={2} className={`w-full ${card.contain ? 'aspect-[1440/960]' : 'h-full min-h-[22rem]'}`} />
+        <Placeholder label={card.media || 'Feature visual'} tone={2} className={`w-full ${card.contain ? 'aspect-[1440/960]' : card.mediaClassName || 'h-full min-h-[22rem]'}`} />
       </div>
+      {/* optional per-card fields (all default off): spacer = the live empty block after the media (one extra
+          0.5rem gap), mediaClassName replaces the media sizing, titleClassName replaces the medium title size */}
+      {card.spacer && <div className="h-0 w-full" />}
       {card.title && (
         <div className="w-full max-w-[28rem]">
           {card.size === 'medium' ? (
             <div className="flex flex-col items-start justify-start gap-y-[0.75rem]">
-              <p className="mb-[1.25rem] text-[1.25rem] font-medium leading-[1.4] text-ink">{card.title}</p>
+              <p className={`mb-[1.25rem] ${card.titleClassName || 'text-[1.25rem]'} font-medium leading-[1.4] text-ink`}>{card.title}</p>
               <p className="mb-[1.25rem] text-[1rem] leading-[1.4rem] text-grey">{card.text}</p>
             </div>
           ) : (
@@ -190,21 +193,26 @@ const R = {
     },
     cards = CARDS,
     button = { label: 'See Nimbus Go in action', href: '/lms/demo-platform' },
+    // optional (defaults unchanged): quoteClass = side-quote paragraph spacing, cardGap = media-to-caption gap,
+    // headerClassName = extra classes on the H2/quote row
+    quoteClass = 'mb-[0.75rem]',
+    cardGap,
+    headerClassName = '',
   }) => (
     <div className="padding-global">
       <div className="container-medium">
         <div className="pb-[1rem] pt-[4rem]">
           <div className="container-large">
-            <div className="flex items-end justify-between gap-[3.75rem] tab:flex-col tab:items-start tab:gap-[2rem]">
+            <div className={`flex items-end justify-between gap-[3.75rem] tab:flex-col tab:items-start tab:gap-[2rem] ${headerClassName}`}>
               <div className="flex w-full max-w-[36rem] flex-col items-start justify-start gap-y-[1rem]">
                 <h2 className={H2}>{title}</h2>
               </div>
               <div className="w-full max-w-[28rem]">
-                <SideQuote {...quote} className="mt-[1rem] bg-transparent pl-[2rem] pr-[1rem] pt-[1rem]" quoteClass="mb-[0.75rem]" />
+                <SideQuote {...quote} className="mt-[1rem] bg-transparent pl-[2rem] pr-[1rem] pt-[1rem]" quoteClass={quoteClass} />
               </div>
             </div>
             <div className="w-full pt-[5rem] tab:pt-[4rem] mob:pt-[3rem]" />
-            <Cards cards={cards} />
+            <Cards cards={cards} cardGap={cardGap} />
           </div>
           {button && (
             <div className="flex flex-wrap items-center justify-center gap-[1.5rem] pt-[1.5rem] xs:gap-[2rem]">
@@ -239,30 +247,41 @@ const R = {
       { title: 'Quick-start setup', text: 'Sign up, configure and launch with a guided plan and expert help at every step.', cta: 'Book a short demo' },
       { title: 'Community help', text: 'Stay connected with a dedicated community of customers sharing ideas, templates and tips to get more from every single feature.', cta: 'Book a short demo' },
     ],
+    // optional layout overrides (defaults unchanged): headerColClassName = left column width, headingClassName =
+    // extra H3 classes, quoteClassName = extra side-quote classes, cardGap = gap inside each card,
+    // mediaClassName = extra classes on each card's media wrapper
+    headerColClassName = 'max-w-[36rem]',
+    headingClassName = '',
+    quoteClassName = '',
+    cardGap = 'gap-[0.5rem]',
+    mediaClassName = '',
+    // cardTitleClassName = H4 size classes; ctaRowClassName = extra classes on each card's button row
+    cardTitleClassName = 'text-[1.25rem]',
+    ctaRowClassName = '',
   }) => (
     <div className="padding-global">
       <div className="container-medium">
         <div className="py-[5rem] tab:py-[4rem] mob:py-[3rem]">
           <div className="flex items-end justify-between gap-[3.75rem] tab:flex-col tab:items-start tab:gap-[2rem]">
-            <div className="flex w-full max-w-[36rem] flex-col items-start justify-start gap-y-[1rem]">
-              <h3 className={H3}>{title}</h3>
+            <div className={`flex w-full ${headerColClassName} flex-col items-start justify-start gap-y-[1rem]`}>
+              <h3 className={`${H3} ${headingClassName}`}>{title}</h3>
               <p className="text-para text-grey">{paragraph}</p>
             </div>
-            <SideQuote {...quote} className="mt-[1rem] bg-transparent pl-[2rem] pr-[1rem] pt-[1rem]" />
+            <SideQuote {...quote} className={`mt-[1rem] bg-transparent pl-[2rem] pr-[1rem] pt-[1rem] ${quoteClassName}`} />
           </div>
           <div className="w-full pt-[3rem] tab:pt-[2.5rem] mob:pt-[1.5rem]" />
           <div className="grid grid-cols-2 gap-[1rem] mob:grid-cols-1 xs:gap-[3rem]">
             {cards.map((c, i) => (
-              <div key={i} data-thrivecard className="flex h-full w-full flex-1 flex-col items-start justify-start gap-[0.5rem] tab:min-h-[20rem]">
-                <div className="w-full rounded-card xs:min-h-[20rem]">
+              <div key={i} data-thrivecard className={`flex h-full w-full flex-1 flex-col items-start justify-start ${cardGap} tab:min-h-[20rem]`}>
+                <div className={`w-full rounded-card xs:min-h-[20rem] ${mediaClassName}`}>
                   <Placeholder label="Team photo" tone={2} className="aspect-[6.71/4.14] min-h-[25rem] w-full rounded-panel" />
                 </div>
                 <div className="w-full max-w-[28rem]">
-                  <h4 className="mb-[0.5rem] font-serif text-[1.25rem] font-normal leading-[1.15] text-ink">{c.title}</h4>
+                  <h4 className={`mb-[0.5rem] font-serif ${cardTitleClassName} font-normal leading-[1.15] text-ink`}>{c.title}</h4>
                   <div className="w-full pt-[0.25rem]" />
                   <p className="mb-[1.25rem] text-[1rem] leading-[1.4rem] text-grey">{c.text}</p>
                 </div>
-                <div className="flex flex-wrap items-center justify-start gap-[1.5rem] xs:gap-[2rem]">
+                <div className={`flex flex-wrap items-center justify-start gap-[1.5rem] xs:gap-[2rem] ${ctaRowClassName}`}>
                   <Button variant="dark-small" href="/lms/demo-platform">
                     {c.cta}
                   </Button>
@@ -369,18 +388,18 @@ const R = {
     <div className="padding-global">
       <div className="py-[5rem] mob:py-[3rem]">
         <div className="container-medium">
-          <div className="flex items-end justify-between gap-[3.75rem] tab:flex-col tab:items-start tab:gap-[2rem]">
+          <div className="flex items-end justify-between gap-[3.75rem] tab:flex-col tab:items-start tab:gap-[2rem] mob:gap-[1.5rem]">
             <div className="flex w-full max-w-[36rem] flex-col items-start justify-start gap-y-[1rem]">
               <h2 className={`${H2} mb-[1rem]`}>{title}</h2>
               <p className="mb-[1.25rem] max-w-[500px] text-para text-grey">{paragraph}</p>
-              <Button variant="dark" href={button.href} stretch={false}>
+              <Button variant="dark" href={button.href}>
                 {button.label}
               </Button>
             </div>
             <SideQuote {...quote} small={false} link className="mb-[1rem] mt-[0.5rem] bg-page p-[1rem]" quoteClass="mb-[0.75rem]" />
           </div>
           <div className="w-full pt-[5rem] tab:pt-[4rem] mob:pt-[3rem]" />
-          <div className="flex items-end justify-between gap-[3.75rem] tab:flex-col tab:items-start tab:gap-[2rem]">
+          <div className="flex items-end justify-between gap-[3.75rem] tab:flex-col tab:items-start tab:gap-[2rem] mob:gap-[1.5rem]">
             <div className="w-full max-w-[36rem]">
               <div className="overflow-clip rounded-card bg-surface-1 tab:min-h-[20rem]">
                 <Placeholder label="Event photo" tone={2} className="aspect-square w-full" />
@@ -391,7 +410,7 @@ const R = {
                 <Placeholder label="Team photo" tone={2} className="aspect-square w-full" />
               </div>
               <div className="w-full pt-[1rem]" />
-              <p className="mb-[1.25rem] text-[1.25rem] leading-[1.4] text-ink">{caption}</p>
+              <p className="mb-[1.25rem] text-[1.25rem] leading-[1.4] text-ink mob:text-[1.125rem]">{caption}</p>
             </div>
           </div>
           <div className="mt-[2rem] flex w-full max-w-[64rem] flex-col items-center justify-start">

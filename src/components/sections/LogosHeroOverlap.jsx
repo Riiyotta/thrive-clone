@@ -20,6 +20,9 @@ const DEFAULTS = {
   logosLead: 'Bringing learning, knowledge and news together for teams like yours',
   logos: [null, 'logo-volvo.png', 'logo-burgerking.png', 'logo-vodafone.png', 'logo-ba.png', 'logo-krispykreme.svg', 'logo-nothingbundt.png'],
   overlap: true,
+  // optional: per-logo aspect classes (replaces the default box aspect for logo i) and extra CTA-row classes
+  logoAspects: null,
+  ctaClassName: '',
 }
 
 export default function LogosHeroOverlap(props) {
@@ -60,7 +63,7 @@ export default function LogosHeroOverlap(props) {
                   </div>
                 </div>
               </div>
-              <div className="flex items-center justify-start gap-[1rem] xs:flex-col xs:items-start">
+              <div className={`flex items-center justify-start gap-[1rem] xs:flex-col xs:items-start ${p.ctaClassName}`}>
                 <Button variant="primary" to="/lms/demo-platform" stretch={false}>
                   {p.cta}
                 </Button>
@@ -80,7 +83,7 @@ export default function LogosHeroOverlap(props) {
                       <LogoPlaceholder
                         src={f ? `/assets/${f}` : undefined}
                         alt="Customer logo"
-                        className={`${f ? 'aspect-[112/45.7]' : 'aspect-[388/272]'} max-h-[4rem] w-full text-[0.75rem] mob:w-[5rem] xs:w-[6rem]`}
+                        className={`${p.logoAspects?.[i] || (f ? 'aspect-[112/45.7]' : 'aspect-[388/272]')} max-h-[4rem] w-full text-[0.75rem] mob:w-[5rem] xs:w-[6rem]`}
                       />
                     </div>
                   ))}

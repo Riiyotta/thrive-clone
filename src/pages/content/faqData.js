@@ -23,7 +23,7 @@ export const TOPICS_FAQ = qa([
   'How often are new courses added to the core library?',
   'Can we tailor resources to suit our brand?',
   'Do the courses work on phones as well as laptops?',
-  'How can we see the impact of the content we choose?',
+  'How can we measure the impact of content?',
 ], 5)
 
 export const SUITES_FAQ = qa([

@@ -1,0 +1,68 @@
+// Past-webinar list for /resources/events-webinars: 51 items (live count at measurement time). Titles are
+// placeholder copy sized per item to the original's line counts at 390 and 768 (the desktop cells are fixed-aspect).
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+const TITLES = [
+  'Retail learning reimagined: simple steps that make a measurable difference to performance',
+  'Growing tomorrow\'s leaders: lessons from a year of rapid growth',
+  'Learning in the flow of work: the habits behind teams that keep learning',
+  'Frontline first: how a retail group raised completion rates across every store',
+  'Coaching at scale for busy frontline managers',
+  'Keeping people curious: ideas we are most excited about this year',
+  'Onboarding that sticks: ideas we are most excited about this year',
+  'Building a learning culture and the questions people ask most',
+  'The engagement workout: how a retail group raised completion rates across every store',
+  'Nimbus in action: simple steps that make a measurable difference to performance',
+  'Making compliance human: what great looks like in a hybrid world',
+  'The manager playbook: a live walkthrough with our product team',
+  'From shop floor to team lead: building confident leaders for tomorrow',
+  'Data you can act on: simple steps that make a measurable difference to performance',
+  'Mentoring made simple: the habits behind teams that keep learning',
+  'Small lessons, big wins: simple steps that make a measurable difference to performance',
+  'The new learning stack: the habits behind teams that keep learning',
+  'Leading hybrid teams: a live walkthrough with our product team',
+  'Skills first: turning frameworks into everyday growth',
+  'Learning in the flow of work: simple steps that make a measurable difference to performance',
+  'Breaking barriers for busy frontline managers',
+  'Retail learning reimagined: how a retail group raised completion rates across every store',
+  'Keeping people curious: simple steps that make a measurable difference to performance',
+  'Onboarding that sticks: simple steps that make a measurable difference to performance',
+  'Making compliance human: simple steps that make a measurable difference to performance',
+  'Building a learning culture: a live walkthrough with our product team',
+  'Growing tomorrow\'s leaders: simple steps that make a measurable difference to performance',
+  'The engagement workout: building confident leaders for tomorrow',
+  'Nimbus in action',
+  'Small lessons, big wins in a fast-moving business',
+  'From shop floor to team lead: lessons from a year of rapid growth',
+  'Mentoring made simple: how one team got everyone learning again',
+  'The new learning stack for busy frontline managers',
+  'Data you can act on: ideas we are most excited about this year',
+  'Skills first and the questions people ask most',
+  'Leading hybrid teams: lessons from a year of rapid growth',
+  'Skills first for busy frontline managers',
+  'Coaching at scale',
+  'Frontline first: building confident leaders for tomorrow',
+  'The manager playbook for busy frontline managers',
+  'Breaking barriers: what great looks like in a hybrid world',
+  'Nimbus in action with practical tips from real teams',
+  'Coaching at scale: what great looks like in a hybrid world',
+  'Keeping people curious with practical tips from real teams',
+  'Onboarding that sticks with practical tips from real teams',
+  'Learning in the flow of work in a fast-moving business',
+  'Small lessons, big wins: ideas we are most excited about this year',
+  'Growing tomorrow\'s leaders and the questions people ask most',
+  'The engagement workout',
+  'The new learning stack: what great looks like in a hybrid world',
+  'Making compliance human: how one team got everyone learning again'
+]
+
+export const PAST_WEBINARS = TITLES.map((title, i) => {
+  const d = new Date(Date.UTC(2026, 3, 8) - i * 17 * 86400000)
+  return {
+    day: String(d.getUTCDate()).padStart(2, '0'),
+    month: i < 2 ? null : `${MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`,
+    year: d.getUTCFullYear(),
+    title,
+    image: i >= 17,
+    href: '#',
+  }
+})

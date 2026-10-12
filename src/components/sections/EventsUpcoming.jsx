@@ -38,7 +38,7 @@ export default function EventsUpcoming({ heading = DEFAULTS.heading, events = DE
                       {ev.date}
                     </h3>
                   </div>
-                  <div className="mt-[2.75rem]">
+                  <div className="mt-[2.75rem] mob:mt-[3rem]">
                     <div className="text-[1.5rem] font-semibold leading-[1.4] tab:text-[1.25rem]">{ev.name}</div>
                     <div className="pt-[1rem]" />
                     <div className="mt-[0.25rem] flex gap-[0.75rem] self-start pr-[1.5rem] font-semibold transition-all duration-[250ms] ease-[ease] hover:gap-[1rem]">

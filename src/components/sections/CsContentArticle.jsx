@@ -131,6 +131,8 @@ function inline(text) {
 const H2 = 'my-[1rem] text-[2.85rem] leading-[1.15] tracking-normal mob:text-[2rem]'
 
 function Block({ b }) {
+  // { empty: true } (optional) = the live rich text's empty paragraph: no content, so it takes no height
+  if (b.empty) return <p className="my-[1rem]" />
   if (b.spacer) return <p className="my-[1rem]">{'‍'}</p>
   if (b.p !== undefined) return <p className="my-[1rem]">{b.p ? inline(b.p) : '‍'}</p>
   if (b.h2) return <h2 className={`${H2} ${b.bold ? 'font-bold' : 'font-normal'}`}>{withBreaks(b.h2, (t) => t)}</h2>
@@ -180,7 +182,15 @@ export default function CsContentArticle({
     label: 'Book a demo',
     href: '/lms/demo-platform',
   },
+  // tocFromHeadings (optional): list every H2 in the TOC (section titles and in-section sub-headings) as block
+  // links (each row then takes the link's 1.4 line height), as the live Finsweet TOC does. Default false keeps
+  // one inline entry per section.
+  tocFromHeadings = false,
 }) {
+  const clean = (t) => t.replace(/\u200d/g, '').replace(/\n+/g, ' ').trim()
+  const toc = tocFromHeadings
+    ? sections.flatMap((s, i) => [s.title, ...s.blocks.filter((b) => b.h2).map((b) => b.h2)].map((t) => ({ label: clean(t), i })).filter((t) => t.label))
+    : sections.map((s, i) => ({ label: s.title, i }))
   return (
     <section data-section="cs-content-article" style={THEME}>
       <div className="padding-global">
@@ -192,10 +202,10 @@ export default function CsContentArticle({
                 <div className="flex flex-col items-start justify-start gap-y-[1.5rem] p-[2.5rem] tab:p-[1.5rem] mob:hidden">
                   <div className="text-[1rem] leading-[1.4] text-grey">{tocLabel}</div>
                   <div className="flex w-full flex-col items-start justify-start gap-[1.5rem]">
-                    {sections.map((s, i) => (
-                      <div key={i}>
-                        <a href={`#article-${i + 1}`} className="text-body text-ink no-underline">
-                          {s.title}
+                    {toc.map((t, k) => (
+                      <div key={k}>
+                        <a href={`#article-${t.i + 1}`} className={`${tocFromHeadings ? 'block ' : ''}text-body text-ink no-underline`}>
+                          {t.label}
                         </a>
                       </div>
                     ))}

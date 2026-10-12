@@ -25,7 +25,7 @@ const SLIDES = [
 }))
 
 const LAYOUT_TABS = [
-  { tab: 'Analyst', text: 'Nova spots compliance gaps, engagement dips and skills shortfalls across every team the moment they appear, then explains what changed and suggests what to do next.' },
+  { tab: 'Analyst', text: 'Nova quickly spots compliance gaps, engagement dips and skills shortfalls across every team the moment they appear, then explains what changed and suggests what to do next.' },
   { tab: 'Creator', text: 'Turn policies, slide decks and rough notes into polished, interactive courses in minutes, complete with quizzes, summaries and translations ready for every team in the business.' },
   { tab: 'Coach', text: 'Nova checks in after each lesson, asks what landed and suggests one small next step, so new habits keep building long after the session ends for everyone.' },
   { tab: 'Admin', text: 'Let Nova build audiences, schedule reminders, tidy enrolments and prepare reports in the background, so your team can spend far more time with people and far less time on routine setup tasks.' },
@@ -41,11 +41,11 @@ const HEADER = (
 )
 
 const CARDS = [
-  ['800+', 'Customer one', 'locations brought together on one learning home.'],
-  ['3x', 'Customer two', 'more people finishing courses within the first year.'],
-  ['45%', 'Customer three', 'less time spent onboarding new starters at every site.'],
-  ['92%', 'Customer four', 'of staff active on the platform every month.'],
-].map(([stat, brand, rest]) => ({ stat, brand, rest, label: <LogoPlaceholder className="h-[3rem] w-[6.4rem] text-[0.75rem]" /> }))
+  ['800+', 'Customer one', 'locations brought together on one learning home. No more scattered tools or lost files.'],
+  ['3x', 'Customer two', 'more people finishing courses within the first year. Engagement kept climbing after that.'],
+  ['45%', 'Customer three', 'less time spent onboarding new starters at every site. Teams are productive far sooner.'],
+  ['92%', 'Customer four', 'of staff active on the platform every month. Learning is now part of the daily routine.'],
+].map(([stat, brand, rest]) => ({ stat, brand, rest, label: <LogoPlaceholder className="h-[3rem] w-[6.4rem] text-[0.75rem] mob:h-[2rem]" /> }))
 
 const FAQ = faqItems([
   'What is a corporate LMS?',
@@ -63,7 +63,12 @@ export default function CorporateLms() {
   return (
     <>
       <WowContentHero variant="corporate" />
-      <LogosHeroOverlap />
+      <LogosHeroOverlap
+        // the original's author block keeps a 1rem bottom margin when stacked (≤767), and its seven marks have their own
+        // aspects (91x64, 96x17 / 42 / 24 / 34 / 33 / 10), which set the mobile logo-row heights
+        ctaClassName="mob:mt-[1rem]"
+        logoAspects={['aspect-[91/64]', 'aspect-[96/17]', 'aspect-[96/42]', 'aspect-[96/24]', 'aspect-[96/34]', 'aspect-[96/33]', 'aspect-[96/10]']}
+        intro="The team learning platform for growing companies. Rather than a patchwork of tools, Nimbus brings onboarding, compliance, team news and skills growth together in one place. Big-company features, without any of the usual complexity, cost or long setup projects." />
       <SplitAutotabs header={HEADER} slides={SLIDES} />
       <Layout03Tabs
         variant="image"
@@ -71,14 +76,15 @@ export default function CorporateLms() {
           <>
             The AI agent corporate
             <br />
-            learning teams have wanted
+            L&amp;D teams have wanted
           </>
         }
         paragraph="You do not need a team of specialists to get more from learning. Nova takes on the analysis, the course building and the routine admin, so your people can focus on coaching, culture and the work that moves the business."
         tabs={LAYOUT_TABS}
       />
       <TestimonialQuote variant="mid-market" />
-      <div className="padding-global">
+      {/* no padding-global: the original's results container runs full-bleed at ≤767 */}
+      <div className="mb-[1.5rem]">
         <Results
           heading={
             <>
@@ -92,18 +98,22 @@ export default function CorporateLms() {
               <a href="#" className="inline-link">
                 features
               </a>{' '}
-              that help large teams learn faster, share what they know and show the difference learning makes.
+              that help large teams learn faster, share what they know and show leaders the difference learning makes every day.
             </>
           }
           cards={CARDS}
           testimonial={null}
           cta={{ label: 'See how Nimbus can work for your team →', to: '/lms/demo-platform' }}
+          headerClassName="pb-[0.8rem] pt-[2rem]"
+          subtitleClassName="mb-[1.25rem] mr-[4.625rem] mt-0 max-w-[46rem] tab:mr-0"
+          ctaClassName="pb-0 pt-[4rem]"
           className="container-medium"
         />
       </div>
-      <TwoColFeatures preset="corporate" />
+      <TwoColFeatures preset="corporate" imageClassNames={[undefined, 'aspect-square w-full mob:aspect-[350/195]']} />
       <IntegrationsVisual variant="mid-market" />
       <ReviewsSlider
+        navWrapClassName="block text-body [&>button]:inline-block"
         title={
           <>
             Trusted by corporate

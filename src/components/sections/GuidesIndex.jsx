@@ -5,6 +5,7 @@ import Placeholder from '../shared/Placeholder.jsx'
 // (#1b1b1b, 550px tall, 65% black + 15px backdrop-blur layer over the background) and a 3-col grid of
 // guides (2 ≤767, 1 ≤479). Motion (IX2): guide covers scale 1 -> 1.025 on hover, 300ms easeInOut, and back;
 // Download buttons bg #fbfbfb -> #139c79 with white text and inverted icon. Sign-up submit hover -> #1de9b6.
+// The featured card and grid sit in 7.5rem side padding only at ≥1440; 992–1439 it is 2.5rem (measured live).
 
 const COVER = 'rounded-[5px_20px_20px_5px]'
 
@@ -20,7 +21,7 @@ function DownloadButton({ href = '#', label = 'Download' }) {
   return (
     <a
       href={href}
-      className="group relative z-[999] flex flex-[0_1_auto] flex-nowrap items-center justify-start gap-[0.9375rem] overflow-visible rounded-[4px] border border-[#fbfbfb] bg-[#fbfbfb] px-[1rem] py-[0.5rem] font-semibold text-[#1b1b1b] no-underline transition-all duration-200 hover:border-[#3d3d3d] hover:bg-[#139c79] hover:text-white"
+      className="group relative z-[999] flex flex-[0_1_auto] flex-nowrap items-center justify-start gap-[0.9375rem] overflow-visible rounded-[4px] border border-[#fbfbfb] bg-[#fbfbfb] px-[1rem] py-[0.5rem] font-semibold text-[#1b1b1b] no-underline transition-all ease-[ease] duration-200 hover:border-[#3d3d3d] hover:bg-[#139c79] hover:text-white"
     >
       <span className="text-[1.125rem] leading-[1.4] xs:text-[1.1rem]">{label}</span>
       <DownloadIcon />
@@ -44,7 +45,7 @@ export function SignupForm({ placeholder = 'Enter your email', submitLabel = 'Si
         />
         <button
           type="submit"
-          className="h-[2.75rem] w-[7rem] shrink-0 rounded-[4px] bg-[#fbfbfb] pb-[9px] pl-[15px] pr-[40px] pt-[10px] text-left text-[1rem] text-black transition-colors hover:bg-[#1de9b6]"
+          className="h-[2.75rem] w-[7rem] shrink-0 rounded-[4px] bg-[#fbfbfb] pb-[9px] pl-[15px] pr-[40px] pt-[10px] text-left text-[1rem] text-black hover:bg-[#1de9b6]"
           style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14'%3E%3Cpath d='M2 7h10M8 3l4 4-4 4' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E\")", backgroundPosition: '86% 47%', backgroundRepeat: 'no-repeat' }}
         >
           {submitLabel}
@@ -85,7 +86,7 @@ export default function GuidesIndex({
       {/* featured */}
       <div className="flex max-w-full flex-col items-start gap-[2.5rem] tab:gap-[1.875rem]">
         <div className="mx-auto flex w-full max-w-[80rem] flex-row items-center justify-between gap-x-[2.5rem] px-[7.5rem] tab:flex-col tab:items-start tab:gap-[1.25rem] tab:p-[1.25rem]" />
-        <div className="w-full max-w-full px-[7.5rem] tab:px-[1.875rem] mob:px-[1.25rem]">
+        <div className="w-full max-w-full px-[2.5rem] wide:px-[7.5rem] tab:px-[1.875rem] mob:px-[1.25rem]">
           <div className="group/f relative flex h-[34.375rem] w-full flex-row justify-end overflow-hidden rounded-[10px] bg-[#1b1b1b] mob:h-auto xs:flex-col">
             <div className="relative z-[100] flex min-h-[50%] w-1/2 flex-col items-start gap-[1.25rem] px-[2.5rem] py-[3.75rem] xs:w-full xs:pb-0">
               <h3 className="mb-0 text-[2.5rem] font-normal leading-[1.25] tab:leading-[1.3] mob:text-[1.875rem]">{featured.title}</h3>
@@ -96,7 +97,7 @@ export default function GuidesIndex({
               <a href={featured.href} className="flex h-full w-full flex-col items-center">
                 <Placeholder
                   label="Guide cover"
-                  className={`aspect-[2481/3508] h-full shadow-[0_5px_5px_rgba(0,0,0,0.5)] transition-transform duration-300 ease-in-out hover:scale-[1.025] tab:h-auto tab:w-full mob:max-w-[75%] ${COVER}`}
+                  className={`aspect-[2481/3508] h-full shadow-[0_5px_5px_rgba(0,0,0,0.5)] transition-transform duration-300 ease-in-out hover:scale-[1.025] tab:h-auto tab:w-full ${COVER}`}
                 />
               </a>
             </div>
@@ -106,7 +107,7 @@ export default function GuidesIndex({
       </div>
 
       {/* grid */}
-      <div className="relative z-[500] mx-auto mt-[3.75rem] flex min-h-[50vh] w-full max-w-[80rem] flex-col items-start justify-start gap-x-[2.5rem] gap-y-[7.5rem] px-[7.5rem] tab:gap-[1.25rem] tab:px-[1.875rem] mob:mb-[3.75rem] mob:min-h-0">
+      <div className="relative z-[500] mx-auto mt-[3.75rem] flex min-h-[50vh] w-full max-w-[80rem] flex-col items-start justify-start gap-x-[2.5rem] gap-y-[7.5rem] px-[2.5rem] wide:px-[7.5rem] tab:gap-[1.25rem] tab:px-[1.875rem] mob:mb-[3.75rem] mob:min-h-0">
         <div className="w-full">
           <div className="grid grid-cols-3 gap-x-[5.625rem] gap-y-[7.5rem] tab:gap-x-[3.75rem] mob:grid-cols-2 xs:grid-cols-1">
             {guides.map((g, i) => (

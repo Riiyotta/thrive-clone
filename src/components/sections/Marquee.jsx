@@ -109,6 +109,8 @@ export default function Marquee({
     { label: 'Book your demo', variant: 'primary', href: '/lms/demo-platform' },
     { label: 'Explore Nimbus Library', variant: 'dark', href: '/content' },
   ],
+  // optional ('header' variant): spacer between the last row and the buttons; default unchanged
+  afterRowsClassName = 'pt-[3rem]',
 }) {
   const d = DEFAULTS[variant] || DEFAULTS.plain
   const rws = rows || (variant === 'plain' ? SETS[set] || SETS[1] : d.rows)
@@ -140,7 +142,7 @@ export default function Marquee({
             </div>
             <div className="pt-[3rem]" />
             {rowList}
-            <div className="pt-[3rem]" />
+            <div className={afterRowsClassName} />
             <div className="flex flex-wrap items-center justify-center gap-[1.5rem] xs:gap-[2rem]">
               {buttons.map((b, i) => (
                 <Button key={i} variant={b.variant} href={b.href}>

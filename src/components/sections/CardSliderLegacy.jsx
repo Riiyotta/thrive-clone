@@ -79,7 +79,7 @@ function ArrowIcon({ dir }) {
   )
 }
 
-function Slide({ variant, s, i }) {
+function Slide({ variant, s, i, processGap = 'gap-[1.25rem]' }) {
   if (variant === 'journey') {
     return (
       <div className="flex aspect-[3.42/5] h-full flex-col items-start justify-between p-[2rem] no-underline transition-none hover:bg-[var(--lt-bg2)] tab:aspect-square">
@@ -112,7 +112,7 @@ function Slide({ variant, s, i }) {
         </div>
       </div>
       <div className="flex flex-col items-start justify-between self-stretch p-[2.5rem] mob:px-[1rem]">
-        <div className="flex flex-col gap-[1.25rem]">
+        <div className={`flex flex-col ${processGap}`}>
           <div className="font-serif text-[1.125rem] font-normal leading-[1.4] tracking-[0.03em] text-[color:var(--lt-brand)] mob:text-[1.25rem]">{s.title}</div>
           <p className="text-[0.875rem] leading-[1.4] text-grey">{s.body}</p>
         </div>
@@ -121,6 +121,8 @@ function Slide({ variant, s, i }) {
   )
 }
 
+// processGap (optional, 'process' cards): title-to-text gap class; undefined keeps gap-[1.25rem]
+// (live /content/custom-content uses a 1rem title margin, so it passes 'gap-[1rem]').
 export default function CardSliderLegacy({ variant = 'journey', ...props }) {
   const d = { ...DEFAULTS[variant], ...props }
   const { slides } = d
@@ -243,7 +245,7 @@ export default function CardSliderLegacy({ variant = 'journey', ...props }) {
                     className={`shrink-0 overflow-hidden border-b border-r border-solid border-[color:var(--lt-border)] transition-transform duration-500 ease-[ease] ${SLIDE_W[variant]}`}
                     style={{ transform: `translateX(${-offset}px)` }}
                   >
-                    <Slide variant={variant} s={s} i={i} />
+                    <Slide variant={variant} s={s} i={i} processGap={d.processGap} />
                   </div>
                 ))}
               </div>

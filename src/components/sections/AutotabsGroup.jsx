@@ -34,7 +34,7 @@ const CONFIG = {
   mentoring: { tabs: TABS3, inline: true, media: 'cover', tabPad: 'p-[8px]' },
 }
 
-function Tabs({ tabs, inline, media }) {
+function Tabs({ tabs, inline, media, mediaClassName = '' }) {
   const N = tabs.length
   const c = useLoopCarousel(N, { threshold: 5 })
   const active = c.real
@@ -83,11 +83,11 @@ function Tabs({ tabs, inline, media }) {
                     </div>
                   </div>
                 </div>
-                <div className="flex aspect-video h-full w-full flex-col gap-[1.5rem]">
+                <div className={`flex aspect-video h-full w-full flex-col gap-[1.5rem] ${mediaClassName}`}>
                   <Placeholder
                     label={media === 'cover' ? 'Product screenshot' : 'Product screenshot 16:9'}
                     tone={2}
-                    className={`aspect-video w-full ${media === 'cover' ? '' : ''}`}
+                    className={`aspect-video w-full ${media === 'cover' ? '' : ''} ${mediaClassName}`}
                   />
                 </div>
               </div>
@@ -99,12 +99,17 @@ function Tabs({ tabs, inline, media }) {
   )
 }
 
+// `headingClassName` (optional, default ''): extra H2 classes; /lms passes 'tab:mt-0' because the original's
+// H2 top margin collapses into the section margin at ≤991. `mediaClassName` (optional): extra classes on each
+// slide's media box (/lms passes 'xs:aspect-[306/197]', the original's first-slide screenshot at ≤479).
 export default function AutotabsGroup({
   variant = 'platform',
   title,
   paragraph,
   tabs,
   quote,
+  headingClassName = '',
+  mediaClassName,
 }) {
   const cfg = CONFIG[variant] || CONFIG.platform
   const T = tabs || cfg.tabs
@@ -135,7 +140,7 @@ export default function AutotabsGroup({
                 <div className="padding-global">
                   <div className="container-large">
                     <div className="container-medium">
-                      <Tabs tabs={T} inline={cfg.inline} media={cfg.media} />
+                      <Tabs tabs={T} inline={cfg.inline} media={cfg.media} mediaClassName={mediaClassName} />
                     </div>
                   </div>
                 </div>
@@ -167,7 +172,7 @@ export default function AutotabsGroup({
       <div className="container-medium">
         <div className={`mx-auto flex w-full flex-col items-center justify-center text-center ${isPlatform ? 'max-w-[80rem]' : 'max-w-[60rem]'}`}>
           <div className="text-center">
-            <h2 className={`heading-h2 flex flex-col ${isPlatform ? 'mt-[2rem] max-w-[80rem]' : 'max-w-[60rem]'}`}>
+            <h2 className={`heading-h2 flex flex-col ${isPlatform ? 'mt-[2rem] max-w-[80rem]' : 'max-w-[60rem]'} ${headingClassName}`}>
               {title ||
                 (isPlatform ? (
                   <>
@@ -203,7 +208,7 @@ export default function AutotabsGroup({
         <div className="padding-global">
           <div className="container-large">
             <div className="container-medium">
-              <Tabs tabs={T} inline={cfg.inline} media={cfg.media} />
+              <Tabs tabs={T} inline={cfg.inline} media={cfg.media} mediaClassName={mediaClassName} />
             </div>
           </div>
         </div>

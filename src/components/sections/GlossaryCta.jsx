@@ -24,7 +24,7 @@ export default function GlossaryCta({
     return () => ctx.revert()
   }, [])
   return (
-    <div data-section="glossary-cta" className="relative z-[500] mx-auto flex w-full max-w-[80rem] flex-col items-start justify-start gap-x-[2.5rem] gap-y-[7.5rem] px-[7.5rem] tab:gap-[1.25rem] tab:px-[1.25rem]">
+    <div data-section="glossary-cta" className="relative z-[500] mx-auto flex w-full max-w-[80rem] flex-col items-start justify-start gap-x-[2.5rem] gap-y-[7.5rem] px-[2.5rem] wide:px-[7.5rem] tab:gap-[1.25rem] tab:px-[1.25rem]">
       <div ref={ref} className="relative flex h-auto w-full flex-col justify-between overflow-hidden rounded-[10px] bg-[#1b1b1b] xs:mx-0 xs:self-center">
         <div className="relative z-50 flex flex-col items-center gap-[1.25rem] px-[2.5rem] py-[3.75rem] tab:px-[1.875rem] tab:py-[2.5rem] mob:px-[1.25rem] mob:py-[1.875rem] xs:px-[1rem]">
           <Wordmark className="h-[36px] tab:h-[24px]" textClassName="text-[1.5rem] tab:text-[1rem]" />
@@ -37,7 +37,7 @@ export default function GlossaryCta({
               <a
                 key={b.label}
                 href={b.href}
-                className="flex items-center gap-[0.3125rem] rounded-[4px] bg-green px-[1rem] py-[0.5rem] text-[0.875rem] font-semibold leading-[1.4] text-[#1b1b1b] no-underline transition-colors hover:bg-white"
+                className="flex items-center gap-[0.3125rem] rounded-[4px] bg-green px-[1rem] py-[0.5rem] text-[0.875rem] font-semibold leading-[1.4] text-[#1b1b1b] no-underline transition-colors ease-[ease] hover:bg-white"
               >
                 {b.label}
               </a>

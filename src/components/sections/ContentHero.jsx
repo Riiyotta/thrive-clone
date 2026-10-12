@@ -57,6 +57,8 @@ export default function ContentHero({
   logosCaption = DEFAULTS.logosCaption,
   logos = DEFAULTS.logos,
   feature = DEFAULTS.feature,
+  // extra classes for the quote card's name/role block (live /content adds a 1rem bottom margin ≤767)
+  authorClassName = '',
 }) {
   const featRef = useRef(null)
   useLayoutEffect(() => {
@@ -112,9 +114,10 @@ export default function ContentHero({
           <div className="container-medium">
             <div className="flex w-full flex-col items-center justify-start gap-y-[2rem]">
               <div className="flex max-w-[60rem] flex-[0_1_auto] items-center justify-between gap-[3rem] pt-[2rem] tab:flex-wrap tab:justify-center tab:gap-y-[2rem] mob:justify-around xs:gap-[2rem]">
+                {/* a logo may be { text, className } to size its slot like the live image; strings keep the default slot */}
                 {logos.map((l, i) => (
                   <div key={i} className="flex w-[7rem] items-center justify-center overflow-clip">
-                    <LogoPlaceholder text={l} className="h-[2rem] w-[5rem] text-[0.7rem] xs:w-[6rem]" />
+                    <LogoPlaceholder text={l.text ?? l} className={`${l.className ?? 'h-[2rem] w-[5rem] xs:w-[6rem]'} text-[0.7rem]`} />
                   </div>
                 ))}
               </div>
@@ -134,7 +137,7 @@ export default function ContentHero({
                         <div className="h-[2.5rem] min-h-[2.5rem] w-[2.5rem] shrink-0 overflow-clip rounded-full border border-page">
                           <Placeholder label="" className="h-full w-full rounded-full" />
                         </div>
-                        <div>
+                        <div className={authorClassName}>
                           <div className="text-[1rem] font-semibold leading-[1.4]">{feature.name}</div>
                           <div className="text-[1rem] leading-[1.4]">{feature.role}</div>
                         </div>

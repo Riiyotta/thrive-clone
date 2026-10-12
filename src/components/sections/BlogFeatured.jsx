@@ -9,7 +9,7 @@ const THEME = { '--th-border': '#00251e', '--th-bg2': '#001811', '--th-eyebrow-b
 export function Eyebrow({ children, className = '' }) {
   return (
     <div
-      className={`mb-[0.75rem] inline-block rounded-[100vw] border border-[var(--th-eyebrow-border)] bg-[var(--th-bg2)] px-[0.75rem] py-[0.325rem] text-[0.875rem] font-medium leading-[1.4] text-white tab:px-[0.625rem] tab:py-[0.425rem] tab:text-[0.725rem] xs:mb-[0.25rem] xs:leading-none ${className}`}
+      className={`mb-[0.75rem] inline-block rounded-[100vw] border border-[var(--th-eyebrow-border)] bg-[var(--th-bg2)] px-[0.75rem] py-[0.325rem] text-[0.875rem] font-medium leading-[1.4] text-ink tab:px-[0.625rem] tab:py-[0.425rem] tab:text-[0.725rem] xs:mb-[0.25rem] xs:leading-none ${className}`}
     >
       {children}
     </div>
@@ -82,9 +82,9 @@ export default function BlogFeatured({
             </div>
             <a
               href={post.href}
-              className="grid grid-cols-[0.8fr_1fr] text-ink no-underline transition-[background-color] duration-[260ms] hover:bg-[var(--th-bg2)] mob:grid-cols-1"
+              className="grid grid-cols-[0.8fr_1fr] text-ink no-underline transition-[background-color] ease-[ease] duration-[260ms] hover:bg-[var(--th-bg2)] mob:grid-cols-1"
             >
-              <Placeholder label="Featured post image" src={post.image} className="h-full min-h-[27.4rem] w-full mob:aspect-[390/253] mob:min-h-0" />
+              <Placeholder label="Featured post image" src={post.image} className="h-full w-full mob:aspect-[390/253]" />
               <div className="flex flex-col items-stretch justify-between gap-[4rem] px-[3.75rem] py-[3rem] tab:gap-y-[3rem] tab:p-[2rem] mob:px-[1.5rem] xs:gap-y-[2rem] xs:p-[1rem]">
                 <div className="flex flex-col gap-[18px]">
                   <h2 className="mb-[1.25rem] mt-[0.25rem] text-[2rem] font-normal leading-[1.4] mob:text-[1.5rem]">{post.title}</h2>

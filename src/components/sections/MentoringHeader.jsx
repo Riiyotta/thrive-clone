@@ -30,6 +30,8 @@ const DEFAULTS = {
   logos: ['logo-volvo.png', 'logo-burgerking.png', 'logo-vodafone.png', 'logo-ba.png', 'logo-krispykreme.svg', 'logo-nothingbundt.png'],
 }
 
+// Optional `logoClassNames`: per-logo aspect/size classes replacing the default 'aspect-[120/49]'; optional
+// `logosLeadClassName`: margin classes of the logo lead line replacing the default 'mt-[0.5rem]' (unset = unchanged).
 export default function MentoringHeader(props) {
   const p = { ...DEFAULTS, ...props }
   const ref = useRef(null)
@@ -85,13 +87,13 @@ export default function MentoringHeader(props) {
                   </Button>
                 </div>
               </div>
-              <div className="mt-[0.5rem] w-full text-center text-body text-ink xs:text-body-xs">{p.logosLead}</div>
+              <div className={`${p.logosLeadClassName || 'mt-[0.5rem]'} w-full text-center text-body text-ink xs:text-body-xs`}>{p.logosLead}</div>
               <div className="container-medium -mt-[2rem]">
                 <div className="flex w-full flex-col items-center gap-[2rem]">
                   <div className="flex max-w-[60rem] items-center justify-between gap-[3rem] pt-[2rem] tab:flex-wrap tab:justify-center tab:gap-y-[2rem] mob:justify-around xs:gap-[2rem]">
                     {p.logos.map((f, i) => (
                       <div key={i} className="flex w-[7rem] items-center justify-center overflow-clip">
-                        <LogoPlaceholder src={`/assets/${f}`} alt="Customer logo" className="aspect-[120/49] max-h-[4rem] w-full text-[0.75rem]" />
+                        <LogoPlaceholder src={`/assets/${f}`} alt="Customer logo" className={`${p.logoClassNames?.[i] || 'aspect-[120/49]'} max-h-[4rem] w-full text-[0.75rem]`} />
                       </div>
                     ))}
                   </div>

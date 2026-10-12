@@ -35,12 +35,13 @@ export default function WhatsIncludedPage() {
       />
       <IncludedTabs />
       <Layout03Tabs variant="video-compact" />
-      <div aria-hidden className="h-[5rem] mob:h-[3rem]" />
+      <div aria-hidden className="h-[4rem] mob:h-[2rem]" />
       <ProofResults
         wrapGlobal={false}
         innerClassName="pb-[2rem]"
         containerClassName="container-medium mb-[2rem]"
         headingClassName="mb-[1.5rem]"
+        leadClassName="mb-[1.25rem]"
         heading={
           <>
             Results, not <em className="italic">slogans</em>
@@ -48,22 +49,24 @@ export default function WhatsIncludedPage() {
         }
         lead={
           <>
-            Leading teams in every sector and region already see the difference our <a href="#" className="inline-link">features</a> make every day.
+            Leading teams everywhere already see the difference our <a href="#" className="inline-link">features</a> make every day.
           </>
         }
         cards={[
           { stat: '1.6x', text: <><em className="italic">Quicker onboarding</em> for every single new starter joining the stores across all of their regions</>, logoClass: 'w-[3rem]' },
           { stat: '12%', text: <>Lift in product sales after short <em className="italic">product lessons</em> reached every single store</>, logoClass: 'w-[6.4rem]' },
-          { stat: '94%', text: <>Completion on required courses once <em className="italic">smart reminders</em> went live everywhere</>, logoClass: 'w-[6.4rem]' },
+          { stat: '94%', text: <>Completion on required courses once <em className="italic">smart reminders</em> went live across every site</>, logoClass: 'w-[6.4rem]' },
         ]}
         quote={{
           text: '“What I love most about Nimbus is how naturally people take to it. Our teams log in because they want to, and the support has been brilliant.”',
           name: 'Jordan Ellis',
-          role: 'Head of People and Culture, Northwind Retail Group',
+          role: 'Head of People and Culture, Northwind',
+          clientClassName: 'mob:pb-[1rem]',
         }}
         cta={{ kind: 'button', label: 'See Nimbus in action', to: '/lms/demo-platform' }}
       />
-      <ReviewsSlider title="Trusted by teams like yours" />
+      {/* the original's arrows are inline-blocks on a body-text line at every width (strut adds ~6px under them) */}
+      <ReviewsSlider title="Trusted by teams like yours" navWrapClassName="block text-body [&>button]:inline-block" />
       <Faq heading="Frequently asked questions" items={faqItems(FAQ)} />
     </div>
   )

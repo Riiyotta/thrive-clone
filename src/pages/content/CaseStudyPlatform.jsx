@@ -12,7 +12,7 @@ export default function CaseStudyPlatform() {
   const data = CASE_STUDY_PLATFORM[pathname] || {}
   return (
     <>
-      <Sec id="cs-platform-body"><CsPlatformBody key={pathname} {...data} /></Sec>
+      <Sec id="cs-platform-body"><CsPlatformBody key={pathname} inlineImageClassName="mb-[3rem] mt-[1rem] inline-flex h-[26rem] w-full max-w-full rounded-panel align-top" {...data} /></Sec>
       <Sec id="related-3col-slider">
         <EnterpriseSlider
           variant="case"

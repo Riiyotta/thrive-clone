@@ -91,6 +91,11 @@ export default function CsFilterGrid({
   filters = DEFAULT_FILTERS,
   items = DEFAULT_ITEMS,
   emptyText = 'No case studies match those filters yet.',
+  // stickyBar: the filter bar sticks below the nav while scrolling. The live page keeps it in flow
+  // (position: relative), so /case-studies/lms passes false; default true keeps the current behaviour.
+  stickyBar = true,
+  // allClassName: extra classes on the "All" control (live: the radio label keeps a 5px bottom margin)
+  allClassName = '',
 }) {
   const [sel, setSel] = useState({})
   const [open, setOpen] = useState(null)
@@ -134,7 +139,7 @@ export default function CsFilterGrid({
             </div>
             <div className="pt-[5rem] tab:pt-[4rem] mob:pt-[3rem]" />
             <div className="flex w-full flex-col gap-[1rem]">
-              <div className="sticky top-[3rem] z-[2] mb-[15px]">
+              <div className={`${stickyBar ? 'sticky top-[3rem]' : 'relative'} z-[2] mb-[15px]`}>
                 <form
                   ref={formRef}
                   onSubmit={(e) => e.preventDefault()}
@@ -147,7 +152,7 @@ export default function CsFilterGrid({
                         setSel({})
                         setOpen(null)
                       }}
-                      className="w-full text-left text-[1rem] leading-[1.4] text-grey transition-colors duration-[260ms] hover:text-ink"
+                      className={`w-full text-left text-[1rem] leading-[1.4] text-grey transition-colors duration-[260ms] hover:text-ink ${allClassName}`}
                     >
                       All
                     </button>

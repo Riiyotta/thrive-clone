@@ -52,7 +52,9 @@ const DEFAULTS = {
 const LEFT_PAD = 'p-[2.5rem] tab:p-[1.5rem] mob:p-[1.25rem]'
 const RIGHT_PAD = 'p-[2.5rem] tab:p-[2rem] mob:p-[1.5rem] xs:p-[1rem]'
 
-export default function GridSplitLegacy({ variant = 'testimonial', ...props }) {
+// rightClassName (optional): extra classes on the CTA column of the 'suites' variant (e.g. 'xs:items-stretch'
+// for the live full-width button ≤479). Default '' keeps the current layout.
+export default function GridSplitLegacy({ variant = 'testimonial', rightClassName = '', ...props }) {
   const d = { ...DEFAULTS[variant], ...props }
   const frame = variant === 'image' || variant === 'suites' ? 'border-x border-b' : 'border'
 
@@ -128,7 +130,7 @@ export default function GridSplitLegacy({ variant = 'testimonial', ...props }) {
       )
     } else {
       right = (
-        <div className={`flex w-full flex-col items-end justify-start self-end ${RIGHT_PAD}`}>
+        <div className={`flex w-full flex-col items-end justify-start self-end ${RIGHT_PAD} ${rightClassName}`}>
           <LegacyButton>{d.cta}</LegacyButton>
         </div>
       )

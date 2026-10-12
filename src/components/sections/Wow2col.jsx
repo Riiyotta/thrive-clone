@@ -11,6 +11,8 @@ export default function Wow2col({
   body = 'With curated pathways, matching tools and progress check-ins, mentors and mentees always know what to focus on next.',
   leadNarrow = false,
   image = null,
+  // stackTab (optional): stack from ≤991 (live /mentoring) instead of ≤767; default false keeps ≤767.
+  stackTab = false,
 }) {
   const leadEl = <p className="mb-[1.25rem] flex text-[1.5rem] leading-[1.4] mob:text-[1.25rem]">{lead}</p>
   return (
@@ -19,7 +21,7 @@ export default function Wow2col({
         <div className="container-medium">
           <div className="py-[5rem] tab:py-[4rem] mob:py-[3rem]">
             <div className="container-large">
-              <div className="flex items-stretch justify-between gap-[3.75rem] mob:flex-col mob:gap-[1.5rem]">
+              <div className={`flex items-stretch justify-between gap-[3.75rem] ${stackTab ? 'tab:flex-col' : ''} mob:flex-col mob:gap-[1.5rem]`}>
                 <div className="w-full max-w-[36rem]">
                   <div className="flex h-full flex-col items-start justify-between gap-y-[4rem]">
                     <h2 className="heading-h2">{heading}</h2>

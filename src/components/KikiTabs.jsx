@@ -63,21 +63,21 @@ const HOME_HEADER = (
   </div>
 )
 
-function VideoSlide({ s, hidden }) {
+function VideoSlide({ s, hidden, inlineCopy = false, videoXsClassName = 'xs:aspect-auto xs:h-[22rem]' }) {
   return (
     <div aria-hidden={hidden} className="relative isolate flex min-h-[32.5rem] w-full shrink-0 flex-col overflow-clip rounded-panel bg-surface-1 pl-[2.5rem] pt-[2.5rem] mob:p-[1.5rem] mob:pb-[4.5rem] xs:min-h-[35rem]">
       <div className="relative flex flex-1 flex-col justify-between mob:justify-start mob:gap-[1.5rem]">
         <div className="max-w-[65%] tab:max-w-full">
           <p className="max-w-[85%] text-feature font-medium">
-            <span className="inline-block text-ink">{s.highlight}</span>{' '}
-            <span className="inline-block tracking-[-0.025rem] text-grey xs:mb-[1.25rem]">{s.subdued}</span>
+            <span className={inlineCopy ? 'text-ink' : 'inline-block text-ink'}>{s.highlight}</span>{' '}
+            <span className={inlineCopy ? 'tracking-[-0.025rem] text-grey' : 'inline-block tracking-[-0.025rem] text-grey xs:mb-[1.25rem]'}>{s.subdued}</span>
           </p>
         </div>
         <Placeholder
           tone={2}
           label={s.mediaLabel || 'Product video 1:1'}
           data-video-slot
-          className="absolute bottom-0 right-0 z-[-1] aspect-square w-[45%] xs:static xs:aspect-auto xs:h-[22rem] xs:w-full"
+          className={`absolute bottom-0 right-0 z-[-1] aspect-square w-[45%] xs:static xs:w-full ${videoXsClassName}`}
         />
       </div>
     </div>
@@ -87,10 +87,10 @@ function VideoSlide({ s, hidden }) {
 // `.wow-slider-content` image slide (lms, corporate-lms, enterprise, small-business, feature-page
 // autotabs-cta): padding 40/40/0/40 (24 at ≤479), gap 40, min-h 640 (384 at ≤479); a header row
 // with the copy (max 36rem) and an optional primary button bottom-right; image below.
-function ImageSlide({ s, imageAspect, hidden, copyMargin = 'mb-[1.25rem]' }) {
+function ImageSlide({ s, imageAspect, hidden, copyMargin = 'mb-[1.25rem]', slideClassName = '', rowClassName = 'xs:flex-col xs:items-start xs:gap-[1rem]', ctaStretch = false }) {
   return (
-    <div aria-hidden={hidden} className="flex min-h-[40rem] w-full shrink-0 flex-col items-start gap-[2.5rem] overflow-clip rounded-panel bg-surface-1 px-[2.5rem] pt-[2.5rem] xs:min-h-[24rem] xs:px-[1.5rem] xs:pt-[1.5rem]">
-      <div className="flex w-full items-end justify-between gap-[3rem] xs:flex-col xs:items-start xs:gap-[1rem]">
+    <div aria-hidden={hidden} className={`flex min-h-[40rem] w-full shrink-0 flex-col items-start gap-[2.5rem] overflow-clip rounded-panel bg-surface-1 px-[2.5rem] pt-[2.5rem] xs:min-h-[24rem] xs:px-[1.5rem] xs:pt-[1.5rem] ${slideClassName}`}>
+      <div className={`flex w-full items-end justify-between gap-[3rem] ${rowClassName}`}>
         <div className="max-w-[36rem]">
           {s.text ? (
             <p className="text-body text-ink xs:text-body-xs">{s.text}</p>
@@ -101,7 +101,7 @@ function ImageSlide({ s, imageAspect, hidden, copyMargin = 'mb-[1.25rem]' }) {
           )}
         </div>
         {s.cta && (
-          <Button variant="primary" to={s.cta.to} stretch={false}>
+          <Button variant="primary" to={s.cta.to} stretch={ctaStretch}>
             {s.cta.label}
           </Button>
         )}
@@ -133,6 +133,14 @@ function ImageSlide({ s, imageAspect, hidden, copyMargin = 'mb-[1.25rem]' }) {
  *   `.w-col` slide padding on /lms/features/* explore tabs); unset = no wrapper (unchanged)
  * @param {string} [props.copyMargin='mb-[1.25rem]'] bottom margin of the image-slide copy paragraph. On /lms and
  *   /lms/small-business the original's `.subdued-text` is inline, so its 20px margin never applies ('mb-0').
+ * @param {{slideClassName?: string, rowClassName?: string, ctaStretch?: boolean}} [props.imageSlideOptions] optional
+ *   image-slide overrides: extra slide classes, the copy/button row's responsive classes (default
+ *   'xs:flex-col xs:items-start xs:gap-[1rem]') and whether the button stretches at ≤479 (default false).
+ *   Unset = unchanged. Used by the /lms/features/* explore tabs.
+ * @param {boolean} [props.inlineCopy=false] video slides: highlight + subdued as plain inline text in one flow (the
+ *   original's /lms `.wowfeatures_title`); unset keeps the inline-block spans.
+ * @param {string} [props.videoXsClassName='xs:aspect-auto xs:h-[22rem]'] video slides: media sizing at ≤479
+ *   (/lms passes 'xs:aspect-square', the original's 306x306 video). Unset = unchanged.
  */
 export default function KikiTabs({
   header = HOME_HEADER,
@@ -143,6 +151,9 @@ export default function KikiTabs({
   tabsClassName = 'overflow-hidden py-[3rem]',
   slideInsetClassName,
   copyMargin = 'mb-[1.25rem]',
+  imageSlideOptions,
+  inlineCopy,
+  videoXsClassName,
 }) {
   const N = tabs.length
   // Original Swiper (is-wowautotabs): slidesPerView 1, spaceBetween 24, loop, speed 800, grabCursor,
@@ -195,13 +206,13 @@ export default function KikiTabs({
                       media === 'image' ? (
                         slideInsetClassName ? (
                           <div key={i} className={`flex w-full shrink-0 ${slideInsetClassName}`}>
-                            <ImageSlide s={s} imageAspect={imageAspect} hidden={i !== c.pos + N} copyMargin={copyMargin} />
+                            <ImageSlide s={s} imageAspect={imageAspect} hidden={i !== c.pos + N} copyMargin={copyMargin} {...imageSlideOptions} />
                           </div>
                         ) : (
-                          <ImageSlide key={i} s={s} imageAspect={imageAspect} hidden={i !== c.pos + N} copyMargin={copyMargin} />
+                          <ImageSlide key={i} s={s} imageAspect={imageAspect} hidden={i !== c.pos + N} copyMargin={copyMargin} {...imageSlideOptions} />
                         )
                       ) : (
-                        <VideoSlide key={i} s={s} hidden={i !== c.pos + N} />
+                        <VideoSlide key={i} s={s} hidden={i !== c.pos + N} inlineCopy={inlineCopy} videoXsClassName={videoXsClassName} />
                       )
                     ))}
                   </div>

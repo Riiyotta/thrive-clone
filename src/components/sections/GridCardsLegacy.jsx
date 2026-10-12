@@ -210,7 +210,15 @@ export default function GridCardsLegacy({ variant = 'people', ...props }) {
       <div className="padding-global">
         <div className="container-large">
           <div className={`flex flex-col border-solid border-[color:var(--lt-border)] ${d.frame}`}>
-            <Header h={d.header} />
+            {/* headerFrame (optional): border classes for the header block alone, e.g. live /content where only
+                the header carries the side borders and the card rows sit edge to edge (pass frame="" too) */}
+            {d.headerFrame ? (
+              <div className={`border-solid border-[color:var(--lt-border)] ${d.headerFrame}`}>
+                <Header h={d.header} />
+              </div>
+            ) : (
+              <Header h={d.header} />
+            )}
             {d.rows.map((row, r) => (
               <div
                 key={r}

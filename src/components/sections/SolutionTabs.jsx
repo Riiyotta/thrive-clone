@@ -36,6 +36,9 @@ export default function SolutionTabs({
   text = DEFAULTS.text,
   tabs = DEFAULTS.tabs,
   ctaLabel = DEFAULTS.ctaLabel,
+  // liveDetails: live /content details — tab rows top-aligned (not centred) and each ≤479 accordion body
+  // keeps 1px transparent top/bottom borders (2px when closed). Default off keeps the original behaviour.
+  liveDetails = false,
 }) {
   const [active, setActive] = useState(0)
   const [open, setOpen] = useState(-1)
@@ -93,7 +96,7 @@ export default function SolutionTabs({
                         className="relative cursor-pointer overflow-hidden border-b border-r border-[var(--th-border)] transition-all duration-200 last:border-b-0"
                       >
                         <div
-                          className={`flex h-full flex-col items-start justify-center border-r border-[var(--th-border)] pb-[1.125rem] pl-[2.5rem] pr-[2rem] pt-[1.125rem] text-ink tab:gap-[0.5rem] tab:px-[1.5rem] tab:py-[1rem] mob:px-[1.5rem] ${on ? TEXTURE : ''}`}
+                          className={`flex h-full flex-col items-start ${liveDetails ? 'justify-start' : 'justify-center'} border-r border-[var(--th-border)] pb-[1.125rem] pl-[2.5rem] pr-[2rem] pt-[1.125rem] text-ink tab:gap-[0.5rem] tab:px-[1.5rem] tab:py-[1rem] mob:px-[1.5rem] ${on ? TEXTURE : ''}`}
                         >
                           <div className="text-[1.25rem] font-bold leading-[1.5] mob:text-[1rem]">{t.title}</div>
                           {on && (
@@ -145,7 +148,7 @@ export default function SolutionTabs({
                       </div>
                     </button>
                     <div
-                      className={`grid overflow-hidden border-l border-[var(--th-border)] px-[1.25rem] transition-[grid-template-rows,opacity] duration-[400ms] ease-[ease] ${on ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+                      className={`grid overflow-hidden border-l border-[var(--th-border)] px-[1.25rem] ${liveDetails ? 'border-y border-y-transparent' : ''} transition-[grid-template-rows,opacity] duration-[400ms] ease-[ease] ${on ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
                     >
                       <div className="min-h-0">
                         <div className="my-[1.25rem]">

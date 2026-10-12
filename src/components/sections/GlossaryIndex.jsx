@@ -8,7 +8,7 @@ import { gsap } from '../../lib/gsap.js'
 // Motion (IX2): header fades in (1000ms outQuart, delay 100), filter fades in, the list rises from
 // y 100px + fades (1000ms outQuart, delay 500) — scroll-into-view, once. Card hover: the other cards dim to
 // opacity .5 (500ms), back to 1 on leave (200ms ease). Letter hover: text #1de9b6, bg white/10,
-// border #139c79 (.3s); "Read more" hover bg #1de9b6.
+// border #139c79 (.3s); "Read more" hover bg #1de9b6. The list sits in 7.5rem side padding only at ≥1440 (2.5rem below).
 
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 const TERMS = [
@@ -70,7 +70,7 @@ export default function GlossaryIndex({
                     role="radio"
                     aria-checked={on}
                     onClick={() => setLetter(l)}
-                    className={`mb-0 cursor-pointer rounded-[100vw] border border-[#1b1b1b] px-[0.5rem] py-[0.1rem] text-center text-body transition-[background-color,color] duration-300 hover:border-[#139c79] hover:bg-[rgba(255,255,255,0.1)] hover:text-[#1de9b6] xs:text-body-xs ${
+                    className={`mb-0 cursor-pointer rounded-[100vw] border border-[#1b1b1b] px-[0.5rem] py-[0.1rem] text-center text-body transition-[background-color,color] ease-[ease] duration-300 hover:border-[#139c79] hover:bg-[rgba(255,255,255,0.1)] hover:text-[#1de9b6] xs:text-body-xs ${
                       on ? '!text-white' : 'text-[#8a8a8a]'
                     }`}
                   >
@@ -87,7 +87,7 @@ export default function GlossaryIndex({
       </div>
       <div
         data-gl-list
-        className="relative z-[500] mx-auto flex min-h-[28.125rem] w-full max-w-[80rem] flex-col items-start justify-start gap-x-[2.5rem] gap-y-[7.5rem] px-[7.5rem] tab:gap-[1.25rem] tab:px-[1.25rem]"
+        className="relative z-[500] mx-auto flex min-h-[28.125rem] w-full max-w-[80rem] flex-col items-start justify-start gap-x-[2.5rem] gap-y-[7.5rem] px-[2.5rem] wide:px-[7.5rem] tab:gap-[1.25rem] tab:px-[1.25rem]"
       >
         <div className="w-full">
           <div className="grid grid-cols-3 gap-[2.5rem] tab:grid-cols-2 tab:gap-[1.25rem] mob:grid-cols-1" onMouseLeave={() => setHover(null)}>
@@ -104,7 +104,7 @@ export default function GlossaryIndex({
                     <h3 className="mb-0 text-[1.875rem] font-normal leading-[1.15] tab:leading-[1.3]">{t.title}</h3>
                     <div className="flex flex-col items-start gap-[1.25rem]">
                       <div className="relative z-10 text-[1rem] leading-[1.4375rem] tab:leading-[1.3]">{t.text}</div>
-                      <div className="z-[999] flex items-center gap-[0.3125rem] rounded-[4px] border border-[#fbfbfb] bg-[#fbfbfb] px-[1rem] py-[0.5rem] text-[0.875rem] font-semibold leading-[1.4] text-[#1b1b1b] transition-all duration-200 hover:bg-[#1de9b6] hover:text-black">
+                      <div className="z-[999] flex items-center gap-[0.3125rem] rounded-[4px] border border-[#fbfbfb] bg-[#fbfbfb] px-[1rem] py-[0.5rem] text-[0.875rem] font-semibold leading-[1.4] text-[#1b1b1b] transition-all ease-[ease] duration-200 hover:bg-[#1de9b6] hover:text-black">
                         {readMore}
                       </div>
                     </div>
@@ -115,6 +115,8 @@ export default function GlossaryIndex({
           </div>
           {!list.length && <div className="py-[2rem] text-center text-grey">No terms start with that letter yet.</div>}
         </div>
+        {/* zero-height sibling after the list (the original's empty collection block) still takes the column gap */}
+        <div aria-hidden className="h-0 w-full" />
       </div>
     </section>
   )

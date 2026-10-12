@@ -17,7 +17,8 @@ function Icon() {
   )
 }
 
-export default function LearnGrid({ heading = DEFAULTS.heading, text = DEFAULTS.text, items = DEFAULTS.items }) {
+// iconShrink (optional): let the icon box shrink beside long labels, as the live flex row does (default keeps shrink-0).
+export default function LearnGrid({ heading = DEFAULTS.heading, text = DEFAULTS.text, items = DEFAULTS.items, iconShrink = false }) {
   const lastRow = items.length - (items.length % 2 === 0 ? 2 : 1)
   return (
     <section data-section="learn-grid" style={THEME}>
@@ -43,7 +44,7 @@ export default function LearnGrid({ heading = DEFAULTS.heading, text = DEFAULTS.
                       className={`self-stretch border-l border-[var(--th-border)] p-[2rem] tab:p-[1.5rem] xs:p-[1rem] ${i < lastRow ? 'border-b' : ''}`}
                     >
                       <div className="flex flex-row items-center justify-start gap-[1rem] tab:gap-[1.25rem]">
-                        <div className="flex h-[2.5rem] w-[2.5rem] shrink-0 items-center justify-center rounded-br-[8px] rounded-tl-[8px] border border-[var(--th-eyebrow-border)] bg-[var(--th-bg2)] p-[8px] text-[var(--th-brand)] tab:h-[2rem] tab:w-[2rem] mob:p-[4px] xs:h-[1.5rem] xs:w-[1.5rem] xs:rounded-br-[4px] xs:rounded-tl-[4px]">
+                        <div className={`flex h-[2.5rem] w-[2.5rem] ${iconShrink ? 'shrink' : 'shrink-0'} items-center justify-center rounded-br-[8px] rounded-tl-[8px] border border-[var(--th-eyebrow-border)] bg-[var(--th-bg2)] p-[8px] text-[var(--th-brand)] tab:h-[2rem] tab:w-[2rem] mob:p-[4px] xs:h-[1.5rem] xs:w-[1.5rem] xs:rounded-br-[4px] xs:rounded-tl-[4px]`}>
                           <Icon />
                         </div>
                         <div className="text-[1.25rem] font-medium leading-[1.4] text-white xs:text-[1.125rem]">{label}</div>

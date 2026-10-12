@@ -114,6 +114,9 @@ export default function ReviewsSlider({
   slides = SLIDES,
   order = 'author-first',
   button = { label: 'See Nimbus in action', href: '/lms/demo-platform' },
+  // Optional: classes of the arrow wrapper (default 'flex'). Feature pages pass NAV_INLINE (FeatureDetail.jsx):
+  // <1440 the original's arrows are inline-blocks on a text line, which adds ~6.5px under them.
+  navWrapClassName = 'flex',
 }) {
   const N = slides.length
   const hoverRef = useRef(null)
@@ -155,7 +158,7 @@ export default function ReviewsSlider({
                 </div>
               )}
               <div className="relative mt-[-4.5rem] flex items-center justify-end gap-[0.5rem] pr-[1.5rem] xs:mt-[-3rem] xs:pr-[1rem]">
-                <div className="flex">
+                <div className={navWrapClassName}>
                   <Arrow dir="prev" onClick={N ? c.prev : undefined} />
                   <Arrow dir="next" onClick={N ? c.next : undefined} />
                 </div>

@@ -109,6 +109,66 @@ const CARDS = [
   ['92%', 'Customer four', 'of staff active on the platform every single month.'],
 ].map(([stat, brand, rest]) => ({ stat, brand, rest, label: <LogoPlaceholder className="h-[3rem] w-[3rem] text-[0.6rem]" /> }))
 
+// TwoColFeatures rows (preset copy, with the security paragraph trimmed by one word so it wraps to the original's
+// 11 lines at desktop; 16 at 390 unchanged).
+const IL = ({ children }) => (
+  <a href="#" className="inline-link">
+    {children}
+  </a>
+)
+const TWO_COL_ROWS = [
+  {
+    title: "We're only getting started",
+    text: (
+      <>
+        We're <IL>shipping features</IL> three to four times faster than we did last year. These aren't vanity features. They're
+        the ones enterprise customers actually ask for, like <IL>Spaces</IL>, built with you, for you. Every single month, without
+        fail.
+        <br />
+        <br />
+        And we're only just getting started. Enterprise customers help shape our roadmap directly, in regular sessions with our
+        product team, so what we build solves your challenges sooner.
+      </>
+    ),
+    quote: '"We are adopting the latest Nimbus features almost as fast as they come out. As part of our leadership programme, we launched Spaces, which has been really popular."',
+    name: 'Jordan Ellis',
+    role: 'Digital Capability Manager, Northwind Retail Group',
+    blocks: ['title', 'text', 'quote'],
+  },
+  {
+    title: 'Enterprise grade security, built in',
+    text: (
+      <>
+        Nimbus is a secure, cloud-based learning platform built for <IL>enterprise data protection</IL>, independently certified
+        for security and quality, hosted in the cloud with enterprise-grade encryption and regional data residency options, so
+        your IT and legal teams get what they need to sign off with confidence.
+        <br />
+        <br />
+        Nimbus also supports enterprise <IL>compliance training</IL> needs, letting you build and deliver mandatory training
+        alongside everything else your teams learn. <IL>Role-based access</IL>, <IL>SSO</IL>, audit logging and content
+        permissions come as standard, not an add-on.
+      </>
+    ),
+    quote: '“Security was one of our key considerations when we ran a tender for a new platform, and the Nimbus team were able to show that they met all of our required standards.”',
+    name: 'Sam Rivera',
+    role: 'Improvement Manager, Kite',
+    blocks: ['title', 'text', 'quote'],
+  },
+]
+
+// ComparisonTable enterprise rows: copy lengths match the original's per-row line counts (2/3/3/3/2/3/2 at 1440,
+// 4/5/5/5/4/4/3 at 390).
+const TL = ({ children }) => <a href="#">{children}</a>
+const TABLE_ROWS = [
+  ['Security and control', <><TL>Independent security certifications in place</TL>, cloud hosting, encryption, role-based access and full audit logs</>],
+  ['Global rollout', <>Automatic translation of the platform and all learning content into <TL>40+ languages</TL>, with regional hosting and data residency choices</>],
+  ['Multi-brand management', <>Central oversight of separate brands, each with its own look, content, access and reporting, all managed through <TL>multi-brand setup</TL></>],
+  ['AI, search and automation', <><TL>Nova, the built-in assistant</TL>, connected search across business systems, AI-assisted authoring and <TL>assistant access</TL> from the AI tools your teams already use</>],
+  ['Integrations', <>HR, chat, CRM, identity, payroll and productivity tools plus <TL>60+ systems</TL> ready to connect</>],
+  ['Launch and support', <><TL>Guided launch</TL>, <TL>smooth migration</TL>, single sign-on setup, onboarding, global rollout and <TL>round-the-clock enterprise help</TL></>],
+  ['Measurement', <>Compliance, engagement, skills and <TL>learning impact</TL> reporting</>],
+]
+
 const FAQ = faqItems([
   'What is an enterprise LMS?',
   'Can Nimbus replace several older systems without disrupting our busy teams?',
@@ -162,13 +222,13 @@ export default function Enterprise() {
         </div>
       </div>
       <div data-gap className="h-[2rem]" />
-      <TwoColFeatures preset="enterprise" />
+      <TwoColFeatures preset="enterprise" rows={TWO_COL_ROWS} />
       <SplitAutotabs header={SERVICE_HEADER} slides={SERVICE_SLIDES} innerClassName="" after={SERVICE_AFTER} />
       <IntegrationsVisual variant="enterprise" />
       <TestimonialQuote variant="enterprise" />
       <CtaStrip variant="button" label="Book a demo" href="/lms/demo-platform" />
       <div data-gap className="h-[4rem]" />
-      <ComparisonTable variant="enterprise" />
+      <ComparisonTable variant="enterprise" rows={TABLE_ROWS} />
       <Faq heading="Enterprise questions answered" items={FAQ} />
     </>
   )

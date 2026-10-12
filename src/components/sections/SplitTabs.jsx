@@ -78,14 +78,18 @@ export default function SplitTabs({
   // Optional Button variant for the pane buttons (e.g. 'brand' on /lms/mentoring-software). When unset,
   // the original behaviour is kept: primary, with the blue override class on the reversed variant.
   buttonVariant,
+  // Optional: section padding and container margin classes (defaults unchanged). /nova drops the bottom
+  // padding (its table follows inside the same section) and uses the original's 3.5rem margin at ≤479.
+  sectionClassName = 'pb-[5rem] pt-[5rem] mob:pb-0 xs:pt-[2rem]',
+  containerClassName = 'mb-[6rem]',
 }) {
   const rev = variant === 'reversed'
   const { active, shown, faded, select } = useFadeTabs(tabs.length)
 
   return (
-    <section data-section="split-tabs" data-variant={variant} className="pb-[5rem] pt-[5rem] mob:pb-0 xs:pt-[2rem]">
+    <section data-section="split-tabs" data-variant={variant} className={sectionClassName}>
       <div className="padding-global">
-        <div className="mb-[6rem] container-medium">
+        <div className={`${containerClassName} container-medium`}>
           {rev ? (
             <>
               <div className="mx-auto flex w-full max-w-[60rem] flex-col items-center justify-center text-center">

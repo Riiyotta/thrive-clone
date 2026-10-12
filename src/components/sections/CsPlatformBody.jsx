@@ -139,6 +139,13 @@ export default function CsPlatformBody({
   sidebarCta = DEFAULTS.sidebarCta,
   video = DEFAULTS.video,
   cta = DEFAULTS.cta,
+  // logoSizeClassName (optional): replaces the logo slot's size classes (e.g. a tall square logo pushes the
+  // H1 down on the live page); default keeps h-[2.3rem] w-[10rem] tab:w-[6rem].
+  logoSizeClassName = 'h-[2.3rem] w-[10rem] tab:w-[6rem]',
+  // inlineImageClassName (optional): classes of the in-article images. The default's aspect-video gives the
+  // 26rem-tall slot a 46rem min-content width, which stops the column shrinking at tablet widths; the
+  // case-study pages pass the same classes without it.
+  inlineImageClassName = 'mb-[3rem] mt-[1rem] inline-flex aspect-video h-[26rem] w-full max-w-full rounded-panel align-top',
 }) {
   const ids = [...sections.map((_, i) => `cs-section-${i + 1}`), 'cs-testimonial']
   const [active, setActive] = useState(0)
@@ -182,7 +189,7 @@ export default function CsPlatformBody({
             {/* hero */}
             <div className="relative flex flex-row items-end justify-between gap-y-[4.375rem] mob:gap-x-[2rem] xs:flex-col">
               <div className="relative z-[1] flex min-h-[60vh] flex-col items-start justify-between ultra:min-h-[40vh] tab:min-h-[50vh] xs:min-h-[40vh]">
-                <LogoPlaceholder text={logo} className="h-[2.3rem] w-[10rem] justify-start text-[1.1rem] text-ink tab:w-[6rem] tab:text-[0.7rem]" />
+                <LogoPlaceholder text={logo} className={`${logoSizeClassName} justify-start text-[1.1rem] text-ink tab:text-[0.7rem]`} />
                 <div className="w-full pt-[12rem] tab:pt-[8rem] mob:pt-[4.5rem]" />
                 <div className="w-full max-w-[47rem]">
                   <h1 className="font-serif text-[3.8rem] font-normal leading-[1.15] xs:text-[2.5rem]">{title}</h1>
@@ -272,7 +279,7 @@ export default function CsPlatformBody({
                         <Placeholder
                           label="Inline image"
                           src={typeof s.image === 'string' ? s.image : undefined}
-                          className="mb-[3rem] mt-[1rem] inline-flex aspect-video h-[26rem] w-full max-w-full rounded-panel align-top"
+                          className={inlineImageClassName}
                         />
                       )}
                     </div>

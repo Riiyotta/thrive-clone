@@ -52,7 +52,7 @@ export default function StatsResults({
             <div className="flex flex-col items-center pt-[2rem]">
               <div className="mb-[1rem] pt-[0.5rem]">
                 <div className="max-w-[42rem] text-center">
-                  <h2 className="mb-[1.25rem] mt-[0.25rem] text-[1.5rem] font-normal leading-[1.15] text-ink mob:text-[1.25rem]">{heading}</h2>
+                  <h2 className="mb-[1.5rem] mt-[0.25rem] text-[1.5rem] font-normal leading-[1.15] text-ink mob:text-[1.25rem]">{heading}</h2>
                   <p className="mb-[1.25rem] text-body text-grey xs:text-body-xs">{lead}</p>
                 </div>
               </div>

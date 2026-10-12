@@ -140,7 +140,7 @@ export default function WhyKikitabs({
                                 </div>
                                 <Placeholder
                                   label="Product video 1:1"
-                                  className="absolute left-[594px] top-[-6px] z-[-1] aspect-square w-[30.4rem] tab:left-auto tab:right-0 mob:static mob:aspect-auto mob:min-h-[18rem] mob:w-full mob:flex-1"
+                                  className="absolute left-[594px] top-[-6px] z-[-1] aspect-square w-[30.4rem] tab:left-auto tab:right-0 mob:static mob:w-full"
                                 />
                               </div>
                             </div>
@@ -202,7 +202,7 @@ export default function WhyKikitabs({
                 )
               })}
             </div>
-            <div className="absolute bottom-0 right-0 top-0 mr-[-10vw] w-[60%] overflow-clip wide:mr-[-15vw] ultra:mr-[-21vw] tab:mr-[-15vw] mob:relative mob:m-0 mob:mb-[3rem] mob:h-[60dvh] mob:w-full xs:h-[40dvh]">
+            <div className="absolute bottom-0 right-0 top-0 mr-[-10vw] w-[60%] overflow-clip tab:mr-[-15vw] mob:relative mob:m-0 mob:mb-[3rem] mob:h-[60dvh] mob:w-full xs:h-[40dvh]">
               {tabs.map((t, i) => (
                 <div key={i} data-active={i === tab} className="fade-pane absolute inset-0 flex">
                   <div className="flex w-full items-center justify-start self-start">
@@ -246,7 +246,7 @@ export default function WhyKikitabs({
               className="flex w-full flex-col items-start justify-between gap-[3.7rem] rounded-card bg-surface-1 px-[2rem] pb-[2rem] pt-[1rem] tab:gap-[5rem] mob:p-[1.5rem] xs:gap-[3rem]"
             >
               <LogoPlaceholder text={card.brand} className="h-[3rem] w-[6.4rem] max-w-[50%] justify-start text-[0.7rem] text-ink mob:h-[2rem]" />
-              <div className="flex h-full flex-col items-start justify-between gap-y-[1rem]">
+              <div className="flex flex-1 flex-col items-start justify-between gap-y-[1rem]">
                 <div className="text-stat font-semibold tab:text-stat-48 mob:text-stat-40 xs:text-stat-48">{card.stat}</div>
                 <p className="mb-[1.25rem] text-body text-grey xs:text-body-xs">
                   {card.rest}{' '}
@@ -265,7 +265,7 @@ export default function WhyKikitabs({
             <Placeholder label="" src={bigQuote.avatar} className="aspect-square h-[5rem] min-h-[5rem] w-[5rem] min-w-[5rem] rounded-[0.375rem_0] wide:rounded-avatar" />
             <div className="flex flex-col items-center justify-center">
               <div className="wide:text-[1.15rem] wide:leading-[1.4]">{bigQuote.name}</div>
-              <div className="text-grey mob:text-[0.875rem]">
+              <div className="text-grey mob:text-[0.875rem] mob:leading-[1.4]">
                 {bigQuote.role}{' '}
                 <a href="#" className="inline-link">
                   {bigQuote.org}

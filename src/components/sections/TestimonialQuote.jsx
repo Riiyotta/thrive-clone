@@ -84,7 +84,7 @@ const PRESETS = {
 
 const AVATAR_SHAPE = 'rounded-none rounded-tl-[6px] rounded-br-[6px] wide:rounded-[100px]'
 
-function Author({ name, role, org, orgStyle, orgBreak, avatar, size, button }) {
+function Author({ name, role, org, orgStyle, orgBreak, avatar, size, button, buttonClassName = 'mt-[1.5rem]' }) {
   return (
     <div className="flex flex-col items-center justify-center gap-[0.75rem]">
       <div className={`flex items-center justify-center w-[3rem]`}>
@@ -123,7 +123,7 @@ function Author({ name, role, org, orgStyle, orgBreak, avatar, size, button }) {
           )}
         </div>
         {button && (
-          <div className="mt-[1.5rem] flex flex-wrap items-center justify-start gap-[1.5rem] xs:gap-[2rem]">
+          <div className={`${buttonClassName} flex flex-wrap items-center justify-start gap-[1.5rem] xs:gap-[2rem]`}>
             <Button variant="primary" href={button.href}>
               {button.label}
             </Button>
@@ -134,7 +134,8 @@ function Author({ name, role, org, orgStyle, orgBreak, avatar, size, button }) {
   )
 }
 
-export default function TestimonialQuote({ variant = 'platform', preset, button, ...over }) {
+// `buttonClassName` (optional, 'section' variant only): top margin of the in-author button; default 'mt-[1.5rem]'.
+export default function TestimonialQuote({ variant = 'platform', preset, button, buttonClassName, ...over }) {
   // `preset` picks default copy (e.g. 'platform-features', 'platform-solutions'); any prop overrides it.
   const d = { orgStyle: 'link', ...(PRESETS[preset || variant] || PRESETS.platform), ...over }
   const { quote, name, role, org, orgStyle, orgBreak, avatar } = d
@@ -173,6 +174,7 @@ export default function TestimonialQuote({ variant = 'platform', preset, button,
         avatar={avatar}
         size={variant === 'kiki' ? 'sm' : 'lg'}
         button={variant === 'section' ? button : null}
+        buttonClassName={buttonClassName}
       />
     </div>
   )

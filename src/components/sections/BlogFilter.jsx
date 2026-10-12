@@ -22,7 +22,7 @@ const TITLES = [
 ]
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 // 249 placeholder posts (the live list count at measurement time), newest first.
-const DEFAULT_POSTS = Array.from({ length: 249 }, (_, i) => {
+export const DEFAULT_POSTS = Array.from({ length: 249 }, (_, i) => {
   const d = new Date(Date.UTC(2026, 9, 7) - i * 4 * 86400000)
   return {
     id: i,
@@ -35,9 +35,10 @@ const DEFAULT_POSTS = Array.from({ length: 249 }, (_, i) => {
   }
 })
 
-function Tag({ children }) {
+// `keepSize`: the date tag (.eyebrow-tag.tertiary-2) keeps its 0.875rem text at ≤991, so it sets the row height there.
+function Tag({ children, keepSize = false }) {
   return (
-    <div className="mb-[0.75rem] inline-block rounded-[100vw] border border-[var(--th-eyebrow-border)] bg-[var(--th-bg2)] px-[0.75rem] py-[0.325rem] text-[0.875rem] font-medium leading-[1.4] text-white tab:px-[0.625rem] tab:py-[0.425rem] tab:text-[0.725rem] xs:mb-[0.25rem] xs:leading-none">
+    <div className={`mb-[0.75rem] inline-block rounded-[100vw] border border-[var(--th-eyebrow-border)] bg-[var(--th-bg2)] px-[0.75rem] py-[0.325rem] text-[0.875rem] font-medium leading-[1.4] text-ink tab:px-[0.625rem] tab:py-[0.425rem] ${keepSize ? '' : 'tab:text-[0.725rem]'} xs:mb-[0.25rem] xs:leading-none`}>
       {children}
     </div>
   )
@@ -45,7 +46,7 @@ function Tag({ children }) {
 
 export function Checkbox({ label, checked, onChange }) {
   return (
-    <label className="mb-0 flex cursor-pointer items-center justify-start gap-[1rem] border-t border-[var(--th-border)] px-[1.5rem] py-[1rem] tab:border-r tab:pl-[1.5rem] xs:px-[1rem]">
+    <label className="mb-0 flex cursor-pointer items-center justify-start gap-[1rem] border-t border-[var(--th-border)] px-[1.5rem] py-[1rem] tab:border-r tab:pl-[1.5rem] xs:pl-[1rem] xs:pr-[calc(1rem+14px)]">
       <input type="checkbox" className="peer sr-only" checked={checked} onChange={onChange} />
       <span
         aria-hidden
@@ -121,7 +122,7 @@ export default function BlogFilter({ posts = DEFAULT_POSTS, categories = CATEGOR
                     <div className="flex flex-col text-[1rem]">
                       <div className="flex flex-col tab:grid tab:grid-cols-2 xs:flex xs:flex-row xs:flex-wrap">
                         {categories.map((c) => (
-                          <div key={c} className="xs:flex-[1.25_1_auto] xs:basis-[40%] mob:last:border-b mob:last:border-[var(--th-border)]">
+                          <div key={c} className="xs:flex-[1.25_1_auto] mob:last:border-b mob:last:border-[var(--th-border)]">
                             <Checkbox label={c} checked={sel.includes(c)} onChange={() => toggle(c)} />
                           </div>
                         ))}
@@ -150,13 +151,13 @@ export default function BlogFilter({ posts = DEFAULT_POSTS, categories = CATEGOR
                       <div key={p.id} className="h-full last:border-r last:border-[var(--th-border)]">
                         <a
                           href={p.href}
-                          className="flex h-full flex-col items-start justify-start gap-y-[1rem] border-b border-l border-[var(--th-border)] p-[2.5rem] text-ink no-underline transition-[background-color] duration-[240ms] hover:bg-[var(--th-bg2)] tab:p-[1.5rem] xs:p-[1rem]"
+                          className="flex h-full flex-col items-start justify-start gap-y-[1rem] border-b border-l border-[var(--th-border)] p-[2.5rem] text-ink no-underline transition-[background-color] ease-[ease] duration-[240ms] hover:bg-[var(--th-bg2)] tab:p-[1.5rem] xs:p-[1rem]"
                         >
                           <Placeholder label="Post image" src={p.image} className="h-[15rem] w-full tab:h-[12rem] xs:h-[10rem]" />
                           <div className="flex flex-col items-start justify-start gap-[1rem]">
                             <h4 className="mb-[0.5rem] font-serif text-[1.125rem] font-normal leading-[1.4] tracking-[0.03em] mob:text-[1.25rem] xs:mb-[0.125rem]">{p.title}</h4>
                             <div className="flex gap-[1rem] xs:mt-[0.5rem]">
-                              <Tag>{p.date}</Tag>
+                              <Tag keepSize>{p.date}</Tag>
                               <Tag>{p.read}</Tag>
                             </div>
                           </div>

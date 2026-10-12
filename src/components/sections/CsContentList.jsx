@@ -20,7 +20,9 @@ const SUMMARIES = [
 ]
 const DEFAULT_ITEMS = SUMMARIES.map((text, i) => ({ logo: `Customer ${i + 6}`, text, href: `/case-studies-contents/customer-${(i % 5) + 6}` }))
 
-export default function CsContentList({ items = DEFAULT_ITEMS, linkLabel = 'Learn more' }) {
+// textClassName (optional): summary spacing classes; default mb-[1.25rem]. The live list keeps 1.5rem
+// between the summary and the link, so /case-studies/content passes 'mb-[1.5rem]'.
+export default function CsContentList({ items = DEFAULT_ITEMS, linkLabel = 'Learn more', textClassName = 'mb-[1.25rem]' }) {
   return (
     <section data-section="cs-content-list" style={THEME}>
       <div className="padding-global">
@@ -37,7 +39,7 @@ export default function CsContentList({ items = DEFAULT_ITEMS, linkLabel = 'Lear
                       <LogoPlaceholder text={it.logo} className="h-[2rem] w-[5.2rem] justify-start text-[0.6rem] text-ink xs:h-[1.5rem]" />
                     </div>
                     <div>
-                      <p className="mb-[1.25rem] text-[1rem] leading-[1.4]">{it.text}</p>
+                      <p className={`${textClassName} text-[1rem] leading-[1.4]`}>{it.text}</p>
                       <div className="group mt-[0.25rem] flex gap-[0.75rem] self-start pr-[1.5rem] font-semibold transition-all duration-[250ms] ease-[ease] hover:gap-[1rem]">
                         <span className="text-[1rem] leading-[1.4]">{linkLabel}</span>
                         <svg viewBox="0 0 5.1 8.43" className="w-[8px]" aria-hidden>

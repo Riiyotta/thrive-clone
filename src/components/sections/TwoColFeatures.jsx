@@ -164,15 +164,18 @@ function Content({ row }) {
   )
 }
 
-function Image({ label }) {
+const IMAGE_CLASS = 'aspect-square w-full mob:aspect-[3/2]'
+
+function Image({ label, className = IMAGE_CLASS }) {
   return (
     <div data-2col-img className="overflow-clip rounded-card bg-surface-1">
-      <Placeholder label={label} tone={2} className="aspect-square w-full mob:aspect-[3/2]" />
+      <Placeholder label={label} tone={2} className={className} />
     </div>
   )
 }
 
-export default function TwoColFeatures({ preset = 'company', rows, reveal = preset !== 'enterprise', marketPage = preset !== 'company' }) {
+// `imageClassNames` (optional): [row 1, row 2] placeholder classes; default keeps both square / 3:2 ≤767.
+export default function TwoColFeatures({ preset = 'company', rows, reveal = preset !== 'enterprise', marketPage = preset !== 'company', imageClassNames = [] }) {
   const root = useRef(null)
 
   useLayoutEffect(() => {
@@ -211,7 +214,7 @@ export default function TwoColFeatures({ preset = 'company', rows, reveal = pres
                     </div>
                   </div>
                   <div className="w-full max-w-[36rem]">
-                    <Image label="Team photo" />
+                    <Image label="Team photo" className={imageClassNames[0]} />
                   </div>
                 </div>
               </div>
@@ -226,7 +229,7 @@ export default function TwoColFeatures({ preset = 'company', rows, reveal = pres
               <div className="container-large">
                 <div data-2col-row data-reverse="true" className="flex items-center justify-between tab:flex-col-reverse tab:items-start tab:gap-[1rem] mob:items-center mob:gap-[1.5rem]">
                   <div className="w-full max-w-[36rem]">
-                    <Image label="Product visual" />
+                    <Image label="Product visual" className={imageClassNames[1]} />
                   </div>
                   <div className="w-full max-w-[36rem]">
                     <div className="pl-[3rem] tab:pl-[2.5rem] mob:pl-[1.5rem]">

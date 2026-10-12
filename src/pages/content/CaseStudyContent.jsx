@@ -14,7 +14,7 @@ export default function CaseStudyContent() {
     <>
       <Sec id="layout2-hero"><Layout2Hero variant="case-study" {...d.hero} /></Sec>
       <Sec id="cs-content-stats"><CsContentStats key={pathname} {...d.stats} /></Sec>
-      <Sec id="cs-content-article"><CsContentArticle key={pathname} {...d.article} /></Sec>
+      <Sec id="cs-content-article"><CsContentArticle key={pathname} tocFromHeadings {...d.article} /></Sec>
       <Sec id="cs-content-related"><CsContentRelated {...d.related} /></Sec>
     </>
   )

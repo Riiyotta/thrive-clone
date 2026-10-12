@@ -151,7 +151,7 @@ function webflowScrollTo(el) {
   requestAnimationFrame(step)
 }
 
-function Panel({ p, variant }) {
+function Panel({ p, variant, mediaClassName }) {
   const N = p.tabs.length
   const c = useLoopCarousel(N, { threshold: 5 })
   const all = [...p.tabs, ...p.tabs, ...p.tabs]
@@ -253,7 +253,7 @@ function Panel({ p, variant }) {
                             {solutions ? 'Learn more' : 'Explore'}
                           </Button>
                         </div>
-                        <div className={`flex w-full flex-col overflow-hidden ${solutions ? 'h-[36.6rem] xs:h-[11.08rem]' : 'h-[38.19rem] xs:h-[10.56rem]'}`}>
+                        <div className={`flex w-full flex-col overflow-hidden ${mediaClassName || (solutions ? 'h-[36.6rem] xs:h-[11.08rem]' : 'h-[38.19rem] xs:h-[10.56rem]')}`}>
                           <Placeholder label={`${t.tab} product shot`} tone={2} className={`${IMG[variant]} w-full shrink-0`} />
                         </div>
                       </div>
@@ -269,7 +269,8 @@ function Panel({ p, variant }) {
   )
 }
 
-export default function StickyTabs({ variant = 'solutions', nav, panels }) {
+// mediaClassName (optional): height classes of each slide's image box; unset = the variant's default.
+export default function StickyTabs({ variant = 'solutions', nav, panels, mediaClassName }) {
   const data = variant === 'features' ? FEATURES : SOLUTIONS
   const items = nav || data.nav
   const list = panels || data.panels
@@ -332,7 +333,7 @@ export default function StickyTabs({ variant = 'solutions', nav, panels }) {
         </div>
       </div>
       {list.map((p) => (
-        <Panel key={p.id} p={p} variant={variant} />
+        <Panel key={p.id} p={p} variant={variant} mediaClassName={mediaClassName} />
       ))}
     </div>
   )

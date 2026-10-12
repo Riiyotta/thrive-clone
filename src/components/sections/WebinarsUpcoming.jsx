@@ -20,11 +20,14 @@ export default function WebinarsUpcoming({
           <div className="border-l border-r border-[var(--th-border)]">
             <div className="relative flex justify-between border-b border-[var(--th-border)] mob:flex-col">
               <div className="sticky top-0 flex w-1/2 flex-col items-start justify-between self-start p-[2.5rem] mob:relative mob:w-full mob:gap-y-[1.25rem] mob:p-[1.5rem]">
-                <div>
+                {/* the grey line sits in the same block as the heading, under .margin-small (1.5rem, h3 mb collapses into it) */}
+                <div className="w-full">
                   <Eyebrow>{eyebrow}</Eyebrow>
-                  <h3 className="mb-[1rem] text-[1.75rem] font-normal leading-[1.15] xs:text-[1.5rem]">{heading}</h3>
+                  <div className="mb-[1.5rem]">
+                    <h3 className="mb-[1rem] text-[1.75rem] font-normal leading-[1.15] xs:text-[1.5rem]">{heading}</h3>
+                  </div>
+                  <div className="text-body text-grey xs:text-body-xs">{text}</div>
                 </div>
-                <div className="text-body text-grey xs:text-body-xs">{text}</div>
               </div>
               <div className="flex w-1/2 flex-col items-start justify-between border-r border-[var(--th-border)] mob:w-full mob:gap-y-[1rem] mob:border-r-0 mob:p-0">
                 <div className="flex self-stretch">

@@ -13,6 +13,7 @@ export default function ProofResults({
   quote,
   cta = null, // { kind: 'card', text, label, to } | { kind: 'button', label, to }
   headingClassName = 'mb-[2rem]',
+  leadClassName = 'mb-[1.5rem]',
   className = '',
   innerClassName = 'pb-[8rem] mob:pb-[4rem]',
   wrapGlobal = true,
@@ -25,7 +26,7 @@ export default function ProofResults({
           <div className="mb-[1rem] pt-[0.5rem]">
             <div className="max-w-[42rem] text-center">
               <h2 className={`heading-h2 ${headingClassName}`}>{heading}</h2>
-              <p className="mb-[1.25rem] text-body text-grey xs:text-body-xs">{lead}</p>
+              <p className={`${leadClassName} text-body text-grey xs:text-body-xs`}>{lead}</p>
             </div>
           </div>
           <div className="grid w-full grid-cols-4 gap-[1rem] tab:grid-cols-2 xs:grid-cols-1">
@@ -35,7 +36,7 @@ export default function ProofResults({
                 className="flex flex-col items-start justify-between gap-[3.7rem] rounded-card bg-surface-1 px-[2rem] pb-[2rem] pt-[1rem] mob:gap-[3rem] mob:p-[1.5rem]"
               >
                 <LogoPlaceholder alt="Customer logo" imgClassName="object-left" className={`${c.logoClass || 'w-[3rem]'} h-[3rem] max-w-[50%] justify-start text-[0.75rem] mob:h-[2rem]`} />
-                <div className="flex flex-col gap-[1rem]">
+                <div className="flex flex-1 flex-col justify-between gap-[1rem]">
                   <div className="text-stat font-semibold text-ink mob:text-stat-48">{c.stat}</div>
                   <p className="mb-[1.25rem] text-body text-grey xs:text-body-xs">{c.text}</p>
                 </div>
@@ -45,7 +46,7 @@ export default function ProofResults({
               <div className="mb-[1rem] mt-[0.5rem] rounded-card bg-[rgba(11,11,11,0.02)] p-[1rem]">
                 <LogoPlaceholder alt="Customer logo" imgClassName="object-left" className="h-[3rem] w-[7.4rem] max-w-[50%] justify-start text-[0.75rem] mob:h-[2rem]" />
                 <p className="mb-[0.75rem] pt-[6rem] text-body text-ink xs:text-body-xs">{quote.text}</p>
-                <div className={`flex items-start gap-[0.5rem] ${quote.clientClassName || ''}`}>
+                <div className={`mt-[0.25rem] flex items-start gap-[0.5rem] ${quote.clientClassName || ''}`}>
                   <Placeholder label="" tone={2} className="h-[2.5rem] w-[2.5rem] shrink-0 rounded-full border border-page" />
                   <div>
                     <div className="text-[1rem] font-semibold leading-[1.4] text-ink">{quote.name}</div>

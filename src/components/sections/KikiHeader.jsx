@@ -9,9 +9,9 @@ import Placeholder from '../shared/Placeholder.jsx'
 // 0.6s, power2.out}, once. (The original also auto-scrolls to the heading after the 21s video ends if the
 // visitor hasn't scrolled; not reproduced, there is no real video here.)
 // <=767: component pulled up -15vh, heading block -12rem over the stage; <=479 video band 3:2, 15rem tall, mt 10rem.
-function AiIcon() {
+function AiIcon({ className = 'mr-[0.5rem] inline-block h-[22px] w-[22px] align-[-5px] xs:h-[19px] xs:w-[19px]' }) {
   return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden className="mr-[0.5rem] inline-block h-[22px] w-[22px] align-[-5px] xs:h-[19px] xs:w-[19px]">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden className={className}>
       <circle cx="11" cy="11" r="9" stroke="currentColor" strokeWidth="1.5" />
       <path d="M7 11h8M11 7v8" stroke="currentColor" strokeWidth="1.5" />
     </svg>
@@ -29,7 +29,20 @@ const DEFAULTS = {
   secondary: 'Ask an AI about Nimbus',
 }
 
-export default function KikiHeader(props) {
+// Optional `aiTrack` (default false): the original's AI button keeps a 22px icon mask (the button is 48px, not 46)
+// holding two stacked icons; on hover the track slides up one icon (0.45s power4.inOut after ~0.1s).
+function AiIconTrack() {
+  return (
+    <span aria-hidden className="mr-[0.5rem] inline-block h-[22px] w-[22px] overflow-hidden align-[-5px] xs:h-[19px] xs:w-[19px]">
+      <span className="flex flex-col transition-transform delay-[100ms] duration-[450ms] ease-[cubic-bezier(0.86,0,0.07,1)] group-hover:-translate-y-1/2">
+        <AiIcon className="block h-[22px] w-[22px] shrink-0 xs:h-[19px] xs:w-[19px]" />
+        <AiIcon className="block h-[22px] w-[22px] shrink-0 xs:h-[19px] xs:w-[19px]" />
+      </span>
+    </span>
+  )
+}
+
+export default function KikiHeader({ aiTrack = false, ...props }) {
   const p = { ...DEFAULTS, ...props }
   const root = useRef(null)
   useLayoutEffect(() => {
@@ -69,8 +82,8 @@ export default function KikiHeader(props) {
                 <Button variant="primary" to="/lms/demo-platform">
                   {p.primary}
                 </Button>
-                <Button variant="dark" href="#">
-                  <AiIcon />
+                <Button variant="dark" href="#" className={aiTrack ? 'group [&>span:first-child]:h-[22px]' : ''}>
+                  {aiTrack ? <AiIconTrack /> : <AiIcon />}
                   {p.secondary}
                 </Button>
               </div>

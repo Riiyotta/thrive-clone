@@ -18,7 +18,9 @@ const DEFAULTS = {
   ],
 }
 
-export default function KikiFeatureTabs(props) {
+// Optional `xsStackFix` (default false): ≤479 the original's active-item video sits right under the body
+// (no 1rem flex gap) and the stacked component keeps a 1rem gap before its empty visual column.
+export default function KikiFeatureTabs({ xsStackFix = false, ...props }) {
   const p = { ...DEFAULTS, ...props }
   const [active, setActive] = useState(0)
   const rev = p.reversed
@@ -27,7 +29,7 @@ export default function KikiFeatureTabs(props) {
       <div className="py-[5rem] tab:py-[4rem] mob:py-[3rem]">
         <div className="padding-global">
           <div className="container-medium">
-            <div className={`flex items-start justify-between xs:flex-col xs:gap-[1rem] ${rev ? 'flex-row-reverse gap-[5rem]' : 'gap-0'}`}>
+            <div className={`flex items-start justify-between xs:flex-col xs:gap-[1rem] ${rev ? 'flex-row-reverse gap-[5rem]' : 'gap-0'} ${xsStackFix ? 'xs:pb-[1rem]' : ''}`}>
               <div className={`flex max-w-[45rem] flex-[0_1_auto] flex-col items-start justify-start gap-[1.5rem] xs:w-full ${rev ? 'w-[55%] tab:w-[50%]' : 'w-[70%] tab:w-[60%] mob:w-[50%]'}`}>
                 <div className="max-w-[42rem]">
                   <div className="max-w-[36rem]">
@@ -58,7 +60,7 @@ export default function KikiFeatureTabs(props) {
                         {on && (
                           <>
                             <p className="mb-[1.25rem] text-[1rem] leading-[1.4rem] text-grey">{it.body}</p>
-                            <Placeholder label="Nova video" tone={2} className="hidden h-[23rem] w-full xs:flex" />
+                            <Placeholder label="Nova video" tone={2} className={`hidden h-[23rem] w-full xs:flex ${xsStackFix ? 'xs:-mt-[1rem]' : ''}`} />
                           </>
                         )}
                       </div>
