@@ -52,6 +52,7 @@ export default function Placeholder({ label, tone = 2, className = '', labelClas
       aria-label={label}
       className={`flex items-center justify-center overflow-clip ${TONES[tone]} ${className}`}
       style={stockSrc ? { backgroundImage: `url(${stockSrc})`, backgroundSize: 'cover', backgroundPosition: 'center', ...style } : style}
+      data-stock-slot={stockSrc ? '' : undefined}
       {...rest}
     >
       {label && (

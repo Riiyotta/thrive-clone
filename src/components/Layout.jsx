@@ -1,8 +1,9 @@
-import { useEffect, useLayoutEffect } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Nav from './Nav.jsx'
 import Footer from './Footer.jsx'
 import { ScrollTrigger } from '../lib/gsap.js'
+import { STOCK_MAP, SQUARE_IDS } from '../stock/stockMap.js'
 
 // Global chrome rendered once for every route: Nav and Footer never remount on navigation.
 // Pages that keep a fixed 16px root on the original (pages-manifest.json fluidRem.fixedRemPages).
@@ -38,12 +39,34 @@ export default function Layout() {
     ScrollTrigger.refresh()
   }, [pathname])
 
+  // Per-route stock photo picks (src/stock/stockMap.js), applied to stock-eligible slots in DOM
+  // order. Only the background image changes, never geometry. Re-applied when slots are added
+  // later (filters, load-more, carousel clones).
+  const mainRef = useRef(null)
+  useEffect(() => {
+    const picks = STOCK_MAP[pathname]
+    const main = mainRef.current
+    if (!picks || !main) return
+    const apply = () => {
+      main.querySelectorAll('[data-stock-slot]').forEach((el, i) => {
+        const id = picks[i]
+        if (id == null) return
+        const square = Math.abs(el.clientWidth - el.clientHeight) < 4 && SQUARE_IDS.has(id)
+        el.style.backgroundImage = `url(/stock/${id}${square ? '-sq' : ''}.jpg)`
+      })
+    }
+    apply()
+    const mo = new MutationObserver(apply)
+    mo.observe(main, { childList: true, subtree: true })
+    return () => mo.disconnect()
+  }, [pathname])
+
   // overflow-x: clip like the original's .page-wrapper: hides bleeding images/reveal offsets without
   // creating a scroll container, so position: sticky keeps working.
   return (
     <div className={`${isContentTheme(pathname) ? 'bg-content-bg' : 'bg-page'} overflow-x-clip pt-[4rem]`}>
       <Nav />
-      <main>
+      <main ref={mainRef}>
         <Outlet />
       </main>
       <Footer variant={FORM_FOOTER_PAGES.has(pathname) ? 'home' : 'subpage'} />
