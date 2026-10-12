@@ -176,6 +176,8 @@ const VARIANTS = {
     button = { label: 'See Nimbus in action →', href: '/lms/demo-platform' },
     logosLabel = 'Across every industry, all around the world, the biggest brands are turning to Nimbus.',
     logos = ['logo-volvo.png', 'logo-burgerking.png', 'logo-vodafone.png', 'logo-ba.png', 'logo-krispykreme.svg', 'logo-nothingbundt.png', null],
+    // optional: per-logo aspect classes (replace aspect-[96/26] for logo i); default unchanged
+    logoAspects = [],
   }) => (
     <div className="padding-global">
       <div className="container-medium mt-[1rem]">
@@ -205,7 +207,7 @@ const VARIANTS = {
               <LogoPlaceholder
                 src={f ? `/assets/${f}` : undefined}
                 text="Logo"
-                className="aspect-[96/26] w-[6rem] text-[0.75rem] mob:w-[5rem] xs:w-[6rem]"
+                className={`${logoAspects[i] || 'aspect-[96/26]'} w-[6rem] text-[0.75rem] mob:w-[5rem] xs:w-[6rem]`}
               />
             </div>
           ))}

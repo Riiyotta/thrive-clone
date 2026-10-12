@@ -8,10 +8,10 @@ import { faqItems } from './faq.js'
 
 const CARDS = [
   ['Onboarding', '1.5x', 'faster onboarding for every new starter'],
-  ['Engagement', '40%', 'more people learning every single week'],
+  ['Engagement', '40%', 'more colleagues learning every single week, on every shift'],
   ['Retention', '3x', 'longer stays for staff with mentors'],
-  ['Completion', '92%', 'of required training finished on time'],
-  ['Savings', '50%', 'less spent on outside training yearly'],
+  ['Completion', '92%', 'of required training finished on time, every time'],
+  ['Savings', '50%', 'less spent on outside training providers every year'],
 ].map(([tag, stat, rest]) => ({
   stat,
   rest,
@@ -25,7 +25,7 @@ const CARDS = [
 
 const FAQ = faqItems([
   'How simply can we move over to Nimbus?',
-  'Can Nimbus support teams spread across many countries?',
+  'Can Nimbus support teams that are spread across many different countries?',
   'What happens on the call?',
   'How long does it take to launch Nimbus for our teams?',
   'Do you offer a free trial?',
@@ -35,7 +35,21 @@ const FAQ = faqItems([
 export default function DemoPlatform() {
   return (
     <>
-      <DemoHero />
+      {/* stacked (≤767) the original's quote credit keeps a 1rem bottom margin */}
+      <DemoHero
+        clientInfoClassName="mob:mb-[1rem]"
+        // copy lengths follow the original's line counts at 1280 (first point 2 lines, first quote 2 lines)
+        points={[
+          'Bring learning, knowledge and team news into one home. One sign-in.',
+          'Nova, our AI helper, drafts lessons, coaches your people and turns your learning data into clear answers. Mentoring comes built in.',
+          'Learning paths that grow skills, with reports that show results.',
+          'Independently audited and certified, hosted on secure cloud servers.',
+        ]}
+        quotes={[
+          { text: '“Would I recommend Nimbus to other companies? Without a doubt. The partnership you build with the whole team is unlike any other.”', name: 'Jordan Ellis', role: 'Global Head of Learning,', org: 'Northwind' },
+          { text: '“I have worked with plenty of learning platforms and learning management systems over the years, and they have always felt clunky and overcomplicated. Nimbus simply takes all of those headaches away for us.”', name: 'Sam Rivera', role: 'Head of People Technology at', org: 'Harbor Mutual Group' },
+        ]}
+      />
       <LogoStrip
         heading={
           <>
@@ -45,11 +59,21 @@ export default function DemoPlatform() {
           </>
         }
         paddingClassName="pb-[0.5rem] pt-[2rem]"
-        wrapClassName="max-w-[60rem] gap-[3rem] pt-[0.5rem] mob:flex-wrap mob:justify-around mob:gap-[2rem]"
-        logos={Array.from({ length: 6 }, () => ({ text: 'Logo', aspect: 'aspect-[118/19]' }))}
+        wrapClassName="max-w-[60rem] gap-[3rem] pt-[0.5rem] tab:flex-wrap tab:justify-center mob:justify-around mob:gap-[2rem]"
+        logoClassName="w-[7rem]"
+        // desktop row tuned to the original strip height; ≤479 the marks are 92px wide with their own heights
+        // (15 / 25 / 37 / 20 / 40 / 31), two per row
+        logos={[
+          'aspect-[118/19] leading-none xs:w-[6rem] xs:aspect-[92/15]',
+          'aspect-[122/26] leading-none xs:w-[6rem] xs:aspect-[92/25]',
+          'aspect-[118/19] leading-none xs:w-[6rem] xs:aspect-[92/37]',
+          'aspect-[118/19] leading-none xs:w-[6rem] xs:aspect-[92/20]',
+          'aspect-[118/19] leading-none xs:w-[6rem] xs:aspect-[92/40]',
+          'aspect-[118/19] leading-none xs:w-[6rem] xs:aspect-[92/31]',
+        ].map((aspect) => ({ text: 'Logo', aspect }))}
         trailingSpacer={false}
       />
-      <div className="padding-global">
+      <div className="padding-global mt-[1rem]">
         <Results
           heading={
             <>
@@ -65,6 +89,7 @@ export default function DemoPlatform() {
           cta={{ label: 'Get results like these →', to: '/lms/demo-platform' }}
           className="container-medium overflow-x-clip"
           headerClassName="pt-[2rem]"
+          subtitleClassName="mb-[1.25rem] mt-[1rem] max-w-[37.27rem]"
           ctaClassName="mb-[1.5rem]"
         />
       </div>

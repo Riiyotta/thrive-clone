@@ -54,7 +54,8 @@ const RIGHT_PAD = 'p-[2.5rem] tab:p-[2rem] mob:p-[1.5rem] xs:p-[1rem]'
 
 // rightClassName (optional): extra classes on the CTA column of the 'suites' variant (e.g. 'xs:items-stretch'
 // for the live full-width button ≤479). Default '' keeps the current layout.
-export default function GridSplitLegacy({ variant = 'testimonial', rightClassName = '', ...props }) {
+// authorInfoClassName (optional, 'testimonial' variant): extra classes on the author name/role block; default ''.
+export default function GridSplitLegacy({ variant = 'testimonial', rightClassName = '', authorInfoClassName = '', ...props }) {
   const d = { ...DEFAULTS[variant], ...props }
   const frame = variant === 'image' || variant === 'suites' ? 'border-x border-b' : 'border'
 
@@ -109,7 +110,7 @@ export default function GridSplitLegacy({ variant = 'testimonial', rightClassNam
               <div className="min-h-[2.5rem] w-[2.5rem] min-w-[2.5rem] overflow-clip border border-solid border-black">
                 <Placeholder label="" tone={3} className="aspect-square w-full rounded-[2.5rem]" />
               </div>
-              <div>
+              <div className={authorInfoClassName}>
                 <div className="text-[1rem] font-semibold leading-[1.4] text-ink">{d.name}</div>
                 <div className="text-[1rem] leading-[1.4] text-ink">
                   {d.role}{' '}

@@ -4,13 +4,13 @@ import Placeholder from '../shared/Placeholder.jsx'
 // Avatar line, then three 2-col grids (gap 5rem; 1 col <=479 with the form first):
 // [H1 3.8rem/1.1 | H3 1.75rem serif, bottom-aligned] / [grey intro, 4-item list (18px/1.4em), 3 badges | form] /
 // [quote | quote (hidden <=479)]. The HubSpot form is a static 300x358 placeholder (cross-origin iframe on the original).
-function Client({ name, role, org }) {
+function Client({ name, role, org, infoClassName = '' }) {
   return (
     <div className="flex items-center gap-[1rem] text-left mob:flex-col mob:items-start">
       <div className="min-h-[2.5rem] w-[2.5rem] min-w-[2.5rem] overflow-clip border border-black">
         <Placeholder label="" tone={3} className="aspect-square w-full rounded-[2.5rem]" />
       </div>
-      <div>
+      <div className={infoClassName}>
         <div className="text-[1rem] font-semibold leading-[1.4rem] text-ink">{name}</div>
         <div className="text-[1rem] leading-[1.4rem] text-ink">
           {role} <strong className="font-bold">{org}</strong>
@@ -40,6 +40,7 @@ const DEFAULTS = {
   ],
 }
 
+// clientInfoClassName (optional): extra classes on each quote's name/role block; unset = unchanged.
 export default function DemoHero(props) {
   const p = { ...DEFAULTS, ...props }
   return (
@@ -86,7 +87,7 @@ export default function DemoHero(props) {
                   <div key={i} className={`flex w-full flex-col items-start justify-between gap-[1.25rem] ${i > 0 ? 'xs:hidden' : ''}`}>
                     <div>
                       <p className="mb-[0.75rem] italic text-ink">{q.text}</p>
-                      <Client {...q} />
+                      <Client {...q} infoClassName={p.clientInfoClassName} />
                     </div>
                   </div>
                 ))}

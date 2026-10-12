@@ -71,6 +71,7 @@ const PRESETS = {
       ] },
     ],
   },
+  // (optional, badge rows) row.className replaces the row layout and card.className adds card classes; unset = unchanged
   awards: {
     theme: 'pink',
     frame: 'border-x',
@@ -112,7 +113,7 @@ const COLS = {
 }
 const CARD_PAD = 'p-[2rem] tab:p-[1.5rem] mob:p-[1.25rem] xs:p-[1rem]'
 
-function Card({ kind, card, last, noTop }) {
+function Card({ kind, card, last, noTop, statStack = false }) {
   const border = `border-solid border-[color:var(--lt-border)] ${noTop ? 'border-b border-l' : 'border-y border-l'} ${
     last ? 'border-r' : 'mob:border-r'
   }`
@@ -132,16 +133,28 @@ function Card({ kind, card, last, noTop }) {
         <div className="flex items-center justify-start gap-[1rem]">
           <h3 className="mb-[1rem] text-[1.5rem] font-semibold leading-[1.15] text-white mob:text-[1.25rem]">{card.title}</h3>
         </div>
-        <div className="font-['Source_Serif_4','Sourceserif_4_18_Pt',Georgia,serif] text-[4rem] font-semibold leading-[1.3] text-[color:var(--lt-brand)] mob:text-[3.5rem] xs:text-[2.5rem] xs:leading-none">
-          {card.stat}
-        </div>
-        <p className="mb-[1.25rem] text-[1rem] leading-[1.4] text-grey">{card.body}</p>
+        {statStack ? (
+          // optional: number + text grouped at the card bottom with a 0.5rem gap (the original's .grid_card_bottom)
+          <div>
+            <div className="mb-[0.5rem] font-['Source_Serif_4','Sourceserif_4_18_Pt',Georgia,serif] text-[4rem] font-semibold leading-[1.3] text-[color:var(--lt-brand)] mob:text-[3.5rem] xs:text-[2.5rem] xs:leading-none">
+              {card.stat}
+            </div>
+            <p className="mb-[1.25rem] text-[1rem] leading-[1.4] text-grey">{card.body}</p>
+          </div>
+        ) : (
+          <>
+            <div className="font-['Source_Serif_4','Sourceserif_4_18_Pt',Georgia,serif] text-[4rem] font-semibold leading-[1.3] text-[color:var(--lt-brand)] mob:text-[3.5rem] xs:text-[2.5rem] xs:leading-none">
+              {card.stat}
+            </div>
+            <p className="mb-[1.25rem] text-[1rem] leading-[1.4] text-grey">{card.body}</p>
+          </>
+        )}
       </div>
     )
   }
   if (kind === 'badge') {
     return (
-      <div className={`flex flex-1 flex-col justify-between gap-y-[0.75rem] ${CARD_PAD} ${border} tab:gap-y-[2rem]`}>
+      <div className={`flex flex-1 flex-col justify-between gap-y-[0.75rem] ${CARD_PAD} ${border} tab:gap-y-[2rem] ${card.className || ''}`}>
         <Placeholder label="Award badge" tone={2} className="h-[5rem] w-full mob:h-[4rem]" labelClassName="xs:hidden" />
       </div>
     )
@@ -226,12 +239,12 @@ export default function GridCardsLegacy({ variant = 'people', ...props }) {
                   row.kind === 'stat'
                     ? 'flex justify-center xs:grid xs:grid-cols-2 xs:gap-[16px]'
                     : row.kind === 'badge'
-                      ? 'flex justify-center'
+                      ? row.className || 'flex justify-center'
                       : COLS[row.cols]
                 }
               >
                 {row.cards.map((card, i) => (
-                  <Card key={i} kind={row.kind} card={card} noTop={row.noTop} last={!!d.cardEdge && i === row.cards.length - 1} />
+                  <Card key={i} kind={row.kind} card={card} noTop={row.noTop} last={!!d.cardEdge && i === row.cards.length - 1} statStack={d.statStack} />
                 ))}
               </div>
             ))}

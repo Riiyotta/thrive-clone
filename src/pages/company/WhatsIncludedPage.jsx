@@ -8,7 +8,9 @@ import ProofResults from './ProofResults.jsx'
 import { faqItems } from './shared.js'
 
 // /whats-included (page-whats-included, fixed 16px root via Layout FIXED_REM_PAGES).
-const LOGOS = Array.from({ length: 5 }, () => ({ text: 'Logo', aspect: 'aspect-[112/18] mob:aspect-[112/43]' }))
+// 768–991 the original wraps 4 + 1 (centred, 3rem / 2rem gaps), rows 37px and 64px tall.
+const TAB_ASPECT = ['', '', '', 'tab:aspect-[112/37]', 'tab:aspect-[112/64]']
+const LOGOS = TAB_ASPECT.map((t) => ({ text: 'Logo', aspect: `aspect-[112/18] ${t} mob:aspect-[112/43]` }))
 
 const FAQ = [
   ['What makes Nimbus different from a typical LMS?', 39],
@@ -28,7 +30,7 @@ export default function WhatsIncludedPage() {
         heading={null}
         container="small"
         paddingClassName=""
-        wrapClassName="min-h-[4rem] w-max max-w-none mob:w-full mob:flex-wrap mob:justify-around mob:gap-[2rem]"
+        wrapClassName="min-h-[4rem] w-max max-w-none tab:w-full tab:flex-wrap tab:justify-center tab:gap-x-[3rem] tab:gap-y-[2rem] mob:w-full mob:flex-wrap mob:justify-around mob:gap-[2rem]"
         logoClassName="w-[7rem]"
         logos={LOGOS}
         trailingSpacer={false}

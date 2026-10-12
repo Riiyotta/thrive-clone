@@ -37,19 +37,29 @@ function Quote({ q, dark }) {
   )
 }
 
-function Grid({ items, dark, wide }) {
+function Grid({ items, dark, wide, className = '' }) {
   return (
     <div
       className={`grid w-full grid-cols-4 tab:grid-cols-2 ${
         wide ? 'gap-x-[3.8rem] gap-y-[2.5rem] mob:grid-cols-1' : 'gap-[2.5rem] xs:flex xs:flex-col'
-      }`}
+      } ${className}`}
     >
       {items.map((it) => (
         <div key={it.title} className="flex flex-col gap-[0.75rem]">
-          <div>
+          <div className="text-para">
             <strong className={`text-para font-bold ${dark ? 'text-ink' : 'text-[#000a06]'}`}>{it.title}</strong>
           </div>
           <p className={`mb-[1.25rem] text-[1rem] leading-[1.4rem] ${dark ? 'text-ink' : 'text-page'}`}>{it.body}</p>
+          {it.quote && (
+            // optional item-level customer credit (the original's quote item: 44px avatar + name / role)
+            <div className="flex items-center gap-[1rem]">
+              <Placeholder label="" tone={3} className="h-[2.75rem] w-[2.75rem] shrink-0 rounded-full" />
+              <div className="text-[1rem] leading-[1.4rem]">
+                <div className={`font-semibold ${dark ? 'text-ink' : 'text-[#000a06]'}`}>{it.quote.name}</div>
+                <div className={dark ? 'text-ink' : 'text-[#000a06]'}>{it.quote.role}</div>
+              </div>
+            </div>
+          )}
         </div>
       ))}
     </div>
@@ -80,8 +90,12 @@ const DEFAULTS = {
   },
 }
 
+// Optional props (all default to the previous behaviour): headerClassName (extra header-wrapper classes), headerGapClassName (header stack gap, default 'gap-[1.5rem]'),
+// bodyClassName (extra classes on the header copy), gridClassName (extra grid classes), media.placement 'top-flush'
+// (media straight after the header, spacer after it), items[i].quote ({ name, role } credit under the item text),
+// endSpacer (default true = one closing 4rem spacer; false = none; a number = that many), media.center (mx-auto).
 export default function SpringGrid(props) {
-  const p = { ...DEFAULTS, ...props }
+  const p = { headerClassName: '', headerGapClassName: 'gap-[1.5rem]', bodyClassName: '', gridClassName: '', endSpacer: true, ...DEFAULTS, ...props }
   const dark = p.theme === 'dark'
   const media = p.media
   const mediaEl =
@@ -89,20 +103,21 @@ export default function SpringGrid(props) {
       <Placeholder
         label="Product screenshot"
         tone={dark ? 2 : 3}
-        className={`w-full ${media.rounded ? 'rounded-[1.5rem]' : 'rounded-media'}`}
+        className={`w-full ${media.rounded ? 'rounded-[1.5rem]' : 'rounded-media'} ${media.center ? 'mx-auto' : ''}`}
         style={{ maxWidth: media.width || '100%', aspectRatio: media.aspect || '1440 / 873', marginBottom: media.mb || 0 }}
       />
     ) : null
   const body = (
     <>
-      {media?.type === 'image' && media.placement !== 'bottom' && (
+      {media?.type === 'image' && media.placement !== 'bottom' && media.placement !== 'top-flush' && (
         <>
           <Spacer />
           {mediaEl}
         </>
       )}
-      {(media?.type !== 'image' || media.placement === 'bottom') && <Spacer />}
-      <Grid items={p.items} dark={dark} wide={p.wide} />
+      {media?.type === 'image' && media.placement === 'top-flush' && mediaEl}
+      {(media?.type !== 'image' || media.placement === 'bottom' || media.placement === 'top-flush') && <Spacer />}
+      <Grid items={p.items} dark={dark} wide={p.wide} className={p.gridClassName} />
       {media?.type === 'image' && media.placement === 'bottom' && (
         <>
           <Spacer />
@@ -115,7 +130,9 @@ export default function SpringGrid(props) {
           <Quote q={p.quote} dark={dark} />
         </>
       )}
-      <Spacer />
+      {Array.from({ length: p.endSpacer === true ? 1 : Number(p.endSpacer) || 0 }, (_, i) => (
+        <Spacer key={i} />
+      ))}
     </>
   )
   return (
@@ -123,15 +140,15 @@ export default function SpringGrid(props) {
       <div className="padding-global">
         <div className="container-large">
           <div className="relative z-[1] flex w-full flex-col items-center justify-center px-[2.5rem] py-[4.5rem] tab:py-[3.5rem] mob:gap-[1rem] mob:py-[2.5rem] xs:px-[1rem]">
-            <div className="flex flex-col items-center text-center">
-              <div className="flex w-full max-w-[36rem] flex-col items-center gap-[1.5rem]">
+            <div className={`flex flex-col items-center text-center ${p.headerClassName}`}>
+              <div className={`flex w-full max-w-[36rem] flex-col items-center ${p.headerGapClassName}`}>
                 {p.eyebrow && (
                   <div className="mb-[0.75rem] rounded-pill border border-[#01584b] bg-[#00251e] px-[0.75rem] py-[0.325rem] text-small font-medium text-[#1ee9b6] tab:px-[0.625rem] tab:py-[0.425rem] tab:text-[0.725rem]">
                     {p.eyebrow}
                   </div>
                 )}
                 <Heading parts={p.heading} dark={dark} />
-                <div className={`text-body xs:text-body-xs ${dark ? 'text-ink' : 'text-[#000a06]'}`}>{p.body}</div>
+                <div className={`text-body xs:text-body-xs ${dark ? 'text-ink' : 'text-[#000a06]'} ${p.bodyClassName}`}>{p.body}</div>
                 {p.cta && (
                   <div className="flex items-center justify-center gap-[1rem]">
                     <Button variant={dark ? 'primary' : 'dark'} to={p.cta.href} stretch={false}>

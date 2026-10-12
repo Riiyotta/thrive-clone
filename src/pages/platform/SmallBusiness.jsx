@@ -86,6 +86,7 @@ const BENTO_CARDS = [
 const FAQ = faqItems([
   'What is a small LMS?',
   'How quickly can a small team without any dedicated learning staff get started with Nimbus?',
+  'How does Nimbus compare with the bigger platforms built for large enterprises?',
   'Is Nimbus affordable for a business of our size?',
   'Can we add more seats as our team grows?',
   'What support do small teams receive?',
@@ -106,7 +107,7 @@ export default function SmallBusiness() {
         container="small"
         paddingClassName="pt-[1rem] mb-[2rem]"
         gapClassName="gap-[2rem] pt-[1rem]"
-        wrapClassName="w-[57rem] max-w-[60rem] mob:w-full mob:flex-wrap mob:justify-around mob:gap-[3rem]"
+        wrapClassName="w-[57rem] max-w-[60rem] tab:w-full tab:flex-wrap tab:justify-center mob:justify-around mob:gap-[3rem]"
         logoClassName="w-[7rem] xs:w-[6rem]"
         // per-logo aspects mirror the original marks (122x70 / 54 / 45 / 33 / 49 / 53 at 1440), which set the mobile row heights
         logos={['aspect-square', 'aspect-[122/54]', 'aspect-[122/45]', 'aspect-[122/33]', 'aspect-[122/49]', 'aspect-[122/53]'].map((aspect) => ({ text: 'Logo', aspect }))}

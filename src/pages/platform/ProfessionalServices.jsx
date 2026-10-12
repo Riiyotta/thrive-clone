@@ -33,19 +33,21 @@ export default function ProfessionalServices() {
           </>
         }
         cards={CARDS}
-        gridClassName="grid-cols-3"
+        gridClassName="grid-cols-3 mob:grid-cols-[repeat(3,18.75rem)]"
         cardClassName="aspect-square !p-[1rem] mob:!gap-[3rem]"
         testimonial={null}
         cta={null}
+        headerClassName="pb-[1rem] pt-[2.5rem]"
         className="container-medium overflow-x-clip"
       />
       <HeaderImageLegacy />
-      <GridSplitLegacy variant="testimonial" theme="green" />
+      <GridSplitLegacy variant="testimonial" theme="green" authorInfoClassName="mob:mb-[1rem]" />
       <TabsHLegacy />
       <GridSplitLegacy variant="text" theme="green" />
       <FeatureTwoColLegacy variant="services" theme="green" />
       <GridCardsLegacy variant="services-extra" theme="green" />
-      <ReviewsSlider />
+      {/* <1440 the original's arrows are inline-blocks on a text line (~6px taller), as on the feature pages */}
+      <ReviewsSlider navWrapClassName="flex text-body [@media(max-width:1439px)]:block [@media(max-width:1439px)]:[&>button]:inline-block" />
     </>
   )
 }

@@ -110,7 +110,10 @@ export default function CorporateLms() {
           className="container-medium"
         />
       </div>
-      <TwoColFeatures preset="corporate" imageClassNames={[undefined, 'aspect-square w-full mob:aspect-[350/195]']} />
+      {/* the reveal's start offsets (x ±3-5rem) would widen the page; the original's .page-wrapper clips overflow-x */}
+      <div className="overflow-x-clip">
+        <TwoColFeatures preset="corporate" imageClassNames={[undefined, 'aspect-square w-full mob:aspect-[350/195]']} />
+      </div>
       <IntegrationsVisual variant="mid-market" />
       <ReviewsSlider
         navWrapClassName="block text-body [&>button]:inline-block"

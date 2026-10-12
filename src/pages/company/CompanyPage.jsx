@@ -19,7 +19,7 @@ export default function CompanyPage() {
         headingPlacement="inside"
         container="small"
         paddingClassName="pt-[1rem] mb-[2rem]"
-        wrapClassName="w-max max-w-none mob:w-full mob:flex-wrap mob:justify-around"
+        wrapClassName="w-max max-w-none tab:w-full tab:flex-wrap tab:justify-center tab:gap-[3rem] mob:flex-wrap mob:justify-around"
         logoClassName="w-[7rem]"
         logos={COMPANY_LOGOS}
         trailingSpacer={false}

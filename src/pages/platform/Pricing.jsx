@@ -9,7 +9,7 @@ import Faq from '../../components/Faq.jsx'
 const HERO_FEATURES = [
   'Run mentoring programmes for every team across sites',
   'Draft new courses in minutes with built-in help',
-  'Find answers in every connected tool with Nova',
+  'Find answers in every connected tool and system with Nova',
   'Turn learning into results leaders can see',
   'One home for learning, news and everyday work',
   'Your own branded space that feels truly yours',
@@ -54,7 +54,21 @@ export default function Pricing() {
         intro="See what Nimbus costs for your team, with every core feature included from day one."
         features={HERO_FEATURES}
       />
-      <ReviewsGrid>
+      <ReviewsGrid
+        // the original marks' own aspects (92x15 / 37 / 25 / 18 / 31 / 16 / 26 / 61 / 40 / 61 at 390) set the logo rows
+        logoAspects={[
+          'aspect-[92/15] leading-none xs:w-[6rem]',
+          'aspect-[92/37] leading-none xs:w-[6rem]',
+          'aspect-[92/25] leading-none xs:w-[6rem]',
+          'aspect-[92/18] leading-none xs:w-[6rem]',
+          'aspect-[92/31] leading-none xs:w-[6rem]',
+          'aspect-[92/16] leading-none xs:w-[6rem]',
+          'aspect-[92/26] leading-none xs:w-[6rem]',
+          'aspect-[92/61] leading-none xs:w-[6rem]',
+          'aspect-[92/40] leading-none xs:w-[6rem]',
+          'aspect-[92/61] leading-none xs:w-[6rem]',
+        ]}
+      >
         <VideoSection
           heading={
             <>

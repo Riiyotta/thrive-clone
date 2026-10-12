@@ -37,6 +37,7 @@ function ArrowBtn({ dir, onClick }) {
 
 const DEFAULTS = { heading: 'You don’t have to take our word', logos: LOGOS, reviews: REVIEWS }
 
+// logoAspects (optional): per-logo aspect classes replacing aspect-[120/49]; unset = unchanged.
 export default function ReviewsGrid({ children, ...props }) {
   const p = { ...DEFAULTS, ...props }
   const N = p.reviews.length
@@ -58,7 +59,7 @@ export default function ReviewsGrid({ children, ...props }) {
                 <div className="grid min-w-[15rem] flex-1 grid-cols-2 gap-[3rem] self-stretch mob:w-full rounded-panel bg-surface-2 px-[1.5rem] py-[3rem]">
                   {p.logos.map((f, i) => (
                     <div key={i} className="flex items-center justify-center">
-                      <LogoPlaceholder src={f ? `/assets/${f}` : undefined} alt="Customer logo" className="aspect-[120/49] max-h-[4rem] w-[7.5rem] max-w-full text-[0.75rem]" />
+                      <LogoPlaceholder src={f ? `/assets/${f}` : undefined} alt="Customer logo" className={`${p.logoAspects?.[i] || 'aspect-[120/49]'} max-h-[4rem] w-[7.5rem] max-w-full text-[0.75rem]`} />
                     </div>
                   ))}
                 </div>

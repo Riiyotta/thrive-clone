@@ -37,7 +37,9 @@ export default function SolutionTabs({
   tabs = DEFAULTS.tabs,
   ctaLabel = DEFAULTS.ctaLabel,
   // liveDetails: live /content details — tab rows top-aligned (not centred) and each ≤479 accordion body
-  // keeps 1px transparent top/bottom borders (2px when closed). Default off keeps the original behaviour.
+  // keeps 1px transparent top/bottom borders (2px when closed); the accordion opens over 400ms ease with the
+  // #232011 open background, closes in 100ms and does not fade (IX2 "Tabs Content accordian"). Default off
+  // keeps the original behaviour.
   liveDetails = false,
 }) {
   const [active, setActive] = useState(0)
@@ -141,14 +143,14 @@ export default function SolutionTabs({
                       type="button"
                       aria-expanded={on}
                       onClick={() => setOpen(on ? -1 : i)}
-                      className="flex w-full items-center justify-between border-l border-t border-[var(--th-border)] text-left"
+                      className={`flex w-full items-center justify-between border-l border-t border-[var(--th-border)] text-left ${liveDetails ? `transition-[background-color] ${on ? 'bg-[#232011] duration-100' : 'duration-100'}` : ''}`}
                     >
                       <div className="w-full p-[1.25rem]">
                         <div className="font-serif text-[1.125rem] font-bold leading-[1.4]">{t.title}</div>
                       </div>
                     </button>
                     <div
-                      className={`grid overflow-hidden border-l border-[var(--th-border)] px-[1.25rem] ${liveDetails ? 'border-y border-y-transparent' : ''} transition-[grid-template-rows,opacity] duration-[400ms] ease-[ease] ${on ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
+                      className={`grid overflow-hidden border-l border-[var(--th-border)] px-[1.25rem] ${liveDetails ? `border-y border-y-transparent transition-[grid-template-rows,background-color] ease-[ease] ${on ? 'grid-rows-[1fr] bg-[#232011] duration-[400ms]' : 'grid-rows-[0fr] duration-100'}` : `transition-[grid-template-rows,opacity] duration-[400ms] ease-[ease] ${on ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}`}
                     >
                       <div className="min-h-0">
                         <div className="my-[1.25rem]">

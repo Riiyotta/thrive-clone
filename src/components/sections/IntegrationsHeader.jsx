@@ -37,6 +37,7 @@ const DEFAULTS = {
   intro2: 'From HR and payroll to chat and video tools, Nimbus links more than 500 teams to the everyday systems that keep their whole business running.',
 }
 
+// logoClassNames (optional): extra classes per logo i (e.g. mobile size/aspect); unset = unchanged.
 export default function IntegrationsHeader(props) {
   const p = { ...DEFAULTS, ...props }
   return (
@@ -84,7 +85,7 @@ export default function IntegrationsHeader(props) {
                 <div className="flex max-w-[60rem] items-center justify-between gap-[3rem] pt-[2rem] tab:flex-wrap tab:justify-center tab:gap-y-[2rem] mob:justify-around xs:gap-[2rem]">
                   {p.logos.map((f, i) => (
                     <div key={i} className="flex w-[7rem] items-center justify-center overflow-clip">
-                      <LogoPlaceholder src={`/assets/${f}`} alt="Customer logo" className="aspect-[122/37] max-h-[4rem] w-full text-[0.75rem]" />
+                      <LogoPlaceholder src={`/assets/${f}`} alt="Customer logo" className={`aspect-[122/37] max-h-[4rem] w-full text-[0.75rem] ${p.logoClassNames?.[i] || ''}`} />
                     </div>
                   ))}
                 </div>

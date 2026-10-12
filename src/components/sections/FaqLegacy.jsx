@@ -49,7 +49,7 @@ function PlusIcon() {
 }
 
 // `item.open` (optional, default false; added for /lms/integrations, whose 4th item is open on load).
-function Item({ item, theme, xsCompact }) {
+function Item({ item, theme, xsCompact, answerClassName = 'my-[2.5rem]' }) {
   const [open, setOpen] = useState(!!item.open)
   const [height, setHeight] = useState(item.open ? 'auto' : 0) // px or 'auto'
   const [anim, setAnim] = useState('none')
@@ -128,7 +128,7 @@ function Item({ item, theme, xsCompact }) {
           backgroundColor: shown ? theme.openBg : 'rgba(0,0,0,0)',
         }}
       >
-        <div className="my-[2.5rem]">
+        <div className={answerClassName}>
           <p className="mb-[1.25rem] text-body text-ink xs:text-body-xs">{item.a}</p>
         </div>
       </div>
@@ -138,7 +138,9 @@ function Item({ item, theme, xsCompact }) {
 
 // `xsCompact` (optional, default false; added for the /content family, measured on /content, /content/topics and
 // /content/sector-suites at 390): ≤479 question text 18px, heading top gap 4px, bottom spacer 4.6rem.
-export default function FaqLegacy({ theme = 'olive', eyebrow = 'FAQs', title = 'Every answer in one place', items = ITEMS, xsCompact = false }) {
+// `answerClassName` (optional, default 'my-[2.5rem]'): vertical margin around each answer (/lms/integrations passes
+// 'my-[2.5rem] tab:my-[1.5rem] mob:my-[1.25rem]').
+export default function FaqLegacy({ theme = 'olive', eyebrow = 'FAQs', title = 'Every answer in one place', items = ITEMS, xsCompact = false, answerClassName }) {
   const t = THEMES[theme] || THEMES.olive
   return (
     <section data-section="faq-legacy" data-theme={theme}>
@@ -170,7 +172,7 @@ export default function FaqLegacy({ theme = 'olive', eyebrow = 'FAQs', title = '
               <div className="mx-auto w-full max-w-[42rem] tab:max-w-full">
                 <div className="grid grid-cols-[100%] items-start">
                   {items.map((it, i) => (
-                    <Item key={i} item={it} theme={t} xsCompact={xsCompact} />
+                    <Item key={i} item={it} theme={t} xsCompact={xsCompact} answerClassName={answerClassName} />
                   ))}
                 </div>
               </div>
