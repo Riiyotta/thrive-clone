@@ -1,7 +1,7 @@
 # Thrive homepage clone (local design study)
 
 A Vite + React 18 + Tailwind v3 + GSAP rebuild of the https://www.thrivelearning.com/
-homepage's layout, typography and motion. Not affiliated with Thrive. Copy is
+homepage and its 57 nav pages (layout, typography and motion). Not affiliated with Thrive. Copy is
 original placeholder text (brand "Nimbus", assistant "Nova"); `public/assets/`
 holds images copied from a locally saved page of the original for reference only.
 
@@ -19,18 +19,29 @@ generated from it — don't edit them. After changing `ia.json`:
 node validate.mjs && node build.mjs
 ```
 
-What the data shows:
+The IA was re-derived (2.0.0) from what each page component actually renders
+(`src/pages/**`); `pages-manifest.json` / `CLONE_SPEC_PAGES.md` were only a
+first draft (see `design-repo/docs/EVIDENCE.md` for where they disagree with the
+code). `src/pages/__preview-*` are build-time preview routes and are excluded.
 
-- **One route, one template.** The clone is the homepage only (`/`); nav and
-  footer links are `#` stubs. All 15 sections are single-use, so the IA's
-  section-reuse table has nothing to share at the section level.
-- **Reuse lives one layer down.** 13 component files render the 15 sections
-  (`Results.jsx` renders stats + testimonial; `Footer.jsx` renders the demo
-  form + footer). The shared pieces are primitives: `Button` (8 sections),
-  `Placeholder` (11), `useLoopCarousel` (3 carousels), `Pagination` (2),
-  `Wordmark` (nav + footer).
-- **Proof dominates the page**: 4 of 15 sections are PROOF (logos, stats,
-  testimonial, case studies), versus 3 PRODUCT and 3 STORY.
+What the data shows (`node validate.mjs`: 58 routes, 33 templates, 0 hard failures):
+
+- **Half the site is four data-driven templates.** 29 of 58 routes come from
+  `feature-detail` (17), `case-study-platform` (5), `case-study-content` (5) and
+  `content-catalogue` (2); the other 29 routes are one-off templates.
+- **94 sections: 41 shared across templates, 53 page-local.** Beyond the chrome
+  (nav + footer on all 58 routes, the subpage demo CTA on 56), the most reused
+  blocks are the FAQ (36 routes), the logo row (29), the reviews slider (24) and
+  the CTA strip (22). `hero.wow-content` opens 10 one-off templates through 10
+  variants of one component.
+- **Product explanation dominates**: 28 PRODUCT sections versus 15 HERO, 15 PROOF,
+  12 INDEX, 11 CONVERSION, 9 STORY, 2 ARTICLE, 2 SHELL. Many PRODUCT blocks are
+  tab/slider variants of the same few interaction patterns (`docs/MOTION.md`).
+- **Two footers**: 2 routes (`/`, `/company`) carry the demo-form footer, 56 the
+  CTA-button footer (`chrome` partition).
+- `node validate.mjs`'s "N templates" reuse column counts *occurrences*, so a
+  section repeated on one page (the 4 wow2col/marquee pairs on `/mentoring`, the
+  3 testimonial quotes on `/lms`) shows more templates than routes.
 
 Other docs: `CLONE_SPEC.md` (recon measurements of the original),
 `asset-manifest.json` (original asset inventory), `design-repo/` (AI-ready
