@@ -18,7 +18,7 @@ const DEFAULTS = {
   cards: [
     { type: 'stat', label: 'Learners using Nimbus', value: '150,000' },
     { type: 'tags', label: 'Challenges addressed with Nimbus', tags: ['Sales enablement', 'Customer service training', 'Product knowledge', 'Social learning'] },
-    { type: 'integrations', label: 'Integrations used', tags: ['Workday', 'Outlook', 'OneDrive', 'Microsoft Teams', 'LinkedIn Learning'] },
+    { type: 'integrations', label: 'Integrations used', tags: ['HR system', 'Calendar', 'File storage', 'Team chat app', 'Content library'] },
     { type: 'stat', label: 'Increased product sales by', value: '14%', link: { label: 'See how →', href: '#cs-section-3' } },
   ],
   tocLabel: 'In this case study',

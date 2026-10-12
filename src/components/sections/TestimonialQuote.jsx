@@ -70,7 +70,7 @@ const PRESETS = {
     quote: `"Everyone in L&D talks about AI right now. Fewer vendors help you see what it could actually look like inside the systems you already have. This is what that looks like. The same platform you already pay for, suddenly capable of far more than we expected."`,
     name: 'Jordan Ellis',
     role: 'Senior Talent Development Manager,',
-    org: 'Vista Air',
+    org: 'Northwind',
     orgStyle: 'strong',
   },
   'autotabs-enterprise': {

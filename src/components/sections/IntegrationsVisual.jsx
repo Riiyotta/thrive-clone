@@ -12,7 +12,7 @@ import Placeholder from '../shared/Placeholder.jsx'
 const DEFAULTS = {
   'mid-market': {
     heading: 'Connect your tools together',
-    body: 'No need for a patchwork of apps. Nimbus links with the tools your people already use, from Microsoft Teams chat and HR records to single sign-on and reporting, so learning sits right where the work happens.',
+    body: 'No need for a patchwork of apps. Nimbus links with the tools your people already use, from workplace messaging and HR records to single sign-on and reporting, so learning sits right where the work happens.',
     cta: 'See all integrations →',
   },
   enterprise: {

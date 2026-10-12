@@ -9,7 +9,7 @@ const THEME = { '--th-border': '#00251e', '--th-bg2': '#001811', '--th-eyebrow-b
 export default function WebinarsUpcoming({
   eyebrow = 'Upcoming webinars',
   heading = 'Hear from learning leaders and our own experts in regular live sessions',
-  text = 'Follow us on LinkedIn for new dates.',
+  text = 'Follow our socials for new dates.',
   webinars = [],
   emptyText = 'No items found.',
 }) {
