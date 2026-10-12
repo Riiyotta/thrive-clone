@@ -87,7 +87,7 @@ function VideoSlide({ s, hidden }) {
 // `.wow-slider-content` image slide (lms, corporate-lms, enterprise, small-business, feature-page
 // autotabs-cta): padding 40/40/0/40 (24 at ≤479), gap 40, min-h 640 (384 at ≤479); a header row
 // with the copy (max 36rem) and an optional primary button bottom-right; image below.
-function ImageSlide({ s, imageAspect, hidden }) {
+function ImageSlide({ s, imageAspect, hidden, copyMargin = 'mb-[1.25rem]' }) {
   return (
     <div aria-hidden={hidden} className="flex min-h-[40rem] w-full shrink-0 flex-col items-start gap-[2.5rem] overflow-clip rounded-panel bg-surface-1 px-[2.5rem] pt-[2.5rem] xs:min-h-[24rem] xs:px-[1.5rem] xs:pt-[1.5rem]">
       <div className="flex w-full items-end justify-between gap-[3rem] xs:flex-col xs:items-start xs:gap-[1rem]">
@@ -95,7 +95,7 @@ function ImageSlide({ s, imageAspect, hidden }) {
           {s.text ? (
             <p className="text-body text-ink xs:text-body-xs">{s.text}</p>
           ) : (
-            <p className="mb-[1.25rem] text-para font-medium tracking-[-0.025rem] text-[#888888]">
+            <p className={`${copyMargin} text-para font-medium tracking-[-0.025rem] text-[#888888]`}>
               <span className="font-normal tracking-normal text-white">{s.highlight}</span> {s.subdued}
             </p>
           )}
@@ -129,6 +129,10 @@ function ImageSlide({ s, imageAspect, hidden }) {
  * @param {string} [props.imageAspect='aspect-video'] default image aspect for image slides
  * @param {string} [props.className='section_kikitabs'] section classes
  * @param {string} [props.tabsClassName='overflow-hidden py-[3rem]'] autotabs block classes (`.section_wowautotabs`)
+ * @param {string} [props.slideInsetClassName] optional padding around each image slide (the original's
+ *   `.w-col` slide padding on /lms/features/* explore tabs); unset = no wrapper (unchanged)
+ * @param {string} [props.copyMargin='mb-[1.25rem]'] bottom margin of the image-slide copy paragraph. On /lms and
+ *   /lms/small-business the original's `.subdued-text` is inline, so its 20px margin never applies ('mb-0').
  */
 export default function KikiTabs({
   header = HOME_HEADER,
@@ -137,6 +141,8 @@ export default function KikiTabs({
   imageAspect = 'aspect-video',
   className = 'section_kikitabs',
   tabsClassName = 'overflow-hidden py-[3rem]',
+  slideInsetClassName,
+  copyMargin = 'mb-[1.25rem]',
 }) {
   const N = tabs.length
   // Original Swiper (is-wowautotabs): slidesPerView 1, spaceBetween 24, loop, speed 800, grabCursor,
@@ -187,7 +193,13 @@ export default function KikiTabs({
                   >
                     {all.map((s, i) => (
                       media === 'image' ? (
-                        <ImageSlide key={i} s={s} imageAspect={imageAspect} hidden={i !== c.pos + N} />
+                        slideInsetClassName ? (
+                          <div key={i} className={`flex w-full shrink-0 ${slideInsetClassName}`}>
+                            <ImageSlide s={s} imageAspect={imageAspect} hidden={i !== c.pos + N} copyMargin={copyMargin} />
+                          </div>
+                        ) : (
+                          <ImageSlide key={i} s={s} imageAspect={imageAspect} hidden={i !== c.pos + N} copyMargin={copyMargin} />
+                        )
                       ) : (
                         <VideoSlide key={i} s={s} hidden={i !== c.pos + N} />
                       )

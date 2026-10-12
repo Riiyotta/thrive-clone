@@ -55,7 +55,7 @@ export default function ContactForm({
                 <div className="padding-global">
                   <div className="container-large">
                     <div className="py-[2.5rem] mob:py-[1.25rem]">
-                      <div className="mx-[0.5rem] flex w-full max-w-[42rem] flex-col items-center justify-center mob:mx-0 mob:block">
+                      <div className="mx-[0.5rem] mt-[1.5rem] flex w-full max-w-[42rem] flex-col items-center justify-center mob:mx-0 mob:block">
                         <form onSubmit={(e) => e.preventDefault()} className="h-[1020px] w-[300px] px-[40px] pt-[26px] text-white">
                           <p className="mb-[60px] text-[16px] font-medium leading-[18px] font-[Helvetica,Arial,sans-serif]">{intro}</p>
                           {[

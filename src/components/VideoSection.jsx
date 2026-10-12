@@ -30,6 +30,8 @@ const HOME_FOOTNOTE = (
  * @param {string} [props.blockClassName='pb-[7rem] pt-[2rem] tab:pb-[6rem] mob:pb-[4rem]'] padding of the padded block
  * @param {string} [props.videoClassName='mt-[2rem]'] gap above the video
  * @param {string} [props.videoLabel='Video 16:9'] placeholder label
+ * @param {string} [props.videoAspectClassName='aspect-video'] video aspect (/pricing embed is 4:3: 'aspect-[4/3]')
+ * body={null} omits the paragraph entirely (no empty margin box).
  */
 export default function VideoSection({
   heading = 'This is Nimbus',
@@ -39,6 +41,7 @@ export default function VideoSection({
   blockClassName = 'pb-[7rem] pt-[2rem] tab:pb-[6rem] mob:pb-[4rem]',
   videoClassName = 'mt-[2rem]',
   videoLabel = 'Video 16:9',
+  videoAspectClassName = 'aspect-video',
 }) {
   return (
     <section data-section="video">
@@ -48,13 +51,13 @@ export default function VideoSection({
             <div className="flex flex-col items-center pb-[3rem] text-center">
               <h2 className={`heading-h2 ${headingClassName}`}>{heading}</h2>
               {/* ≥1440 the original header is flex (p mb 20 + wrapper mb 24 + 32 = 76px gap); at 1280 and 390 it is block and the margins collapse into the 32px video margin */}
-              <p className="mb-0 text-body text-grey wide:mb-[2.75rem] xs:text-body-xs">{body}</p>
+              {body != null && <p className="mb-0 text-body text-grey wide:mb-[2.75rem] xs:text-body-xs">{body}</p>}
               <div className={`${videoClassName} w-full`}>
                 <Placeholder
                   tone={2}
                   label={videoLabel}
                   labelClassName="absolute left-[1rem] top-[1rem]"
-                  className="relative aspect-video w-full rounded-panel"
+                  className={`relative ${videoAspectClassName} w-full rounded-panel`}
                 >
                   <button
                     type="button"

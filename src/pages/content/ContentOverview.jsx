@@ -1,0 +1,70 @@
+import Sec from './Sec.jsx'
+import ContentHero from '../../components/sections/ContentHero.jsx'
+import Sectors from '../../components/sections/Sectors.jsx'
+import SolutionTabs from '../../components/sections/SolutionTabs.jsx'
+import GridCardsLegacy from '../../components/sections/GridCardsLegacy.jsx'
+import ReviewsSlider from '../../components/sections/ReviewsSlider.jsx'
+import FaqLegacy from '../../components/sections/FaqLegacy.jsx'
+import { CONTENT_FAQ, LEGACY_FAQ_TITLE, LEGACY_FAQ_EYEBROW } from './faqData.js'
+
+// /content (page-content): legacy content ("yellow") theme on the #0a0700 body set by Layout.
+// Copy below is sized (characters per block) to the original route so line counts match at 1440 and 390.
+const HERO = {
+  text: 'Thousands of ready-made learning resources that people actually enjoy, ready to launch on your platform today or alongside the learning tools you already use.',
+  feature: {
+    heading: 'Why people love our library',
+    text:
+      'Nimbus content is a learning library made for real working lives, with thousands of short, practical resources ready to launch on any platform you use today, from day one.\n\n' +
+      'Choose from [[core topics]] covering leadership, wellbeing and essential skills, or add [[sector-specific suites]] built for industries like retail, hospitality and financial services teams.\n\n' +
+      'Every piece is short, practical and easy to share, so people can learn in the moment and keep coming back for more.\n\n' +
+      'Fresh resources arrive every month, so the library stays current without any extra effort from your team.',
+    quote: '“If you are looking for content that people genuinely enjoy and keep coming back to, this is it. Our teams use it every single week, without nudging.”',
+    name: 'Sam Rivers',
+    role: 'Learning and Development manager, Northwind',
+    button: { label: 'Book a content tour', href: '#' },
+  },
+}
+
+const TOPIC_CARDS = ['Speaking with clarity', 'Emotional awareness 101', 'Communication habits', 'Building trust', 'Asking better questions']
+
+const SOLUTION = {
+  text:
+    'More than 200 industry-specific resources give your teams the knowledge they need for their sector and the skills that keep customers coming back happy.\n\n' +
+    'Every bundle is ready to launch, simple to tailor and refreshed often by our in-house sector experts.',
+  tabs: [
+    { title: 'Public sector', text: 'Public sector learning that supports safety, community care, strong governance and fair service.' },
+    { title: 'Professional services', text: 'Specialist learning for modern firms, covering client care, commercial awareness, data handling, ethics and the technical skills that professional teams rely on every day.' },
+    { title: 'Retail', text: 'Store-ready learning shaped with retail experts, covering service, product knowledge and smooth operations.' },
+    { title: 'Food and drink production', text: 'Learning designed for production teams, covering food safety, hygiene, quality checks and the everyday habits that keep every line running safely, smoothly and on time.' },
+    { title: 'Financial services', text: 'Purpose-built learning for financial teams, covering regulation, conduct, data protection, fraud awareness and the customer skills that build lasting trust with every client.' },
+    { title: 'Hospitality', text: 'Hospitality learning for great guest experiences on every shift, in every venue you run.' },
+  ],
+}
+
+const T = (title, body) => ({ title, body })
+const GRID_ROWS = [
+  { cols: 2, kind: 'image', cards: [
+    T('Topic mapping', 'You are never left to work it out alone. We map your roles to the right topics and build a clear plan that your teams can follow from day one onwards.'),
+    T('Ready pathways', 'Need a starting point? We have built ready pathways for common roles that you can launch today.'),
+  ] },
+  { cols: 3, kind: 'image', cards: [
+    T('Ask for a topic', 'Cannot find the topic you need? Ask our team and we will add it to the plan, then let you know as soon as it is ready.'),
+    T('Fresh releases', 'New titles land every month, shaped by what our customers ask for and the skills their teams need most right now, across every sector and role.'),
+    T('Mixed media', 'Never dull. Our library mixes short video, interactive lessons, quick reads and printable guides so every learner finds a format that suits them.'),
+  ] },
+]
+
+export default function ContentOverview() {
+  return (
+    <>
+      <Sec id="content-hero"><ContentHero {...HERO} /></Sec>
+      <Sec id="sectors"><Sectors variant="topics" cards={TOPIC_CARDS} /></Sec>
+      <Sec id="solution-tabs"><SolutionTabs {...SOLUTION} /></Sec>
+      <Sec id="grid-cards-legacy"><GridCardsLegacy variant="content" theme="yellow" rows={GRID_ROWS} /></Sec>
+      <Sec id="reviews-slider"><ReviewsSlider /></Sec>
+      <Sec id="faq-legacy">
+        <FaqLegacy theme="olive-items" xsCompact title={LEGACY_FAQ_TITLE} eyebrow={LEGACY_FAQ_EYEBROW} items={CONTENT_FAQ} />
+      </Sec>
+    </>
+  )
+}

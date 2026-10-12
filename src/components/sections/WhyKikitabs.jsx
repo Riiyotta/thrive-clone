@@ -10,6 +10,7 @@ import useLoopCarousel from '../../hooks/useLoopCarousel.js'
 //  3. Split header (H2 + italic quote card) and split-layout tabs (.wowtabs_wrapper: click tabs,
 //     pane/child fade opacity + visibility .3s, green chip on the current tab).
 //  4. Results header, 4 result cards, centred quote with stacked author, primary CTA.
+// The header's .margin-top.margin-huge (4rem) collapses out of the section, so the root carries mt 4rem.
 
 const D = {
   heading: { before: 'The assistant your team keeps ', em: 'asking for', after: '' },
@@ -73,7 +74,7 @@ export default function WhyKikitabs({
   const [tab, setTab] = useState(0)
 
   return (
-    <div data-section="why-kikitabs" className="overflow-x-clip">
+    <div data-section="why-kikitabs" className="mt-[4rem] overflow-x-clip">
       {/* 1 + 2: header and autotabs */}
       <div className="padding-global">
         <div>
@@ -139,7 +140,7 @@ export default function WhyKikitabs({
                                 </div>
                                 <Placeholder
                                   label="Product video 1:1"
-                                  className="absolute left-[594px] top-[-6px] z-[-1] aspect-square w-[30.4rem] tab:left-auto tab:right-0 mob:static mob:aspect-auto mob:w-full mob:flex-1"
+                                  className="absolute left-[594px] top-[-6px] z-[-1] aspect-square w-[30.4rem] tab:left-auto tab:right-0 mob:static mob:aspect-auto mob:min-h-[18rem] mob:w-full mob:flex-1"
                                 />
                               </div>
                             </div>
@@ -167,7 +168,7 @@ export default function WhyKikitabs({
               <div className="h-[2.5rem] min-h-[2.5rem] w-[2.5rem] shrink-0 overflow-clip rounded-full border border-page">
                 <Placeholder label="" src={quote.avatar} className="h-full w-full rounded-full" />
               </div>
-              <div>
+              <div className="mob:mb-[1rem]">
                 <div className="text-[1rem] font-semibold leading-[1.4]">{quote.name}</div>
                 <div className="text-[1rem] leading-[1.4]">
                   {quote.role}{' '}
@@ -201,7 +202,7 @@ export default function WhyKikitabs({
                 )
               })}
             </div>
-            <div className="absolute bottom-0 right-0 top-0 mr-[-10vw] w-[60%] overflow-clip wide:mr-[-15vw] ultra:mr-[-21vw] tab:mr-[-15vw] mob:relative mob:m-0 mob:mb-[3rem] mob:h-[60dvh] mob:w-full xs:h-[50dvh]">
+            <div className="absolute bottom-0 right-0 top-0 mr-[-10vw] w-[60%] overflow-clip wide:mr-[-15vw] ultra:mr-[-21vw] tab:mr-[-15vw] mob:relative mob:m-0 mob:mb-[3rem] mob:h-[60dvh] mob:w-full xs:h-[40dvh]">
               {tabs.map((t, i) => (
                 <div key={i} data-active={i === tab} className="fade-pane absolute inset-0 flex">
                   <div className="flex w-full items-center justify-start self-start">
@@ -230,7 +231,7 @@ export default function WhyKikitabs({
       <div className="container-medium mb-[2rem]">
         <div className="mt-[2rem] flex flex-col items-center justify-center pt-[2rem]">
           <div className="mb-[1rem] flex flex-col items-center justify-center pt-[0.5rem]" />
-          <div className="w-full max-w-[60rem] text-center">
+          <div className="mb-[1.5rem] w-full max-w-[60rem] text-center">
             <h2 className="heading-h2 mx-auto max-w-[60rem] text-center">
               {results.heading.before}
               <em className="italic">{results.heading.em}</em>
@@ -261,7 +262,7 @@ export default function WhyKikitabs({
         <div className="mx-[5rem] mb-[1rem] mt-[2rem] flex max-w-[60rem] flex-col items-center justify-center gap-y-[1rem] tab:mx-0">
           <p className="mb-[1.25rem] flex text-quote font-medium tab:text-quote-tab mob:text-quote-mob">{bigQuote.text}</p>
           <div className="flex flex-col items-center justify-center gap-[0.75rem]">
-            <Placeholder label="" src={bigQuote.avatar} className="aspect-square h-[5rem] min-h-[5rem] w-[5rem] min-w-[5rem] rounded-[0.375rem_0] wide:rounded-avatar xs:h-[2.5rem] xs:min-h-[2.5rem] xs:w-[2.5rem] xs:min-w-[2.5rem]" />
+            <Placeholder label="" src={bigQuote.avatar} className="aspect-square h-[5rem] min-h-[5rem] w-[5rem] min-w-[5rem] rounded-[0.375rem_0] wide:rounded-avatar" />
             <div className="flex flex-col items-center justify-center">
               <div className="wide:text-[1.15rem] wide:leading-[1.4]">{bigQuote.name}</div>
               <div className="text-grey mob:text-[0.875rem]">

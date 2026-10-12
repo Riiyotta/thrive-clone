@@ -75,6 +75,9 @@ export default function SplitTabs({
     : 'One assistant, helping solve every team’s challenges.',
   tabs = variant === 'reversed' ? MENTOR_TABS : KIKI_TABS,
   button = { label: 'Book a demo', href: '/lms/demo-platform' },
+  // Optional Button variant for the pane buttons (e.g. 'brand' on /lms/mentoring-software). When unset,
+  // the original behaviour is kept: primary, with the blue override class on the reversed variant.
+  buttonVariant,
 }) {
   const rev = variant === 'reversed'
   const { active, shown, faded, select } = useFadeTabs(tabs.length)
@@ -157,7 +160,7 @@ export default function SplitTabs({
                 >
                   <p className="mb-[1.25rem] text-body text-grey xs:text-body-xs">{t.text}</p>
                   <div className="flex w-full flex-wrap items-center justify-start gap-[1.5rem] xs:gap-[2rem]">
-                    <Button variant="primary" href={button.href} className={rev ? BRAND_BTN : ''}>
+                    <Button variant={buttonVariant || 'primary'} href={button.href} className={!buttonVariant && rev ? BRAND_BTN : ''}>
                       {button.label}
                     </Button>
                   </div>

@@ -39,6 +39,8 @@ const HOME_TESTIMONIAL = {
  *   quote block under the cards; null hides it
  * @param {{label: React.ReactNode, to?: string, variant?: string}|null} [props.cta] centred button; null hides it
  * @param {string} [props.className='container-medium mb-[2rem]'] outer wrapper classes
+ * @param {string} [props.headerClassName='pb-[2.5rem] pt-[2.5rem]'] heading block padding (/lms/demo-platform: 'pt-[2rem]')
+ * @param {string} [props.ctaClassName='pb-[4rem] pt-[1.5rem]'] CTA row spacing (/lms/demo-platform: 'mb-[1.5rem]')
  */
 export default function Results({
   heading = 'Real teams, real numbers, and the outcomes that keep them here',
@@ -50,10 +52,12 @@ export default function Results({
   testimonial = HOME_TESTIMONIAL,
   cta = { label: 'See Nimbus in action →', to: '/lms/demo-platform' },
   className = 'container-medium mb-[2rem]',
+  headerClassName = 'pb-[2.5rem] pt-[2.5rem]',
+  ctaClassName = 'pb-[4rem] pt-[1.5rem]',
 }) {
   return (
     <div data-section="results" className={className}>
-      <div className="flex flex-col items-center pb-[2.5rem] pt-[2.5rem]">
+      <div className={`flex flex-col items-center ${headerClassName}`}>
         <h2 className={`heading-h2 ${headingClassName} text-center`}>{heading}</h2>
         {subtitle && <p className="mb-[1.25rem] mt-[1.5rem] max-w-[42rem] text-center text-body text-grey xs:text-body-xs">{subtitle}</p>}
       </div>
@@ -112,7 +116,7 @@ export default function Results({
       )}
 
       {cta && (
-        <div className="flex justify-center pb-[4rem] pt-[1.5rem]">
+        <div className={`flex justify-center ${ctaClassName}`}>
           <Button variant={cta.variant || 'primary'} to={cta.to}>
             {cta.label}
           </Button>

@@ -48,9 +48,10 @@ function PlusIcon() {
   )
 }
 
-function Item({ item, theme }) {
-  const [open, setOpen] = useState(false)
-  const [height, setHeight] = useState(0) // px or 'auto'
+// `item.open` (optional, default false; added for /lms/integrations, whose 4th item is open on load).
+function Item({ item, theme, xsCompact }) {
+  const [open, setOpen] = useState(!!item.open)
+  const [height, setHeight] = useState(item.open ? 'auto' : 0) // px or 'auto'
   const [anim, setAnim] = useState('none')
   const body = useRef(null)
   const timers = useRef([])
@@ -106,7 +107,7 @@ function Item({ item, theme }) {
           className="flex-1 self-stretch border-r border-solid px-[2.5rem] py-[2rem] tab:px-[2rem] tab:py-[1.75rem] mob:p-[1.25rem]"
           style={{ borderColor: shown ? theme.openBorder : theme.item, transition: `border-color ${colorT} linear` }}
         >
-          <div className="text-[1.25rem] font-bold leading-[1.4] text-ink">{item.q}</div>
+          <div className={`text-[1.25rem] font-bold leading-[1.4] text-ink ${xsCompact ? 'xs:text-[1.125rem]' : ''}`}>{item.q}</div>
         </div>
         <div className="flex items-center justify-center self-start p-[2rem] text-ink tab:py-[1.75rem] mob:flex-none mob:p-[1.25rem] xs:self-stretch xs:p-[1rem]">
           <div
@@ -135,7 +136,9 @@ function Item({ item, theme }) {
   )
 }
 
-export default function FaqLegacy({ theme = 'olive', eyebrow = 'FAQs', title = 'Every answer in one place', items = ITEMS }) {
+// `xsCompact` (optional, default false; added for the /content family, measured on /content, /content/topics and
+// /content/sector-suites at 390): ≤479 question text 18px, heading top gap 4px, bottom spacer 4.6rem.
+export default function FaqLegacy({ theme = 'olive', eyebrow = 'FAQs', title = 'Every answer in one place', items = ITEMS, xsCompact = false }) {
   const t = THEMES[theme] || THEMES.olive
   return (
     <section data-section="faq-legacy" data-theme={theme}>
@@ -157,7 +160,7 @@ export default function FaqLegacy({ theme = 'olive', eyebrow = 'FAQs', title = '
                   >
                     {eyebrow}
                   </div>
-                  <div className="mt-[1rem]">
+                  <div className={`mt-[1rem] ${xsCompact ? 'xs:mt-[0.25rem]' : ''}`}>
                     <h2 className="mb-[1.25rem] text-[3rem] font-normal leading-[1.2] text-ink mob:text-[2rem]">{title}</h2>
                   </div>
                 </div>
@@ -167,7 +170,7 @@ export default function FaqLegacy({ theme = 'olive', eyebrow = 'FAQs', title = '
               <div className="mx-auto w-full max-w-[42rem] tab:max-w-full">
                 <div className="grid grid-cols-[100%] items-start">
                   {items.map((it, i) => (
-                    <Item key={i} item={it} theme={t} />
+                    <Item key={i} item={it} theme={t} xsCompact={xsCompact} />
                   ))}
                 </div>
               </div>
@@ -175,7 +178,7 @@ export default function FaqLegacy({ theme = 'olive', eyebrow = 'FAQs', title = '
             <div className="border-b border-solid" style={{ borderColor: t.outer }}>
               <div className="mx-auto w-full max-w-[42rem] tab:max-w-full">
                 <div className="mx-auto w-0 border-x border-solid" style={{ borderColor: t.outer }}>
-                  {t.bottom && <div className="w-full pt-[12rem]" />}
+                  {t.bottom && <div className={`w-full pt-[12rem] ${xsCompact ? 'xs:pt-[4.6rem]' : ''}`} />}
                 </div>
               </div>
             </div>

@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import Placeholder from '../shared/Placeholder.jsx'
 
 // cs-content-article (.section > .section_component.blog_content-wrap), case-study-content template.
@@ -15,7 +16,7 @@ const THEME = {
 }
 const TEXTURE = 'bg-[radial-gradient(rgba(238,233,109,0.09)_1px,transparent_1.3px)] bg-[length:0.375rem_0.375rem]'
 
-// Block types: { p }, { h2 } (a sub-heading inside a section), { figure: 'landscape'|'wide' }, { quote }, { spacer: true }.
+// Block types: { p }, { h2 } (a sub-heading inside a section), { figure: 'landscape'|'wide'|'full' }, { quote }, { spacer: true }.
 // Paragraph text may contain **bold** and [[link]] spans.
 const SHORT = [
   {
@@ -101,7 +102,20 @@ const PRESETS = {
   },
 }
 
+// '\n' in a heading or paragraph string renders a <br> (optional; the original's rich text uses
+// <br>-separated lines inside one paragraph on several routes). Strings without '\n' are unchanged.
+function withBreaks(text, render) {
+  if (!text.includes('\n')) return render(text)
+  return text.split('\n').map((line, i) => (
+    <Fragment key={i}>
+      {i > 0 && <br />}
+      {render(line)}
+    </Fragment>
+  ))
+}
+
 function inline(text) {
+  if (text.includes('\n')) return withBreaks(text, inline)
   return text.split(/(\*\*[^*]+\*\*|\[\[[^\]]+\]\])/).map((part, i) => {
     if (part.startsWith('**')) return <strong key={i} className="font-bold">{part.slice(2, -2)}</strong>
     if (part.startsWith('[['))
@@ -119,7 +133,14 @@ const H2 = 'my-[1rem] text-[2.85rem] leading-[1.15] tracking-normal mob:text-[2r
 function Block({ b }) {
   if (b.spacer) return <p className="my-[1rem]">{'‍'}</p>
   if (b.p !== undefined) return <p className="my-[1rem]">{b.p ? inline(b.p) : '‍'}</p>
-  if (b.h2) return <h2 className={`${H2} ${b.bold ? 'font-bold' : 'font-normal'}`}>{b.h2}</h2>
+  if (b.h2) return <h2 className={`${H2} ${b.bold ? 'font-bold' : 'font-normal'}`}>{withBreaks(b.h2, (t) => t)}</h2>
+  // 'full' (optional, added for /case-studies-contents/customer-10): full-width 765:430 figure.
+  if (b.figure === 'full')
+    return (
+      <figure className="my-[2rem] w-full">
+        <Placeholder label="Article image" className="aspect-[765/430] w-full" />
+      </figure>
+    )
   if (b.figure)
     return (
       <figure className="mx-auto my-[2rem] w-fit max-w-[60%]">
@@ -211,7 +232,7 @@ export default function CsContentArticle({
                   {sections.map((s, i) => (
                     <div key={i} id={`article-${i + 1}`}>
                       <div className="text-[18px] leading-[1.4] tracking-normal text-ink">
-                        <h2 className={`${H2} !mt-0 ${s.bold ? 'font-bold' : 'font-normal'}`}>{s.title}</h2>
+                        <h2 className={`${H2} !mt-0 ${s.bold ? 'font-bold' : 'font-normal'}`}>{withBreaks(s.title, (t) => t)}</h2>
                         {s.blocks.map((b, j) => (
                           <Block key={j} b={b} />
                         ))}
