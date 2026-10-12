@@ -1,0 +1,345 @@
+{
+  "id": "index.topics-grid",
+  "kind": "section",
+  "name": "Topic library grid",
+  "purpose": "Let visitors browse the content library by topic through a grid of linked topic cards under a centred heading.",
+  "category": "index",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/TopicsGrid.jsx",
+  "description": "Legacy content (yellow) theme: a centred serif 4rem H2 header in a side-hairline frame over a 3-col grid (1 col <=767) of hairline link cards, each with a 20px/500 title, grey copy and a 3:2 topic image; hover reveals a dotted radial-gradient texture instantly. The component also has a 'suites' variant (split header + button + 6 sector cards) but no real page uses it; only 'topics' (/content/topics) is live and modelled.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "variant": {
+        "enum": [
+          "topics"
+        ],
+        "note": "only live variant; 'suites' exists in code but is unused by any page"
+      },
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "note": "centred serif H2",
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "items": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "note": "card title",
+              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 77,
+              "note": "grey card copy",
+              "measuredLongestRealInstance": "61 words in the clone's own placeholder copy"
+            },
+            "media": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "placeholder.neutral",
+                "product.screenshot",
+                "stock.photo"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "placeholder.neutral",
+                    "product.screenshot",
+                    "stock.photo"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "3:2 topic image (Placeholder 'Topic image 3:2')"
+            }
+          },
+          "required": [
+            "title",
+            "text",
+            "media"
+          ]
+        },
+        "maxItems": 15,
+        "note": "topic cards, 3 per row"
+      }
+    },
+    "required": [
+      "variant",
+      "heading",
+      "items"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "topics": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/TopicsGrid.jsx:10-10",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion. Cards show a dotted texture background on hover with no transition (instant, as on the original)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-y-[3rem] -> tab:gap-y-[2rem]; p-[2rem] -> tab:p-[1.5rem] -> mob:p-[1.25rem] -> xs:p-[1rem]",
+      "tailwind": [
+        "tab:gap-y-[2rem] tab:p-[1.5rem] mob:p-[1.25rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/TopicsGrid.jsx:43-43",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "gap-[1rem] -> tab:gap-[1.25rem]; xs:justify-between",
+      "tailwind": [
+        "tab:gap-[1.25rem] xs:justify-between"
+      ],
+      "measuredFrom": "src/components/sections/TopicsGrid.jsx:45-45",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.25rem] -> xs:text-[1.125rem]",
+      "tailwind": [
+        "xs:text-[1.125rem]"
+      ],
+      "measuredFrom": "src/components/sections/TopicsGrid.jsx:46-46",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-3 -> tab:grid-cols-3 -> mob:grid-cols-1",
+      "tailwind": [
+        "tab:grid-cols-3 mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/TopicsGrid.jsx:62-62",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-2 -> mob:grid-cols-1",
+      "tailwind": [
+        "mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/TopicsGrid.jsx:74-74",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "p-[2.5rem] -> tab:p-[1.5rem] -> mob:p-[1.25rem]",
+      "tailwind": [
+        "tab:p-[1.5rem] mob:p-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/TopicsGrid.jsx:75-75",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[3rem] -> tab:pt-[2.5rem] -> mob:pt-[1.5rem]",
+      "tailwind": [
+        "tab:pt-[2.5rem] mob:pt-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/TopicsGrid.jsx:76-76",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/TopicsGrid.jsx:81-81",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "p-[2.5rem] -> tab:p-[1.5rem] -> mob:p-[1.25rem] -> xs:p-[1rem]; mob:self-auto",
+      "tailwind": [
+        "tab:p-[1.5rem] mob:self-auto mob:p-[1.25rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/TopicsGrid.jsx:84-84",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "typography",
+        "layout"
+      ],
+      "changes": "px-[1.25rem] -> tab:px-[1rem]; py-[0.75rem] -> tab:py-[0.5rem]; text-[1.125rem] -> tab:text-[1rem]; xs:block; xs:self-stretch",
+      "tailwind": [
+        "tab:px-[1rem] tab:py-[0.5rem] tab:text-[1rem] xs:block xs:self-stretch"
+      ],
+      "measuredFrom": "src/components/sections/TopicsGrid.jsx:87-87",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> tab:px-[2rem] -> mob:px-[1.5rem] -> xs:px-[1rem]; pt-[5.5rem] -> tab:pt-[4rem]",
+      "tailwind": [
+        "tab:px-[2rem] tab:pt-[4rem] mob:px-[1.5rem] xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/TopicsGrid.jsx:100-100",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/TopicsGrid.jsx:55-117",
+  "iaSectionId": "index.topics-grid",
+  "evidenceNotes": [
+    "Card copy on /content/topics comes from prose(n, seed) in src/pages/content/filler.js (evaluated with node); texts start mid-sentence by design. The component's own words(n) defaults (max 51 words) are not shown on any route; the page's longest is 61 words (Safety at work).",
+    "The 'suites' variant is NOT used by any page (only src/pages/__preview-e renders it). /content/sector-suites renders GridSplitLegacy variant='suites' instead.",
+    "CLONE_SPEC_PAGES.md section A / line 615 say topics-grid covers both catalogue routes via a variant; code and pages-manifest.json sectionsByRoute put grid-split-legacy on /content/sector-suites.",
+    "The H2 header is the second heading on the page (HeaderGridCard carries the H1), so this index block does not carry the H1."
+  ],
+  "observedOn": [
+    "/content/sector-suites",
+    "/content/topics"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.flip-logos"
+    ],
+    "recommendedBefore": [
+      "proof.reviews-slider"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ],
+  "variants": [
+    "topics"
+  ]
+}

@@ -1,0 +1,447 @@
+{
+  "id": "hero.logos-overlap",
+  "kind": "section",
+  "name": "Split hero nested in an overlapping logos section",
+  "purpose": "Carry the corporate page's H1, pitch, customer quote and demo CTA, followed by a customer-logo row, pulled up over the empty wow spacer above it.",
+  "category": "hero",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/LogosHeroOverlap.jsx",
+  "description": "The `.section_wowlogos.is-neg-overlap` block on /lms/corporate-lms: pulled up -16rem (-10 / -8 / -6rem at 991 / 767 / 479) over the empty WowContentHero 'corporate' spacer. Split row: avatar strip + trust line, serif 3.8rem H1 (2.5rem <=479), grey paragraph, quote card (italic quote, avatar, name, role + linked company) and primary CTA | 1440:920 product visual; stacks <=767. Below: centred lead line + 7 logos.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "avatars": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "photo.person"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "photo.person"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "Stacked avatar strip (144:64)."
+      },
+      "trustLine": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 12,
+        "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+      },
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 9,
+        "note": "H1.",
+        "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+      },
+      "intro": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 49,
+        "measuredLongestRealInstance": "39 words in the clone's own placeholder copy"
+      },
+      "quote": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 44,
+            "note": "Italic quote with typographic quote marks.",
+            "measuredLongestRealInstance": "35 words in the clone's own placeholder copy"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "org": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 2,
+            "note": "Company, rendered as an underlined link.",
+            "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+          },
+          "avatar": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "photo.person"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "photo.person"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "40px round avatar."
+          }
+        },
+        "required": [
+          "quote",
+          "name",
+          "role",
+          "org",
+          "avatar"
+        ]
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "visual": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "product.screenshot",
+          "stock.photo"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "product.screenshot",
+              "stock.photo"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "Product visual, 1440:920."
+      },
+      "logosLead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 13,
+        "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+      },
+      "logos": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "logo.customer"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "logo.customer"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 7,
+            "maximum": 7
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ]
+      }
+    },
+    "required": [
+      "avatars",
+      "trustLine",
+      "heading",
+      "intro",
+      "quote",
+      "ctaLabel",
+      "visual",
+      "logosLead",
+      "logos"
+    ]
+  },
+  "constraints": {
+    "mustImmediatelyFollow": "hero.wow-content",
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)",
+    "neighbourRuleId": "OVERLAP_HERO_FOLLOWS_SPACER"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/LogosHeroOverlap.jsx:28-98",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; only the shared Button hover."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "-mt-[16rem] -> tab:-mt-[10rem] -> mob:-mt-[8rem] -> xs:-mt-[6rem]",
+      "tailwind": [
+        "tab:-mt-[10rem] mob:-mt-[8rem] xs:-mt-[6rem]"
+      ],
+      "measuredFrom": "src/components/sections/LogosHeroOverlap.jsx:33-33",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/LogosHeroOverlap.jsx:37-37",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "mob:w-full",
+      "tailwind": [
+        "mob:w-full"
+      ],
+      "measuredFrom": "src/components/sections/LogosHeroOverlap.jsx:38-38",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[3.8rem] -> xs:text-[2.5rem]",
+      "tailwind": [
+        "xs:text-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/LogosHeroOverlap.jsx:46-46",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/LogosHeroOverlap.jsx:54-54",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:flex-col; xs:items-start",
+      "tailwind": [
+        "xs:flex-col xs:items-start"
+      ],
+      "measuredFrom": "src/components/sections/LogosHeroOverlap.jsx:66-66",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/LogosHeroOverlap.jsx:77-77",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-wrap; tab:justify-center; tab:gap-y-[2rem]; mob:justify-around; gap-[3rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "tab:flex-wrap tab:justify-center tab:gap-y-[2rem] mob:justify-around xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/LogosHeroOverlap.jsx:80-80",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-full -> mob:w-[5rem] -> xs:w-[6rem]",
+      "tailwind": [
+        "mob:w-[5rem] xs:w-[6rem]"
+      ],
+      "measuredFrom": "src/components/sections/LogosHeroOverlap.jsx:86-86",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.placeholder-media",
+    "primitive.logo-placeholder",
+    "primitive.inline-link"
+  ],
+  "measuredFrom": "src/components/sections/LogosHeroOverlap.jsx:28-98",
+  "iaSectionId": "hero.logos-overlap",
+  "evidenceNotes": [
+    "mustImmediatelyFollow hero.wow-content (variant 'corporate'): the default overlap (-16rem) is designed to sit over that empty spacer; overlap={false} drops it, but no page does that.",
+    "Although implemented as a 'logos' section on the original, it carries the page H1, so it is categorised as hero."
+  ],
+  "observedOn": [
+    "/lms/corporate-lms"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "hero.wow-content"
+    ],
+    "recommendedBefore": [
+      "product.split-autotabs"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "photo.person",
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ]
+}

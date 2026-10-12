@@ -1,0 +1,330 @@
+{
+  "id": "hero.center-legacy",
+  "kind": "section",
+  "name": "Centred legacy hero",
+  "purpose": "Open a legacy-themed service page with a centred H1, one-line pitch and a single CTA.",
+  "category": "hero",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/HeroCenterLegacy.jsx",
+  "description": "Centred hero inside hairline frame lines in the legacy theme colours. One component with `variant`: 'services' (/lms/professional-services; full hairline box, eyebrow tag, H1 3.8rem/1.1 max 60rem, ink paragraph, theme pill button stacked over 3 overlapping avatars + proof line) and 'custom' (/content/custom-content; top + side hairlines, extra 4rem top padding, 115x38 brand logo slot, H1 3.8rem/1.15 max 41.2rem, paragraph, button). Padding steps down at 991/767/479.",
+  "content": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "services"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "Legacy page colour theme (legacyVars): green, yellow (content pages) or pink (impact)."
+          },
+          "eyebrow": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "Legacy eyebrow tag.",
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "note": "H1.",
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 35,
+            "measuredLongestRealInstance": "28 words in the clone's own placeholder copy"
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "avatars": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "photo.person"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "photo.person"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              },
+              "slotCount": {
+                "type": "integer",
+                "minimum": 3,
+                "maximum": 3
+              }
+            },
+            "required": [
+              "assetRole",
+              "slotCount"
+            ],
+            "note": "Overlapping 40px avatars."
+          },
+          "proof": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "eyebrow",
+          "heading",
+          "body",
+          "ctaLabel",
+          "avatars",
+          "proof"
+        ],
+        "note": "/lms/professional-services"
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "custom"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "Legacy page colour theme (legacyVars): green, yellow (content pages) or pink (impact)."
+          },
+          "logo": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "stock.photo",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "stock.photo",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "115x38 own-brand logo slot ('Logo'); no customer/vendor role fits."
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "note": "H1.",
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 15,
+            "measuredLongestRealInstance": "12 words in the clone's own placeholder copy"
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "logo",
+          "heading",
+          "body",
+          "ctaLabel"
+        ],
+        "note": "/content/custom-content"
+      }
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "custom": 1,
+      "services": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/GlobalHeaderLegacy.jsx:83-83",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; the LegacyButton swaps colours instantly on hover (only border-radius transitions, 300ms)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[4.5rem] -> tab:py-[3.5rem] -> mob:py-[2.5rem]; mob:gap-[1rem]; px-[2.5rem] -> xs:px-[1rem]",
+      "tailwind": [
+        "tab:py-[3.5rem] mob:gap-[1rem] mob:py-[2.5rem] xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/HeroCenterLegacy.jsx:38-38",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "layout",
+        "spacing"
+      ],
+      "changes": "xs:w-full; xs:items-stretch; gap-[1.5rem] -> xs:gap-[1rem]",
+      "tailwind": [
+        "xs:w-full xs:items-stretch xs:gap-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/HeroCenterLegacy.jsx:49-49",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:justify-center",
+      "tailwind": [
+        "xs:justify-center"
+      ],
+      "measuredFrom": "src/components/sections/HeroCenterLegacy.jsx:52-52",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-[2.5rem] -> tab:w-[2rem]",
+      "tailwind": [
+        "tab:w-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/HeroCenterLegacy.jsx:59-59",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "-ml-[1rem] -> tab:-ml-[0.5rem]",
+      "tailwind": [
+        "tab:-ml-[0.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/HeroCenterLegacy.jsx:60-60",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/HeroCenterLegacy.jsx:25-77",
+  "iaSectionId": "hero.center-legacy",
+  "evidenceNotes": [
+    "CustomContent.jsx overrides cta to 'Watch it in use' (default 'See it at work'); both pages pass theme='green' even though /content/custom-content is a content page (other content pages are yellow)."
+  ],
+  "observedOn": [
+    "/content/custom-content",
+    "/lms/professional-services"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "shell.nav"
+    ],
+    "recommendedBefore": [
+      "proof.flip-logos",
+      "proof.results-stats"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.person",
+    "placeholder.neutral",
+    "stock.photo"
+  ],
+  "variants": [
+    "services",
+    "custom"
+  ]
+}

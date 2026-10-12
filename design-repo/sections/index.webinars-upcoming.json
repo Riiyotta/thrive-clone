@@ -1,0 +1,228 @@
+{
+  "id": "index.webinars-upcoming",
+  "kind": "section",
+  "name": "Upcoming webinars list",
+  "purpose": "Announces scheduled live webinars next to a short pitch for the series, falling back to an empty-state line when none are scheduled.",
+  "category": "index",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/WebinarsUpcoming.jsx",
+  "description": "Two-column hairline block on the legacy \"green\" theme (stacked at 767): left half is a sticky intro (pill eyebrow, 1.75rem heading, grey line of copy); right half lists upcoming webinars as bordered rows (date pill + semibold title). With no webinars it renders the CMS empty state, a grey #ddd box reading \"No items found.\", which is what the only real page shows.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "eyebrow": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      },
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 15,
+        "measuredLongestRealInstance": "12 words in the clone's own placeholder copy"
+      },
+      "text": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 9,
+        "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+      },
+      "webinars": {
+        "type": "array",
+        "minItems": 0,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "date": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 6
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 15
+            }
+          },
+          "required": [
+            "date",
+            "title"
+          ]
+        },
+        "maxItems": 6,
+        "note": "Empty on the real page (CMS list was empty), which triggers emptyText. Row shape is supported by code but has no real instance."
+      },
+      "emptyText": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "eyebrow",
+      "heading",
+      "text",
+      "webinars",
+      "emptyText"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/WebinarsUpcoming.jsx:22-22",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; the intro column is CSS-sticky and webinar rows (when present) switch background on hover without a transition."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col",
+      "tailwind": [
+        "mob:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/WebinarsUpcoming.jsx:21-21",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "sizing",
+        "spacing"
+      ],
+      "changes": "mob:relative; w-1/2 -> mob:w-full; mob:gap-y-[1.25rem]; p-[2.5rem] -> mob:p-[1.5rem]",
+      "tailwind": [
+        "mob:relative mob:w-full mob:gap-y-[1.25rem] mob:p-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/WebinarsUpcoming.jsx:22-22",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.75rem] -> xs:text-[1.5rem]",
+      "tailwind": [
+        "xs:text-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/WebinarsUpcoming.jsx:27-27",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/WebinarsUpcoming.jsx:29-29",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "spacing",
+        "other"
+      ],
+      "changes": "w-1/2 -> mob:w-full; mob:gap-y-[1rem]; border-r -> mob:border-r-0; mob:p-0",
+      "tailwind": [
+        "mob:w-full mob:gap-y-[1rem] mob:border-r-0 mob:p-0"
+      ],
+      "measuredFrom": "src/components/sections/WebinarsUpcoming.jsx:32-32",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "p-[2.5rem] -> tab:p-[2rem] -> xs:p-[1.5rem]",
+      "tailwind": [
+        "tab:p-[2rem] xs:p-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/WebinarsUpcoming.jsx:40-40",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/WebinarsUpcoming.jsx:49-49",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.eyebrow",
+    "primitive.legacy-theme"
+  ],
+  "measuredFrom": "src/components/sections/WebinarsUpcoming.jsx:9-60",
+  "iaSectionId": "index.webinars-upcoming",
+  "evidenceNotes": [
+    "The page renders <WebinarsUpcoming /> with no props, so every field is the component default and webinars is [] (empty state). Webinar row budgets (date/title) are unconstrained by real copy and set from the row styling."
+  ],
+  "observedOn": [
+    "/resources/events-webinars"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "index.events-upcoming"
+    ],
+    "recommendedBefore": [
+      "index.events-past"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": []
+}

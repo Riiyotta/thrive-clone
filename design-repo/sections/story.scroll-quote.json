@@ -38,8 +38,8 @@
     ]
   },
   "constraints": {
-    "onePerPage": true,
-    "maxPerPage": 1
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
   },
   "motion": {
     "allowedPatterns": [
@@ -56,9 +56,10 @@
       "query": "max-width: 991px",
       "changes": "Bottom padding 80 -> 64 (48 at <=767).",
       "tailwind": [
-        "pb-[80px] pt-[32px] tab:pb-[64px] mob:pb-[48px]"
+        "pb-[5rem] pt-[2rem] tab:pb-[4rem] mob:pb-[3rem]"
       ],
-      "measuredFrom": "src/components/QuoteHighlight.jsx:37-37"
+      "measuredFrom": "src/components/QuoteHighlight.jsx:37-37",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
@@ -79,7 +80,7 @@
     "recommendedBefore": [
       "proof.case-study-carousel"
     ],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
     "/"

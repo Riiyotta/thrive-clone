@@ -12,7 +12,7 @@ Paths are derived from __file__, never hardcoded.
 
 Usage:
     python3 semantic_validate.py [pagespec.json ...]
-    python3 semantic_validate.py            # validates the bundled example
+    python3 semantic_validate.py            # validates every bundled example
 """
 import json
 import os
@@ -114,11 +114,36 @@ def pinned_policy_problems(registry, allowlist):
 # checks -- each returns a list of (severity, rule_id, message)
 # --------------------------------------------------------------------------
 
+def node_variant(node):
+    content = node.get("content")
+    if isinstance(content, dict) and isinstance(content.get("variant"), str):
+        return content["variant"]
+    return "default"
+
+
+def slot_choices(slot):
+    """a slot plus its alternatives (a CHOICE slot accepts exactly one of them)."""
+    return [slot] + list(slot.get("alternatives", []))
+
+
+def template_realizations(tpl):
+    """every node sequence a template permits: optional slots in/out, each choice resolved."""
+    import itertools
+    opts = []
+    for slot in tpl["nodes"]:
+        ch = [[c["section"]] for c in slot_choices(slot)]
+        if not slot.get("required", True):
+            ch.append([])
+        opts.append(ch)
+    return [[x for part in combo for x in part] for combo in itertools.product(*opts)]
+
+
 def check_template_sequence(spec, reg):
-    """TEMPLATE_NODE_SEQUENCE_MATCH + TEMPLATE_ROUTE_MEASURED.
+    """TEMPLATE_NODE_SEQUENCE_MATCH + TEMPLATE_VARIANT_MATCH + THEME_MATCHES_TEMPLATE + TEMPLATE_ROUTE_MEASURED.
 
     nodes[] is validated against the node list of the template the PageSpec
-    DECLARES -- never inspected in isolation.
+    DECLARES -- never inspected in isolation. Slots honour required / repeatable /
+    choice (alternatives); a slot listing `variants` is matched on (section, variant).
     """
     out = []
     tid = spec.get("template")
@@ -130,17 +155,28 @@ def check_template_sequence(spec, reg):
     actual = spec.get("nodes", [])
     ai = 0
     for slot in tpl["nodes"]:
-        sec = slot["section"]
+        choices = slot_choices(slot)
+        names = [c["section"] for c in choices]
         lo = 1 if slot.get("required", True) else 0
         hi = len(actual) if slot.get("repeatable") else 1
         seen = 0
-        while ai < len(actual) and actual[ai].get("section") == sec and seen < hi:
+        picked = None
+        while ai < len(actual) and seen < hi:
+            sec = actual[ai].get("section")
+            if sec not in names or (picked is not None and sec != picked["section"]):
+                break
+            picked = choices[names.index(sec)]
+            allowed = picked.get("variants")
+            if allowed and node_variant(actual[ai]) not in allowed:
+                out.append(("error", "TEMPLATE_VARIANT_MATCH",
+                            "node %d (%s) has variant %r; template %r allows %s in this slot"
+                            % (ai, sec, node_variant(actual[ai]), tid, allowed)))
             seen += 1
             ai += 1
         if seen < lo:
             out.append(("error", "TEMPLATE_NODE_SEQUENCE_MATCH",
                         "template %r requires %s at position %d but the PageSpec has %r there"
-                        % (tid, sec, ai, actual[ai].get("section") if ai < len(actual) else None)))
+                        % (tid, " | ".join(names), ai, actual[ai].get("section") if ai < len(actual) else None)))
     if ai < len(actual):
         extras = [n.get("section") for n in actual[ai:]]
         out.append(("error", "TEMPLATE_NODE_SEQUENCE_MATCH",
@@ -149,12 +185,15 @@ def check_template_sequence(spec, reg):
     route = spec.get("route")
     if route and route not in tpl["routes"]:
         out.append(("warn", "TEMPLATE_ROUTE_MEASURED",
-                    "route %r is not a measured route of template %r %s; only '/' was measured"
-                    % (route, tid, tpl["routes"])))
+                    "route %r is not a measured route of template %r (%d measured route(s), e.g. %s)"
+                    % (route, tid, len(tpl["routes"]), tpl["routes"][0])))
     if spec.get("designSystem") != tpl["designSystem"]:
         out.append(("error", "TEMPLATE_NODE_SEQUENCE_MATCH",
                     "designSystem %r does not match template %r's %r"
                     % (spec.get("designSystem"), tid, tpl["designSystem"])))
+    if spec.get("theme") != tpl.get("theme"):
+        out.append(("error", "THEME_MATCHES_TEMPLATE",
+                    "theme %r does not match template %r's theme %r" % (spec.get("theme"), tid, tpl.get("theme"))))
     return out
 
 
@@ -173,12 +212,17 @@ def check_chrome_position(spec, reg):
         if not ids or ids[-1] != sid:
             out.append(("error", "FOOTER_LAST", "last node is %r, expected %s"
                         % (ids[-1] if ids else None, sid)))
+    ctas = [i for i, x in enumerate(ids) if x in ("conversion.demo-form", "conversion.demo-cta")]
+    if len(ctas) != 1 or (ids and ctas and ctas[0] != len(ids) - 2):
+        out.append(("error", "FOOTER_CTA_EXACTLY_ONE",
+                    "expected exactly one footer CTA block (conversion.demo-form | conversion.demo-cta) right "
+                    "before shell.footer; found at positions %s" % ctas))
     return out
 
 
 def check_pinned_neighbours(spec, reg):
-    """HERO_FOLLOWS_NAV, TESTIMONIAL_FOLLOWS_STATS, FAQ_PRECEDES_DEMO_FORM,
-    DEMO_FORM_PRECEDES_FOOTER -- each section declares its rule id."""
+    """TESTIMONIAL_FOLLOWS_STATS, DEMO_FORM_PLACEMENT, DEMO_CTA_PRECEDES_FOOTER,
+    OVERLAP_HERO_FOLLOWS_SPACER -- each section declares its rule id."""
     out = []
     ids = [n.get("section") for n in spec.get("nodes", [])]
     for i, sid in enumerate(ids):
@@ -196,31 +240,44 @@ def check_pinned_neighbours(spec, reg):
 
 
 def check_one_hero(spec, reg):
-    """ONE_HERO_PER_PAGE, with the DERIVED (empty) hero-less exception set."""
-    nohero = reg["graph"]["derivedSets"]["NO_HERO_TEMPLATES"]["value"]
-    heroes = [n for n in spec.get("nodes", [])
-              if reg["sections"].get(n.get("section"), {}).get("category") == "hero"]
-    if len(heroes) > 1:
-        return [("error", "ONE_HERO_PER_PAGE", "%d hero sections on one page" % len(heroes))]
-    if not heroes and spec.get("template") not in nohero:
-        return [("error", "ONE_HERO_PER_PAGE",
-                 "template %r is not in NO_HERO_TEMPLATES %s but has no hero"
-                 % (spec.get("template"), nohero))]
-    return []
+    """HERO_OPENS_PAGE + ONE_HERO_PER_PAGE, with the DERIVED NO_HERO_TEMPLATES and
+    SECONDARY_HERO_USES exception sets (compatibility/graph.json derivedSets)."""
+    ds = reg["graph"]["derivedSets"]
+    nohero = ds["NO_HERO_TEMPLATES"]["value"]
+    secondary = {tuple(p) for p in ds["SECONDARY_HERO_USES"]["value"]}
+    nodes = spec.get("nodes", [])
+    cat = lambda n: reg["sections"].get(n.get("section"), {}).get("category")
+    heroes = [n for n in nodes if cat(n) == "hero"]
+    counted = [n for n in heroes if (n.get("section"), node_variant(n)) not in secondary]
+    out = []
+    if len(counted) > 1:
+        out.append(("error", "ONE_HERO_PER_PAGE", "%d hero sections on one page (%s)"
+                    % (len(counted), [n.get("section") for n in counted])))
+    if spec.get("template") in nohero:
+        return out
+    if not heroes:
+        out.append(("error", "ONE_HERO_PER_PAGE",
+                    "template %r is not in NO_HERO_TEMPLATES %s but has no hero" % (spec.get("template"), nohero)))
+    elif len(nodes) < 2 or cat(nodes[1]) != "hero":
+        out.append(("error", "HERO_OPENS_PAGE", "node 1 is %r, expected a hero-category section right after the nav"
+                    % (nodes[1].get("section") if len(nodes) > 1 else None)))
+    return out
 
 
 def check_duplicates(spec, reg):
-    """NO_DUPLICATE_SINGLETON."""
+    """NO_DUPLICATE_SINGLETON, keyed on (section, variant) with the derived caps."""
     out = []
     counts = {}
     for node in spec.get("nodes", []):
-        counts[node.get("section")] = counts.get(node.get("section"), 0) + 1
-    for sec, n in sorted(counts.items(), key=lambda kv: str(kv[0])):
+        key = (node.get("section"), node_variant(node))
+        counts[key] = counts.get(key, 0) + 1
+    for (sec, var), n in sorted(counts.items(), key=lambda kv: (str(kv[0][0]), kv[0][1])):
         cons = reg["sections"].get(sec, {}).get("constraints", {})
-        cap = cons.get("maxPerPage", 1 if cons.get("onePerPage") else None)
+        caps = cons.get("maxPerPageByVariant") or {}
+        cap = caps.get(var, caps.get("*", cons.get("maxPerPage", 1 if cons.get("onePerPage") else None)))
         if isinstance(cap, int) and n > cap:
             out.append(("error", "NO_DUPLICATE_SINGLETON",
-                        "%s appears %d times, maxPerPage is %d" % (sec, n, cap)))
+                        "%s (variant %s) appears %d times, the most on any real page is %d" % (sec, var, n, cap)))
     return out
 
 
@@ -321,11 +378,15 @@ def check_asset_roles(spec, reg):
             if allowed is not None and role not in allowed:
                 out.append(("error", "ASSET_ROLE_CLOSED",
                             "%s: assetRole %r is not allowed on this field %s" % (path, role, allowed)))
-            if "assetRef" in d and spec_role.get("generationPolicy") != "may-generate-new":
+            if "assetRef" in d and spec_role.get("generationPolicy") not in ("may-generate-new", "may-reuse-licensed"):
                 out.append(("error", "ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE",
                             "%s: role %r is %s -- it renders a neutral placeholder and may "
                             "not carry an assetRef (%r)"
                             % (path, role, spec_role.get("generationPolicy"), d["assetRef"])))
+            if str(d.get("assetRef", "")).startswith("stock/") and role != "stock.photo":
+                out.append(("error", "STOCK_REF_ONLY_FOR_STOCK_ROLE",
+                            "%s: assetRef %r points at the licensed stock set but the role is %r, not stock.photo"
+                            % (path, d["assetRef"], role)))
     return out
 
 
@@ -373,6 +434,9 @@ def check_static_form(spec, reg):
                             "node %d: form.live must be false -- the demo form is a static "
                             "placeholder with no endpoint" % i))
         for path, d in _dicts(content, "node[%d]" % i):
+            if "live" in d and d["live"] is not False:
+                out.append(("error", "DEMO_FORM_STAYS_STATIC",
+                            "%s.live must be false -- every form is a static placeholder" % path))
             for key in d:
                 if key in _FORM_BANNED:
                     out.append(("error", "DEMO_FORM_STAYS_STATIC",
@@ -462,6 +526,15 @@ def validate_spec(spec, reg=None):
     return errors, warnings
 
 
+def example_paths():
+    """the bundled homepage example plus one example per template family in schema/examples/."""
+    out = [os.path.join(REPO, "schema", "example.pagespec.json")]
+    exdir = os.path.join(REPO, "schema", "examples")
+    if os.path.isdir(exdir):
+        out += [os.path.join(exdir, n) for n in sorted(os.listdir(exdir)) if n.endswith(".json")]
+    return out
+
+
 def validate_schema(spec):
     """Draft-07 validation using the repo's vendored, dependency-free validator."""
     import _draft7
@@ -469,7 +542,7 @@ def validate_schema(spec):
 
 
 def main(argv):
-    paths = argv[1:] or [os.path.join(REPO, "schema", "example.pagespec.json")]
+    paths = argv[1:] or example_paths()
     reg = load_registry()
     bad = 0
     for path in paths:

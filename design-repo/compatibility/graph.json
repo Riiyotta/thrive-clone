@@ -1,55 +1,525 @@
 {
   "$comment": "Rhythm/position/motion/asset rules JSON Schema cannot express. Every rule names the function that enforces it; extraction/verify_all.py::check_graph_validator_agreement asserts each named function exists and that every derived set still equals what templates.json says.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "severities": {
     "error": "hard failure",
     "warn": "non-fatal notice"
   },
   "derivedSets": {
     "NO_HERO_TEMPLATES": {
-      "value": [],
-      "derivedBy": "templates with no hero-category node",
-      "count": 0
+      "value": [
+        "blog-and-news",
+        "case-study-platform",
+        "guides",
+        "lms-glossary"
+      ],
+      "derivation": "templates with no hero-category node (their opening block carries the H1 itself)"
+    },
+    "SECONDARY_HERO_USES": {
+      "value": [
+        [
+          "hero.layout2-media",
+          "company"
+        ],
+        [
+          "hero.logos-overlap",
+          "default"
+        ]
+      ],
+      "derivation": "(section, variant) hero-category nodes that are NOT the first content node on a real template; exempt from ONE_HERO_PER_PAGE"
     },
     "SECTION_CATEGORIES": {
       "value": {
-        "shell.nav": "shell",
-        "hero.split-visual": "hero",
-        "proof.logo-row": "proof",
-        "product.feature-tabs": "product",
-        "product.assistant-tabs": "product",
-        "product.capability-slider": "product",
-        "proof.results-stats": "proof",
-        "proof.testimonial": "proof",
-        "story.zoom-statement": "story",
-        "story.scroll-quote": "story",
-        "proof.case-study-carousel": "proof",
-        "story.brand-video": "story",
-        "conversion.faq": "conversion",
+        "article.cs-content-article": "article",
+        "article.cs-platform-body": "article",
+        "conversion.contact-form": "conversion",
+        "conversion.content-pricing": "conversion",
+        "conversion.cta-strip": "conversion",
+        "conversion.demo-cta": "conversion",
         "conversion.demo-form": "conversion",
-        "shell.footer": "shell"
+        "conversion.faq": "conversion",
+        "conversion.faq-empty": "conversion",
+        "conversion.faq-legacy": "conversion",
+        "conversion.glossary-cta": "conversion",
+        "conversion.pricing-plans-legacy": "conversion",
+        "conversion.why-cta": "conversion",
+        "hero.assistant-video": "hero",
+        "hero.center-legacy": "hero",
+        "hero.company-video": "hero",
+        "hero.content-overview": "hero",
+        "hero.demo-form": "hero",
+        "hero.global-header-legacy": "hero",
+        "hero.header-grid-card": "hero",
+        "hero.integrations-header": "hero",
+        "hero.layout2-media": "hero",
+        "hero.logos-overlap": "hero",
+        "hero.mentoring-software": "hero",
+        "hero.platform": "hero",
+        "hero.pricing-calculator": "hero",
+        "hero.split-visual": "hero",
+        "hero.wow-content": "hero",
+        "index.blog-featured": "index",
+        "index.blog-filter": "index",
+        "index.cs-content-list": "index",
+        "index.cs-content-related": "index",
+        "index.cs-filter-grid": "index",
+        "index.events-past": "index",
+        "index.events-upcoming": "index",
+        "index.glossary": "index",
+        "index.guides": "index",
+        "index.integration-filter": "index",
+        "index.topics-grid": "index",
+        "index.webinars-upcoming": "index",
+        "product.anchor-intro": "product",
+        "product.assistant-feature-tabs": "product",
+        "product.assistant-tabs": "product",
+        "product.autotabs-group": "product",
+        "product.capability-slider": "product",
+        "product.card-slider-legacy": "product",
+        "product.comparison-table": "product",
+        "product.explore-empty": "product",
+        "product.feature-bento": "product",
+        "product.feature-rows-legacy": "product",
+        "product.feature-tabs": "product",
+        "product.features-intro": "product",
+        "product.grid-cards-legacy": "product",
+        "product.included-tabs": "product",
+        "product.integrations-visual": "product",
+        "product.layout03-tabs": "product",
+        "product.learn-grid": "product",
+        "product.platform-intro": "product",
+        "product.release-block": "product",
+        "product.sector-tabs": "product",
+        "product.solution-tabs": "product",
+        "product.split-autotabs": "product",
+        "product.split-tabs": "product",
+        "product.sticky-tabs": "product",
+        "product.tabs-horizontal-legacy": "product",
+        "product.two-col-features": "product",
+        "product.why-assistant-tabs": "product",
+        "product.wow-bento": "product",
+        "proof.case-results": "proof",
+        "proof.case-study-carousel": "proof",
+        "proof.case-study-video": "proof",
+        "proof.centred-quote": "proof",
+        "proof.cs-content-stats": "proof",
+        "proof.flip-logos": "proof",
+        "proof.logo-row": "proof",
+        "proof.results-proof": "proof",
+        "proof.results-stats": "proof",
+        "proof.reviews-grid": "proof",
+        "proof.reviews-slider": "proof",
+        "proof.stats-countup": "proof",
+        "proof.testimonial": "proof",
+        "proof.testimonial-card-legacy": "proof",
+        "proof.testimonial-quote": "proof",
+        "shell.footer": "shell",
+        "shell.nav": "shell",
+        "story.brand-video": "story",
+        "story.company-news": "story",
+        "story.custom-video": "story",
+        "story.grid-split-legacy": "story",
+        "story.header-image-legacy": "story",
+        "story.marquee": "story",
+        "story.scroll-quote": "story",
+        "story.wow-2col": "story",
+        "story.zoom-statement": "story"
       },
-      "derivedBy": "sections/*.json -> category"
+      "derivation": "category of every section contract"
     },
-    "CANONICAL_ORDER": {
-      "value": [
-        "shell.nav",
-        "hero.split-visual",
-        "proof.logo-row",
-        "product.feature-tabs",
-        "product.assistant-tabs",
-        "product.capability-slider",
-        "proof.results-stats",
-        "proof.testimonial",
-        "story.zoom-statement",
-        "story.scroll-quote",
-        "proof.case-study-carousel",
-        "story.brand-video",
-        "conversion.faq",
-        "conversion.demo-form",
-        "shell.footer"
-      ],
-      "derivedBy": "templates.json -> home.nodes[].section"
+    "TEMPLATE_ORDERS": {
+      "value": {
+        "home": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "product.assistant-tabs",
+          "product.capability-slider",
+          "proof.results-stats",
+          "proof.testimonial",
+          "story.zoom-statement",
+          "story.scroll-quote",
+          "proof.case-study-carousel",
+          "story.brand-video",
+          "conversion.faq",
+          "conversion.demo-form",
+          "shell.footer"
+        ],
+        "feature-detail": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "story.brand-video",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "case-study-platform": [
+          "shell.nav",
+          "article.cs-platform-body",
+          "product.capability-slider",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "case-study-content": [
+          "shell.nav",
+          "hero.layout2-media",
+          "proof.cs-content-stats",
+          "article.cs-content-article",
+          "index.cs-content-related",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "content-catalogue": [
+          "shell.nav",
+          "hero.header-grid-card",
+          "proof.flip-logos",
+          "index.topics-grid",
+          "proof.reviews-slider",
+          "conversion.faq-legacy",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "lms": [
+          "shell.nav",
+          "hero.platform",
+          "product.platform-intro",
+          "product.assistant-tabs",
+          "proof.testimonial-quote",
+          "product.assistant-tabs",
+          "proof.testimonial-quote",
+          "product.autotabs-group",
+          "product.feature-tabs",
+          "product.feature-tabs",
+          "proof.testimonial-quote",
+          "product.feature-bento",
+          "proof.results-stats",
+          "proof.centred-quote",
+          "product.comparison-table",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "lms-small-business": [
+          "shell.nav",
+          "hero.wow-content",
+          "proof.logo-row",
+          "product.wow-bento",
+          "product.assistant-tabs",
+          "product.layout03-tabs",
+          "proof.results-stats",
+          "proof.centred-quote",
+          "story.marquee",
+          "product.wow-bento",
+          "conversion.cta-strip",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "lms-corporate": [
+          "shell.nav",
+          "hero.wow-content",
+          "hero.logos-overlap",
+          "product.split-autotabs",
+          "product.layout03-tabs",
+          "proof.testimonial-quote",
+          "proof.results-stats",
+          "product.two-col-features",
+          "product.integrations-visual",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "lms-enterprise": [
+          "shell.nav",
+          "hero.wow-content",
+          "product.split-autotabs",
+          "product.layout03-tabs",
+          "product.autotabs-group",
+          "proof.results-stats",
+          "proof.centred-quote",
+          "product.two-col-features",
+          "product.split-autotabs",
+          "product.integrations-visual",
+          "proof.testimonial-quote",
+          "conversion.cta-strip",
+          "product.comparison-table",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "lms-solutions": [
+          "shell.nav",
+          "hero.wow-content",
+          "proof.logo-row",
+          "product.anchor-intro",
+          "product.sticky-tabs",
+          "proof.testimonial-quote",
+          "product.sector-tabs",
+          "proof.case-study-carousel",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "lms-professional-services": [
+          "shell.nav",
+          "hero.center-legacy",
+          "proof.results-stats",
+          "story.header-image-legacy",
+          "story.grid-split-legacy",
+          "product.tabs-horizontal-legacy",
+          "story.grid-split-legacy",
+          "product.feature-rows-legacy",
+          "product.grid-cards-legacy",
+          "proof.reviews-slider",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "lms-impact": [
+          "shell.nav",
+          "hero.layout2-media",
+          "proof.flip-logos",
+          "product.feature-rows-legacy",
+          "product.grid-cards-legacy",
+          "product.card-slider-legacy",
+          "product.grid-cards-legacy",
+          "product.grid-cards-legacy",
+          "story.grid-split-legacy",
+          "conversion.pricing-plans-legacy",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "lms-integrations": [
+          "shell.nav",
+          "hero.integrations-header",
+          "index.integration-filter",
+          "proof.reviews-slider",
+          "conversion.faq-legacy",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "lms-spring-release": [
+          "shell.nav",
+          "hero.wow-content",
+          "proof.logo-row",
+          "product.release-block",
+          "product.wow-bento",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "lms-demo-platform": [
+          "shell.nav",
+          "hero.demo-form",
+          "proof.logo-row",
+          "proof.results-stats",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "pricing": [
+          "shell.nav",
+          "hero.pricing-calculator",
+          "proof.reviews-grid",
+          "conversion.content-pricing",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "lms-features": [
+          "shell.nav",
+          "hero.wow-content",
+          "proof.logo-row",
+          "product.features-intro",
+          "product.anchor-intro",
+          "product.sticky-tabs",
+          "product.integrations-visual",
+          "proof.testimonial-quote",
+          "conversion.cta-strip",
+          "proof.case-study-carousel",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "nova": [
+          "shell.nav",
+          "hero.assistant-video",
+          "proof.logo-row",
+          "product.assistant-feature-tabs",
+          "product.assistant-feature-tabs",
+          "conversion.cta-strip",
+          "proof.testimonial-quote",
+          "product.split-tabs",
+          "product.comparison-table",
+          "product.autotabs-group",
+          "story.brand-video",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "lms-mentoring-software": [
+          "shell.nav",
+          "hero.mentoring-software",
+          "product.autotabs-group",
+          "product.split-tabs",
+          "proof.case-study-video",
+          "story.brand-video",
+          "conversion.cta-strip",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "content-overview": [
+          "shell.nav",
+          "hero.content-overview",
+          "product.sector-tabs",
+          "product.solution-tabs",
+          "product.grid-cards-legacy",
+          "proof.reviews-slider",
+          "conversion.faq-legacy",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "content-service": [
+          "shell.nav",
+          "hero.layout2-media",
+          "proof.flip-logos",
+          "product.feature-rows-legacy",
+          "product.card-slider-legacy",
+          "proof.testimonial-card-legacy",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "content-custom": [
+          "shell.nav",
+          "hero.center-legacy",
+          "proof.flip-logos",
+          "story.custom-video",
+          "proof.testimonial-card-legacy",
+          "product.learn-grid",
+          "product.card-slider-legacy",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "mentoring": [
+          "shell.nav",
+          "hero.wow-content",
+          "proof.logo-row",
+          "story.wow-2col",
+          "story.marquee",
+          "story.wow-2col",
+          "story.marquee",
+          "story.wow-2col",
+          "story.marquee",
+          "story.wow-2col",
+          "story.marquee",
+          "product.wow-bento",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "case-studies-lms": [
+          "shell.nav",
+          "hero.wow-content",
+          "index.cs-filter-grid",
+          "proof.case-results",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "case-studies-content": [
+          "shell.nav",
+          "hero.global-header-legacy",
+          "index.cs-content-list",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "company": [
+          "shell.nav",
+          "hero.company-video",
+          "proof.logo-row",
+          "proof.stats-countup",
+          "product.two-col-features",
+          "proof.results-proof",
+          "story.company-news",
+          "proof.case-study-carousel",
+          "hero.layout2-media",
+          "conversion.faq",
+          "conversion.demo-form",
+          "shell.footer"
+        ],
+        "company-why": [
+          "shell.nav",
+          "hero.wow-content",
+          "proof.logo-row",
+          "product.why-assistant-tabs",
+          "product.wow-bento",
+          "conversion.why-cta",
+          "proof.case-study-carousel",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "whats-included": [
+          "shell.nav",
+          "hero.wow-content",
+          "proof.logo-row",
+          "product.included-tabs",
+          "product.layout03-tabs",
+          "proof.results-proof",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "contact-us": [
+          "shell.nav",
+          "hero.global-header-legacy",
+          "proof.logo-row",
+          "conversion.contact-form",
+          "proof.case-study-carousel",
+          "conversion.faq",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "events-webinars": [
+          "shell.nav",
+          "hero.layout2-media",
+          "index.events-upcoming",
+          "index.webinars-upcoming",
+          "index.events-past",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "blog-and-news": [
+          "shell.nav",
+          "index.blog-featured",
+          "index.blog-filter",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "guides": [
+          "shell.nav",
+          "index.guides",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "lms-glossary": [
+          "shell.nav",
+          "index.glossary",
+          "conversion.glossary-cta",
+          "conversion.demo-cta",
+          "shell.footer"
+        ]
+      },
+      "derivation": "node order of every template (templates/templates.json)"
     },
     "REAL_SAME_CATEGORY_PAIRS": {
       "value": [
@@ -72,29 +542,572 @@
         [
           "conversion.faq",
           "conversion.demo-form"
+        ],
+        [
+          "conversion.faq-legacy",
+          "conversion.demo-cta"
+        ],
+        [
+          "product.platform-intro",
+          "product.assistant-tabs"
+        ],
+        [
+          "product.autotabs-group",
+          "product.feature-tabs"
+        ],
+        [
+          "product.feature-tabs",
+          "product.feature-tabs"
+        ],
+        [
+          "proof.results-stats",
+          "proof.centred-quote"
+        ],
+        [
+          "conversion.faq",
+          "conversion.demo-cta"
+        ],
+        [
+          "product.wow-bento",
+          "product.assistant-tabs"
+        ],
+        [
+          "product.assistant-tabs",
+          "product.layout03-tabs"
+        ],
+        [
+          "conversion.cta-strip",
+          "conversion.faq"
+        ],
+        [
+          "hero.wow-content",
+          "hero.logos-overlap"
+        ],
+        [
+          "product.split-autotabs",
+          "product.layout03-tabs"
+        ],
+        [
+          "proof.testimonial-quote",
+          "proof.results-stats"
+        ],
+        [
+          "product.two-col-features",
+          "product.integrations-visual"
+        ],
+        [
+          "product.layout03-tabs",
+          "product.autotabs-group"
+        ],
+        [
+          "product.two-col-features",
+          "product.split-autotabs"
+        ],
+        [
+          "product.split-autotabs",
+          "product.integrations-visual"
+        ],
+        [
+          "product.anchor-intro",
+          "product.sticky-tabs"
+        ],
+        [
+          "story.header-image-legacy",
+          "story.grid-split-legacy"
+        ],
+        [
+          "product.feature-rows-legacy",
+          "product.grid-cards-legacy"
+        ],
+        [
+          "product.grid-cards-legacy",
+          "product.card-slider-legacy"
+        ],
+        [
+          "product.card-slider-legacy",
+          "product.grid-cards-legacy"
+        ],
+        [
+          "product.grid-cards-legacy",
+          "product.grid-cards-legacy"
+        ],
+        [
+          "conversion.pricing-plans-legacy",
+          "conversion.demo-cta"
+        ],
+        [
+          "product.release-block",
+          "product.wow-bento"
+        ],
+        [
+          "proof.logo-row",
+          "proof.results-stats"
+        ],
+        [
+          "conversion.content-pricing",
+          "conversion.faq"
+        ],
+        [
+          "product.features-intro",
+          "product.anchor-intro"
+        ],
+        [
+          "product.sticky-tabs",
+          "product.integrations-visual"
+        ],
+        [
+          "product.assistant-feature-tabs",
+          "product.assistant-feature-tabs"
+        ],
+        [
+          "product.split-tabs",
+          "product.comparison-table"
+        ],
+        [
+          "product.comparison-table",
+          "product.autotabs-group"
+        ],
+        [
+          "product.autotabs-group",
+          "product.split-tabs"
+        ],
+        [
+          "product.sector-tabs",
+          "product.solution-tabs"
+        ],
+        [
+          "product.solution-tabs",
+          "product.grid-cards-legacy"
+        ],
+        [
+          "product.feature-rows-legacy",
+          "product.card-slider-legacy"
+        ],
+        [
+          "product.learn-grid",
+          "product.card-slider-legacy"
+        ],
+        [
+          "story.wow-2col",
+          "story.marquee"
+        ],
+        [
+          "story.marquee",
+          "story.wow-2col"
+        ],
+        [
+          "proof.logo-row",
+          "proof.stats-countup"
+        ],
+        [
+          "product.why-assistant-tabs",
+          "product.wow-bento"
+        ],
+        [
+          "product.included-tabs",
+          "product.layout03-tabs"
+        ],
+        [
+          "proof.results-proof",
+          "proof.reviews-slider"
+        ],
+        [
+          "index.events-upcoming",
+          "index.webinars-upcoming"
+        ],
+        [
+          "index.webinars-upcoming",
+          "index.events-past"
+        ],
+        [
+          "index.blog-featured",
+          "index.blog-filter"
+        ],
+        [
+          "conversion.glossary-cta",
+          "conversion.demo-cta"
         ]
       ],
-      "derivedBy": "adjacent nodes of templates.json -> home whose sections share a category",
-      "count": 5
+      "derivation": "same-category adjacencies that occur in some real realization of a template (optional slots in/out, choices resolved)"
+    },
+    "REAL_MAX_PER_PAGE": {
+      "value": {
+        "shell.nav": {
+          "default": 1
+        },
+        "hero.split-visual": {
+          "default": 1,
+          "feature-detail": 1
+        },
+        "proof.logo-row": {
+          "default": 1,
+          "subpage": 1
+        },
+        "product.feature-tabs": {
+          "default": 1,
+          "subpage": 2
+        },
+        "product.assistant-tabs": {
+          "default": 1,
+          "image-slides": 1,
+          "video-slides": 1
+        },
+        "product.capability-slider": {
+          "case": 1,
+          "default": 1
+        },
+        "proof.results-stats": {
+          "default": 1,
+          "subpage": 1
+        },
+        "proof.testimonial": {
+          "default": 1
+        },
+        "story.zoom-statement": {
+          "default": 1
+        },
+        "story.scroll-quote": {
+          "default": 1
+        },
+        "proof.case-study-carousel": {
+          "default": 1,
+          "subpage": 1
+        },
+        "story.brand-video": {
+          "default": 1,
+          "subpage": 1
+        },
+        "conversion.faq": {
+          "default": 1,
+          "subpage": 1
+        },
+        "conversion.demo-form": {
+          "default": 1
+        },
+        "shell.footer": {
+          "default": 1
+        },
+        "article.cs-content-article": {
+          "default": 1
+        },
+        "article.cs-platform-body": {
+          "default": 1
+        },
+        "conversion.contact-form": {
+          "default": 1
+        },
+        "conversion.content-pricing": {
+          "default": 1
+        },
+        "conversion.cta-strip": {
+          "button": 1,
+          "heading": 1,
+          "pricing": 1,
+          "spacer": 1
+        },
+        "conversion.demo-cta": {
+          "default": 1
+        },
+        "conversion.faq-empty": {
+          "default": 1
+        },
+        "conversion.faq-legacy": {
+          "default": 1
+        },
+        "conversion.glossary-cta": {
+          "default": 1
+        },
+        "conversion.pricing-plans-legacy": {
+          "default": 1
+        },
+        "conversion.why-cta": {
+          "default": 1
+        },
+        "hero.assistant-video": {
+          "default": 1
+        },
+        "hero.center-legacy": {
+          "custom": 1,
+          "services": 1
+        },
+        "hero.company-video": {
+          "default": 1
+        },
+        "hero.content-overview": {
+          "default": 1
+        },
+        "hero.demo-form": {
+          "default": 1
+        },
+        "hero.global-header-legacy": {
+          "eyebrow": 1,
+          "logo": 1
+        },
+        "hero.header-grid-card": {
+          "*": 1
+        },
+        "hero.integrations-header": {
+          "default": 1
+        },
+        "hero.layout2-media": {
+          "case-study": 1,
+          "company": 1,
+          "events": 1,
+          "impact": 1,
+          "service": 1
+        },
+        "hero.logos-overlap": {
+          "default": 1
+        },
+        "hero.mentoring-software": {
+          "default": 1
+        },
+        "hero.platform": {
+          "default": 1
+        },
+        "hero.pricing-calculator": {
+          "default": 1
+        },
+        "hero.wow-content": {
+          "case-studies": 1,
+          "corporate": 1,
+          "enterprise": 1,
+          "features": 1,
+          "mentoring": 1,
+          "small-business": 1,
+          "solutions": 1,
+          "spring-release": 1,
+          "whats-included": 1,
+          "why": 1
+        },
+        "index.blog-featured": {
+          "default": 1
+        },
+        "index.blog-filter": {
+          "default": 1
+        },
+        "index.cs-content-list": {
+          "default": 1
+        },
+        "index.cs-content-related": {
+          "default": 1
+        },
+        "index.cs-filter-grid": {
+          "default": 1
+        },
+        "index.events-past": {
+          "default": 1
+        },
+        "index.events-upcoming": {
+          "default": 1
+        },
+        "index.glossary": {
+          "default": 1
+        },
+        "index.guides": {
+          "default": 1
+        },
+        "index.integration-filter": {
+          "default": 1
+        },
+        "index.topics-grid": {
+          "topics": 1
+        },
+        "index.webinars-upcoming": {
+          "default": 1
+        },
+        "product.anchor-intro": {
+          "features": 1,
+          "solutions": 1
+        },
+        "product.assistant-feature-tabs": {
+          "default": 2
+        },
+        "product.autotabs-group": {
+          "enterprise": 1,
+          "mentoring": 1,
+          "platform": 1
+        },
+        "product.card-slider-legacy": {
+          "journey": 1,
+          "library": 1,
+          "process": 1
+        },
+        "product.comparison-table": {
+          "enterprise": 1,
+          "platform": 1,
+          "vendor": 1
+        },
+        "product.explore-empty": {
+          "default": 1
+        },
+        "product.feature-bento": {
+          "default": 1
+        },
+        "product.feature-rows-legacy": {
+          "impact": 1,
+          "service": 1,
+          "services": 1
+        },
+        "product.features-intro": {
+          "default": 1
+        },
+        "product.grid-cards-legacy": {
+          "awards": 1,
+          "content": 1,
+          "people": 1,
+          "services-extra": 1,
+          "stats": 1
+        },
+        "product.included-tabs": {
+          "default": 1
+        },
+        "product.integrations-visual": {
+          "enterprise": 1,
+          "features": 1,
+          "mid-market": 1
+        },
+        "product.layout03-tabs": {
+          "image": 1,
+          "video": 1,
+          "video-compact": 1
+        },
+        "product.learn-grid": {
+          "default": 1
+        },
+        "product.platform-intro": {
+          "default": 1
+        },
+        "product.release-block": {
+          "default": 1
+        },
+        "product.sector-tabs": {
+          "industries": 1,
+          "topics": 1
+        },
+        "product.solution-tabs": {
+          "default": 1
+        },
+        "product.split-autotabs": {
+          "default": 2
+        },
+        "product.split-tabs": {
+          "base": 1,
+          "reversed": 1
+        },
+        "product.sticky-tabs": {
+          "features": 1,
+          "solutions": 1
+        },
+        "product.tabs-horizontal-legacy": {
+          "default": 1
+        },
+        "product.two-col-features": {
+          "default": 1
+        },
+        "product.why-assistant-tabs": {
+          "default": 1
+        },
+        "product.wow-bento": {
+          "cards": 1,
+          "cards-cta": 1,
+          "included": 1,
+          "release": 1,
+          "why": 1
+        },
+        "proof.case-results": {
+          "default": 1
+        },
+        "proof.case-study-video": {
+          "default": 1
+        },
+        "proof.centred-quote": {
+          "default": 1
+        },
+        "proof.cs-content-stats": {
+          "default": 1
+        },
+        "proof.flip-logos": {
+          "default": 1
+        },
+        "proof.results-proof": {
+          "default": 1
+        },
+        "proof.reviews-grid": {
+          "default": 1
+        },
+        "proof.reviews-slider": {
+          "default": 1
+        },
+        "proof.stats-countup": {
+          "default": 1
+        },
+        "proof.testimonial-card-legacy": {
+          "default": 1
+        },
+        "proof.testimonial-quote": {
+          "enterprise": 1,
+          "kiki": 1,
+          "mid-market": 1,
+          "platform": 1,
+          "platform-lg": 1,
+          "section": 1
+        },
+        "story.company-news": {
+          "default": 1
+        },
+        "story.custom-video": {
+          "default": 1
+        },
+        "story.grid-split-legacy": {
+          "image": 1,
+          "suites": 1,
+          "testimonial": 1,
+          "text": 1
+        },
+        "story.header-image-legacy": {
+          "default": 1
+        },
+        "story.marquee": {
+          "header": 1,
+          "plain": 4
+        },
+        "story.wow-2col": {
+          "default": 4
+        }
+      },
+      "derivation": "most occurrences of each (section, variant) on any real template"
     }
   },
   "rules": [
     {
       "id": "TEMPLATE_NODE_SEQUENCE_MATCH",
       "severity": "error",
-      "rule": "A PageSpec's nodes[] must match, in order, the node list of the template its 'template' field DECLARES (required/repeatable honoured). Cross-references the declared template; never inspects nodes[] in isolation.",
+      "rule": "A PageSpec's nodes[] must match, in order, the node list of the template its 'template' field DECLARES (required / repeatable / choice slots honoured). Cross-references the declared template; never inspects nodes[] in isolation.",
+      "enforcedBy": "semantic_validate.py::check_template_sequence"
+    },
+    {
+      "id": "TEMPLATE_VARIANT_MATCH",
+      "severity": "error",
+      "rule": "A node filling a slot that lists `variants` must carry one of them as content.variant ('default' = the homepage branch, which has no variant field). Keys structural matching on (section, variant).",
+      "enforcedBy": "semantic_validate.py::check_template_sequence"
+    },
+    {
+      "id": "THEME_MATCHES_TEMPLATE",
+      "severity": "error",
+      "rule": "PageSpec.theme must equal the declared template's theme (nimbus-content only on the content-theme templates).",
       "enforcedBy": "semantic_validate.py::check_template_sequence"
     },
     {
       "id": "TEMPLATE_ROUTE_MEASURED",
       "severity": "warn",
-      "rule": "A route other than the template's measured routes ('/' for home) is allowed -- a generated page may live elsewhere -- but is FLAGGED, because only '/' was measured.",
+      "rule": "A route outside the declared template's measured routes is allowed -- a generated page may live elsewhere -- but is FLAGGED.",
       "enforcedBy": "semantic_validate.py::check_template_sequence"
     },
     {
       "id": "NAV_FIRST",
       "severity": "error",
-      "rule": "shell.nav must be node 0.",
+      "rule": "shell.nav must be node 0 (Layout.jsx renders it before every page).",
       "enforcedBy": "semantic_validate.py::check_chrome_position"
     },
     {
@@ -104,9 +1117,21 @@
       "enforcedBy": "semantic_validate.py::check_chrome_position"
     },
     {
-      "id": "HERO_FOLLOWS_NAV",
+      "id": "FOOTER_CTA_EXACTLY_ONE",
       "severity": "error",
-      "rule": "hero.split-visual (constraints.mustImmediatelyFollow) sits immediately after shell.nav.",
+      "rule": "Exactly one footer CTA block per page: conversion.demo-form (the 'home' footer variant, '/' and '/company') or conversion.demo-cta (every other route), immediately before shell.footer.",
+      "enforcedBy": "semantic_validate.py::check_chrome_position"
+    },
+    {
+      "id": "DEMO_FORM_PLACEMENT",
+      "severity": "error",
+      "rule": "conversion.demo-form sits immediately after conversion.faq and immediately before shell.footer (both real pages carrying it end FAQ -> form -> footer card inside one <footer>).",
+      "enforcedBy": "semantic_validate.py::check_pinned_neighbours"
+    },
+    {
+      "id": "DEMO_CTA_PRECEDES_FOOTER",
+      "severity": "error",
+      "rule": "conversion.demo-cta sits immediately before shell.footer (Footer.jsx renders both).",
       "enforcedBy": "semantic_validate.py::check_pinned_neighbours"
     },
     {
@@ -116,34 +1141,35 @@
       "enforcedBy": "semantic_validate.py::check_pinned_neighbours"
     },
     {
-      "id": "DEMO_FORM_PRECEDES_FOOTER",
+      "id": "OVERLAP_HERO_FOLLOWS_SPACER",
       "severity": "error",
-      "rule": "conversion.demo-form sits immediately before shell.footer: both are inside the one <footer> element (Footer.jsx).",
+      "rule": "hero.logos-overlap sits immediately after hero.wow-content (its negative top margin pulls it up over that empty 'corporate' wowcontent block).",
       "enforcedBy": "semantic_validate.py::check_pinned_neighbours"
     },
     {
-      "id": "FAQ_PRECEDES_DEMO_FORM",
+      "id": "HERO_OPENS_PAGE",
       "severity": "error",
-      "rule": "conversion.faq sits immediately before conversion.demo-form (the last objections are answered right before the ask).",
-      "enforcedBy": "semantic_validate.py::check_pinned_neighbours"
+      "rule": "On a template that has a hero, node 1 (right after the nav) is a hero-category node. Templates in derivedSets.NO_HERO_TEMPLATES open with the index/article block that carries the H1.",
+      "enforcedBy": "semantic_validate.py::check_one_hero"
     },
     {
       "id": "ONE_HERO_PER_PAGE",
       "severity": "error",
-      "rule": "Exactly one hero-category node, unless the template is in derivedSets.NO_HERO_TEMPLATES.",
-      "exception": "derivedSets.NO_HERO_TEMPLATES is EMPTY: the only template has a hero. Derived from the node sequence, so it cannot silently diverge from the validator.",
-      "enforcedBy": "semantic_validate.py::check_one_hero"
+      "rule": "At most one hero-category node, not counting the (section, variant) pairs in derivedSets.SECONDARY_HERO_USES (real secondary uses: the mid-page layout2 card on /company, the overlapping logos hero on /lms/corporate-lms); and at least one unless the template is in NO_HERO_TEMPLATES.",
+      "enforcedBy": "semantic_validate.py::check_one_hero",
+      "exception": "Both exception sets are DERIVED from templates.json and re-checked by verify_all.py::check_graph_validator_agreement."
     },
     {
       "id": "NO_DUPLICATE_SINGLETON",
       "severity": "error",
-      "rule": "Every section here is onePerPage (no section legitimately repeats on the real page, so no (section, variant) keying is needed).",
+      "rule": "Each (section, variant) may appear at most constraints.maxPerPageByVariant[variant] (else maxPerPage) times -- derived from the real templates (derivedSets.REAL_MAX_PER_PAGE), e.g. product.release-block 6 on the release page, story.marquee 'plain' 4 on /mentoring.",
       "enforcedBy": "semantic_validate.py::check_duplicates"
     },
     {
       "id": "NO_ADJACENT_SAME_CATEGORY",
       "severity": "warn",
-      "rule": "Two adjacent nodes of the same category are flagged, except the pairs that are adjacent on the real page.",
+      "rule": "Two adjacent nodes of the same category are flagged, except the pairs adjacent on some real page.",
+      "enforcedBy": "semantic_validate.py::check_adjacency",
       "exemptPairs": [
         [
           "product.feature-tabs",
@@ -164,16 +1190,197 @@
         [
           "conversion.faq",
           "conversion.demo-form"
+        ],
+        [
+          "conversion.faq-legacy",
+          "conversion.demo-cta"
+        ],
+        [
+          "product.platform-intro",
+          "product.assistant-tabs"
+        ],
+        [
+          "product.autotabs-group",
+          "product.feature-tabs"
+        ],
+        [
+          "product.feature-tabs",
+          "product.feature-tabs"
+        ],
+        [
+          "proof.results-stats",
+          "proof.centred-quote"
+        ],
+        [
+          "conversion.faq",
+          "conversion.demo-cta"
+        ],
+        [
+          "product.wow-bento",
+          "product.assistant-tabs"
+        ],
+        [
+          "product.assistant-tabs",
+          "product.layout03-tabs"
+        ],
+        [
+          "conversion.cta-strip",
+          "conversion.faq"
+        ],
+        [
+          "hero.wow-content",
+          "hero.logos-overlap"
+        ],
+        [
+          "product.split-autotabs",
+          "product.layout03-tabs"
+        ],
+        [
+          "proof.testimonial-quote",
+          "proof.results-stats"
+        ],
+        [
+          "product.two-col-features",
+          "product.integrations-visual"
+        ],
+        [
+          "product.layout03-tabs",
+          "product.autotabs-group"
+        ],
+        [
+          "product.two-col-features",
+          "product.split-autotabs"
+        ],
+        [
+          "product.split-autotabs",
+          "product.integrations-visual"
+        ],
+        [
+          "product.anchor-intro",
+          "product.sticky-tabs"
+        ],
+        [
+          "story.header-image-legacy",
+          "story.grid-split-legacy"
+        ],
+        [
+          "product.feature-rows-legacy",
+          "product.grid-cards-legacy"
+        ],
+        [
+          "product.grid-cards-legacy",
+          "product.card-slider-legacy"
+        ],
+        [
+          "product.card-slider-legacy",
+          "product.grid-cards-legacy"
+        ],
+        [
+          "product.grid-cards-legacy",
+          "product.grid-cards-legacy"
+        ],
+        [
+          "conversion.pricing-plans-legacy",
+          "conversion.demo-cta"
+        ],
+        [
+          "product.release-block",
+          "product.wow-bento"
+        ],
+        [
+          "proof.logo-row",
+          "proof.results-stats"
+        ],
+        [
+          "conversion.content-pricing",
+          "conversion.faq"
+        ],
+        [
+          "product.features-intro",
+          "product.anchor-intro"
+        ],
+        [
+          "product.sticky-tabs",
+          "product.integrations-visual"
+        ],
+        [
+          "product.assistant-feature-tabs",
+          "product.assistant-feature-tabs"
+        ],
+        [
+          "product.split-tabs",
+          "product.comparison-table"
+        ],
+        [
+          "product.comparison-table",
+          "product.autotabs-group"
+        ],
+        [
+          "product.autotabs-group",
+          "product.split-tabs"
+        ],
+        [
+          "product.sector-tabs",
+          "product.solution-tabs"
+        ],
+        [
+          "product.solution-tabs",
+          "product.grid-cards-legacy"
+        ],
+        [
+          "product.feature-rows-legacy",
+          "product.card-slider-legacy"
+        ],
+        [
+          "product.learn-grid",
+          "product.card-slider-legacy"
+        ],
+        [
+          "story.wow-2col",
+          "story.marquee"
+        ],
+        [
+          "story.marquee",
+          "story.wow-2col"
+        ],
+        [
+          "proof.logo-row",
+          "proof.stats-countup"
+        ],
+        [
+          "product.why-assistant-tabs",
+          "product.wow-bento"
+        ],
+        [
+          "product.included-tabs",
+          "product.layout03-tabs"
+        ],
+        [
+          "proof.results-proof",
+          "proof.reviews-slider"
+        ],
+        [
+          "index.events-upcoming",
+          "index.webinars-upcoming"
+        ],
+        [
+          "index.webinars-upcoming",
+          "index.events-past"
+        ],
+        [
+          "index.blog-featured",
+          "index.blog-filter"
+        ],
+        [
+          "conversion.glossary-cta",
+          "conversion.demo-cta"
         ]
-      ],
-      "exception": "REAL AND REQUIRED: the IA categories put 5 same-category pairs next to each other on the only real page (three product modules in a row, stats+testimonial, statement+quote, faq+demo-form). They are derived from the node sequence (derivedSets.REAL_SAME_CATEGORY_PAIRS), so the rule cannot reject the real page.",
-      "exemptPairsDerivedFrom": "derivedSets.REAL_SAME_CATEGORY_PAIRS",
-      "enforcedBy": "semantic_validate.py::check_adjacency"
+      ]
     },
     {
       "id": "MOTION_PATTERN_CLOSED",
       "severity": "error",
-      "rule": "motion.pattern must be in the section's allowedPatterns. There is no generic scroll fade-in pattern: sections do not fade in on scroll.",
+      "rule": "motion.pattern must be in the section's allowedPatterns. Scroll reveals exist ONLY as scroll.revealOnce on the subpage sections that really have one; the homepage has none.",
       "enforcedBy": "semantic_validate.py::check_motion_pattern"
     },
     {
@@ -197,7 +1404,13 @@
     {
       "id": "ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE",
       "severity": "error",
-      "rule": "assetRef is accepted only for may-generate-new roles; must-not-reuse / must-not-fabricate roles render a neutral placeholder and carry no file reference.",
+      "rule": "assetRef is accepted only for may-generate-new and may-reuse-licensed roles; must-not-reuse / must-not-fabricate roles render a neutral placeholder and carry no file reference.",
+      "enforcedBy": "semantic_validate.py::check_asset_roles"
+    },
+    {
+      "id": "STOCK_REF_ONLY_FOR_STOCK_ROLE",
+      "severity": "error",
+      "rule": "An assetRef of the form stock/<id>.jpg is accepted only with assetRole stock.photo (and only on fields that list stock.photo).",
       "enforcedBy": "semantic_validate.py::check_asset_roles"
     },
     {
@@ -209,7 +1422,7 @@
     {
       "id": "PINNED_ASSET_POLICIES",
       "severity": "error",
-      "rule": "The nine real-third-party roles hold their exact pinned generationPolicy in assets/asset-roles.json and the allowlist.",
+      "rule": "The nine real-third-party roles hold their exact pinned generationPolicy, and stock.photo holds may-reuse-licensed, in assets/asset-roles.json and the allowlist.",
       "enforcedBy": "verify_all.py::check_pinned_asset_policies; semantic_validate.py::pinned_policy_problems"
     },
     {
@@ -221,7 +1434,7 @@
     {
       "id": "DEMO_FORM_STAYS_STATIC",
       "severity": "error",
-      "rule": "conversion.demo-form.form.live is const false; no action/endpoint/method/portalId/formId/hubspot field may appear anywhere in a PageSpec.",
+      "rule": "Every form object (demo form, contact form, demo-hero form, subscribe/sign-up forms) has live:false; no action/endpoint/method/portalId/formId/hubspot/onSubmit/submitUrl field may appear anywhere in a PageSpec.",
       "enforcedBy": "semantic_validate.py::check_static_form"
     },
     {
@@ -243,5 +1456,10 @@
       "enforcedBy": "semantic_validate.py::check_max_words"
     }
   ],
-  "ruleCount": 23
+  "ruleCount": 28,
+  "retiredRules": {
+    "HERO_FOLLOWS_NAV": "replaced by HERO_OPENS_PAGE (generalised to every template with a hero)",
+    "FAQ_PRECEDES_DEMO_FORM": "merged into DEMO_FORM_PLACEMENT; the constraint moved from conversion.faq (which now precedes the demo CTA or other blocks on subpages) to conversion.demo-form",
+    "DEMO_FORM_PRECEDES_FOOTER": "merged into DEMO_FORM_PLACEMENT"
+  }
 }

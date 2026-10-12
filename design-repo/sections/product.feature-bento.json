@@ -1,0 +1,315 @@
+{
+  "id": "product.feature-bento",
+  "kind": "section",
+  "name": "Feature bento grid",
+  "purpose": "Covers the supporting platform strengths (integrations, security, global support, services) in a compact bento of image cards with links.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/FeatureBento.jsx",
+  "description": "Split header (H2 left, grey paragraph with one inline link right, bottom-aligned), then a 3-column bento of 4 cards ordered large (spans 2), small, small, large. Each card is a dark rounded panel with an image layer under a 50% wash and bottom fade, copy pinned to the bottom: a white lead phrase run into grey body text (the services card lists inline links), then an arrow text-link. <=991 2 columns (large spans 2); <=767 1 column with 1.5rem gaps. Only on /lms.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 13,
+        "note": "H2",
+        "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+      },
+      "intro": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 37,
+            "measuredLongestRealInstance": "29 words in the clone's own placeholder copy"
+          },
+          "linkPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          }
+        },
+        "required": [
+          "text",
+          "linkPhrases"
+        ],
+        "x-richText": true,
+        "note": "grey paragraph with one inline link"
+      },
+      "cards": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "size": {
+              "enum": [
+                "large",
+                "small"
+              ],
+              "note": "large spans 2 columns; real order large, small, small, large"
+            },
+            "lead": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 4,
+              "note": "white lead phrase",
+              "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+            },
+            "body": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 22,
+                  "measuredLongestRealInstance": "17 words in the clone's own placeholder copy"
+                },
+                "linkPhrases": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 3,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 18
+                  },
+                  "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                }
+              },
+              "required": [
+                "text",
+                "linkPhrases"
+              ],
+              "x-richText": true,
+              "note": "grey run-on text; may list up to 3 inline links"
+            },
+            "ctaLabel": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 7,
+              "note": "arrow text-link label",
+              "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+            },
+            "media": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "product.screenshot",
+                "photo.brand",
+                "stock.photo",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "product.screenshot",
+                    "photo.brand",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "background card image (Placeholder \"Feature image\")"
+            }
+          },
+          "required": [
+            "size",
+            "lead",
+            "body",
+            "ctaLabel",
+            "media"
+          ]
+        },
+        "maxItems": 5
+      }
+    },
+    "required": [
+      "heading",
+      "intro",
+      "cards"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/FeatureBento.jsx:22-22",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; hover transitions only (arrow text-link gap .75rem -> 1rem over .25s ease)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-[1.5rem] -> mob:gap-[2rem]",
+      "tailwind": [
+        "mob:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/FeatureBento.jsx:19-19",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "typography",
+        "sizing"
+      ],
+      "changes": "p-[1.5rem] -> tab:p-[1rem] -> mob:p-[1.5rem]; mob:text-[1rem]; mob:leading-[1.4rem]; min-h-[25rem] -> xs:min-h-[20rem]",
+      "tailwind": [
+        "tab:p-[1rem] mob:p-[1.5rem] mob:text-[1rem] mob:leading-[1.4rem] xs:min-h-[20rem]"
+      ],
+      "measuredFrom": "src/components/sections/FeatureBento.jsx:42-42",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "sizing"
+      ],
+      "changes": "col-span-2 -> tab:col-span-2 -> mob:col-span-1; tab:min-h-[20rem]",
+      "tailwind": [
+        "tab:col-span-2 mob:col-span-1 tab:min-h-[20rem]"
+      ],
+      "measuredFrom": "src/components/sections/FeatureBento.jsx:43-43",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[5rem] -> tab:py-[4rem] -> mob:py-[3rem]",
+      "tailwind": [
+        "tab:py-[4rem] mob:py-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/FeatureBento.jsx:93-93",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-col; tab:items-start; gap-[3.75rem] -> tab:gap-[2rem] -> xs:gap-[1.5rem]",
+      "tailwind": [
+        "tab:flex-col tab:items-start tab:gap-[2rem] xs:gap-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/FeatureBento.jsx:94-94",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "grid-cols-3 -> tab:grid-cols-2 -> mob:grid-cols-1; gap-[0.75rem] -> mob:gap-[1.5rem]",
+      "tailwind": [
+        "tab:grid-cols-2 mob:grid-cols-1 mob:gap-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/FeatureBento.jsx:108-108",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.heading-h2",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/FeatureBento.jsx:87-118",
+  "iaSectionId": "product.feature-bento",
+  "evidenceNotes": [
+    "/lms overrides intro and introRest only; heading, introLink and cards are component defaults."
+  ],
+  "observedOn": [
+    "/lms"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.testimonial-quote"
+    ],
+    "recommendedBefore": [
+      "proof.results-stats"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.brand",
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ]
+}

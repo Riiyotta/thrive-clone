@@ -1,0 +1,416 @@
+{
+  "id": "product.split-tabs",
+  "kind": "section",
+  "name": "Split-layout tabs with fading media pane",
+  "purpose": "Shows how one product serves several teams or use cases: pick a team on one side, see its visual and a short pitch with a demo CTA.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/SplitTabs.jsx",
+  "description": "Centred header (H2 + grey intro), then a 37rem-tall split: a 40% column of large text tabs (inactive dimmed, current white with the green tab-chip and 2rem indent, hairline rule under each) above a per-tab paragraph + button, and a 55% media pane on the opposite side that cross-fades per tab. `variant` (same content shape): 'base' (/nova; tabs left, 16:9 video pane right, 1-line H2 with italic phrase, 16px intro) and 'reversed' (/lms/mentoring-software; pane left, tabs right, image pane, 2-line H2, 18px intro, blue 'brand' buttons). <=767 stacks: tabs become a horizontally scrolling row, pane 60dvh, copy below.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "variant": {
+        "enum": [
+          "base",
+          "reversed"
+        ],
+        "note": "side of the media pane + pane kind"
+      },
+      "heading": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+          },
+          "linkPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 0,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          },
+          "boldPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          }
+        },
+        "required": [
+          "text",
+          "linkPhrases",
+          "boldPhrases"
+        ],
+        "x-richText": true,
+        "note": "H2, balanced; may italicise one phrase"
+      },
+      "intro": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 17,
+        "note": "grey line under the H2",
+        "measuredLongestRealInstance": "13 words in the clone's own placeholder copy"
+      },
+      "buttonLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "button under every tab paragraph",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "tabs": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tab": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 4,
+              "note": "24px tab label, single line on mobile (nowrap)",
+              "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 50,
+              "note": "paragraph shown for the current tab",
+              "measuredLongestRealInstance": "40 words in the clone's own placeholder copy"
+            },
+            "media": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "product.video",
+                "product.screenshot",
+                "stock.photo",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "product.video",
+                    "product.screenshot",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "pane visual per tab: 'Product video 16:9' (base) / 'Mentoring visual' (reversed)"
+            }
+          },
+          "required": [
+            "tab",
+            "text",
+            "media"
+          ]
+        },
+        "maxItems": 6
+      }
+    },
+    "required": [
+      "variant",
+      "heading",
+      "intro",
+      "buttonLabel",
+      "tabs"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "base": 1,
+      "reversed": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "tabs.crossFade"
+    ],
+    "reducedMotionFallback": "instant-toggle",
+    "measuredFrom": "src/components/sections/SplitTabs.jsx:46-143",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "Click a tab: the matching pane + copy get display:block then .active next frame (.fade-pane opacity/visibility .3s); the old ones drop .active and are display:none after 300ms. No hover style, no autoplay."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pb-[5rem] -> mob:pb-0; pt-[5rem] -> xs:pt-[2rem]",
+      "tailwind": [
+        "mob:pb-0 xs:pt-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/SplitTabs.jsx:83-83",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/SplitTabs.jsx:100-100",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[3rem] -> tab:pt-[2.5rem] -> mob:pt-[1.5rem]",
+      "tailwind": [
+        "tab:pt-[2.5rem] mob:pt-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/SplitTabs.jsx:102-102",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[5rem] -> tab:pt-[4rem] -> mob:pt-[3rem]",
+      "tailwind": [
+        "tab:pt-[4rem] mob:pt-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/SplitTabs.jsx:110-110",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[37rem] -> mob:h-auto",
+      "tailwind": [
+        "mob:h-auto"
+      ],
+      "measuredFrom": "src/components/sections/SplitTabs.jsx:114-114",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "sizing"
+      ],
+      "changes": "mob:flex; w-[40%] -> mob:w-full; mob:flex-col",
+      "tailwind": [
+        "mob:flex mob:w-full mob:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/SplitTabs.jsx:115-115",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout",
+        "other"
+      ],
+      "changes": "mob:mb-[3rem]; mob:flex; mob:gap-[1.5rem]; mob:overflow-auto; xs:flex-wrap",
+      "tailwind": [
+        "mob:mb-[3rem] mob:flex mob:gap-[1.5rem] mob:overflow-auto xs:flex-wrap"
+      ],
+      "measuredFrom": "src/components/sections/SplitTabs.jsx:116-116",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "typography"
+      ],
+      "changes": "mob:whitespace-nowrap; mob:text-tab-mob; w-full -> xs:w-auto",
+      "tailwind": [
+        "mob:whitespace-nowrap mob:text-tab-mob xs:w-auto"
+      ],
+      "measuredFrom": "src/components/sections/SplitTabs.jsx:125-125",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing",
+        "sizing"
+      ],
+      "changes": "mob:relative; mob:mb-[3rem] -> xs:mb-0; mob:h-[60dvh] -> xs:h-[30dvh]; w-[55%] -> mob:w-full",
+      "tailwind": [
+        "mob:relative mob:mb-[3rem] mob:h-[60dvh] mob:w-full xs:mb-0 xs:h-[30dvh]"
+      ],
+      "measuredFrom": "src/components/sections/SplitTabs.jsx:135-135",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:static",
+      "tailwind": [
+        "xs:static"
+      ],
+      "measuredFrom": "src/components/sections/SplitTabs.jsx:143-143",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-[40%] -> mob:w-full",
+      "tailwind": [
+        "mob:w-full"
+      ],
+      "measuredFrom": "src/components/sections/SplitTabs.jsx:157-157",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/SplitTabs.jsx:165-165",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.heading-h2",
+    "primitive.tab-chip",
+    "primitive.button",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/SplitTabs.jsx:61-179",
+  "iaSectionId": "product.split-tabs",
+  "evidenceNotes": [
+    "/nova: the original split-tabs block swallowed a vendor comparison table, autotabs, video and FAQ (truncated markup); the clone closes it and renders ComparisonTable variant=\"vendor\" etc. as siblings. CLONE_SPEC_PAGES.md / pages-manifest.json still describe /nova as ending with split-tabs (9541px tall).",
+    "Reversed heading has a forced <br/> after 'of'."
+  ],
+  "observedOn": [
+    "/lms/mentoring-software",
+    "/nova"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.autotabs-group",
+      "proof.testimonial-quote"
+    ],
+    "recommendedBefore": [
+      "product.comparison-table",
+      "proof.case-study-video"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "placeholder.neutral",
+    "product.screenshot",
+    "product.video",
+    "stock.photo"
+  ],
+  "variants": [
+    "base",
+    "reversed"
+  ]
+}

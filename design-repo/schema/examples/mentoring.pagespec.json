@@ -1,0 +1,776 @@
+{
+  "pageSpecVersion": "1.0.0",
+  "route": "/mentoring",
+  "template": "mentoring",
+  "designSystem": "marketing",
+  "theme": "nimbus-dark",
+  "nodes": [
+    {
+      "section": "shell.nav",
+      "content": {
+        "menus": [
+          {
+            "label": "Platform",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Solutions",
+                "items": [
+                  {
+                    "title": "Learning home",
+                    "desc": "One place for all learning"
+                  },
+                  {
+                    "title": "Skill journeys",
+                    "desc": "Guided paths that build skills"
+                  },
+                  {
+                    "title": "Peer mentoring",
+                    "desc": "Match people who can help"
+                  },
+                  {
+                    "title": "Team spaces",
+                    "desc": "Communities around topics"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "More",
+                "items": [
+                  {
+                    "title": "Integrations",
+                    "desc": "Connect the tools you use"
+                  },
+                  {
+                    "title": "Security",
+                    "desc": "How we keep data safe"
+                  },
+                  {
+                    "title": "Analytics",
+                    "desc": "See what moves the needle"
+                  },
+                  {
+                    "title": "What's new",
+                    "desc": "Fresh features this season"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Features",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Experience",
+                "items": [
+                  {
+                    "title": "Home feed"
+                  },
+                  {
+                    "title": "Search"
+                  },
+                  {
+                    "title": "Mobile app"
+                  },
+                  {
+                    "title": "Notifications"
+                  },
+                  {
+                    "title": "Profiles"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Learning",
+                "items": [
+                  {
+                    "title": "Courses"
+                  },
+                  {
+                    "title": "Pathways"
+                  },
+                  {
+                    "title": "Assessments"
+                  },
+                  {
+                    "title": "Events"
+                  },
+                  {
+                    "title": "Certificates"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Admin",
+                "items": [
+                  {
+                    "title": "Reporting"
+                  },
+                  {
+                    "title": "Automations"
+                  },
+                  {
+                    "title": "User groups"
+                  },
+                  {
+                    "title": "Branding"
+                  },
+                  {
+                    "title": "Permissions"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Content",
+            "columns": [
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Course library",
+                    "desc": "Ready-made courses"
+                  },
+                  {
+                    "title": "Authoring",
+                    "desc": "Build your own in minutes"
+                  },
+                  {
+                    "title": "Compliance packs",
+                    "desc": "Required training, sorted"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Content partners",
+                    "desc": "Bring in third-party catalogs"
+                  },
+                  {
+                    "title": "Custom content",
+                    "desc": "Made-to-order by our studio"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Case Studies",
+            "columns": [
+              {
+                "kind": "customers",
+                "headerLink": "Platform",
+                "customers": [
+                  {
+                    "name": "Customer one",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer two",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer three",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer four",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer five",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "customers",
+                "headerLink": "Content",
+                "customers": [
+                  {
+                    "name": "Customer six",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer seven",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer eight",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer nine",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer ten",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Learn",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "About",
+                "items": [
+                  {
+                    "title": "Our story",
+                    "desc": "Why we started Nimbus"
+                  },
+                  {
+                    "title": "What you get",
+                    "desc": "Everything in every plan"
+                  },
+                  {
+                    "title": "Careers",
+                    "desc": "Come work with us"
+                  },
+                  {
+                    "title": "Contact",
+                    "desc": "Get in touch with sales"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Resources",
+                "items": [
+                  {
+                    "title": "Events",
+                    "desc": "Live and recorded talks"
+                  },
+                  {
+                    "title": "Blog",
+                    "desc": "Ideas on workplace learning"
+                  },
+                  {
+                    "title": "Guides",
+                    "desc": "Practical how-to playbooks"
+                  },
+                  {
+                    "title": "Glossary",
+                    "desc": "Terms every team uses"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "aiLinkLabel": "Ask why teams choose Nimbus",
+        "ctaLabel": "Book a demo→"
+      },
+      "motion": {
+        "pattern": "nav.hoverMenus",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "hover",
+        "durationMs": 250,
+        "easing": "outQuart"
+      }
+    },
+    {
+      "section": "hero.wow-content",
+      "content": {
+        "variant": "mentoring",
+        "avatars": {
+          "assetRole": "placeholder.neutral"
+        },
+        "trustLine": "Loved by over 4 million learners",
+        "title": "Mentoring programmes that take the heavy lifting",
+        "paragraph": "Ready-to-run, people-first mentoring that builds confident, inclusive leaders and sets every pairing up for success.",
+        "buttonLabel": "Book a demo"
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "proof.logo-row",
+      "content": {
+        "variant": "subpage",
+        "heading": "Used every day at",
+        "headingPlacement": "inside",
+        "logos": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Logo",
+          "slotCount": 6
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "story.wow-2col",
+      "content": {
+        "heading": "Mentoring that works",
+        "lead": "Began with a simple question about what people actually needed from their working day and how short, practical resources could fit around busy shifts without adding pressure. Managers were invited to share the moments.",
+        "body": "Most, and those conversations shaped a clear plan for the first year. Every new programme launched with a small pilot group, so the.",
+        "image": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Mentoring image"
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "story.marquee",
+      "content": {
+        "variant": "plain",
+        "set": 1,
+        "rows": [
+          {
+            "items": [
+              "Position & perspective",
+              "Inclusive management",
+              "Recognising bias",
+              "Advocacy",
+              "Growing community",
+              "Inclusion",
+              "Collective culture",
+              "Inclusive structures",
+              "Growth-minded coaching",
+              "Team belonging",
+              "Cultural awareness"
+            ],
+            "reverse": false
+          },
+          {
+            "items": [
+              "Understanding values",
+              "Advantage & disadvantage",
+              "Listening & growing",
+              "Global working styles",
+              "Leading global teams",
+              "Language choices",
+              "Talking well across cultures",
+              "Inclusive language",
+              "After-incident review",
+              "Noticing microaggressions"
+            ],
+            "reverse": true
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "marquee.cssLoop",
+        "reducedMotionFallback": "static-first-frame"
+      }
+    },
+    {
+      "section": "story.wow-2col",
+      "content": {
+        "heading": "Mentoring that works",
+        "lead": "Began with a simple question about what people actually needed from their working day and how short, practical resources could fit around busy shifts without adding pressure. Managers were invited to share the moments.",
+        "body": "Most, and those conversations shaped a clear plan for the first year. Every new programme launched with a small pilot group, so the.",
+        "image": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Mentoring image"
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "story.marquee",
+      "content": {
+        "variant": "plain",
+        "set": 1,
+        "rows": [
+          {
+            "items": [
+              "Position & perspective",
+              "Inclusive management",
+              "Recognising bias",
+              "Advocacy",
+              "Growing community",
+              "Inclusion",
+              "Collective culture",
+              "Inclusive structures",
+              "Growth-minded coaching",
+              "Team belonging",
+              "Cultural awareness"
+            ],
+            "reverse": false
+          },
+          {
+            "items": [
+              "Understanding values",
+              "Advantage & disadvantage",
+              "Listening & growing",
+              "Global working styles",
+              "Leading global teams",
+              "Language choices",
+              "Talking well across cultures",
+              "Inclusive language",
+              "After-incident review",
+              "Noticing microaggressions"
+            ],
+            "reverse": true
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "marquee.cssLoop",
+        "reducedMotionFallback": "static-first-frame"
+      }
+    },
+    {
+      "section": "story.wow-2col",
+      "content": {
+        "heading": "Mentoring that works",
+        "lead": "Began with a simple question about what people actually needed from their working day and how short, practical resources could fit around busy shifts without adding pressure. Managers were invited to share the moments.",
+        "body": "Most, and those conversations shaped a clear plan for the first year. Every new programme launched with a small pilot group, so the.",
+        "image": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Mentoring image"
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "story.marquee",
+      "content": {
+        "variant": "plain",
+        "set": 1,
+        "rows": [
+          {
+            "items": [
+              "Position & perspective",
+              "Inclusive management",
+              "Recognising bias",
+              "Advocacy",
+              "Growing community",
+              "Inclusion",
+              "Collective culture",
+              "Inclusive structures",
+              "Growth-minded coaching",
+              "Team belonging",
+              "Cultural awareness"
+            ],
+            "reverse": false
+          },
+          {
+            "items": [
+              "Understanding values",
+              "Advantage & disadvantage",
+              "Listening & growing",
+              "Global working styles",
+              "Leading global teams",
+              "Language choices",
+              "Talking well across cultures",
+              "Inclusive language",
+              "After-incident review",
+              "Noticing microaggressions"
+            ],
+            "reverse": true
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "marquee.cssLoop",
+        "reducedMotionFallback": "static-first-frame"
+      }
+    },
+    {
+      "section": "story.wow-2col",
+      "content": {
+        "heading": "Mentoring that works",
+        "lead": "Began with a simple question about what people actually needed from their working day and how short, practical resources could fit around busy shifts without adding pressure. Managers were invited to share the moments.",
+        "body": "Most, and those conversations shaped a clear plan for the first year. Every new programme launched with a small pilot group, so the.",
+        "image": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Mentoring image"
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "story.marquee",
+      "content": {
+        "variant": "plain",
+        "set": 1,
+        "rows": [
+          {
+            "items": [
+              "Position & perspective",
+              "Inclusive management",
+              "Recognising bias",
+              "Advocacy",
+              "Growing community",
+              "Inclusion",
+              "Collective culture",
+              "Inclusive structures",
+              "Growth-minded coaching",
+              "Team belonging",
+              "Cultural awareness"
+            ],
+            "reverse": false
+          },
+          {
+            "items": [
+              "Understanding values",
+              "Advantage & disadvantage",
+              "Listening & growing",
+              "Global working styles",
+              "Leading global teams",
+              "Language choices",
+              "Talking well across cultures",
+              "Inclusive language",
+              "After-incident review",
+              "Noticing microaggressions"
+            ],
+            "reverse": true
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "marquee.cssLoop",
+        "reducedMotionFallback": "static-first-frame"
+      }
+    },
+    {
+      "section": "product.wow-bento",
+      "content": {
+        "variant": "included",
+        "title": "What comes included?",
+        "cards": [
+          {
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Programme visual"
+            },
+            "title": "Mentor packs",
+            "text": "Real feedback from the people using it every week. Over time the platform became the natural home for onboarding."
+          },
+          {
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Programme visual"
+            },
+            "title": "Mentee toolkits",
+            "text": "Updates and everyday questions, replacing scattered documents and long email chains with one calm and familiar place to."
+          },
+          {
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Programme visual"
+            },
+            "title": "Habit and reflection prompts",
+            "text": "Starters reached confidence faster, experienced colleagues found fresh ways to grow, and."
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "scroll.revealOnce",
+        "reducedMotionFallback": "instant-final-state"
+      }
+    },
+    {
+      "section": "conversion.faq",
+      "content": {
+        "variant": "subpage",
+        "heading": "Frequently asked questions",
+        "items": [
+          {
+            "question": "What are spaces in Nimbus?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          },
+          {
+            "question": "How are spaces different from team chat?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          },
+          {
+            "question": "How do spaces compare with other social intranet tools for teams?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "accordion.faq",
+        "reducedMotionFallback": "instant-toggle"
+      }
+    },
+    {
+      "section": "conversion.demo-cta",
+      "content": {
+        "heading": "Give your team a home for real growth",
+        "headingEmphasis": "for real growth",
+        "body": "Bring your questions and we will walk you through the platform, the content and the results teams like yours see.",
+        "ctaLabel": "Let’s talk"
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "shell.footer",
+      "content": {
+        "aiPrompt": "Want another view?",
+        "aiLinks": {
+          "assetRole": "logo.aiVendor",
+          "slotCount": 4
+        },
+        "columns": [
+          {
+            "header": "Platform",
+            "headerIsLink": true,
+            "links": [
+              "Learning home",
+              "Skill journeys",
+              "Peer mentoring",
+              "Team spaces",
+              "Analytics",
+              "Integrations"
+            ],
+            "buttonLabel": "See it in action →"
+          },
+          {
+            "header": "Content",
+            "headerIsLink": true,
+            "links": [
+              "Course library",
+              "Authoring",
+              "Compliance packs",
+              "Content partners"
+            ],
+            "buttonLabel": "Browse content →"
+          },
+          {
+            "header": "Case Studies",
+            "headerIsLink": true,
+            "links": [
+              "Northwind",
+              "Brightway",
+              "Kestrel Co",
+              "Harbor Foods",
+              "All stories"
+            ]
+          },
+          {
+            "header": "Resources",
+            "headerIsLink": false,
+            "links": [
+              "Blog",
+              "Guides",
+              "Webinars",
+              "Help centre",
+              "Events",
+              "Glossary"
+            ]
+          }
+        ],
+        "ratingBadges": {
+          "assetRole": "badge.review",
+          "slotCount": 2,
+          "alt": "Rating badge"
+        },
+        "awardBadges": {
+          "assetRole": "badge.award",
+          "slotCount": 4,
+          "alt": "Award badge"
+        },
+        "complianceLine": {
+          "text": "Nimbus is independently audited, meets accessibility standards, supports teams in over forty languages and follows regional data rules in every market.",
+          "linkPhrases": [
+            "independently audited",
+            "accessibility standards",
+            "regional data rules"
+          ]
+        },
+        "copyright": "© 2026 Nimbus Learning",
+        "legalLinks": [
+          "Trust Centre",
+          "Website Cookies & Policy"
+        ],
+        "dropups": [
+          {
+            "label": "Terms and Conditions",
+            "links": [
+              "Customer terms",
+              "Acceptable use",
+              "Service levels",
+              "Support policy",
+              "Partner terms"
+            ]
+          },
+          {
+            "label": "Privacy Policy",
+            "links": [
+              "Privacy notice",
+              "Data processing",
+              "Sub-processors",
+              "Retention",
+              "Candidate privacy",
+              "Accessibility"
+            ]
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "footer.dropup",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "click",
+        "durationMs": 200,
+        "easing": "ease"
+      }
+    }
+  ]
+}

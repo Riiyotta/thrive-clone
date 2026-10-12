@@ -7,85 +7,176 @@
   "designSystem": "marketing",
   "implementedBy": "src/components/Faq.jsx",
   "content": {
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-      "headingLines": {
-        "type": "array",
-        "minItems": 1,
-        "maxItems": 2,
-        "items": {
-          "type": "string",
-          "minLength": 1,
-          "maxWords": 5,
-          "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
-        },
-        "note": "Centred H2, max 960, lines separated by <br>."
-      },
-      "items": {
-        "type": "array",
-        "minItems": 3,
-        "maxItems": 6,
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "question": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "headingLines": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "items": {
               "type": "string",
               "minLength": 1,
-              "maxWords": 17,
-              "note": "h3 20/23 500; 1-2 lines.",
-              "measuredLongestRealInstance": "17 words in the clone's own placeholder copy"
+              "maxWords": 5,
+              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
             },
-            "answer": {
+            "note": "Centred H2, max 960, lines separated by <br>."
+          },
+          "items": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 6,
+            "items": {
               "type": "object",
               "additionalProperties": false,
               "properties": {
-                "text": {
+                "question": {
                   "type": "string",
                   "minLength": 1,
-                  "maxWords": 65,
-                  "measuredLongestRealInstance": "61 words in the clone's own placeholder copy"
+                  "maxWords": 17,
+                  "note": "h3 20/23 500; 1-2 lines.",
+                  "measuredLongestRealInstance": "17 words in the clone's own placeholder copy"
                 },
-                "linkPhrases": {
-                  "type": "array",
-                  "minItems": 0,
-                  "maxItems": 2,
-                  "items": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxWords": 5,
-                    "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                "answer": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 65,
+                      "measuredLongestRealInstance": "61 words in the clone's own placeholder copy"
+                    },
+                    "linkPhrases": {
+                      "type": "array",
+                      "minItems": 0,
+                      "maxItems": 2,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 5,
+                        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                      },
+                      "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered as a white underlined .inline-link."
+                    }
                   },
-                  "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered as a white underlined .inline-link."
+                  "required": [
+                    "text",
+                    "linkPhrases"
+                  ],
+                  "note": "Grey 18/25.2 rich text with white underlined links.",
+                  "x-richText": true
                 }
               },
               "required": [
-                "text",
-                "linkPhrases"
-              ],
-              "note": "Grey 18/25.2 rich text with white underlined links.",
-              "x-richText": true
-            }
-          },
-          "required": [
-            "question",
-            "answer"
-          ]
+                "question",
+                "answer"
+              ]
+            },
+            "note": "5 measured."
+          }
         },
-        "note": "5 measured."
+        "required": [
+          "headingLines",
+          "items"
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "subpage"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 9,
+            "note": "Centred H2, single string on every subpage ('Frequently asked questions' on feature, company and /mentoring pages).",
+            "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+          },
+          "items": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "question": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 28,
+                  "note": "h3 20/23 medium; up to 2-3 lines in the 42rem column.",
+                  "measuredLongestRealInstance": "22 words in the clone's own placeholder copy"
+                },
+                "answer": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 82,
+                      "measuredLongestRealInstance": "65 words in the clone's own placeholder copy"
+                    },
+                    "linkPhrases": {
+                      "type": "array",
+                      "minItems": 0,
+                      "maxItems": 1,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 18
+                      },
+                      "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                    },
+                    "boldPhrases": {
+                      "type": "array",
+                      "minItems": 0,
+                      "maxItems": 1,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 18
+                      },
+                      "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                    }
+                  },
+                  "required": [
+                    "text",
+                    "linkPhrases",
+                    "boldPhrases"
+                  ],
+                  "x-richText": true,
+                  "note": "Grey 18/25.2 paragraph revealed on open. Inline markup only on /pricing: a bold 'Yes.' lead (<strong>) and/or one .inline-link."
+                }
+              },
+              "required": [
+                "question",
+                "answer"
+              ]
+            },
+            "maxItems": 15
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "items"
+        ],
+        "note": "Item counts per route (rendered and counted): 3 (/pricing, feature lms-homepage/spaces/ai-content-creator/lms-admin/lms-rewards/mcp), 4 (chat, lms-analytics, skills, /content/custom-content, /contact-us), 5 (/lms/spring-release, learning-pathways, employee-assessment-software, employee-performance-management-software, lms-gamification), 6 (/lms/demo-platform, /nova, mobile-lms, /company, /company/why-nimbus), 7 (lms-security, /case-studies/lms, /whats-included), 9 (/lms/corporate-lms, /lms/mentoring-software), 11 (/lms, /lms/small-business, /lms/features), 13 (/lms/solutions), 15 (/lms/enterprise, /mentoring). paddingClassName is contract-owned."
       }
-    },
-    "required": [
-      "headingLines",
-      "items"
     ]
   },
   "constraints": {
-    "onePerPage": true,
     "maxPerPage": 1,
-    "mustImmediatelyPrecede": "conversion.demo-form",
-    "neighbourRuleId": "FAQ_PRECEDES_DEMO_FORM"
+    "maxPerPageByVariant": {
+      "default": 1,
+      "subpage": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
   },
   "motion": {
     "allowedPatterns": [
@@ -94,7 +185,12 @@
     "reducedMotionFallback": "instant-toggle",
     "measuredFrom": "src/index.css:76-99",
     "sourceImplementsReducedMotion": false,
-    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "alsoMeasuredFrom": [
+      "src/components/Faq.jsx:75-82",
+      "src/index.css:113-113",
+      "src/index.css:93-109"
+    ]
   },
   "responsive": [
     {
@@ -102,9 +198,10 @@
       "query": "max-width: 991px",
       "changes": "Vertical padding 80 -> 64 (48 at <=767).",
       "tailwind": [
-        "py-[80px] tab:py-[64px] mob:py-[48px]"
+        "py-[5rem] tab:py-[4rem] mob:py-[3rem]"
       ],
-      "measuredFrom": "src/components/Faq.jsx:97-97"
+      "measuredFrom": "src/components/Faq.jsx:106-106",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "xs",
@@ -125,17 +222,74 @@
   ],
   "compatibility": {
     "recommendedAfter": [
+      "conversion.content-pricing",
+      "conversion.cta-strip",
+      "hero.layout2-media",
+      "product.card-slider-legacy",
+      "product.comparison-table",
+      "product.wow-bento",
+      "proof.case-results",
+      "proof.case-study-carousel",
+      "proof.results-stats",
+      "proof.reviews-slider",
       "story.brand-video"
     ],
     "recommendedBefore": [
-      "conversion.demo-form"
+      "conversion.demo-cta",
+      "conversion.demo-form",
+      "product.assistant-tabs"
     ],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
-    "/"
+    "/",
+    "/case-studies/lms",
+    "/company",
+    "/company/why-nimbus",
+    "/contact-us",
+    "/content/custom-content",
+    "/lms",
+    "/lms/corporate-lms",
+    "/lms/demo-platform",
+    "/lms/enterprise",
+    "/lms/features",
+    "/lms/features/ai-content-creator",
+    "/lms/features/chat",
+    "/lms/features/communication",
+    "/lms/features/employee-assessment-software",
+    "/lms/features/employee-experience",
+    "/lms/features/employee-performance-management-software",
+    "/lms/features/learning-pathways",
+    "/lms/features/lms-admin",
+    "/lms/features/lms-analytics",
+    "/lms/features/lms-gamification",
+    "/lms/features/lms-homepage",
+    "/lms/features/lms-rewards",
+    "/lms/features/lms-security",
+    "/lms/features/mcp",
+    "/lms/features/mobile-lms",
+    "/lms/features/skills",
+    "/lms/features/spaces",
+    "/lms/mentoring-software",
+    "/lms/small-business",
+    "/lms/solutions",
+    "/lms/spring-release",
+    "/mentoring",
+    "/nova",
+    "/pricing",
+    "/whats-included"
   ],
   "measuredFrom": "src/components/Faq.jsx:93-114",
   "iaSectionId": "conversion.faq",
-  "specMeasuredFrom": "CLONE_SPEC.md:435-447"
+  "specMeasuredFrom": "CLONE_SPEC.md:435-447",
+  "subpageUsage": "Same Faq component as the homepage, configured by props (no explicit `variant` prop). Subpages pass a one-line heading string (no <br> split; /content/custom-content wraps it in a 34rem span for width only) and their own 3-15 items; answers are plain text everywhere except /pricing, where they carry a bold 'Yes.' lead and/or one inline link. Layout is identical to the homepage: centred H2 (max 60rem) 4.375rem above a 42rem column of independent accordion cards (surface-1, radius, question + rotating cross icon). Used on /lms, /lms/small-business, /lms/corporate-lms, /lms/enterprise, /lms/solutions, /lms/spring-release, /lms/demo-platform, /pricing, /lms/features, /nova, /lms/mentoring-software, the 15 non-empty /lms/features/* routes, /content/custom-content, /mentoring, /case-studies/lms, /company, /company/why-nimbus, /whats-included and /contact-us.",
+  "evidenceNotes": [
+    "Counts and lengths were measured by server-rendering every registered route with Faq stubbed to record its props (not by reading literals), so filler-generated answers (faqItems() in src/pages/platform/faq.js and src/pages/company/shared.js) are included. Longest question: 22 words (/lms/spring-release); longest answer: 65 words (/company/why-nimbus); longest heading 7 words (/nova).",
+    "The homepage contract's adjacency rule (FAQ immediately precedes conversion.demo-form) does not hold on subpages: on the 15 feature routes the KikiTabs explore block follows the FAQ, and on every other subpage the next block is the Footer's subpage CTA (conversion.demo-cta), except /company where the home-style demo form follows.",
+    "/lms/features/employee-experience and /lms/features/communication render a page-local FaqEmpty ('No FAQs found.') instead of Faq.",
+    "pages-manifest.json's page-nova template has no faq section although Nova.jsx renders Faq ('Questions about your new AI learning assistant'); /lms/professional-services has no Faq in code or manifest."
+  ],
+  "variants": [
+    "subpage"
+  ]
 }

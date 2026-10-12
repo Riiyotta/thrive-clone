@@ -1,20 +1,20 @@
 {
   "$comment": "The citation ledger. Each entry's KEYWORDS must literally appear inside the cited range -- that catches the dangerous half of citation drift (a range that resolves but describes the wrong code). Keywords are code/measurement tokens only; none is original-site copy. extraction/verify_all.py re-checks every entry on each run, which is also how motion values are RE-GREPPED against current source.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "degradesGracefully": "Citations point at the SIBLING source project (paths relative to the folder containing design-repo/), which is build-time evidence and is NOT shipped. 'audit:<file>' entries point at the external pixel-audit dumps under auditRoot (relative to the same folder). When either is absent -- a standalone copy or an extracted zip -- verify_all.py WARNS and skips rather than failing. registry.manifest.json's entryPoints list only files inside design-repo/.",
   "auditRoot": "../website-builder/.playwright-mcp/thrive-audit",
   "sourceProject": {
     "framework": "React 18.3.1 + Vite 5.4 + Tailwind CSS 3.4 + GSAP (package.json ^3.12.5; installed 3.15.0)",
-    "router": "none -- single page, single route '/'",
-    "ia": "ia.json at the project root (template.home, 15 sections) -- section ids here are aligned to it",
+    "router": "react-router-dom: '/' + 57 routes from src/routes.js (src/pages/registry.js merges each family's index.js `pages` map); src/pages/__preview-* are build-time preview routes, excluded",
+    "ia": "ia.json at the project root (33 templates, 58 routes) -- section ids and template node orders here are aligned to it",
     "note": "A design-repo is a snapshot: re-diff these against current source if the project moves on."
   },
-  "citationCount": 82,
+  "citationCount": 187,
   "citations": [
     {
       "group": "source",
       "claim": "stack: React 18 + gsap 3.12 range in package.json",
-      "measuredFrom": "package.json:7-7",
+      "measuredFrom": "package.json:12-13",
       "keywords": [
         "\"react\": \"^18.3.1\"",
         "\"gsap\": \"^3.12.5\""
@@ -23,7 +23,7 @@
     {
       "group": "source",
       "claim": "stack: Vite 5 + Tailwind v3",
-      "measuredFrom": "package.json:8-8",
+      "measuredFrom": "package.json:21-22",
       "keywords": [
         "\"vite\": \"^5.4.10\"",
         "\"tailwindcss\": \"^3.4.14\""
@@ -40,33 +40,31 @@
     },
     {
       "group": "source",
-      "claim": "single route, single page: App renders the 13 component files in order inside a 64px-top-padded wrapper",
-      "measuredFrom": "src/App.jsx:15-32",
+      "claim": "routing: App mounts Layout with '/' (Home) plus every src/routes.js path via the family registry; preview paths are extra registered routes",
+      "measuredFrom": "src/App.jsx:14-17",
       "keywords": [
-        "bg-page pt-[64px]",
-        "<Nav />",
-        "<Hero />",
-        "<KikiTabs />",
-        "<Results />",
-        "<Faq />",
-        "<Footer />"
+        "<Route element={<Layout />}>",
+        "<Route index element={<Home />} />",
+        "ROUTES.map((r) => {",
+        "PAGE_COMPONENTS[r.path] || PendingPage"
       ]
     },
     {
       "group": "ia",
-      "claim": "IA: one template, 15 sections, Results/Footer each render two sections",
-      "measuredFrom": "ia.json:113-134",
+      "claim": "IA: the homepage template lists results-stats + testimonial (one Results.jsx) and demo-form + footer (one Footer.jsx)",
+      "measuredFrom": "ia.json:613-621",
       "keywords": [
         "\"proof.results-stats\"",
         "\"proof.testimonial\"",
         "\"conversion.demo-form\"",
         "\"shell.footer\""
-      ]
+      ],
+      "note": "Re-keyed in 2.0.0: the source moved to rem / restructured these lines."
     },
     {
       "group": "ia",
       "claim": "IA: Results.jsx implements two sections",
-      "measuredFrom": "ia.json:56-60",
+      "measuredFrom": "ia.json:485-489",
       "keywords": [
         "\"proof.results-stats\": {",
         "\"implementedBy\": \"src/components/Results.jsx\""
@@ -95,7 +93,7 @@
     {
       "group": "source",
       "claim": "font families Inter (opsz 24) + Instrument Serif",
-      "measuredFrom": "tailwind.config.js:38-39",
+      "measuredFrom": "tailwind.config.js:61-62",
       "keywords": [
         "sans: ['Inter'",
         "serif: ['\"Instrument Serif\"'"
@@ -112,21 +110,23 @@
     },
     {
       "group": "source",
-      "claim": "type scale: H1 72/82.8, H2 64/73.6",
-      "measuredFrom": "tailwind.config.js:52-55",
+      "claim": "type scale: H1 4.5rem/5.175rem, H2 4rem/4.6rem (72/82.8 and 64/73.6 px at the 16px root)",
+      "measuredFrom": "tailwind.config.js:76-79",
       "keywords": [
-        "h1: ['72px', '82.8px']",
-        "h2: ['64px', '73.6px']"
-      ]
+        "h1: ['4.5rem', '5.175rem']",
+        "h2: ['4rem', '4.6rem']"
+      ],
+      "note": "Re-keyed in 2.0.0: the source moved to rem / restructured these lines."
     },
     {
       "group": "source",
-      "claim": "type scale: quote 32/38.4 and stat 64/64",
-      "measuredFrom": "tailwind.config.js:74-79",
+      "claim": "type scale: stat 4rem/4rem and quote 2rem/2.4rem (64/64 and 32/38.4 px at 16px)",
+      "measuredFrom": "tailwind.config.js:98-103",
       "keywords": [
-        "stat: ['64px', '64px']",
-        "quote: ['32px', '38.4px']"
-      ]
+        "stat: ['4rem', '4rem']",
+        "quote: ['2rem', '2.4rem']"
+      ],
+      "note": "Re-keyed in 2.0.0: the source moved to rem / restructured these lines."
     },
     {
       "group": "source",
@@ -143,18 +143,19 @@
     {
       "group": "source",
       "claim": "radii pill/card/panel/media",
-      "measuredFrom": "tailwind.config.js:42-45",
+      "measuredFrom": "tailwind.config.js:66-69",
       "keywords": [
-        "pill: '999px'",
-        "card: '12px'",
-        "panel: '16px'",
-        "media: '8px'"
-      ]
+        "pill: '62.4375rem'",
+        "card: '0.75rem'",
+        "panel: '1rem'",
+        "media: '0.5rem'"
+      ],
+      "note": "Re-keyed in 2.0.0: the source moved to rem / restructured these lines."
     },
     {
       "group": "source",
       "claim": "easings out-quart / in-out-quart",
-      "measuredFrom": "tailwind.config.js:90-91",
+      "measuredFrom": "tailwind.config.js:114-115",
       "keywords": [
         "'out-quart': 'cubic-bezier(0.165, 0.84, 0.44, 1)'",
         "'in-out-quart': 'cubic-bezier(0.77, 0, 0.175, 1)'"
@@ -163,50 +164,55 @@
     {
       "group": "source",
       "claim": "every H2 carries margin-top 4px (pixel-audit correction)",
-      "measuredFrom": "src/index.css:38-39",
+      "measuredFrom": "src/index.css:55-56",
       "keywords": [
         ".heading-h2 {",
-        "mt-[4px]"
-      ]
+        "mt-[0.25rem]"
+      ],
+      "note": "Keywords re-cited after the px -> rem migration."
     },
     {
       "group": "source",
       "claim": "padding-global 32px / 20px at <=767",
-      "measuredFrom": "src/index.css:29-30",
+      "measuredFrom": "src/index.css:46-47",
       "keywords": [
         ".padding-global {",
-        "px-[32px] mob:px-[20px]"
-      ]
+        "px-[2rem] mob:px-[1.25rem]"
+      ],
+      "note": "Keywords re-cited after the px -> rem migration."
     },
     {
       "group": "source",
       "claim": "container-medium 1120 / container-large 1344 + 16 top",
-      "measuredFrom": "src/index.css:33-36",
+      "measuredFrom": "src/index.css:50-53",
       "keywords": [
-        "max-w-[1120px]",
-        "max-w-[1344px] pt-[16px]"
-      ]
+        "max-w-[70rem]",
+        "max-w-[84rem] pt-[1rem]"
+      ],
+      "note": "Keywords re-cited after the px -> rem migration."
     },
     {
       "group": "source",
       "claim": "paragraph margin-bottom 20px (hero subtitle)",
-      "measuredFrom": "src/components/Hero.jsx:61-61",
+      "measuredFrom": "src/components/Hero.jsx:108-108",
       "keywords": [
-        "mb-[20px] max-w-[576px]"
-      ]
+        "mb-[1.25rem] max-w-[36rem]"
+      ],
+      "note": "Keywords re-cited after the px -> rem migration."
     },
     {
       "group": "source",
       "claim": "paragraph margin-bottom 20px (case-study intro)",
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:43-43",
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:74-74",
       "keywords": [
-        "mb-[20px] max-w-[448px] text-para text-grey"
-      ]
+        "mb-[1.25rem] max-w-[28rem] text-para text-grey"
+      ],
+      "note": "Keywords re-cited after the px -> rem migration."
     },
     {
       "group": "motion",
       "claim": "button roll-up: chars y -1.5em, 0.45s, stagger amount .25, power4.inOut",
-      "measuredFrom": "src/components/shared/Button.jsx:28-28",
+      "measuredFrom": "src/components/shared/Button.jsx:42-42",
       "keywords": [
         "y: '-1.5em'",
         "duration: 0.45",
@@ -217,7 +223,7 @@
     {
       "group": "motion",
       "claim": "button roll-up plays on mouseenter, reverses on mouseleave",
-      "measuredFrom": "src/components/shared/Button.jsx:29-30",
+      "measuredFrom": "src/components/shared/Button.jsx:43-44",
       "keywords": [
         "tl.play()",
         "tl.reverse()"
@@ -226,27 +232,26 @@
     {
       "group": "motion",
       "claim": "button bg transition 240ms ease",
-      "measuredFrom": "src/components/shared/Button.jsx:46-46",
+      "measuredFrom": "src/components/shared/Button.jsx:60-60",
       "keywords": [
         "duration-[240ms] ease-[ease]"
       ]
     },
     {
       "group": "motion",
-      "claim": "hero reveal targets, durations 0.5/1.25s, delays 0/.25/.35",
-      "measuredFrom": "src/components/Hero.jsx:11-15",
+      "claim": "hero reveal targets, durations 0.5/1.25s, delays 0/.25/.35 (blur now in rem)",
+      "measuredFrom": "src/components/Hero.jsx:13-14",
       "keywords": [
-        "['avatar'",
-        "0.5, 0]",
-        "1.25, 0.25]",
-        "1.25, 0.35]",
-        "blur(20px)"
-      ]
+        "blur(1.25rem)",
+        "blur(0.5rem)",
+        "1.25, 0.25"
+      ],
+      "note": "Re-keyed in 2.0.0: the source moved to rem / restructured these lines."
     },
     {
       "group": "motion",
       "claim": "hero reveal ease power3.out (= IX2 outQuart)",
-      "measuredFrom": "src/components/Hero.jsx:24-24",
+      "measuredFrom": "src/components/Hero.jsx:63-63",
       "keywords": [
         "ease: 'power3.out'"
       ]
@@ -265,7 +270,7 @@
     {
       "group": "motion",
       "claim": "quote: clamp(top 500) -> clamp(bottom 500), scrub 0.8, colour to #fff, 1.5s, stagger 10, power4.inOut",
-      "measuredFrom": "src/components/QuoteHighlight.jsx:6-29",
+      "measuredFrom": "src/components/QuoteHighlight.jsx:23-29",
       "keywords": [
         "clamp(top 500)",
         "clamp(bottom 500)",
@@ -284,7 +289,7 @@
     {
       "group": "motion",
       "claim": "3-col slider: autoplay delay 3000",
-      "measuredFrom": "src/components/EnterpriseSlider.jsx:23-23",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:71-71",
       "keywords": [
         "useAutoplay(c, { delay: 3000 })"
       ]
@@ -292,7 +297,7 @@
     {
       "group": "motion",
       "claim": "3-col slider: starts once 40% visible, jumps to 0, then plays",
-      "measuredFrom": "src/components/EnterpriseSlider.jsx:35-38",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:83-86",
       "keywords": [
         "jump(0)",
         "setPlaying(true)",
@@ -302,7 +307,7 @@
     {
       "group": "motion",
       "claim": "3-col slider: 800ms ease transition",
-      "measuredFrom": "src/components/EnterpriseSlider.jsx:66-66",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:108-108",
       "keywords": [
         "transition-transform duration-[800ms] ease-[ease]"
       ]
@@ -310,7 +315,7 @@
     {
       "group": "motion",
       "claim": "3-col slider: bullet widens to 48 over 500ms, 3s fill",
-      "measuredFrom": "src/components/EnterpriseSlider.jsx:93-95",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:139-141",
       "keywords": [
         "activeWidth={48}",
         "bulletTransition=\"duration-[500ms]\"",
@@ -329,7 +334,7 @@
     {
       "group": "motion",
       "claim": "highlight carousel: autoplay 4000, threshold 10, hover pause",
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:20-22",
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:46-48",
       "keywords": [
         "threshold: 10",
         "useAutoplay(c, { delay: 4000, hoverRef })"
@@ -338,7 +343,7 @@
     {
       "group": "motion",
       "claim": "highlight carousel: centre scale 1.1 / sides .95 opacity .2, 300ms",
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:72-73",
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:101-102",
       "keywords": [
         "scale-[1.1] opacity-100",
         "scale-[0.95] opacity-20",
@@ -348,7 +353,7 @@
     {
       "group": "motion",
       "claim": "highlight carousel: active bullet 40, 300ms, 4s fill",
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:115-117",
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:144-146",
       "keywords": [
         "activeWidth={40}",
         "bulletTransition=\"duration-300\"",
@@ -358,7 +363,7 @@
     {
       "group": "motion",
       "claim": "hover pause on pointerenter (mouse only), resume with remaining time",
-      "measuredFrom": "src/hooks/useLoopCarousel.js:234-243",
+      "measuredFrom": "src/hooks/useLoopCarousel.js:239-243",
       "keywords": [
         "if (e.pointerType && e.pointerType !== 'mouse') return",
         "el.addEventListener('pointerenter', enter)"
@@ -385,7 +390,7 @@
     {
       "group": "motion",
       "claim": "assistant autotabs: threshold 5, no autoplay, 800ms",
-      "measuredFrom": "src/components/KikiTabs.jsx:43-44",
+      "measuredFrom": "src/components/KikiTabs.jsx:160-161",
       "keywords": [
         "threshold 5 (default), no autoplay",
         "useLoopCarousel(N, { threshold: 5 })"
@@ -394,7 +399,7 @@
     {
       "group": "motion",
       "claim": "FAQ: close 650ms, open 450ms outQuart; icon 150ms inOutQuart",
-      "measuredFrom": "src/index.css:83-96",
+      "measuredFrom": "src/index.css:100-113",
       "keywords": [
         "grid-template-rows 0.65s cubic-bezier(0.165, 0.84, 0.44, 1)",
         "transition-duration: 0.45s",
@@ -404,7 +409,7 @@
     {
       "group": "motion",
       "claim": "mobile menu: 650ms in",
-      "measuredFrom": "src/index.css:108-112",
+      "measuredFrom": "src/index.css:125-129",
       "keywords": [
         ".mobile-menu[data-state='open'] {",
         "opacity 0.65s"
@@ -413,7 +418,7 @@
     {
       "group": "motion",
       "claim": "mobile menu: 350ms out",
-      "measuredFrom": "src/index.css:116-120",
+      "measuredFrom": "src/index.css:133-137",
       "keywords": [
         ".mobile-menu[data-state='closing'] {",
         "opacity 0.35s"
@@ -422,7 +427,7 @@
     {
       "group": "motion",
       "claim": "mobile menu: unmount 400ms after closing starts",
-      "measuredFrom": "src/components/Nav.jsx:170-171",
+      "measuredFrom": "src/components/Nav.jsx:329-330",
       "keywords": [
         "if (phase === 'closing') {",
         "setPhase('closed'), 400)"
@@ -431,7 +436,7 @@
     {
       "group": "motion",
       "claim": "nav dropdown: 300ms hover-out close delay, no tween",
-      "measuredFrom": "src/components/Nav.jsx:157-157",
+      "measuredFrom": "src/components/Nav.jsx:305-305",
       "keywords": [
         "setTimeout(() => setOpenMenu(null), 300)"
       ]
@@ -439,7 +444,7 @@
     {
       "group": "motion",
       "claim": "nav item hover 320ms; AI link 250ms bg / 500ms width to 14.5rem",
-      "measuredFrom": "src/components/Nav.jsx:225-225",
+      "measuredFrom": "src/components/Nav.jsx:388-388",
       "keywords": [
         "duration-[250ms,500ms] hover:w-[14.5rem]"
       ]
@@ -447,7 +452,7 @@
     {
       "group": "motion",
       "claim": "nav top-level hover 320ms",
-      "measuredFrom": "src/components/Nav.jsx:198-198",
+      "measuredFrom": "src/components/Nav.jsx:361-361",
       "keywords": [
         "transition-colors duration-[320ms]"
       ]
@@ -455,7 +460,7 @@
     {
       "group": "motion",
       "claim": "dropdown item hover 360ms",
-      "measuredFrom": "src/components/Nav.jsx:110-110",
+      "measuredFrom": "src/components/Nav.jsx:233-233",
       "keywords": [
         "transition-colors duration-[360ms]"
       ]
@@ -463,7 +468,7 @@
     {
       "group": "motion",
       "claim": "product tabs fade: opacity + visibility .3s ease",
-      "measuredFrom": "src/index.css:48-53",
+      "measuredFrom": "src/index.css:65-70",
       "keywords": [
         ".fade-pane {",
         "opacity 0.3s ease",
@@ -473,7 +478,7 @@
     {
       "group": "motion",
       "claim": "footer drop-up chevron 300ms ease rotate 180",
-      "measuredFrom": "src/components/Footer.jsx:62-63",
+      "measuredFrom": "src/components/Footer.jsx:63-64",
       "keywords": [
         "transition-transform duration-300 ease-[ease]",
         "rotate-180"
@@ -482,7 +487,7 @@
     {
       "group": "constraint",
       "claim": "demo form is a static placeholder: preventDefault, disabled inputs + submit",
-      "measuredFrom": "src/components/Footer.jsx:83-95",
+      "measuredFrom": "src/components/Footer.jsx:84-96",
       "keywords": [
         "HubSpot form internals are unmeasurable",
         "onSubmit={(e) => e.preventDefault()}",
@@ -491,11 +496,13 @@
     },
     {
       "group": "constraint",
-      "claim": "video is a static placeholder making no network call",
-      "measuredFrom": "src/components/VideoSection.jsx:3-3",
+      "claim": "video is a static placeholder (Placeholder + play glyph) making no network call",
+      "measuredFrom": "src/components/VideoSection.jsx:56-65",
       "keywords": [
-        "Static placeholder in place of the YouTube embed (no network calls)"
-      ]
+        "<Placeholder",
+        "bg-playbtn"
+      ],
+      "note": "Re-keyed in 2.0.0: the source moved to rem / restructured these lines."
     },
     {
       "group": "constraint",
@@ -524,7 +531,7 @@
     {
       "group": "constraint",
       "claim": "public/assets usage: real logos fed to LogoPlaceholder in the logo row",
-      "measuredFrom": "src/components/LogoStrip.jsx:1-1",
+      "measuredFrom": "src/components/LogoStrip.jsx:3-3",
       "keywords": [
         "logo-volvo.png",
         "logo-burgerking.png"
@@ -533,10 +540,11 @@
     {
       "group": "constraint",
       "claim": "public/assets usage: real person photo in the testimonial",
-      "measuredFrom": "src/components/Results.jsx:45-45",
+      "measuredFrom": "src/components/Results.jsx:22-22",
       "keywords": [
-        "src=\"/assets/testimonial-avatar.png\""
-      ]
+        "avatar: '/assets/testimonial-avatar.png'"
+      ],
+      "note": "Re-keyed in 2.0.0: the source moved to rem / restructured these lines."
     },
     {
       "group": "constraint",
@@ -549,18 +557,20 @@
     {
       "group": "correction",
       "claim": "3-col slider keeps 32px top padding on mobile (only bottom goes to 0)",
-      "measuredFrom": "src/components/EnterpriseSlider.jsx:49-49",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:57-57",
       "keywords": [
-        "pb-[80px] pt-[32px] mob:pb-0"
-      ]
+        "pb-[5rem] pt-[2rem] mob:pb-0"
+      ],
+      "note": "Keywords re-cited after the px -> rem migration."
     },
     {
       "group": "correction",
       "claim": "assistant header margin-top 64 with no breakpoint override",
-      "measuredFrom": "src/components/KikiTabs.jsx:53-53",
+      "measuredFrom": "src/components/KikiTabs.jsx:43-43",
       "keywords": [
-        "mt-[64px] w-[640px] max-w-full"
-      ]
+        "mt-[4rem] w-[40rem] max-w-full"
+      ],
+      "note": "Keywords re-cited after the px -> rem migration."
     },
     {
       "group": "correction",
@@ -613,10 +623,11 @@
     {
       "group": "correction",
       "claim": "code: dropdown panel pt-8 under the pill",
-      "measuredFrom": "src/components/Nav.jsx:208-208",
+      "measuredFrom": "src/components/Nav.jsx:371-371",
       "keywords": [
-        "absolute left-1/2 top-full -translate-x-1/2 pt-[8px]"
-      ]
+        "absolute left-1/2 top-full -translate-x-1/2 pt-[0.5rem]"
+      ],
+      "note": "Keywords re-cited after the px -> rem migration."
     },
     {
       "group": "correction",
@@ -629,10 +640,11 @@
     {
       "group": "correction",
       "claim": "code: results header pt-40 pb-40",
-      "measuredFrom": "src/components/Results.jsx:17-17",
+      "measuredFrom": "src/components/Results.jsx:42-42",
       "keywords": [
-        "pb-[40px] pt-[40px]"
-      ]
+        "pb-[2.5rem] pt-[2.5rem]"
+      ],
+      "note": "Keywords re-cited after the px -> rem migration."
     },
     {
       "group": "correction",
@@ -741,6 +753,1107 @@
       "measuredFrom": "audit:orig-tree390.txt:1-1",
       "keywords": [
         "margin-huge mt=64px"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template home: the page render contains every slot's component",
+      "measuredFrom": "src/pages/Home.jsx:13-29",
+      "keywords": [
+        "<Hero",
+        "<LogoStrip",
+        "<ProductTabs",
+        "<KikiTabs",
+        "<EnterpriseSlider",
+        "<Results",
+        "<Statement",
+        "<QuoteHighlight",
+        "<CaseStudyCarousel",
+        "<VideoSection",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template feature-detail: the page render contains every slot's component",
+      "measuredFrom": "src/pages/features/FeatureDetail.jsx:99-199",
+      "keywords": [
+        "<Hero",
+        "<LogoStrip",
+        "<ProductTabs",
+        "<CtaStrip",
+        "<VideoSection",
+        "<ReviewsSlider",
+        "<FaqEmpty",
+        "<Faq",
+        "<ExploreEmpty",
+        "<KikiTabs",
+        "<ExploreHeader"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template case-study-platform: the page render contains every slot's component",
+      "measuredFrom": "src/pages/content/CaseStudyPlatform.jsx:10-31",
+      "keywords": [
+        "<CsPlatformBody",
+        "<EnterpriseSlider"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template case-study-content: the page render contains every slot's component",
+      "measuredFrom": "src/pages/content/CaseStudyContent.jsx:10-21",
+      "keywords": [
+        "<Layout2Hero",
+        "<CsContentStats",
+        "<CsContentArticle",
+        "<CsContentRelated"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template content-catalogue: the page render contains every slot's component",
+      "measuredFrom": "src/pages/content/ContentCatalogue.jsx:33-48",
+      "keywords": [
+        "<HeaderGridCard",
+        "<FlipLogos",
+        "<GridSplitLegacy",
+        "<TopicsGrid",
+        "<ReviewsSlider",
+        "<FaqLegacy"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template lms: the page render contains every slot's component",
+      "measuredFrom": "src/pages/platform/Lms.jsx:169-230",
+      "keywords": [
+        "<PlatformHero",
+        "<PlatformIntroHeader",
+        "<KikiTabs",
+        "<TestimonialQuote",
+        "<AutotabsGroup",
+        "<ProductTabs",
+        "<FeatureBento",
+        "<Results",
+        "<FinalQuote",
+        "<ComparisonTable",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template lms-small-business: the page render contains every slot's component",
+      "measuredFrom": "src/pages/platform/SmallBusiness.jsx:100-201",
+      "keywords": [
+        "<WowContentHero",
+        "<LogoStrip",
+        "<WowBento",
+        "<KikiTabs",
+        "<Layout03Tabs",
+        "<Results",
+        "<CentredQuote",
+        "<Button",
+        "<Marquee",
+        "<CtaStrip",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template lms-corporate: the page render contains every slot's component",
+      "measuredFrom": "src/pages/platform/CorporateLms.jsx:62-131",
+      "keywords": [
+        "<WowContentHero",
+        "<LogosHeroOverlap",
+        "<SplitAutotabs",
+        "<Layout03Tabs",
+        "<TestimonialQuote",
+        "<Results",
+        "<TwoColFeatures",
+        "<IntegrationsVisual",
+        "<ReviewsSlider",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template lms-enterprise: the page render contains every slot's component",
+      "measuredFrom": "src/pages/platform/Enterprise.jsx:217-271",
+      "keywords": [
+        "<WowContentHero",
+        "<SplitAutotabs",
+        "<Layout03Tabs",
+        "<AutotabsGroup",
+        "<Results",
+        "<CentredQuote",
+        "<Button",
+        "<TwoColFeatures",
+        "<IntegrationsVisual",
+        "<TestimonialQuote",
+        "<CtaStrip",
+        "<ComparisonTable",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template lms-solutions: the page render contains every slot's component",
+      "measuredFrom": "src/pages/platform/Solutions.jsx:28-59",
+      "keywords": [
+        "<WowContentHero",
+        "<LogoStrip",
+        "<AnchorNav",
+        "<StickyTabs",
+        "<TestimonialQuote",
+        "<Sectors",
+        "<CaseStudyCarousel",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template lms-professional-services: the page render contains every slot's component",
+      "measuredFrom": "src/pages/platform/ProfessionalServices.jsx:19-53",
+      "keywords": [
+        "<HeroCenterLegacy",
+        "<Results",
+        "<HeaderImageLegacy",
+        "<GridSplitLegacy",
+        "<TabsHLegacy",
+        "<FeatureTwoColLegacy",
+        "<GridCardsLegacy",
+        "<ReviewsSlider"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template lms-impact: the page render contains every slot's component",
+      "measuredFrom": "src/pages/platform/Impact.jsx:10-64",
+      "keywords": [
+        "<Layout2Hero",
+        "<FlipLogos",
+        "<FeatureTwoColLegacy",
+        "<GridCardsLegacy",
+        "<CardSliderLegacy",
+        "<GridSplitLegacy",
+        "<PricingProLegacy"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template lms-integrations: the page render contains every slot's component",
+      "measuredFrom": "src/pages/platform/Integrations.jsx:24-44",
+      "keywords": [
+        "<IntegrationsHeader",
+        "<IntegrationFilter",
+        "<ReviewsSlider",
+        "<FaqLegacy"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template lms-spring-release: the page render contains every slot's component",
+      "measuredFrom": "src/pages/platform/SpringRelease.jsx:125-166",
+      "keywords": [
+        "<WowContentHero",
+        "<LogoStrip",
+        "<SpringGrid",
+        "<WowBento",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template lms-demo-platform: the page render contains every slot's component",
+      "measuredFrom": "src/pages/platform/DemoPlatform.jsx:35-99",
+      "keywords": [
+        "<DemoHero",
+        "<LogoStrip",
+        "<Results",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template pricing: the page render contains every slot's component",
+      "measuredFrom": "src/pages/platform/Pricing.jsx:50-89",
+      "keywords": [
+        "<PricingHero",
+        "<ReviewsGrid",
+        "<VideoSection",
+        "<ContentPricing",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template lms-features: the page render contains every slot's component",
+      "measuredFrom": "src/pages/features/LmsFeatures.jsx:92-127",
+      "keywords": [
+        "<WowContentHero",
+        "<LogoStrip",
+        "<FeaturesIntro",
+        "<AnchorNav",
+        "<StickyTabs",
+        "<IntegrationsVisual",
+        "<TestimonialQuote",
+        "<CtaStrip",
+        "<CaseStudyCarousel",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template nova: the page render contains every slot's component",
+      "measuredFrom": "src/pages/features/Nova.jsx:65-112",
+      "keywords": [
+        "<KikiHeader",
+        "<LogoStrip",
+        "<KikiFeatureTabs",
+        "<Button",
+        "<TestimonialQuote",
+        "<SplitTabs",
+        "<ComparisonTable",
+        "<AutotabsGroup",
+        "<VideoSection",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template lms-mentoring-software: the page render contains every slot's component",
+      "measuredFrom": "src/pages/features/MentoringSoftware.jsx:45-77",
+      "keywords": [
+        "<MentoringHeader",
+        "<AutotabsGroup",
+        "<SplitTabs",
+        "<CaseStudyVideo",
+        "<VideoSection",
+        "<CtaStrip",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template content-overview: the page render contains every slot's component",
+      "measuredFrom": "src/pages/content/ContentOverview.jsx:69-82",
+      "keywords": [
+        "<ContentHero",
+        "<Sectors",
+        "<SolutionTabs",
+        "<GridCardsLegacy",
+        "<ReviewsSlider",
+        "<FaqLegacy"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template content-service: the page render contains every slot's component",
+      "measuredFrom": "src/pages/content/ContentService.jsx:25-35",
+      "keywords": [
+        "<Layout2Hero",
+        "<FlipLogos",
+        "<FeatureTwoColLegacy",
+        "<CardSliderLegacy",
+        "<TestimonialCardLegacy"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template content-custom: the page render contains every slot's component",
+      "measuredFrom": "src/pages/content/CustomContent.jsx:22-53",
+      "keywords": [
+        "<HeroCenterLegacy",
+        "<FlipLogos",
+        "<CustomVideo",
+        "<TestimonialCardLegacy",
+        "<LearnGrid",
+        "<CardSliderLegacy",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template mentoring: the page render contains every slot's component",
+      "measuredFrom": "src/pages/content/Mentoring.jsx:34-59",
+      "keywords": [
+        "<WowContentHero",
+        "<LogoStrip",
+        "<Wow2col",
+        "<Marquee",
+        "<WowBento",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template case-studies-lms: the page render contains every slot's component",
+      "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:58-67",
+      "keywords": [
+        "<WowContentHero",
+        "<CsFilterGrid",
+        "<CaseStudyResults",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template case-studies-content: the page render contains every slot's component",
+      "measuredFrom": "src/pages/content/CaseStudiesContent.jsx:17-30",
+      "keywords": [
+        "<GlobalHeaderLegacy",
+        "<CsContentList"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template company: the page render contains every slot's component",
+      "measuredFrom": "src/pages/company/CompanyPage.jsx:13-65",
+      "keywords": [
+        "<CompanyHeader",
+        "<LogoStrip",
+        "<StatsResults",
+        "<TwoColFeatures",
+        "<ProofResults",
+        "<CompanyNews",
+        "<CaseStudyCarousel",
+        "<Layout2Hero",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template company-why: the page render contains every slot's component",
+      "measuredFrom": "src/pages/company/WhyNimbusPage.jsx:64-105",
+      "keywords": [
+        "<WowContentHero",
+        "<LogoStrip",
+        "<WhyKikitabs",
+        "<WowBento",
+        "<WhyBlock",
+        "<CaseStudyCarousel",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template whats-included: the page render contains every slot's component",
+      "measuredFrom": "src/pages/company/WhatsIncludedPage.jsx:25-75",
+      "keywords": [
+        "<WowContentHero",
+        "<LogoStrip",
+        "<IncludedTabs",
+        "<Layout03Tabs",
+        "<ProofResults",
+        "<ReviewsSlider",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template contact-us: the page render contains every slot's component",
+      "measuredFrom": "src/pages/company/ContactPage.jsx:23-53",
+      "keywords": [
+        "<GlobalHeaderLegacy",
+        "<LogoStrip",
+        "<ContactForm",
+        "<CaseStudyCarousel",
+        "<Faq"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template events-webinars: the page render contains every slot's component",
+      "measuredFrom": "src/pages/company/EventsPage.jsx:17-26",
+      "keywords": [
+        "<Layout2Hero",
+        "<EventsUpcoming",
+        "<WebinarsUpcoming",
+        "<EventsFilter"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template blog-and-news: the page render contains every slot's component",
+      "measuredFrom": "src/pages/company/BlogPage.jsx:39-47",
+      "keywords": [
+        "<BlogFeatured",
+        "<BlogFilter"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template guides: the page render contains every slot's component",
+      "measuredFrom": "src/pages/company/GuidesPage.jsx:19-26",
+      "keywords": [
+        "<GuidesIndex"
+      ]
+    },
+    {
+      "group": "template",
+      "claim": "template lms-glossary: the page render contains every slot's component",
+      "measuredFrom": "src/pages/company/GlossaryPage.jsx:6-17",
+      "keywords": [
+        "<GlossaryIndex",
+        "<GlossaryCta"
+      ]
+    },
+    {
+      "group": "asset",
+      "claim": "public/assets usage on a subpage hero: the real headshot strip (photo.person, pinned must-not-fabricate)",
+      "measuredFrom": "src/components/sections/DemoHero.jsx:51-51",
+      "keywords": [
+        "src=\"/assets/hero-avatars.png\""
+      ]
+    },
+    {
+      "group": "asset",
+      "claim": "public/assets usage on a subpage hero: the real headshot strip (photo.person, pinned must-not-fabricate)",
+      "measuredFrom": "src/components/sections/LogosHeroOverlap.jsx:41-41",
+      "keywords": [
+        "src=\"/assets/hero-avatars.png\""
+      ]
+    },
+    {
+      "group": "asset",
+      "claim": "public/assets usage on a subpage hero: the real headshot strip (photo.person, pinned must-not-fabricate)",
+      "measuredFrom": "src/components/sections/MentoringHeader.jsx:64-64",
+      "keywords": [
+        "src=\"/assets/hero-avatars.png\""
+      ]
+    },
+    {
+      "group": "asset",
+      "claim": "public/assets usage on a subpage hero: the real headshot strip (photo.person, pinned must-not-fabricate)",
+      "measuredFrom": "src/components/sections/WowContentHero.jsx:31-31",
+      "keywords": [
+        "src=\"/assets/hero-avatars.png\""
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "hero.pricing-calculator drawer (modal.drawerSlide): overlay 500ms ease, panel 500ms outQuad curve",
+      "measuredFrom": "src/components/sections/PricingHero.jsx:172-176",
+      "keywords": [
+        "transition-opacity duration-500 ease-[ease]",
+        "duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "hero.split-visual motion (hero.loadReveal): measured values for ['avatar', { opacity: 0, y: 40, scale: 0.9, skewX: 10 }, 0.5, 0], ['subtitle', { opacity: 0, y: 10, skewX: 10, filter: 'blur(0.5rem)' }, 1.25, 0.25], ease: 'power3.out'",
+      "measuredFrom": "src/components/Hero.jsx:12-63",
+      "keywords": [
+        "['avatar', { opacity: 0, y: 40, scale: 0.9, skewX: 10 }, 0.5, 0]",
+        "['subtitle', { opacity: 0, y: 10, skewX: 10, filter: 'blur(0.5rem)' }, 1.25, 0.25]",
+        "ease: 'power3.out'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "hero.split-visual motion (hero.loadReveal): measured values for <Eyebrow data-hero-reveal=\"avatar\" chipClassName={eyebrowChipClassName}>",
+      "measuredFrom": "src/components/Hero.jsx:81-81",
+      "keywords": [
+        "<Eyebrow data-hero-reveal=\"avatar\" chipClassName={eyebrowChipClassName}>"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.feature-tabs motion (tabs.crossFade): measured values for §4 Product tabs: click-driven, opacity + visibility .3s fade, no autoplay., onClick={() => setActive(i)}",
+      "measuredFrom": "src/components/ProductTabs.jsx:6-107",
+      "keywords": [
+        "§4 Product tabs: click-driven, opacity + visibility .3s fade, no autoplay.",
+        "onClick={() => setActive(i)}"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.feature-tabs motion (tabs.crossFade): measured values for .fade-pane {, opacity 0.3s ease,, visibility 0.3s ease;",
+      "measuredFrom": "src/index.css:65-70",
+      "keywords": [
+        ".fade-pane {",
+        "opacity 0.3s ease,",
+        "visibility 0.3s ease;"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.assistant-tabs motion (carousel.dragLoop): measured values for useLoopCarousel(N, { threshold: 5 }), onClick={() => c.goTo(i)}, duration-[800ms] ease-[ease]",
+      "measuredFrom": "src/components/KikiTabs.jsx:161-199",
+      "keywords": [
+        "useLoopCarousel(N, { threshold: 5 })",
+        "onClick={() => c.goTo(i)}",
+        "duration-[800ms] ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.capability-slider motion (carousel.autoplayOnView): measured values for useLoopCarousel(N, { initialPlaying: false, threshold: 5, grabCursor: false }), useAutoplay(c, { delay: 3000 })",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:70-71",
+      "keywords": [
+        "useLoopCarousel(N, { initialPlaying: false, threshold: 5, grabCursor: false })",
+        "useAutoplay(c, { delay: 3000 })"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.capability-slider motion (carousel.autoplayOnView): measured values for { threshold: 0.4 },, duration-[800ms] ease-[ease]",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:86-108",
+      "keywords": [
+        "{ threshold: 0.4 },",
+        "duration-[800ms] ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.capability-slider motion (carousel.autoplayOnView): measured values for transition-colors duration-200 hover:bg-surface-2",
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:26-26",
+      "keywords": [
+        "transition-colors duration-200 hover:bg-surface-2"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "proof.case-study-carousel motion (carousel.centeredAutoplay): measured values for useLoopCarousel(N, { initialPlaying: true, threshold: 10 }), useAutoplay(c, { delay: 4000, hoverRef })",
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:46-48",
+      "keywords": [
+        "useLoopCarousel(N, { initialPlaying: true, threshold: 10 })",
+        "useAutoplay(c, { delay: 4000, hoverRef })"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "proof.case-study-carousel motion (carousel.centeredAutoplay): measured values for on ? 'z-[2] scale-[1.1] opacity-100' : 'scale-[0.95] opacity-20', transition-[opacity,transform] duration-300 ease-[ease]",
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:101-102",
+      "keywords": [
+        "on ? 'z-[2] scale-[1.1] opacity-100' : 'scale-[0.95] opacity-20'",
+        "transition-[opacity,transform] duration-300 ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "conversion.faq motion (accordion.faq): measured values for onClick={() => setOpen((o) => !o)}, <div data-open={open} className=\"faq-body\">",
+      "measuredFrom": "src/components/Faq.jsx:75-82",
+      "keywords": [
+        "onClick={() => setOpen((o) => !o)}",
+        "<div data-open={open} className=\"faq-body\">"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "conversion.faq motion (accordion.faq): measured values for .faq-body {, grid-template-rows 0.65s cubic-bezier(0.165, 0.84, 0.44, 1),, transition-duration: 0.45s;",
+      "measuredFrom": "src/index.css:93-109",
+      "keywords": [
+        ".faq-body {",
+        "grid-template-rows 0.65s cubic-bezier(0.165, 0.84, 0.44, 1),",
+        "transition-duration: 0.45s;"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "conversion.faq motion (accordion.faq): measured values for transition: transform 0.15s cubic-bezier(0.77, 0, 0.175, 1);",
+      "measuredFrom": "src/index.css:113-113",
+      "keywords": [
+        "transition: transform 0.15s cubic-bezier(0.77, 0, 0.175, 1);"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "article.cs-platform-body motion (scroll.charColorScrub): measured values for start: 'clamp(top 90%)', end: 'clamp(bottom 60%)', scrub: 0.8, stagger: { amount: 0.5 }, yPercent: 100, opacity: 0",
+      "measuredFrom": "src/components/sections/CsPlatformBody.jsx:177-179",
+      "keywords": [
+        "start: 'clamp(top 90%)', end: 'clamp(bottom 60%)', scrub: 0.8",
+        "stagger: { amount: 0.5 }",
+        "yPercent: 100, opacity: 0"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "article.cs-platform-body motion (scroll.charColorScrub): measured values for transition-[background-color,color] duration-200",
+      "measuredFrom": "src/components/sections/CsPlatformBody.jsx:235-235",
+      "keywords": [
+        "transition-[background-color,color] duration-200"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "conversion.content-pricing motion (ticker.verticalLoop): measured values for <TickerTrack, delay={6}",
+      "measuredFrom": "src/components/sections/ContentPricing.jsx:174-175",
+      "keywords": [
+        "<TickerTrack",
+        "delay={6}"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "conversion.content-pricing motion (ticker.verticalLoop): measured values for gsap.timeline({ paused: true, repeat: -1 }), duration: 0.85, ease: 'power3.out', delay, start: 'top bottom', once: true, onEnter: () => tl.play()",
+      "measuredFrom": "src/components/sections/PricingHero.jsx:133-137",
+      "keywords": [
+        "gsap.timeline({ paused: true, repeat: -1 })",
+        "duration: 0.85, ease: 'power3.out', delay",
+        "start: 'top bottom', once: true, onEnter: () => tl.play()"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "conversion.content-pricing motion (ticker.verticalLoop): measured values for onClick={() => setOpen((o) => !o)}, <div data-open={open} className=\"faq-body\">",
+      "measuredFrom": "src/components/sections/ContentPricing.jsx:34-41",
+      "keywords": [
+        "onClick={() => setOpen((o) => !o)}",
+        "<div data-open={open} className=\"faq-body\">"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "conversion.content-pricing motion (ticker.verticalLoop): measured values for .faq-body {, grid-template-rows 0.65s cubic-bezier(0.165, 0.84, 0.44, 1),, transition-duration: 0.45s;, transition: transform 0.15s cubic-bezier(0.77, 0, 0.175, 1);",
+      "measuredFrom": "src/index.css:93-113",
+      "keywords": [
+        ".faq-body {",
+        "grid-template-rows 0.65s cubic-bezier(0.165, 0.84, 0.44, 1),",
+        "transition-duration: 0.45s;",
+        "transition: transform 0.15s cubic-bezier(0.77, 0, 0.175, 1);"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "conversion.faq-legacy motion (accordion.legacyHeight): measured values for setAnim('height 0.4s ease'), timers.current.push(setTimeout(() => setHeight('auto'), 400)), setAnim('height 0.1s linear')",
+      "measuredFrom": "src/components/sections/FaqLegacy.jsx:74-85",
+      "keywords": [
+        "setAnim('height 0.4s ease')",
+        "timers.current.push(setTimeout(() => setHeight('auto'), 400))",
+        "setAnim('height 0.1s linear')"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "conversion.faq-legacy motion (accordion.legacyHeight): measured values for transition: shown ? 'transform 0.2s ease' : 'transform 0.1s linear', const colorT = '0.1s'",
+      "measuredFrom": "src/components/sections/FaqLegacy.jsx:93-115",
+      "keywords": [
+        "transition: shown ? 'transform 0.2s ease' : 'transform 0.1s linear'",
+        "const colorT = '0.1s'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "conversion.glossary-cta motion (scroll.revealOnce): measured values for gsap.fromTo(el, { opacity: 0, y: 100 }, duration: 1, delay: 0.3, ease: 'power3.out', start: 'top bottom', once: true",
+      "measuredFrom": "src/components/sections/GlossaryCta.jsx:22-22",
+      "keywords": [
+        "gsap.fromTo(el, { opacity: 0, y: 100 }",
+        "duration: 1, delay: 0.3, ease: 'power3.out'",
+        "start: 'top bottom', once: true"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "conversion.glossary-cta motion (scroll.revealOnce): measured values for transition-colors ease-[ease] hover:bg-white",
+      "measuredFrom": "src/components/sections/GlossaryCta.jsx:40-40",
+      "keywords": [
+        "transition-colors ease-[ease] hover:bg-white"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "hero.assistant-video motion (scroll.revealOnce): measured values for gsap.set(h, { opacity: 0, y: '2rem' }), start: 'top 85%', duration: 0.6, ease: 'power2.out'",
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:51-56",
+      "keywords": [
+        "gsap.set(h, { opacity: 0, y: '2rem' })",
+        "start: 'top 85%'",
+        "duration: 0.6, ease: 'power2.out'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "hero.assistant-video motion (scroll.revealOnce): measured values for delay-[100ms] duration-[450ms], group-hover:-translate-y-1/2",
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:37-37",
+      "keywords": [
+        "delay-[100ms] duration-[450ms]",
+        "group-hover:-translate-y-1/2"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "hero.content-overview motion (scroll.revealOnce): measured values for scrollTrigger: { trigger: el, start: 'top bottom', once: true }, { x: '-3rem', opacity: 0, filter: 'blur(5px)' }, { x: '5rem', opacity: 0, filter: 'blur(5px)' }, duration: 0.75, ease: 'power3.out' }, 0.5)",
+      "measuredFrom": "src/components/sections/ContentHero.jsx:67-69",
+      "keywords": [
+        "scrollTrigger: { trigger: el, start: 'top bottom', once: true }",
+        "{ x: '-3rem', opacity: 0, filter: 'blur(5px)' }",
+        "{ x: '5rem', opacity: 0, filter: 'blur(5px)' }",
+        "duration: 0.75, ease: 'power3.out' }, 0.5)"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "hero.mentoring-software motion (hero.loadReveal): measured values for const REVEAL = [, ['avatar', { opacity: 0, y: 40, scale: 0.9, skewX: 10 }, 0.5, 0],, ['buttons', { opacity: 0, y: 10, skewX: 10, filter: 'blur(1.25rem)' }, 1.25, 0.35],",
+      "measuredFrom": "src/components/sections/MentoringHeader.jsx:12-17",
+      "keywords": [
+        "const REVEAL = [",
+        "['avatar', { opacity: 0, y: 40, scale: 0.9, skewX: 10 }, 0.5, 0],",
+        "['buttons', { opacity: 0, y: 10, skewX: 10, filter: 'blur(1.25rem)' }, 1.25, 0.35],"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "hero.mentoring-software motion (hero.loadReveal): measured values for const to = { opacity: 1, y: 0, duration, delay, ease: 'power3.out' }",
+      "measuredFrom": "src/components/sections/MentoringHeader.jsx:41-41",
+      "keywords": [
+        "const to = { opacity: 1, y: 0, duration, delay, ease: 'power3.out' }"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "hero.pricing-calculator motion (ticker.verticalLoop): measured values for transition-opacity duration-500 ease-[ease], transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)], translateX(100%)",
+      "measuredFrom": "src/components/sections/PricingHero.jsx:172-177",
+      "keywords": [
+        "transition-opacity duration-500 ease-[ease]",
+        "transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]",
+        "translateX(100%)"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "hero.pricing-calculator motion (ticker.verticalLoop): measured values for .fade-pane {, opacity 0.3s ease,",
+      "measuredFrom": "src/index.css:65-69",
+      "keywords": [
+        ".fade-pane {",
+        "opacity 0.3s ease,"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "index.glossary motion (scroll.revealOnce): measured values for once('[data-gl-head]', { opacity: 0 }, 0.1), once('[data-gl-list]', { opacity: 0, y: 100 }, 0.5), start: 'top 80%', once: true",
+      "measuredFrom": "src/components/sections/GlossaryIndex.jsx:42-44",
+      "keywords": [
+        "once('[data-gl-head]', { opacity: 0 }, 0.1)",
+        "once('[data-gl-list]', { opacity: 0, y: 100 }, 0.5)",
+        "start: 'top 80%', once: true"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "index.glossary motion (scroll.revealOnce): measured values for 'opacity-100 duration-200 ease-[ease]', 'opacity-50 duration-500'",
+      "measuredFrom": "src/components/sections/GlossaryIndex.jsx:100-100",
+      "keywords": [
+        "'opacity-100 duration-200 ease-[ease]'",
+        "'opacity-50 duration-500'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.assistant-feature-tabs motion (tabs.crossFade): measured values for onClick={() => setActive(i)}, transition-opacity duration-300 ease-[ease]",
+      "measuredFrom": "src/components/sections/KikiFeatureTabs.jsx:51-56",
+      "keywords": [
+        "onClick={() => setActive(i)}",
+        "transition-opacity duration-300 ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.autotabs-group motion (carousel.dragLoop): measured values for useLoopCarousel(N, { threshold: 5 }), onClick={() => c.goTo(i)}, duration-[800ms] ease-[ease]",
+      "measuredFrom": "src/components/sections/AutotabsGroup.jsx:39-63",
+      "keywords": [
+        "useLoopCarousel(N, { threshold: 5 })",
+        "onClick={() => c.goTo(i)}",
+        "duration-[800ms] ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.card-slider-legacy motion (carousel.pagedSlide): measured values for transition-transform duration-500 ease-[ease], Math.abs(dx) > 30, const threshold = Math.max(0, width - 100)",
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:140-245",
+      "keywords": [
+        "transition-transform duration-500 ease-[ease]",
+        "Math.abs(dx) > 30",
+        "const threshold = Math.max(0, width - 100)"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.included-tabs motion (carousel.dragLoop): measured values for useLoopCarousel(N, { threshold: 5 }), duration-[800ms] ease-[ease], onClick={() => c.goTo(i)}",
+      "measuredFrom": "src/pages/company/IncludedTabs.jsx:33-92",
+      "keywords": [
+        "useLoopCarousel(N, { threshold: 5 })",
+        "duration-[800ms] ease-[ease]",
+        "onClick={() => c.goTo(i)}"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.layout03-tabs motion (tabs.fadeOutIn): measured values for opacity: 0, transition: 'opacity 200ms ease', opacity: 1, transition: 'opacity 400ms ease', }, 200)",
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:43-50",
+      "keywords": [
+        "opacity: 0, transition: 'opacity 200ms ease'",
+        "opacity: 1, transition: 'opacity 400ms ease'",
+        "}, 200)"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.layout03-tabs motion (tabs.fadeOutIn): measured values for transition-all duration-300",
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:153-153",
+      "keywords": [
+        "transition-all duration-300"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.sector-tabs motion (tabs.fadeOutIn): measured values for setVisible(false) // fade out 100ms, }, 100), opacity ${t.visible ? 300 : 100}ms ease",
+      "measuredFrom": "src/components/sections/Sectors.jsx:44-92",
+      "keywords": [
+        "setVisible(false) // fade out 100ms",
+        "}, 100)",
+        "opacity ${t.visible ? 300 : 100}ms ease"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.solution-tabs motion (tabs.crossFade): measured values for transition-all duration-200 last:border-b-0, fade-pane relative z-[1]",
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:98-120",
+      "keywords": [
+        "transition-all duration-200 last:border-b-0",
+        "fade-pane relative z-[1]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.solution-tabs motion (tabs.crossFade): measured values for 'grid-rows-[1fr] bg-[#232011] duration-[400ms]', 'grid-rows-[0fr] duration-100'",
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:153-153",
+      "keywords": [
+        "'grid-rows-[1fr] bg-[#232011] duration-[400ms]'",
+        "'grid-rows-[0fr] duration-100'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.split-autotabs motion (carousel.dragLoop): measured values for useLoopCarousel(N, { threshold: 5 }), duration-[800ms] ease-[ease], transition-all duration-[250ms] hover:gap-[1rem]",
+      "measuredFrom": "src/pages/platform/SplitAutotabs.jsx:16-58",
+      "keywords": [
+        "useLoopCarousel(N, { threshold: 5 })",
+        "duration-[800ms] ease-[ease]",
+        "transition-all duration-[250ms] hover:gap-[1rem]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.split-tabs motion (tabs.crossFade): measured values for requestAnimationFrame(() => setFaded(i)), }, 300), fade-pane absolute inset-0",
+      "measuredFrom": "src/components/sections/SplitTabs.jsx:46-143",
+      "keywords": [
+        "requestAnimationFrame(() => setFaded(i))",
+        "}, 300)",
+        "fade-pane absolute inset-0"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.sticky-tabs motion (sticky.anchorTabs): measured values for 472.143 * Math.log(Math.abs(dist) + 125) - 2000, easeInOutCubic(t), requestAnimationFrame(step)",
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:144-149",
+      "keywords": [
+        "472.143 * Math.log(Math.abs(dist) + 125) - 2000",
+        "easeInOutCubic(t)",
+        "requestAnimationFrame(step)"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.sticky-tabs motion (sticky.anchorTabs): measured values for useLoopCarousel(N, { threshold: 5 }), duration-[800ms] ease-[ease]",
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:156-237",
+      "keywords": [
+        "useLoopCarousel(N, { threshold: 5 })",
+        "duration-[800ms] ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.sticky-tabs motion (sticky.anchorTabs): measured values for transition-all duration-[250ms] ease-[ease] hover:bg-green",
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:322-322",
+      "keywords": [
+        "transition-all duration-[250ms] ease-[ease] hover:bg-green"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.tabs-horizontal-legacy motion (tabs.fadeOutIn): measured values for transitionDuration: shown ? '400ms' : '0ms', transition-opacity duration-[400ms] ease-[ease]",
+      "measuredFrom": "src/components/sections/TabsHLegacy.jsx:58-59",
+      "keywords": [
+        "transitionDuration: shown ? '400ms' : '0ms'",
+        "transition-opacity duration-[400ms] ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.two-col-features motion (scroll.revealOnce): measured values for gsap.set(content, { opacity: 0, x: rev ? '3rem' : '-3rem', filter: 'blur(5px)' }), gsap.set(img, { opacity: 0, x: rev ? '-5rem' : '5rem', filter: 'blur(5px)' })",
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:188-189",
+      "keywords": [
+        "gsap.set(content, { opacity: 0, x: rev ? '3rem' : '-3rem', filter: 'blur(5px)' })",
+        "gsap.set(img, { opacity: 0, x: rev ? '-5rem' : '5rem', filter: 'blur(5px)' })"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.two-col-features motion (scroll.revealOnce): measured values for duration: 0.75, delay: 0.5, ease: 'power3.out', start: 'top bottom'",
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:192-195",
+      "keywords": [
+        "duration: 0.75, delay: 0.5, ease: 'power3.out'",
+        "start: 'top bottom'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.two-col-features motion (scroll.revealOnce): measured values for reveal = preset !== 'enterprise'",
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:178-178",
+      "keywords": [
+        "reveal = preset !== 'enterprise'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.why-assistant-tabs motion (carousel.dragLoop): measured values for useLoopCarousel(N, { threshold: 5 }), duration-[800ms] ease-[ease]",
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:72-128",
+      "keywords": [
+        "useLoopCarousel(N, { threshold: 5 })",
+        "duration-[800ms] ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.why-assistant-tabs motion (carousel.dragLoop): measured values for onClick={() => setTab(i)}, fade-pane absolute inset-0 flex",
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:195-207",
+      "keywords": [
+        "onClick={() => setTab(i)}",
+        "fade-pane absolute inset-0 flex"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.wow-bento motion (scroll.revealOnce): measured values for gsap.set(el, { opacity: 0, y: '3rem', filter: 'blur(5px)' }), start: 'top bottom', duration: 0.5, ease: 'power3.out'",
+      "measuredFrom": "src/components/sections/WowBento.jsx:56-61",
+      "keywords": [
+        "gsap.set(el, { opacity: 0, y: '3rem', filter: 'blur(5px)' })",
+        "start: 'top bottom'",
+        "duration: 0.5, ease: 'power3.out'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "product.wow-bento motion (scroll.revealOnce): measured values for useCardsReveal(variant === 'cards' || variant === 'cards-cta')",
+      "measuredFrom": "src/components/sections/WowBento.jsx:177-177",
+      "keywords": [
+        "useCardsReveal(variant === 'cards' || variant === 'cards-cta')"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "proof.cs-content-stats motion (scroll.revealOnce): measured values for ['[data-reveal-number]', 0.25], ['[data-reveal-list]', 0.2], { y: 100, opacity: 0 }, duration: 1, delay, ease: 'power3.out'",
+      "measuredFrom": "src/components/sections/CsContentStats.jsx:41-47",
+      "keywords": [
+        "['[data-reveal-number]', 0.25]",
+        "['[data-reveal-list]', 0.2]",
+        "{ y: 100, opacity: 0 }",
+        "duration: 1, delay, ease: 'power3.out'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "proof.flip-logos motion (ticker.verticalLoop): measured values for gsap.timeline({ repeat: -1 }), duration: 0.85, ease: 'power3.out'",
+      "measuredFrom": "src/components/sections/FlipLogos.jsx:36-38",
+      "keywords": [
+        "gsap.timeline({ repeat: -1 })",
+        "duration: 0.85, ease: 'power3.out'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "proof.flip-logos motion (ticker.verticalLoop): measured values for { d0: 0.25, steps: [[2, -28], [2, -54], [2, -80.5]] }, { d0: 0.5, steps: [[2, -26], [2, -54], [2, -80]] }",
+      "measuredFrom": "src/components/sections/FlipLogos.jsx:18-20",
+      "keywords": [
+        "{ d0: 0.25, steps: [[2, -28], [2, -54], [2, -80.5]] }",
+        "{ d0: 0.5, steps: [[2, -26], [2, -54], [2, -80]] }"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "proof.flip-logos motion (ticker.verticalLoop): measured values for io.disconnect(), { threshold: 0 }",
+      "measuredFrom": "src/components/sections/FlipLogos.jsx:47-51",
+      "keywords": [
+        "io.disconnect()",
+        "{ threshold: 0 }"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "proof.reviews-grid motion (carousel.autoplayLoop): measured values for useLoopCarousel(N, { initialPlaying: true }), useAutoplay(c, { delay: 4000, hoverRef })",
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:45-46",
+      "keywords": [
+        "useLoopCarousel(N, { initialPlaying: true })",
+        "useAutoplay(c, { delay: 4000, hoverRef })"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "proof.reviews-grid motion (carousel.autoplayLoop): measured values for transition-transform duration-[800ms] ease-[ease]",
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:70-70",
+      "keywords": [
+        "transition-transform duration-[800ms] ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "proof.reviews-grid motion (carousel.autoplayLoop): measured values for transition-[opacity,transform] duration-[600ms] ease-[ease]",
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:79-79",
+      "keywords": [
+        "transition-[opacity,transform] duration-[600ms] ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "proof.reviews-slider motion (carousel.autoplayLoop): measured values for initialPlaying: N > 1, threshold: 5, useAutoplay(c, { delay: 4000, hoverRef })",
+      "measuredFrom": "src/components/sections/ReviewsSlider.jsx:123-124",
+      "keywords": [
+        "initialPlaying: N > 1, threshold: 5",
+        "useAutoplay(c, { delay: 4000, hoverRef })"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "proof.reviews-slider motion (carousel.autoplayLoop): measured values for transition-transform duration-[800ms] ease-[ease]",
+      "measuredFrom": "src/components/sections/ReviewsSlider.jsx:143-143",
+      "keywords": [
+        "transition-transform duration-[800ms] ease-[ease]"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "proof.reviews-slider motion (carousel.autoplayLoop): measured values for transition: 'opacity 0.6s ease, transform 0.6s ease'",
+      "measuredFrom": "src/components/sections/ReviewsSlider.jsx:82-82",
+      "keywords": [
+        "transition: 'opacity 0.6s ease, transform 0.6s ease'"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "proof.stats-countup motion (stats.countUp): measured values for duration: 1.5, ease: 'power2.out', { threshold: 0.3 }",
+      "measuredFrom": "src/pages/company/StatsResults.jsx:35-38",
+      "keywords": [
+        "duration: 1.5, ease: 'power2.out'",
+        "{ threshold: 0.3 }"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "story.marquee motion (marquee.cssLoop): measured values for @keyframes nimbusMarqueeScroll, @keyframes nimbusMarqueeScrollReverse",
+      "measuredFrom": "src/components/sections/Marquee.jsx:12-12",
+      "keywords": [
+        "@keyframes nimbusMarqueeScroll",
+        "@keyframes nimbusMarqueeScrollReverse"
+      ]
+    },
+    {
+      "group": "motion",
+      "claim": "story.marquee motion (marquee.cssLoop): measured values for 30s linear infinite",
+      "measuredFrom": "src/components/sections/Marquee.jsx:6-6",
+      "keywords": [
+        "30s linear infinite"
       ]
     }
   ]

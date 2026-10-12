@@ -1,0 +1,382 @@
+{
+  "id": "hero.platform",
+  "kind": "section",
+  "name": "Platform split hero with quote and logo row",
+  "purpose": "Open the main platform page with the product promise, a customer quote as proof and the demo CTA, then a customer-logo strip.",
+  "category": "hero",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/PlatformHero.jsx",
+  "description": "Split hero (/lms, pulled up -1rem): left column has a serif 3.8rem H1 (2.5rem <=479), grey intro, italic quote with 40px avatar, name and role + linked company, and a primary CTA; right column is a 1440:1339 product visual. Below, a centred one-line lead and an 8-slot logo row (flex space-between, max 60rem, wrapping and centring <=991). Columns stack <=767.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 12,
+        "note": "H1.",
+        "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+      },
+      "intro": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 47,
+        "measuredLongestRealInstance": "37 words in the clone's own placeholder copy"
+      },
+      "quote": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 57,
+            "note": "Italic quote with typographic quote marks.",
+            "measuredLongestRealInstance": "45 words in the clone's own placeholder copy"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          },
+          "org": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "Company, rendered as an underlined link.",
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "avatar": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "photo.person"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "photo.person"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "40px round avatar."
+          }
+        },
+        "required": [
+          "quote",
+          "name",
+          "role",
+          "org",
+          "avatar"
+        ]
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "visual": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "product.screenshot",
+          "stock.photo"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "product.screenshot",
+              "stock.photo"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "Platform visual, 1440:1339."
+      },
+      "logosLead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 18,
+        "measuredLongestRealInstance": "14 words in the clone's own placeholder copy"
+      },
+      "logos": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "logo.customer"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "logo.customer"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 8,
+            "maximum": 8
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ],
+        "note": "8 customer logo slots; the last two mirror a wide and a tall mark."
+      }
+    },
+    "required": [
+      "heading",
+      "intro",
+      "quote",
+      "ctaLabel",
+      "visual",
+      "logosLead",
+      "logos"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/PlatformHero.jsx:25-83",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; only the shared Button hover (char roll + bg transition)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/PlatformHero.jsx:32-32",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "mob:w-full",
+      "tailwind": [
+        "mob:w-full"
+      ],
+      "measuredFrom": "src/components/sections/PlatformHero.jsx:33-33",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[3.8rem] -> xs:text-[2.5rem]",
+      "tailwind": [
+        "xs:text-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/PlatformHero.jsx:35-35",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/PlatformHero.jsx:40-40",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:flex-col; xs:items-start",
+      "tailwind": [
+        "xs:flex-col xs:items-start"
+      ],
+      "measuredFrom": "src/components/sections/PlatformHero.jsx:52-52",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[1.5rem] -> mob:py-[2rem]",
+      "tailwind": [
+        "mob:py-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/PlatformHero.jsx:64-64",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/PlatformHero.jsx:65-65",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-wrap; tab:justify-center; tab:gap-y-[2rem]; mob:justify-around; gap-[3rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "tab:flex-wrap tab:justify-center tab:gap-y-[2rem] mob:justify-around xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/PlatformHero.jsx:68-68",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.placeholder-media",
+    "primitive.logo-placeholder",
+    "primitive.inline-link"
+  ],
+  "measuredFrom": "src/components/sections/PlatformHero.jsx:25-83",
+  "iaSectionId": "hero.platform",
+  "evidenceNotes": [
+    "/lms renders <PlatformHero /> with no props, so every sample string is a component default."
+  ],
+  "observedOn": [
+    "/lms"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "shell.nav"
+    ],
+    "recommendedBefore": [
+      "product.platform-intro"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "photo.person",
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ]
+}

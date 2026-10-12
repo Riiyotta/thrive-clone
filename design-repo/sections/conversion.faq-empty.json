@@ -1,0 +1,119 @@
+{
+  "id": "conversion.faq-empty",
+  "kind": "section",
+  "name": "FAQ empty state",
+  "purpose": "Keep the FAQ slot and its heading on feature pages whose CMS FAQ list is empty, showing a single 'no FAQs' bar instead of an accordion.",
+  "category": "conversion",
+  "designSystem": "marketing",
+  "implementedBy": "src/pages/features/FeatureDetail.jsx > FaqEmpty",
+  "description": "Page-local CMS empty state of the feature-page FAQ (data-section 'faq', data-variant 'empty'): padding 5rem / 4rem tab / 3rem mob, a centred serif H2 (60rem max) and, 4.375rem below, a single 42rem-wide surface-1 bar with the message 'No FAQs found.' in body text. No accordion, no interaction. Rendered by FeatureDetail in place of the FAQ when the route's data has `empty: true`.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "Centred H2 (hard-coded 'Frequently asked questions').",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "message": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "Empty-state line in the bar (hard-coded 'No FAQs found.').",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "heading",
+      "message"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/pages/features/FeatureDetail.jsx:60-68",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; the block is fully static."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[5rem] -> tab:py-[4rem] -> mob:py-[3rem]",
+      "tailwind": [
+        "tab:py-[4rem] mob:py-[3rem]"
+      ],
+      "measuredFrom": "src/pages/features/FeatureDetail.jsx:64-64",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/pages/features/FeatureDetail.jsx:68-68",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [],
+  "measuredFrom": "src/pages/features/FeatureDetail.jsx:60-75",
+  "iaSectionId": "conversion.faq-empty",
+  "evidenceNotes": [
+    "FaqEmpty takes no props; heading and message are literals in FeatureDetail.jsx. It renders on /lms/features/employee-experience and /lms/features/communication (featureDetailData.js `empty: true`), replacing <Faq>.",
+    "pages-manifest.json / CLONE_SPEC_PAGES.md list these two routes with a plain 'faq' section; the code renders this empty-state variant instead."
+  ],
+  "observedOn": [
+    "/lms/features/ai-content-creator",
+    "/lms/features/chat",
+    "/lms/features/communication",
+    "/lms/features/employee-assessment-software",
+    "/lms/features/employee-experience",
+    "/lms/features/employee-performance-management-software",
+    "/lms/features/learning-pathways",
+    "/lms/features/lms-admin",
+    "/lms/features/lms-analytics",
+    "/lms/features/lms-gamification",
+    "/lms/features/lms-homepage",
+    "/lms/features/lms-rewards",
+    "/lms/features/lms-security",
+    "/lms/features/mcp",
+    "/lms/features/mobile-lms",
+    "/lms/features/skills",
+    "/lms/features/spaces"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.reviews-slider"
+    ],
+    "recommendedBefore": [
+      "product.explore-empty"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": []
+}

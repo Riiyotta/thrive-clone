@@ -1,0 +1,480 @@
+{
+  "id": "product.comparison-table",
+  "kind": "section",
+  "name": "Capability comparison table",
+  "purpose": "Gives evaluators a scannable, link-rich checklist of what the platform covers against their requirements.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/ComparisonTable.jsx",
+  "description": "Raw-HTML-style table embed with its own px-based CSS (re-scoped nct-* classes) and a centred serif H2 (with an italic phrase) plus grey intro above it. One component with a `variant` prop: platform (/lms) is a 2-column capability / 'what you can do' table of 11 rows, nudged 40px right on desktop; enterprise (/lms/enterprise) is a 2-column requirement / provision table of 7 rows whose right cells are green-edged chat-bubble evidence cards; vendor (/nova, directly after the split-tabs block) is a 4-column evaluation checklist (area, what to ask, what good looks like, Nimbus evidence bubble) of 7 rows. Column headers and the visually hidden caption are fixed per variant. At <=767 every variant collapses to stacked rows (vendor cells gain uppercase data-labels).",
+  "content": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "platform"
+          },
+          "title": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 7,
+                "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 0,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              },
+              "boldPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases",
+              "boldPhrases"
+            ],
+            "x-richText": true,
+            "note": "Serif H2; the emphasised phrase renders as italic <em>, not bold."
+          },
+          "intro": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 18,
+            "measuredLongestRealInstance": "14 words in the clone's own placeholder copy"
+          },
+          "rows": {
+            "type": "array",
+            "minItems": 11,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "capability": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 5,
+                  "note": "Row header (th).",
+                  "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                },
+                "description": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 32,
+                      "measuredLongestRealInstance": "25 words in the clone's own placeholder copy"
+                    },
+                    "linkPhrases": {
+                      "type": "array",
+                      "minItems": 0,
+                      "maxItems": 3,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 18
+                      },
+                      "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                    }
+                  },
+                  "required": [
+                    "text",
+                    "linkPhrases"
+                  ],
+                  "x-richText": true,
+                  "note": "Inline links point to the relevant feature pages."
+                }
+              },
+              "required": [
+                "capability",
+                "description"
+              ]
+            },
+            "maxItems": 11
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "intro",
+          "rows"
+        ],
+        "note": "Two columns: capability | what you can do with Nimbus."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "enterprise"
+          },
+          "title": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 7,
+                "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 0,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              },
+              "boldPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases",
+              "boldPhrases"
+            ],
+            "x-richText": true,
+            "note": "Serif H2; the emphasised phrase renders as italic <em>, not bold."
+          },
+          "intro": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 18,
+            "measuredLongestRealInstance": "14 words in the clone's own placeholder copy"
+          },
+          "rows": {
+            "type": "array",
+            "minItems": 7,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "capability": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 5,
+                  "note": "Row header (th).",
+                  "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                },
+                "description": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 32,
+                      "measuredLongestRealInstance": "25 words in the clone's own placeholder copy"
+                    },
+                    "linkPhrases": {
+                      "type": "array",
+                      "minItems": 0,
+                      "maxItems": 3,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 18
+                      },
+                      "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                    }
+                  },
+                  "required": [
+                    "text",
+                    "linkPhrases"
+                  ],
+                  "x-richText": true,
+                  "note": "Inline links point to the relevant feature pages."
+                }
+              },
+              "required": [
+                "capability",
+                "description"
+              ]
+            },
+            "maxItems": 7
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "intro",
+          "rows"
+        ],
+        "note": "Two columns: enterprise requirement | what Nimbus provides (evidence bubble)."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "vendor"
+          },
+          "title": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 7,
+                "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 0,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              },
+              "boldPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases",
+              "boldPhrases"
+            ],
+            "x-richText": true,
+            "note": "Serif H2; the emphasised phrase renders as italic <em>, not bold."
+          },
+          "intro": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 23,
+            "measuredLongestRealInstance": "18 words in the clone's own placeholder copy"
+          },
+          "rows": {
+            "type": "array",
+            "minItems": 7,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "area": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 4,
+                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                },
+                "ask": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 20,
+                  "measuredLongestRealInstance": "16 words in the clone's own placeholder copy"
+                },
+                "good": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 13,
+                  "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+                },
+                "evidence": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 27,
+                      "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+                    },
+                    "linkPhrases": {
+                      "type": "array",
+                      "minItems": 0,
+                      "maxItems": 2,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 18
+                      },
+                      "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                    }
+                  },
+                  "required": [
+                    "text",
+                    "linkPhrases"
+                  ],
+                  "x-richText": true
+                }
+              },
+              "required": [
+                "area",
+                "ask",
+                "good",
+                "evidence"
+              ]
+            },
+            "maxItems": 7
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "intro",
+          "rows"
+        ],
+        "note": "Four columns: evaluation area | what to ask | what good looks like | Nimbus evidence (bubble with a small Nimbus label)."
+      }
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "enterprise": 1,
+      "platform": 1,
+      "vendor": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/ComparisonTable.jsx:522-631",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion and no hover transitions (links are plain underlined text)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "css-embed"
+      ],
+      "changes": "embedded px-based CSS media block (reproduced verbatim from the original's table embed)",
+      "tailwind": [],
+      "cssMediaQuery": "@media (max-width: 767px)",
+      "measuredFrom": "src/components/sections/ComparisonTable.jsx:100-100",
+      "derivation": "auto: CSS @media rule on the cited line"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "css-embed"
+      ],
+      "changes": "embedded px-based CSS media block (reproduced verbatim from the original's table embed)",
+      "tailwind": [],
+      "cssMediaQuery": "@media (max-width: 767px)",
+      "measuredFrom": "src/components/sections/ComparisonTable.jsx:259-259",
+      "derivation": "auto: CSS @media rule on the cited line"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "css-embed"
+      ],
+      "changes": "embedded px-based CSS media block (reproduced verbatim from the original's table embed)",
+      "tailwind": [],
+      "cssMediaQuery": "@media (max-width: 991px)",
+      "measuredFrom": "src/components/sections/ComparisonTable.jsx:426-426",
+      "derivation": "auto: CSS @media rule on the cited line"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "css-embed"
+      ],
+      "changes": "embedded px-based CSS media block (reproduced verbatim from the original's table embed)",
+      "tailwind": [],
+      "cssMediaQuery": "@media (max-width: 767px)",
+      "measuredFrom": "src/components/sections/ComparisonTable.jsx:431-431",
+      "derivation": "auto: CSS @media rule on the cited line"
+    }
+  ],
+  "composes": [],
+  "measuredFrom": "src/components/sections/ComparisonTable.jsx:522-631",
+  "iaSectionId": "product.comparison-table",
+  "evidenceNotes": [
+    "All three pages pass only `rows`; title and intro are the component defaults.",
+    "Source comment: on the original the vendor embed is truncated mid-row (Webflow embed limit) so following sections nest inside its last cell; the clone closes the table normally.",
+    "The /nova table sits visually inside the preceding SplitTabs block (no bottom padding between them), but it is a separate component in the page, so no mustImmediatelyFollow is declared."
+  ],
+  "observedOn": [
+    "/lms",
+    "/lms/enterprise",
+    "/nova"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "conversion.cta-strip",
+      "product.split-tabs",
+      "proof.centred-quote"
+    ],
+    "recommendedBefore": [
+      "conversion.faq",
+      "product.autotabs-group"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [],
+  "variants": [
+    "platform",
+    "enterprise",
+    "vendor"
+  ]
+}

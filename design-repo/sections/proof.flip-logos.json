@@ -1,0 +1,174 @@
+{
+  "id": "proof.flip-logos",
+  "kind": "section",
+  "name": "Flip logo grid",
+  "purpose": "Shows breadth of customers compactly by cycling sixteen logos through four animated cells.",
+  "category": "proof",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/FlipLogos.jsx",
+  "description": "Four logo cells in a row (2x2 at <=767) between side hairlines, each with legacy-theme borders. Every cell masks a 3rem-high window onto a vertical track of four logos, so 16 logos are shown four at a time. Once the section scrolls into view each track steps upward through its logos on a staggered, looping GSAP timeline. Geometry is identical on every route; only the legacy colour theme changes (yellow on /content/topics, /content/sector-suites and /content/service, pink on /lms/impact, green on /content/custom-content).",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "theme": {
+        "enum": [
+          "yellow",
+          "pink",
+          "green"
+        ],
+        "note": "Legacy colour theme (hairline colour)."
+      },
+      "logos": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "logo.customer",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "logo.customer",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 16,
+            "maximum": 16
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ],
+        "note": "Four per cell, in cell order."
+      }
+    },
+    "required": [
+      "theme",
+      "logos"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "ticker.verticalLoop"
+    ],
+    "reducedMotionFallback": "static-first-frame",
+    "measuredFrom": "src/components/sections/FlipLogos.jsx:36-38",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "Starts once the section enters the viewport (IntersectionObserver, threshold 0). Each column's track waits (2s, or 1.5s first step on column 3) then moves up to ~-28/-54/-80% in 850ms power3.out, three times, snaps back to 0 and repeats forever; columns start offset by 0 / 250 / 300 / 500ms.",
+    "alsoMeasuredFrom": [
+      "src/components/sections/FlipLogos.jsx:18-20",
+      "src/components/sections/FlipLogos.jsx:47-51"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-4 -> mob:grid-cols-2",
+      "tailwind": [
+        "mob:grid-cols-2"
+      ],
+      "measuredFrom": "src/components/sections/FlipLogos.jsx:65-65",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mob:p-[3rem] -> xs:p-[2rem]",
+      "tailwind": [
+        "mob:p-[3rem] xs:p-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/FlipLogos.jsx:70-70",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[2.75rem] -> xs:h-[2rem]; min-h-[2.5rem] -> xs:min-h-[2rem]; w-[10rem] -> xs:w-[7rem]",
+      "tailwind": [
+        "xs:h-[2rem] xs:min-h-[2rem] xs:w-[7rem]"
+      ],
+      "measuredFrom": "src/components/sections/FlipLogos.jsx:78-78",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.logo-placeholder",
+    "primitive.legacy-theme"
+  ],
+  "measuredFrom": "src/components/sections/FlipLogos.jsx:26-91",
+  "iaSectionId": "proof.flip-logos",
+  "evidenceNotes": [
+    "Default logos are the labels 'Logo 1' ... 'Logo 16'; no page overrides them.",
+    "The track holds exactly four logos per cell; with fewer than 16 logos some cells would step into blank space, so slots is fixed at 16."
+  ],
+  "observedOn": [
+    "/content/custom-content",
+    "/content/sector-suites",
+    "/content/service",
+    "/content/topics",
+    "/lms/impact"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "hero.center-legacy",
+      "hero.header-grid-card",
+      "hero.layout2-media"
+    ],
+    "recommendedBefore": [
+      "index.topics-grid",
+      "product.feature-rows-legacy",
+      "story.custom-video",
+      "story.grid-split-legacy"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "placeholder.neutral"
+  ]
+}

@@ -1,0 +1,261 @@
+{
+  "id": "proof.case-results",
+  "kind": "section",
+  "name": "Case study results strip",
+  "purpose": "Summarises the customer-story index with five challenge-to-outcome stats, each attributed to a named customer, then sends readers to the demo.",
+  "category": "proof",
+  "designSystem": "marketing",
+  "implementedBy": "src/pages/content/CaseStudiesLms.jsx > CaseStudyResults",
+  "description": "Page-local function on /case-studies/lms: a centred H2 and grey paragraph in a 50rem column, then a single 6-track grid `repeat(5, min-content) 1fr` of five dark cards, each as wide as its stat (clipped by the page section on mobile rather than wrapping). Each card shows a brand-green challenge label, the customer logo, a 64px stat (48/40px on smaller breakpoints) and a grey result sentence ending in the linked customer name. A centred primary button follows. Differs from the shared Results block in grid behaviour, labels and the trailing customer link.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "paragraph": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 29,
+        "measuredLongestRealInstance": "23 words in the clone's own placeholder copy"
+      },
+      "cards": {
+        "type": "array",
+        "minItems": 5,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "note": "The challenge, shown in brand green.",
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "logo": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "logo.customer",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "logo.customer",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ]
+            },
+            "stat": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 1,
+              "note": "Short figure; the card width follows it.",
+              "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+            },
+            "result": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 12,
+              "note": "Ends with 'at' so the linked customer name completes the sentence.",
+              "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+            },
+            "customer": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "note": "Rendered as an inline link (with a full stop) and as the logo placeholder label.",
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "label",
+            "logo",
+            "stat",
+            "result",
+            "customer"
+          ]
+        },
+        "maxItems": 5
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 6,
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "heading",
+      "paragraph",
+      "cards",
+      "ctaLabel"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:25-56",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; links and the button have primitive hover transitions only."
+  },
+  "responsive": [
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:31-31",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mob:p-[1.5rem]",
+      "tailwind": [
+        "mob:p-[1.5rem]"
+      ],
+      "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:38-38",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:39-39",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[3rem] -> mob:h-[2rem]; w-[4.3rem] -> mob:w-[3.2rem]",
+      "tailwind": [
+        "mob:h-[2rem] mob:w-[3.2rem]"
+      ],
+      "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:40-40",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-stat -> tab:text-stat-48 -> mob:text-stat-40 -> xs:text-stat-48",
+      "tailwind": [
+        "tab:text-stat-48 mob:text-stat-40 xs:text-stat-48"
+      ],
+      "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:42-42",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:43-43",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.logo-placeholder"
+  ],
+  "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:25-56",
+  "iaSectionId": "proof.case-results",
+  "evidenceNotes": [
+    "Defined as a non-exported function inside the page file and wrapped in <Sec id=\"results\" className=\"mb-[1.5rem] overflow-hidden\">; the overflow-hidden on that wrapper is what clips the five-card row on mobile.",
+    "Root carries data-section=\"results\" (same id as the shared Results block) although it is a different component."
+  ],
+  "observedOn": [
+    "/case-studies/lms"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "index.cs-filter-grid"
+    ],
+    "recommendedBefore": [
+      "conversion.faq"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "placeholder.neutral"
+  ]
+}

@@ -1,15 +1,24 @@
 {
   "id": "tokens.foundation.motion",
   "designSystem": "marketing",
-  "engine": "GSAP 3.15 (ScrollTrigger, SplitText) for the button roll-up, hero reveal, statement zoom and quote highlight; CSS transitions for tabs, FAQ, mobile menu, carousels; a custom Swiper-like hook for carousels.",
+  "engine": "GSAP 3.15 (ScrollTrigger, SplitText) for the button roll-up, hero reveals, scroll scrubs, scroll reveals, tickers and count-ups; CSS transitions/keyframes for tabs, accordions, marquees and menus; a custom Swiper-like hook (useLoopCarousel) for carousels.",
   "gsapSetup": {
     "measuredFrom": "src/lib/gsap.js:6-6",
     "note": "Single plugin registration point; ScrollTrigger.refresh() on document height changes and fonts.ready."
   },
   "noScrollFadeIns": {
-    "value": true,
-    "statement": "Sections, headings, cards and images do NOT fade in on scroll. There is no generic reveal pattern, and the closed pattern enum deliberately has none.",
-    "measuredFrom": "CLONE_SPEC.md:509-509"
+    "value": false,
+    "homepage": true,
+    "statement": "The HOMEPAGE has no scroll fade-ins (true since 1.0.0). The subpages DO: sections using scroll.revealOnce (and stats.countUp / ticker.verticalLoop, which start on viewport entry) animate when scrolled into view. A generator may use those patterns only on the sections whose contract allows them.",
+    "usedBy": [
+      "conversion.glossary-cta",
+      "hero.assistant-video",
+      "hero.content-overview",
+      "index.glossary",
+      "product.two-col-features",
+      "product.wow-bento",
+      "proof.cs-content-stats"
+    ]
   },
   "reducedMotion": {
     "sourceImplements": false,
@@ -31,7 +40,8 @@
     "instant-toggle": "Switch open/closed or active state immediately, without the transition.",
     "instant-final-state": "Render the end state immediately (fully visible, unscaled, final colour). No scroll scrub, no load reveal.",
     "instant-slide-change": "Change slides without the 800ms transform transition; manual controls keep working.",
-    "autoplay-off-instant-slide-change": "Do not autoplay; render paused with the play control available; slide changes are instant."
+    "autoplay-off-instant-slide-change": "Do not autoplay; render paused with the play control available; slide changes are instant.",
+    "static-first-frame": "Do not animate the loop: render the first frame (first row / un-translated track) statically."
   },
   "triggers": [
     "none",
@@ -53,7 +63,66 @@
       "easings": [],
       "reducedMotionFallback": "none",
       "description": "No section-level motion. Hover colour transitions on buttons/links and the button letter roll-up are primitive behaviour, not section motion.",
-      "measuredFrom": "CLONE_SPEC.md:509-509"
+      "measuredFrom": "CLONE_SPEC.md:509-509",
+      "usedBy": [
+        "article.cs-content-article",
+        "conversion.contact-form",
+        "conversion.cta-strip",
+        "conversion.demo-cta",
+        "conversion.demo-form",
+        "conversion.faq-empty",
+        "conversion.pricing-plans-legacy",
+        "conversion.why-cta",
+        "hero.center-legacy",
+        "hero.company-video",
+        "hero.demo-form",
+        "hero.global-header-legacy",
+        "hero.header-grid-card",
+        "hero.integrations-header",
+        "hero.layout2-media",
+        "hero.logos-overlap",
+        "hero.platform",
+        "hero.wow-content",
+        "index.blog-featured",
+        "index.blog-filter",
+        "index.cs-content-list",
+        "index.cs-content-related",
+        "index.cs-filter-grid",
+        "index.events-past",
+        "index.events-upcoming",
+        "index.guides",
+        "index.integration-filter",
+        "index.topics-grid",
+        "index.webinars-upcoming",
+        "product.anchor-intro",
+        "product.comparison-table",
+        "product.explore-empty",
+        "product.feature-bento",
+        "product.feature-rows-legacy",
+        "product.features-intro",
+        "product.grid-cards-legacy",
+        "product.integrations-visual",
+        "product.learn-grid",
+        "product.platform-intro",
+        "product.release-block",
+        "product.two-col-features",
+        "product.wow-bento",
+        "proof.case-results",
+        "proof.case-study-video",
+        "proof.centred-quote",
+        "proof.logo-row",
+        "proof.results-proof",
+        "proof.results-stats",
+        "proof.testimonial",
+        "proof.testimonial-card-legacy",
+        "proof.testimonial-quote",
+        "story.brand-video",
+        "story.company-news",
+        "story.custom-video",
+        "story.grid-split-legacy",
+        "story.header-image-legacy",
+        "story.wow-2col"
+      ]
     },
     "nav.hoverMenus": {
       "trigger": [
@@ -83,6 +152,9 @@
         "src/index.css:108-113",
         "src/index.css:116-121",
         "src/components/Nav.jsx:170-171"
+      ],
+      "usedBy": [
+        "shell.nav"
       ]
     },
     "hero.loadReveal": {
@@ -91,6 +163,7 @@
       ],
       "durationsMs": [
         500,
+        850,
         1250
       ],
       "delaysMs": [
@@ -105,7 +178,15 @@
       "description": "On load: avatar row (500ms), h1 (1250ms), subtitle and badges (1250ms, +250ms), buttons (1250ms, +350ms) from opacity 0 / y 40|10 / scale .9 / skewX 10|8 / blur 20|8|5px to rest. GSAP power3.out (= IX2 outQuart). Initial states set in a layout effect before first paint. The hero image is NOT animated.",
       "measuredFrom": "src/components/Hero.jsx:9-16",
       "alsoMeasuredFrom": [
-        "src/components/Hero.jsx:24-24"
+        "src/components/Hero.jsx:24-24",
+        "src/components/Hero.jsx:12-63",
+        "src/components/Hero.jsx:81-81",
+        "src/components/sections/MentoringHeader.jsx:12-17",
+        "src/components/sections/MentoringHeader.jsx:41-41"
+      ],
+      "usedBy": [
+        "hero.mentoring-software",
+        "hero.split-visual"
       ]
     },
     "tabs.crossFade": {
@@ -113,25 +194,52 @@
         "click"
       ],
       "durationsMs": [
-        300
+        100,
+        200,
+        300,
+        400
       ],
-      "delaysMs": [],
+      "delaysMs": [
+        0
+      ],
       "easings": [
-        "ease"
+        "ease",
+        "ease-in-out"
       ],
       "reducedMotionFallback": "instant-toggle",
       "description": "Click-driven pane + copy cross-fade: opacity and visibility .3s ease. No autoplay.",
-      "measuredFrom": "src/index.css:48-55"
+      "measuredFrom": "src/index.css:48-55",
+      "usedBy": [
+        "hero.pricing-calculator",
+        "product.assistant-feature-tabs",
+        "product.feature-tabs",
+        "product.solution-tabs",
+        "product.split-tabs",
+        "product.why-assistant-tabs"
+      ],
+      "alsoMeasuredFrom": [
+        "src/components/ProductTabs.jsx:6-107",
+        "src/index.css:65-70",
+        "src/components/sections/KikiFeatureTabs.jsx:51-56",
+        "src/components/sections/SolutionTabs.jsx:98-120",
+        "src/components/sections/SolutionTabs.jsx:153-153",
+        "src/components/sections/SplitTabs.jsx:46-143"
+      ]
     },
     "carousel.dragLoop": {
       "trigger": [
         "click",
-        "drag"
+        "drag",
+        "hover"
       ],
       "durationsMs": [
+        250,
+        300,
         800
       ],
-      "delaysMs": [],
+      "delaysMs": [
+        0
+      ],
       "easings": [
         "ease"
       ],
@@ -141,7 +249,21 @@
       "alsoMeasuredFrom": [
         "src/components/KikiTabs.jsx:103-103",
         "src/hooks/useLoopCarousel.js:96-97",
-        "src/hooks/useLoopCarousel.js:120-120"
+        "src/hooks/useLoopCarousel.js:120-120",
+        "src/components/KikiTabs.jsx:161-199",
+        "src/components/sections/AutotabsGroup.jsx:39-63",
+        "src/pages/company/IncludedTabs.jsx:33-92",
+        "src/pages/platform/SplitAutotabs.jsx:16-58",
+        "src/components/sections/WhyKikitabs.jsx:72-128",
+        "src/components/sections/WhyKikitabs.jsx:195-207"
+      ],
+      "usedBy": [
+        "product.assistant-tabs",
+        "product.autotabs-group",
+        "product.included-tabs",
+        "product.split-autotabs",
+        "product.sticky-tabs",
+        "product.why-assistant-tabs"
       ]
     },
     "carousel.autoplayOnView": {
@@ -152,6 +274,7 @@
         "drag"
       ],
       "durationsMs": [
+        200,
         500,
         800,
         3000
@@ -169,7 +292,13 @@
       "alsoMeasuredFrom": [
         "src/components/EnterpriseSlider.jsx:38-38",
         "src/components/EnterpriseSlider.jsx:93-95",
-        "src/components/shared/Pagination.jsx:29-29"
+        "src/components/shared/Pagination.jsx:29-29",
+        "src/components/EnterpriseSlider.jsx:70-71",
+        "src/components/EnterpriseSlider.jsx:86-108",
+        "src/components/EnterpriseSlider.jsx:26-26"
+      ],
+      "usedBy": [
+        "product.capability-slider"
       ]
     },
     "scroll.zoomScrub": {
@@ -186,25 +315,41 @@
       "scrub": 0.9,
       "start": "top 55%",
       "end": "top 5%",
-      "measuredFrom": "src/components/Statement.jsx:17-25"
+      "measuredFrom": "src/components/Statement.jsx:17-25",
+      "usedBy": [
+        "story.zoom-statement"
+      ]
     },
     "scroll.charColorScrub": {
       "trigger": [
-        "scroll-scrub"
+        "scroll-scrub",
+        "hover"
       ],
       "durationsMs": [
+        200,
+        250,
+        350,
         1500
       ],
       "delaysMs": [],
       "easings": [
-        "power4.inOut"
+        "power4.inOut",
+        "none"
       ],
       "reducedMotionFallback": "instant-final-state",
       "description": "SplitText chars on the quote tween colour from the base #1a1a1a (surface-3) to #fff: 1.5s per char, stagger {amount: 10}, power4.inOut, ScrollTrigger start clamp(top 500) / end clamp(bottom 500), scrub 0.8.",
       "scrub": 0.8,
       "start": "clamp(top 500)",
       "end": "clamp(bottom 500)",
-      "measuredFrom": "src/components/QuoteHighlight.jsx:23-29"
+      "measuredFrom": "src/components/QuoteHighlight.jsx:23-29",
+      "usedBy": [
+        "article.cs-platform-body",
+        "story.scroll-quote"
+      ],
+      "alsoMeasuredFrom": [
+        "src/components/sections/CsPlatformBody.jsx:177-179",
+        "src/components/sections/CsPlatformBody.jsx:235-235"
+      ]
     },
     "carousel.centeredAutoplay": {
       "trigger": [
@@ -230,7 +375,12 @@
       "alsoMeasuredFrom": [
         "src/components/CaseStudyCarousel.jsx:72-73",
         "src/components/CaseStudyCarousel.jsx:115-117",
-        "src/hooks/useLoopCarousel.js:243-243"
+        "src/hooks/useLoopCarousel.js:243-243",
+        "src/components/CaseStudyCarousel.jsx:46-48",
+        "src/components/CaseStudyCarousel.jsx:101-102"
+      ],
+      "usedBy": [
+        "proof.case-study-carousel"
       ]
     },
     "accordion.faq": {
@@ -242,14 +392,27 @@
         450,
         650
       ],
-      "delaysMs": [],
+      "delaysMs": [
+        0
+      ],
       "easings": [
         "outQuart",
-        "inOutQuart"
+        "inOutQuart",
+        "cubic-bezier(0.165, 0.84, 0.44, 1)",
+        "cubic-bezier(0.77, 0, 0.175, 1)"
       ],
       "reducedMotionFallback": "instant-toggle",
       "description": "Each item toggles independently. Open: body grid-rows 0fr->1fr, opacity 0->1, scaleY .7->1 over 450ms outQuart. Close: 650ms outQuart. Icon rotates 45deg->0 over 150ms inOutQuart. CSS transitions with cubic-bezier fallbacks and linear() quartic curves.",
-      "measuredFrom": "src/index.css:76-99"
+      "measuredFrom": "src/index.css:76-99",
+      "usedBy": [
+        "conversion.content-pricing",
+        "conversion.faq"
+      ],
+      "alsoMeasuredFrom": [
+        "src/components/Faq.jsx:75-82",
+        "src/index.css:93-109",
+        "src/index.css:113-113"
+      ]
     },
     "footer.dropup": {
       "trigger": [
@@ -271,6 +434,311 @@
       "measuredFrom": "src/components/Footer.jsx:62-62",
       "alsoMeasuredFrom": [
         "src/components/Footer.jsx:163-163"
+      ],
+      "usedBy": [
+        "shell.footer"
+      ]
+    },
+    "scroll.revealOnce": {
+      "trigger": [
+        "viewport-enter",
+        "hover"
+      ],
+      "durationsMs": [
+        200,
+        300,
+        450,
+        500,
+        600,
+        750,
+        1000
+      ],
+      "delaysMs": [
+        100,
+        200,
+        250,
+        300,
+        500
+      ],
+      "easings": [
+        "power3.out",
+        "ease",
+        "power2.out",
+        "cubic-bezier(0.86,0,0.07,1)",
+        "ease-in-out"
+      ],
+      "reducedMotionFallback": "instant-final-state",
+      "description": "GSAP fromTo/to started once when the block scrolls into view (ScrollTrigger once / start 'top bottom' or 'top 85%'): opacity 0 -> 1 with a y/x offset and sometimes a blur, power3.out (IX2 outQuart) or power2.out. Subpage-only: the homepage has no scroll reveals.",
+      "measuredFrom": "src/components/sections/GlossaryCta.jsx:22-22",
+      "alsoMeasuredFrom": [
+        "src/components/sections/GlossaryCta.jsx:40-40",
+        "src/components/sections/KikiHeader.jsx:51-56",
+        "src/components/sections/KikiHeader.jsx:37-37",
+        "src/components/sections/ContentHero.jsx:67-69",
+        "src/components/sections/GlossaryIndex.jsx:42-44",
+        "src/components/sections/GlossaryIndex.jsx:100-100",
+        "src/components/sections/TwoColFeatures.jsx:188-189",
+        "src/components/sections/TwoColFeatures.jsx:192-195",
+        "src/components/sections/TwoColFeatures.jsx:178-178",
+        "src/components/sections/WowBento.jsx:56-61",
+        "src/components/sections/WowBento.jsx:177-177",
+        "src/components/sections/CsContentStats.jsx:41-47"
+      ],
+      "usedBy": [
+        "conversion.glossary-cta",
+        "hero.assistant-video",
+        "hero.content-overview",
+        "index.glossary",
+        "product.two-col-features",
+        "product.wow-bento",
+        "proof.cs-content-stats"
+      ]
+    },
+    "ticker.verticalLoop": {
+      "trigger": [
+        "viewport-enter",
+        "autoplay",
+        "click"
+      ],
+      "durationsMs": [
+        150,
+        300,
+        450,
+        500,
+        650,
+        850
+      ],
+      "delaysMs": [
+        0,
+        250,
+        300,
+        500,
+        1500,
+        2000,
+        4000,
+        6000
+      ],
+      "easings": [
+        "power3.out",
+        "cubic-bezier(0.165, 0.84, 0.44, 1)",
+        "cubic-bezier(0.77, 0, 0.175, 1)",
+        "ease",
+        "cubic-bezier(0.25,0.46,0.45,0.94)"
+      ],
+      "reducedMotionFallback": "static-first-frame",
+      "description": "Infinite GSAP timeline (repeat -1) stepping a masked vertical track one row at a time (850ms power3.out between waits), started when the block enters the viewport.",
+      "measuredFrom": "src/components/sections/ContentPricing.jsx:174-175",
+      "alsoMeasuredFrom": [
+        "src/components/sections/PricingHero.jsx:133-137",
+        "src/components/sections/ContentPricing.jsx:34-41",
+        "src/index.css:93-113",
+        "src/components/sections/PricingHero.jsx:172-177",
+        "src/index.css:65-69",
+        "src/components/sections/FlipLogos.jsx:36-38",
+        "src/components/sections/FlipLogos.jsx:18-20",
+        "src/components/sections/FlipLogos.jsx:47-51"
+      ],
+      "usedBy": [
+        "conversion.content-pricing",
+        "hero.pricing-calculator",
+        "proof.flip-logos"
+      ]
+    },
+    "stats.countUp": {
+      "trigger": [
+        "viewport-enter"
+      ],
+      "durationsMs": [
+        1500
+      ],
+      "delaysMs": [],
+      "easings": [
+        "power2.out"
+      ],
+      "reducedMotionFallback": "instant-final-state",
+      "description": "Numbers tween from 0 to their value (GSAP, power2.out) once the block is observed in view (IntersectionObserver).",
+      "measuredFrom": "src/pages/company/StatsResults.jsx:35-38",
+      "alsoMeasuredFrom": [],
+      "usedBy": [
+        "proof.stats-countup"
+      ]
+    },
+    "carousel.autoplayLoop": {
+      "trigger": [
+        "autoplay",
+        "click",
+        "drag",
+        "hover"
+      ],
+      "durationsMs": [
+        320,
+        600,
+        800
+      ],
+      "delaysMs": [
+        4000
+      ],
+      "easings": [
+        "ease"
+      ],
+      "reducedMotionFallback": "autoplay-off-instant-slide-change",
+      "description": "useLoopCarousel loop slider that autoplays from mount (initialPlaying; 4000ms delay, pause on mouse enter), 800ms ease slide transition; inactive slides scale .65 / opacity .5, active 1/1 over .6s ease.",
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:45-46",
+      "alsoMeasuredFrom": [
+        "src/components/sections/ReviewsGrid.jsx:70-70",
+        "src/components/sections/ReviewsGrid.jsx:79-79",
+        "src/components/sections/ReviewsSlider.jsx:123-124",
+        "src/components/sections/ReviewsSlider.jsx:143-143",
+        "src/components/sections/ReviewsSlider.jsx:82-82"
+      ],
+      "usedBy": [
+        "proof.reviews-grid",
+        "proof.reviews-slider"
+      ]
+    },
+    "accordion.legacyHeight": {
+      "trigger": [
+        "click"
+      ],
+      "durationsMs": [
+        100,
+        200,
+        400
+      ],
+      "delaysMs": [],
+      "easings": [
+        "ease",
+        "linear"
+      ],
+      "reducedMotionFallback": "instant-toggle",
+      "description": "Legacy FAQ accordion: body height 0 -> measured px -> auto (400ms ease, rAF double-frame), click / second click closes.",
+      "measuredFrom": "src/components/sections/FaqLegacy.jsx:74-85",
+      "alsoMeasuredFrom": [
+        "src/components/sections/FaqLegacy.jsx:93-115"
+      ],
+      "usedBy": [
+        "conversion.faq-legacy",
+        "product.solution-tabs"
+      ]
+    },
+    "marquee.cssLoop": {
+      "trigger": [
+        "load"
+      ],
+      "durationsMs": [
+        30000
+      ],
+      "delaysMs": [],
+      "easings": [
+        "linear"
+      ],
+      "reducedMotionFallback": "static-first-frame",
+      "description": "CSS keyframes translateX(0 -> -50%) (reverse rows -50% -> 0), 30s linear infinite, track holds the items twice; edge fade mask.",
+      "measuredFrom": "src/components/sections/Marquee.jsx:12-12",
+      "alsoMeasuredFrom": [
+        "src/components/sections/Marquee.jsx:6-6"
+      ],
+      "usedBy": [
+        "story.marquee"
+      ]
+    },
+    "tabs.fadeOutIn": {
+      "trigger": [
+        "click",
+        "hover"
+      ],
+      "durationsMs": [
+        100,
+        200,
+        300,
+        400
+      ],
+      "delaysMs": [
+        100,
+        200
+      ],
+      "easings": [
+        "ease"
+      ],
+      "reducedMotionFallback": "instant-toggle",
+      "description": "Webflow-tabs behaviour: click a tab, the old pane fades out (data-duration-out) then the new pane fades in (data-duration-in), ease.",
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:43-50",
+      "alsoMeasuredFrom": [
+        "src/components/sections/Layout03Tabs.jsx:153-153",
+        "src/components/sections/Sectors.jsx:44-92",
+        "src/components/sections/TabsHLegacy.jsx:58-59"
+      ],
+      "usedBy": [
+        "product.layout03-tabs",
+        "product.sector-tabs",
+        "product.tabs-horizontal-legacy"
+      ]
+    },
+    "carousel.pagedSlide": {
+      "trigger": [
+        "click",
+        "drag"
+      ],
+      "durationsMs": [
+        100,
+        500
+      ],
+      "delaysMs": [],
+      "easings": [
+        "ease"
+      ],
+      "reducedMotionFallback": "instant-slide-change",
+      "description": "Webflow w-slider: slides grouped into pages; arrows, dots or a >30px swipe move one page over 500ms ease; no loop, no autoplay.",
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:140-245",
+      "alsoMeasuredFrom": [],
+      "usedBy": [
+        "product.card-slider-legacy"
+      ]
+    },
+    "modal.drawerSlide": {
+      "trigger": [
+        "click"
+      ],
+      "durationsMs": [
+        500
+      ],
+      "delaysMs": [],
+      "easings": [
+        "ease",
+        "cubic-bezier(0.25,0.46,0.45,0.94)"
+      ],
+      "reducedMotionFallback": "instant-toggle",
+      "description": "Click opens a right-hand drawer: overlay opacity 0 -> 1 (500ms ease) and the panel slides in from x 100% (500ms outQuad); close reverses.",
+      "measuredFrom": "src/components/sections/PricingHero.jsx:172-176",
+      "alsoMeasuredFrom": [],
+      "usedBy": [
+        "hero.pricing-calculator"
+      ]
+    },
+    "sticky.anchorTabs": {
+      "trigger": [
+        "click",
+        "drag",
+        "scroll-scrub"
+      ],
+      "durationsMs": [
+        250,
+        800
+      ],
+      "delaysMs": [],
+      "easings": [
+        "ease",
+        "easeInOutCubic"
+      ],
+      "reducedMotionFallback": "instant-slide-change",
+      "description": "Sticky anchor bar (sticky top 0) whose links smooth-scroll (rAF) to stacked autotab panels; each panel is a useLoopCarousel drag/tab loop (800ms ease).",
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:144-149",
+      "alsoMeasuredFrom": [
+        "src/components/sections/StickyTabs.jsx:156-237",
+        "src/components/sections/StickyTabs.jsx:322-322"
+      ],
+      "usedBy": [
+        "product.sticky-tabs"
       ]
     }
   },
@@ -294,5 +762,6 @@
         "src/components/shared/Button.jsx:46-46"
       ]
     }
-  }
+  },
+  "patternCount": 21
 }

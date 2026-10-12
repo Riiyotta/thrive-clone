@@ -1,0 +1,239 @@
+{
+  "id": "conversion.cta-strip",
+  "kind": "section",
+  "name": "Short CTA strip",
+  "purpose": "Give the visitor a mid-page nudge to book a demo (or explore further) between two content sections without a full CTA panel.",
+  "category": "conversion",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/CtaStrip.jsx",
+  "description": "One component with a `variant` prop. 'heading' (all 17 /lms/features/* routes, after the product tabs): centred one-line H2 (60rem max, balanced) over a primary button, margin 4rem top / 3rem bottom. 'pricing' (/lms/small-business): the same header inside padding-global/container-medium with a 0.5rem top margin and a 2rem spacer below. 'spacer' (/lms/mentoring-software): an empty 5rem (3rem <=767) padded block reproducing the original's empty section. 'button' (/lms/features with pullUp's -4rem top margin, /lms/enterprise; visually also the inline row on /nova): a lone centred primary button; buttons stack column-wise <=767.",
+  "content": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "heading"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 9,
+            "note": "One-line H2 (default 'Where will your team take it?').",
+            "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "note": "Primary button label (default 'Say hello').",
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "label"
+        ],
+        "note": "Feature-detail CTA: H2 + button."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "pricing"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 9,
+            "note": "H2 (default 'What could your team build with Nimbus?').",
+            "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "note": "Primary button label (default 'Book your demo now').",
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "label"
+        ],
+        "note": "Same header as 'heading' inside container-medium with a trailing spacer (/lms/small-business)."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "spacer"
+          }
+        },
+        "required": [
+          "variant"
+        ],
+        "note": "Empty padded block (/lms/mentoring-software); no content."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "button"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "note": "Button label (default 'Explore every feature').",
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "label"
+        ],
+        "note": "Lone centred primary button (/lms/features, /lms/enterprise, inline row on /nova)."
+      }
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "button": 1,
+      "heading": 1,
+      "pricing": 1,
+      "spacer": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/CtaStrip.jsx:56-56",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; only the shared primary Button hover (primitive behaviour)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[5rem] -> mob:py-[3rem]",
+      "tailwind": [
+        "mob:py-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/CtaStrip.jsx:24-24",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col",
+      "tailwind": [
+        "mob:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/CtaStrip.jsx:36-36",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col",
+      "tailwind": [
+        "mob:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/CtaStrip.jsx:55-55",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button"
+  ],
+  "measuredFrom": "src/components/sections/CtaStrip.jsx:12-81",
+  "iaSectionId": "conversion.cta-strip",
+  "alsoImplementedBy": [
+    "src/pages/features/Nova.jsx > Nova (inline button row)"
+  ],
+  "evidenceNotes": [
+    "All four variants use component defaults except /lms/enterprise (label 'Book a demo'); heading/pricing titles and labels are the variant-dependent defaults in CtaStrip.jsx.",
+    "/nova does not use CtaStrip: Nova.jsx renders its own padding-global > container-medium row (mt 1rem, gap 1.5rem) with a primary Button 'See Nova in action →' between the second KikiFeatureTabs and TestimonialQuote. pages-manifest.json's /nova section list has no cta-strip (kiki-feature-tabs x2 is followed directly by testimonial-quote).",
+    "The 'pullUp' prop (/lms/features, -4rem top margin) is a layout knob and not modelled.",
+    "CLONE_SPEC_PAGES.md lists feature-detail order as product-tabs -> cta-strip -> reviews-slider; FeatureDetail.jsx may insert an optional VideoSection between cta-strip and reviews-slider when the route data has `video`."
+  ],
+  "observedOn": [
+    "/lms/enterprise",
+    "/lms/features",
+    "/lms/features/ai-content-creator",
+    "/lms/features/chat",
+    "/lms/features/communication",
+    "/lms/features/employee-assessment-software",
+    "/lms/features/employee-experience",
+    "/lms/features/employee-performance-management-software",
+    "/lms/features/learning-pathways",
+    "/lms/features/lms-admin",
+    "/lms/features/lms-analytics",
+    "/lms/features/lms-gamification",
+    "/lms/features/lms-homepage",
+    "/lms/features/lms-rewards",
+    "/lms/features/lms-security",
+    "/lms/features/mcp",
+    "/lms/features/mobile-lms",
+    "/lms/features/skills",
+    "/lms/features/spaces",
+    "/lms/mentoring-software",
+    "/lms/small-business",
+    "/nova"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.assistant-feature-tabs",
+      "product.feature-tabs",
+      "product.wow-bento",
+      "proof.testimonial-quote",
+      "story.brand-video"
+    ],
+    "recommendedBefore": [
+      "conversion.faq",
+      "product.comparison-table",
+      "proof.case-study-carousel",
+      "proof.reviews-slider",
+      "proof.testimonial-quote",
+      "story.brand-video"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [],
+  "variants": [
+    "heading",
+    "pricing",
+    "spacer",
+    "button"
+  ]
+}

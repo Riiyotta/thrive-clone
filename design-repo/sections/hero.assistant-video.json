@@ -1,0 +1,400 @@
+{
+  "id": "hero.assistant-video",
+  "kind": "section",
+  "name": "AI assistant hero over a background-video stage",
+  "purpose": "Introduce the AI assistant product with a cinematic video stage, the H1 and two CTAs (demo + ask an AI).",
+  "category": "hero",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/KikiHeader.jsx",
+  "description": "Full-width stage (/nova) 85vh tall (max 60rem) holding a centred 1440:500 background-video band; under it a centred block (max 42rem): serif 4rem/1.1 H1 with one italic word, grey intro with a bold phrase, and primary + dark buttons (the dark one carries an AI icon). <=767 the block is pulled up -12rem over the stage; <=479 the video band becomes 3:2, 15rem tall.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 12,
+            "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+          },
+          "linkPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 0,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          },
+          "boldPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          }
+        },
+        "required": [
+          "text",
+          "linkPhrases",
+          "boldPhrases"
+        ],
+        "x-richText": true,
+        "note": "H1; the bold phrase renders as the italic <em> word (headingA + em + headingB)."
+      },
+      "intro": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 19,
+            "measuredLongestRealInstance": "15 words in the clone's own placeholder copy"
+          },
+          "linkPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 0,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          },
+          "boldPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          }
+        },
+        "required": [
+          "text",
+          "linkPhrases",
+          "boldPhrases"
+        ],
+        "x-richText": true,
+        "note": "Grey intro; the bold phrase renders as <strong>."
+      },
+      "primaryLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "secondaryLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "note": "Dark button with an AI icon.",
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "video": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "product.video",
+          "stock.photo"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "product.video",
+              "stock.photo"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "Background video band (static placeholder, no playback)."
+      }
+    },
+    "required": [
+      "heading",
+      "intro",
+      "primaryLabel",
+      "secondaryLabel",
+      "video"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "scroll.revealOnce"
+    ],
+    "reducedMotionFallback": "instant-final-state",
+    "measuredFrom": "src/components/sections/KikiHeader.jsx:51-56",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "The heading block starts at opacity 0 / y 2rem and reveals once when its top passes 85% of the viewport (0.6s power2.out). With aiTrack (used on /nova) the AI button's icon track slides up one icon on hover (450ms after 100ms). The original's post-video auto-scroll is not reproduced.",
+    "alsoMeasuredFrom": [
+      "src/components/sections/KikiHeader.jsx:37-37"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[22px] -> xs:h-[19px]; w-[22px] -> xs:w-[19px]",
+      "tailwind": [
+        "xs:h-[19px] xs:w-[19px]"
+      ],
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:12-12",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[22px] -> xs:h-[19px]; w-[22px] -> xs:w-[19px]",
+      "tailwind": [
+        "xs:h-[19px] xs:w-[19px]"
+      ],
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:36-36",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[22px] -> xs:h-[19px]; w-[22px] -> xs:w-[19px]",
+      "tailwind": [
+        "xs:h-[19px] xs:w-[19px]"
+      ],
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:38-38",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[22px] -> xs:h-[19px]; w-[22px] -> xs:w-[19px]",
+      "tailwind": [
+        "xs:h-[19px] xs:w-[19px]"
+      ],
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:39-39",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing",
+        "other"
+      ],
+      "changes": "tab:-mt-[5vh] -> mob:-mt-[15vh]; mob:z-[2]",
+      "tailwind": [
+        "tab:-mt-[5vh] mob:z-[2] mob:-mt-[15vh]"
+      ],
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:64-64",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "other",
+        "spacing"
+      ],
+      "changes": "z-[1] -> mob:z-[-1]; xs:mt-[5rem]",
+      "tailwind": [
+        "mob:z-[-1] xs:mt-[5rem]"
+      ],
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:65-65",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "sizing",
+        "layout"
+      ],
+      "changes": "xs:mt-[10rem]; xs:h-[15rem]; xs:flex-[0_1_auto]",
+      "tailwind": [
+        "xs:mt-[10rem] xs:h-[15rem] xs:flex-[0_1_auto]"
+      ],
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:66-66",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "aspect-[1440/500] -> xs:aspect-[3/2]; xs:h-full",
+      "tailwind": [
+        "xs:aspect-[3/2] xs:h-full"
+      ],
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:67-67",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mob:-mt-[12rem]",
+      "tailwind": [
+        "mob:-mt-[12rem]"
+      ],
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:71-71",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[4rem] -> mob:text-[2.5rem]",
+      "tailwind": [
+        "mob:text-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:72-72",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:78-78",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "gap-[1.5rem] -> xs:gap-[2rem]; xs:self-stretch",
+      "tailwind": [
+        "xs:gap-[2rem] xs:self-stretch"
+      ],
+      "measuredFrom": "src/components/sections/KikiHeader.jsx:81-81",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/KikiHeader.jsx:45-96",
+  "iaSectionId": "hero.assistant-video",
+  "evidenceNotes": [
+    "/nova passes only aiTrack; all copy is component defaults. headingB is an empty string."
+  ],
+  "observedOn": [
+    "/nova"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "shell.nav"
+    ],
+    "recommendedBefore": [
+      "proof.logo-row"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "placeholder.neutral",
+    "product.video",
+    "stock.photo"
+  ]
+}

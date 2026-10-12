@@ -1,0 +1,475 @@
+{
+  "id": "conversion.content-pricing",
+  "kind": "section",
+  "name": "Content library pricing block",
+  "purpose": "Sell the content library add-on: explain what is included and let the visitor estimate a price for the packs they want before booking a demo.",
+  "category": "conversion",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/ContentPricing.jsx",
+  "description": "Two-column grid (1.25fr / 1fr, gap 6rem; one column <=767). Left: yellow-chip eyebrow, H1 at h2 scale, grey intro and three independently toggling accordion cards (question + optional bold lead + answer). Right: a surface-2 content plan card with eyebrow, lead line, a static learners select, a question, two custom checkbox tiles (core library / sector packs), a computed placeholder price with a currency select, a primary CTA, and a yellow-tick feature list; under the card an outlined box runs a vertical testimonial ticker (logo, italic quote, avatar, name, role). Nothing submits: the checkboxes and selects only recompute the on-page placeholder price.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "eyebrow": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "note": "Yellow-chip eyebrow above the H1.",
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      },
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 8,
+        "note": "Page H1 (rendered at heading-h2 scale).",
+        "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+      },
+      "intro": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 19,
+        "measuredLongestRealInstance": "15 words in the clone's own placeholder copy"
+      },
+      "faqs": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "q": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "note": "Card title (H3).",
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "strong": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 4,
+              "note": "Optional bold lead that opens the answer sentence.",
+              "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+            },
+            "a": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 73,
+              "note": "Answer copy; continues the bold lead when present.",
+              "measuredLongestRealInstance": "58 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "q",
+            "a"
+          ]
+        },
+        "maxItems": 3,
+        "note": "Accordion cards; each opens independently."
+      },
+      "planEyebrow": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "planLead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 10,
+        "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+      },
+      "question": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "note": "Prompt shown after the 'We have [select] learners' line.",
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "planForm": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "live": {
+            "const": false
+          },
+          "fieldLabels": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "maxItems": 2,
+            "note": "Checkbox tile labels (core / sector packs)."
+          },
+          "submitLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "note": "No real instance: the form has no submit button; the CTA below is a link."
+          }
+        },
+        "required": [
+          "live",
+          "fieldLabels"
+        ],
+        "note": "Static selector: the two checkbox tiles (fieldLabels) plus learners / currency selects only recompute the placeholder price; no submission."
+      },
+      "cta": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "note": "Primary button label.",
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "listLead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "features": {
+        "type": "array",
+        "minItems": 5,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 8,
+          "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+        },
+        "maxItems": 8,
+        "note": "Yellow-tick check list."
+      },
+      "testimonials": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "logo": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "placeholder.neutral",
+                "logo.customer"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "placeholder.neutral",
+                    "logo.customer"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "Small customer logo (LogoPlaceholder)."
+            },
+            "quote": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 34,
+              "note": "Italic quote with typographic quote marks.",
+              "measuredLongestRealInstance": "27 words in the clone's own placeholder copy"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "role": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+            },
+            "avatar": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "placeholder.neutral",
+                "photo.person"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "placeholder.neutral",
+                    "photo.person"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "40px round avatar."
+            }
+          },
+          "required": [
+            "logo",
+            "quote",
+            "name",
+            "role",
+            "avatar"
+          ]
+        },
+        "maxItems": 4,
+        "note": "Ticker items; the first is duplicated at the end of the track for the loop."
+      }
+    },
+    "required": [
+      "eyebrow",
+      "heading",
+      "intro",
+      "faqs",
+      "planEyebrow",
+      "planLead",
+      "question",
+      "planForm",
+      "cta",
+      "listLead",
+      "features",
+      "testimonials"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "ticker.verticalLoop",
+      "accordion.faq"
+    ],
+    "reducedMotionFallback": "static-first-frame",
+    "measuredFrom": "src/components/sections/ContentPricing.jsx:174-175",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "Testimonial ticker (shared TickerTrack): once the box enters the viewport a repeat:-1 GSAP timeline waits 6s then moves the track up one item (850ms power3.out), looping back via the duplicated first item. Accordion cards use the shared FAQ CSS (.faq-body grid rows/opacity/scaleY, 0.45s open / 0.65s close; .faq-icon rotates 45deg->0 in 0.15s). Checkbox tiles and selects change state instantly; the CTA has the primitive button hover.",
+    "alsoMeasuredFrom": [
+      "src/components/sections/PricingHero.jsx:133-137",
+      "src/components/sections/ContentPricing.jsx:34-41",
+      "src/index.css:93-113"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[7rem] -> tab:py-[5rem] -> mob:py-[4rem]",
+      "tailwind": [
+        "tab:py-[5rem] mob:py-[4rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContentPricing.jsx:122-122",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-[1.25fr_1fr] -> mob:grid-cols-1",
+      "tailwind": [
+        "mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/ContentPricing.jsx:123-123",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:flex; xs:flex-col; xs:items-start; xs:justify-between",
+      "tailwind": [
+        "xs:flex xs:flex-col xs:items-start xs:justify-between"
+      ],
+      "measuredFrom": "src/components/sections/ContentPricing.jsx:141-141",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "xs:flex-col; xs:items-start; xs:justify-center; pt-[1.25rem] -> xs:pt-0",
+      "tailwind": [
+        "xs:flex-col xs:items-start xs:justify-center xs:pt-0"
+      ],
+      "measuredFrom": "src/components/sections/ContentPricing.jsx:145-145",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:flex-col",
+      "tailwind": [
+        "xs:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/ContentPricing.jsx:152-152",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[4rem] -> xs:text-[2.5rem]",
+      "tailwind": [
+        "xs:text-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContentPricing.jsx:158-158",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "gap-[1.5rem] -> xs:gap-[2rem]; xs:self-stretch",
+      "tailwind": [
+        "xs:gap-[2rem] xs:self-stretch"
+      ],
+      "measuredFrom": "src/components/sections/ContentPricing.jsx:163-163",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mx-[1rem] -> xs:mx-0",
+      "tailwind": [
+        "xs:mx-0"
+      ],
+      "measuredFrom": "src/components/sections/ContentPricing.jsx:173-173",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "mob:w-full",
+      "tailwind": [
+        "mob:w-full"
+      ],
+      "measuredFrom": "src/components/sections/ContentPricing.jsx:183-183",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.eyebrow",
+    "primitive.check-list",
+    "primitive.pricing-select",
+    "primitive.placeholder-media",
+    "primitive.logo-placeholder"
+  ],
+  "measuredFrom": "src/components/sections/ContentPricing.jsx:107-204",
+  "iaSectionId": "conversion.content-pricing",
+  "evidenceNotes": [
+    "/pricing renders <ContentPricing /> with no props; all sample copy is the component DEFAULTS.",
+    "The file comment describes the ticker as '850ms outQuart'; the shared TickerTrack actually uses ease 'power3.out' (GSAP's quartic out) with delay 6.",
+    "The two checkbox tiles live in a <form> whose onSubmit only calls preventDefault; there is no submit control. Prices are placeholder numbers computed client-side (15% bundle saving when both packs are checked; 'On request' for 5,000+).",
+    "The tiles' labels are modelled as planForm.fieldLabels (the component prop is `tiles`)."
+  ],
+  "observedOn": [
+    "/pricing"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.reviews-grid"
+    ],
+    "recommendedBefore": [
+      "conversion.faq"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "photo.person",
+    "placeholder.neutral"
+  ]
+}

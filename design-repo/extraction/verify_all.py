@@ -17,16 +17,19 @@ coherent.
   10 manifest-counts    manifest counts recomputed from disk
   10b readme-counts     README.md's count table recomputed from disk
   11 route-coverage     every route assigned exactly once, 1:1 with templates
+  11b route-sequences   every per-route node sequence is a real realization of its template
+  11c route-source      templates' routes == '/' + src/routes.js (preview paths excluded)
+  11d template-composition  each template's componentTags == the tags really rendered by its page
   12 graph-validator    every graph rule maps to a real function; derived sets match data
   13 pinned-assets      real-third-party roles hold their EXACT pinned policy
   14 citations          every path:line citation in range; ledger keywords inside the range
   15 responsive         every responsive entry's Tailwind classes occur in its cited line(s)
   16 asset-coverage     every public/assets file is claimed by a role or listed unreferenced
   17 ia-alignment       section ids/order/implementedBy match the project's ia.json
-  18 example-provenance example copy uses only words that occur in the clone's src/
+  18 example-provenance every example's copy uses only words that occur in the clone's src/
   19 adversarial        the full control + mutation suite
 
-Checks 14-18 need the sibling source project. With none present (a standalone
+Checks 11c, 11d and 14-18 need the sibling source project. With none present (a standalone
 copy or an extracted zip) they WARN and skip rather than fail.
 
 Paths derive from __file__, never hardcoded.
@@ -75,6 +78,20 @@ def all_files():
 
 def all_json():
     return [f for f in all_files() if f.endswith(".json")]
+
+
+def example_files():
+    out = ["schema/example.pagespec.json"]
+    exdir = os.path.join(REPO, "schema", "examples")
+    if os.path.isdir(exdir):
+        out += ["schema/examples/" + n for n in sorted(os.listdir(exdir)) if n.endswith(".json")]
+    return out
+
+
+def required_of(content):
+    if "oneOf" in content:
+        return sorted(set.intersection(*[set(b.get("required", [])) for b in content["oneOf"]]))
+    return sorted(content.get("required", []))
 
 
 def contract_ids():
@@ -155,14 +172,17 @@ def check_schema():
     import _draft7
     schema = jload("schema", "pagespec.schema.json")
     unsupported = _draft7.check_schema(schema)
-    errors = _draft7.validate(jload("schema", "example.pagespec.json"), schema)
+    errors = []
+    exs = example_files()
+    for rel in exs:
+        errors += [(rel, e) for e in _draft7.validate(jload(rel), schema)]
     if unsupported:
         record("schema", FAIL, "unsupported keywords: %s" % unsupported)
     elif errors:
         record("schema", FAIL, "%d error(s): %s" % (len(errors), errors[:2]))
     else:
-        record("schema", PASS, "example validates draft-07 with 0 errors; %d content branches"
-               % len(schema["properties"]["nodes"]["items"]["allOf"]))
+        record("schema", PASS, "%d examples validate draft-07 with 0 errors; %d content branches"
+               % (len(exs), len(schema["properties"]["nodes"]["items"]["allOf"])))
 
 
 def _branches(schema):
@@ -278,7 +298,7 @@ def check_allowlist_schema():
             changed = sorted(k for k in set(derived) & set(entry["settableProperties"])
                              if derived[k] != entry["settableProperties"][k])
             problems.append("%s: allowlist-only %s / schema-only %s / differing %s" % (sid, only_a, only_s, changed))
-        if sorted(entry["requiredContentFields"]) != sorted(br["content"].get("required", [])):
+        if sorted(entry["requiredContentFields"]) != required_of(br["content"]):
             problems.append("%s: requiredContentFields differ from the schema" % sid)
     if problems:
         record("allowlist-schema", FAIL, problems[0])
@@ -317,6 +337,8 @@ def actual_counts():
         "settablePropertyPaths": derived,
         "responsiveEntries": sum(len(jload("sections", "%s.json" % s)["responsive"]) for s in ids["sections"]),
         "ledgerCitations": len(jload("extraction", "measured-values.json")["citations"]),
+        "examples": len(example_files()),
+        "themes": len([n for n in os.listdir(os.path.join(REPO, "tokens", "themes")) if n.endswith(".json")]),
         "jsonFiles": len(all_json()),
         "files": len(all_files()),
     }
@@ -377,6 +399,89 @@ def check_route_coverage():
                % (len(t["routeToTemplate"]), len(t["templates"])))
 
 
+def check_route_sequences():
+    import semantic_validate as sv
+    tpl = jload("templates", "templates.json")["templates"]
+    problems, n = [], 0
+    for tid, t in tpl.items():
+        real = sv.template_realizations(t)
+        for route, seq in (t.get("routeSequences") or {}).items():
+            n += 1
+            if route not in t["routes"]:
+                problems.append("%s: routeSequences names %s, not one of its routes" % (tid, route))
+            if seq not in real:
+                problems.append("%s %s: sequence is not a realization of the template's slots" % (tid, route))
+        if t.get("routeSequences") and sorted(t["routeSequences"]) != sorted(t["routes"]):
+            problems.append("%s: routeSequences does not cover every route" % tid)
+    if problems:
+        record("route-sequences", FAIL, problems[0])
+    else:
+        record("route-sequences", PASS, "%d per-route sequences are real realizations of their templates" % n)
+
+
+def source_routes():
+    text = open(os.path.join(SOURCE_ROOT, "src", "routes.js"), encoding="utf-8").read()
+    routes = set(re.findall(r"path:\s*'([^'`$]+)'", text))
+    for m in re.finditer(r"\.\.\.\[([^\[\]]*)\]\.map\(\(s(?:, i)?\) => \(\{\s*path:\s*`([^`]*)`", text, re.S):
+        names = re.findall(r"'([^']+)'", m.group(1))
+        for i, name in enumerate(names):
+            routes.add(m.group(2).replace("${s}", name).replace("${i + 1}", str(i + 1)).replace("${i + 6}", str(i + 6)))
+    routes.add("/")
+    return routes
+
+
+def check_route_source():
+    if not source_present():
+        record("route-source", WARN, "no sibling src/; route list comparison SKIPPED")
+        return
+    real = source_routes()
+    mine = set(jload("templates", "templates.json")["routeToTemplate"])
+    problems = []
+    if real - mine:
+        problems.append("routes in src/routes.js with no template: %s" % sorted(real - mine)[:4])
+    if mine - real:
+        problems.append("templated routes not in src/routes.js: %s" % sorted(mine - real)[:4])
+    if any(r.startswith("/__preview") for r in mine):
+        problems.append("a build-time preview path is templated")
+    if problems:
+        record("route-source", FAIL, problems[0])
+    else:
+        record("route-source", PASS, "%d routes == '/' + src/routes.js (preview paths excluded)" % len(real))
+
+
+def render_tags(rel, component):
+    """capitalised JSX tags inside the named function's body, in source order (regex re-derivation)."""
+    text = open(os.path.join(SOURCE_ROOT, rel), encoding="utf-8").read()
+    m = re.search(r"(?:export default )?function %s\(" % re.escape(component), text)
+    if not m:
+        return None
+    body = text[m.end():]
+    end = re.search(r"\n}\n", body)
+    body = body[:end.start()] if end else body
+    ret = body.find("return (")
+    body = body[ret:] if ret >= 0 else body
+    return [t for t in re.findall(r"<([A-Z][A-Za-z0-9]*)", body) if t not in ("Fragment", "Sec")]
+
+
+def check_template_composition():
+    if not source_present():
+        record("template-composition", WARN, "no sibling src/; page composition re-derivation SKIPPED")
+        return
+    problems, n = [], 0
+    for tid, t in jload("templates", "templates.json")["templates"].items():
+        page, comp = t["pageComponent"].split(" > ")
+        got = render_tags(page, comp)
+        n += 1
+        if got is None:
+            problems.append("%s: %s not found in %s" % (tid, comp, page))
+        elif got != t["componentTags"]:
+            problems.append("%s: page renders %s, templates.json records %s" % (tid, got, t["componentTags"]))
+    if problems:
+        record("template-composition", FAIL, problems[0])
+    else:
+        record("template-composition", PASS, "%d templates: recorded component tags == the tags their pages render" % n)
+
+
 def check_graph_validator_agreement():
     graph = jload("compatibility", "graph.json")
     with open(os.path.join(REPO, "schema", "semantic_validate.py"), encoding="utf-8") as handle:
@@ -404,29 +509,58 @@ def check_graph_validator_agreement():
         if rid and rid not in rule_ids:
             problems.append("sections/%s.json emits %s, which is not a graph rule" % (s, rid))
     # derived sets must equal the real data
+    import semantic_validate as sv
     tpl = jload("templates", "templates.json")["templates"]
     cats = {s: jload("sections", "%s.json" % s)["category"] for s in contract_ids()["sections"]}
-    nohero = sorted(t for t, v in tpl.items() if not any(cats[n["section"]] == "hero" for n in v["nodes"]))
+    nohero, secondary, orders, pairs, caps = [], [], {}, [], {}
+    for tid, t in tpl.items():
+        orders[tid] = [n["section"] for n in t["nodes"]]
+        heroes = [(i, n) for i, n in enumerate(t["nodes"]) if cats.get(n["section"]) == "hero"]
+        if not heroes:
+            nohero.append(tid)
+        for i, n in heroes:
+            if i != 1:
+                for v in (n.get("variants") or ["default"]):
+                    if [n["section"], v] not in secondary:
+                        secondary.append([n["section"], v])
+        for r in sv.template_realizations(t):
+            for a, b in zip(r, r[1:]):
+                if cats.get(a) == cats.get(b) and [a, b] not in pairs:
+                    pairs.append([a, b])
+        counts = {}
+        for n in t["nodes"]:
+            for m in [n] + n.get("alternatives", []):
+                vs = m.get("variants") or ["default"]
+                key = (m["section"], vs[0] if len(vs) == 1 else "*")
+                counts[key] = counts.get(key, 0) + 1
+        for (sid, v), k in counts.items():
+            caps.setdefault(sid, {})
+            caps[sid][v] = max(caps[sid].get(v, 0), k)
     ds = graph["derivedSets"]
-    if sorted(ds["NO_HERO_TEMPLATES"]["value"]) != nohero:
-        problems.append("NO_HERO_TEMPLATES claims %s, real data says %s" % (ds["NO_HERO_TEMPLATES"]["value"], nohero))
+    if sorted(ds["NO_HERO_TEMPLATES"]["value"]) != sorted(nohero):
+        problems.append("NO_HERO_TEMPLATES claims %s, real data says %s" % (ds["NO_HERO_TEMPLATES"]["value"], sorted(nohero)))
+    if sorted(ds["SECONDARY_HERO_USES"]["value"]) != sorted(secondary):
+        problems.append("SECONDARY_HERO_USES claims %s, real data says %s" % (ds["SECONDARY_HERO_USES"]["value"], sorted(secondary)))
     if ds["SECTION_CATEGORIES"]["value"] != cats:
         problems.append("SECTION_CATEGORIES is stale")
-    order = [n["section"] for n in tpl["home"]["nodes"]]
-    if ds["CANONICAL_ORDER"]["value"] != order:
-        problems.append("CANONICAL_ORDER is stale")
-    pairs = [[a, b] for a, b in zip(order, order[1:]) if cats[a] == cats[b]]
-    if ds["REAL_SAME_CATEGORY_PAIRS"]["value"] != pairs:
+    if ds["TEMPLATE_ORDERS"]["value"] != orders:
+        problems.append("TEMPLATE_ORDERS is stale")
+    if sorted(ds["REAL_SAME_CATEGORY_PAIRS"]["value"]) != sorted(pairs):
         problems.append("REAL_SAME_CATEGORY_PAIRS is stale")
     adj = next(r for r in graph["rules"] if r["id"] == "NO_ADJACENT_SAME_CATEGORY")
-    if adj["exemptPairs"] != pairs:
+    if sorted(adj["exemptPairs"]) != sorted(pairs):
         problems.append("NO_ADJACENT_SAME_CATEGORY.exemptPairs != the real same-category pairs")
+    for sid, bv in caps.items():
+        cons = jload("sections", "%s.json" % sid)["constraints"]
+        claimed = cons.get("maxPerPageByVariant") or {"default": cons.get("maxPerPage")}
+        if claimed != bv or ds["REAL_MAX_PER_PAGE"]["value"].get(sid) != bv:
+            problems.append("%s: maxPerPage caps %s / REAL_MAX_PER_PAGE %s != real data %s" % (sid, claimed, ds["REAL_MAX_PER_PAGE"]["value"].get(sid), bv))
     if graph.get("ruleCount") != len(graph["rules"]):
         problems.append("ruleCount is stale")
     if problems:
         record("graph-validator", FAIL, problems[0])
     else:
-        record("graph-validator", PASS, "%d rules map to real checks; 4 derived sets match the real data" % len(graph["rules"]))
+        record("graph-validator", PASS, "%d rules map to real checks; 6 derived sets (incl. per-(section,variant) caps) match the real data" % len(graph["rules"]))
 
 
 def check_pinned_asset_policies():
@@ -540,6 +674,10 @@ def check_responsive():
             lines = _read(resolve(m.group(1)))
             window = " ".join(lines[int(m.group(2)) - 1:int(m.group(3))])
             tokens = set(re.findall(r"[^\s\"'`{}]+", window))
+            if entry.get("cssMediaQuery"):
+                n += 1
+                if entry["cssMediaQuery"] not in window:
+                    problems.append("%s: media rule %r not on %s" % (sid, entry["cssMediaQuery"], entry["measuredFrom"]))
             for group in entry["tailwind"]:
                 for cls in group.split():
                     n += 1
@@ -552,27 +690,56 @@ def check_responsive():
 
 
 def check_asset_coverage():
+    """Every file in public/assets (real reference copies) and public/stock (licensed stand-ins) is claimed."""
     reg = jload("assets", "asset-roles.json")
     claimed = set()
     for role in reg["roles"].values():
-        claimed.update(f for f in role["files"] if f.startswith("public/assets/"))
+        claimed.update(f for f in role["files"] if f.startswith(("public/assets/", "public/stock/")))
+        if role.get("licenseFile"):
+            claimed.add(role["licenseFile"])
     claimed.update(reg["unreferencedReferenceFiles"]["files"])
     if not source_present():
-        record("asset-coverage", WARN, "%d reference files claimed; source tree absent, disk comparison SKIPPED" % len(claimed))
+        record("asset-coverage", WARN, "%d reference/stock files claimed; source tree absent, disk comparison SKIPPED" % len(claimed))
         return
-    folder = os.path.join(SOURCE_ROOT, "public", "assets")
-    real = {"public/assets/" + n for n in os.listdir(folder) if not n.startswith(".")} if os.path.isdir(folder) else set()
+    real = set()
+    for sub in ("assets", "stock"):
+        folder = os.path.join(SOURCE_ROOT, "public", sub)
+        if os.path.isdir(folder):
+            real |= {"public/%s/%s" % (sub, n) for n in os.listdir(folder) if not n.startswith(".")}
     problems = []
     if real - claimed:
-        problems.append("unclaimed reference files: %s" % sorted(real - claimed)[:4])
+        problems.append("unclaimed files: %s" % sorted(real - claimed)[:4])
     if claimed - real:
         problems.append("roles claim files that do not exist: %s" % sorted(claimed - real)[:4])
-    if reg["fileCount"]["publicAssets"] != len(real):
-        problems.append("fileCount.publicAssets %r != %d on disk" % (reg["fileCount"]["publicAssets"], len(real)))
+    na = len([f for f in real if f.startswith("public/assets/")])
+    ns = len([f for f in real if f.startswith("public/stock/") and f.endswith(".jpg")])
+    if reg["fileCount"]["publicAssets"] != na:
+        problems.append("fileCount.publicAssets %r != %d on disk" % (reg["fileCount"]["publicAssets"], na))
+    smap = os.path.join(SOURCE_ROOT, "src", "stock", "stockMap.js")
+    if os.path.exists(smap):
+        text = open(smap, encoding="utf-8").read()
+        sq = set(int(x) for x in re.findall(r"\d+", text[text.index("SQUARE_IDS"):text.index("STOCK_MAP")]))
+        body = text[text.index("STOCK_MAP = {"):]
+        ids = set(int(x) for x in re.findall(r"(?<=[\[ ,])(\d+)(?=[,\]])", body))
+        miss = sorted(i for i in ids if "public/stock/%d.jpg" % i not in real)
+        miss += sorted("%d-sq" % i for i in sq if "public/stock/%d-sq.jpg" % i not in real)
+        if miss:
+            problems.append("src/stock/stockMap.js picks photos that are not in public/stock: %s" % miss[:5])
+    if reg["fileCount"].get("publicStock") != ns:
+        problems.append("fileCount.publicStock %r != %d on disk" % (reg["fileCount"].get("publicStock"), ns))
     if problems:
         record("asset-coverage", FAIL, problems[0])
     else:
-        record("asset-coverage", PASS, "all %d public/assets files are under a banned role or the unreferenced list" % len(real))
+        record("asset-coverage", PASS, "all %d public/assets files under a banned role or the unreferenced list; all %d public/stock photos (+ CREDITS.md) under stock.photo" % (na, ns))
+
+
+def ia_order(t):
+    """IA section order for a template: slots in order, each choice's alternatives listed right after it."""
+    out = []
+    for n in t["nodes"]:
+        out.append(n["section"])
+        out.extend(a["section"] for a in n.get("alternatives", []))
+    return out
 
 
 def check_ia_alignment():
@@ -582,15 +749,24 @@ def check_ia_alignment():
         return
     with open(path, encoding="utf-8") as handle:
         ia = json.load(handle)
-    tpl = jload("templates", "templates.json")["templates"]["home"]
-    ia_tpl = next(t for t in ia["templates"] if t["id"] == tpl.get("iaTemplateId"))
-    order = [n["section"] for n in tpl["nodes"]]
+    by_id = {t["id"]: t for t in ia["templates"]}
     problems = []
-    if ia_tpl["sections"] != order:
-        problems.append("node order %s != ia.json %s" % (order, ia_tpl["sections"]))
-    if sorted(ia_tpl["routes"]) != sorted(tpl["routes"]):
-        problems.append("routes differ from ia.json")
-    for sid in order:
+    tpls = jload("templates", "templates.json")["templates"]
+    for tid, tpl in tpls.items():
+        ia_tpl = by_id.get(tpl.get("iaTemplateId"))
+        if ia_tpl is None:
+            problems.append("%s: iaTemplateId %r is not in ia.json" % (tid, tpl.get("iaTemplateId")))
+            continue
+        if ia_tpl["sections"] != ia_order(tpl):
+            problems.append("%s: node order %s != ia.json %s" % (tid, ia_order(tpl), ia_tpl["sections"]))
+        if sorted(ia_tpl.get("routes") or []) != sorted(tpl["routes"]) or ia_tpl["routeCount"] != len(tpl["routes"]):
+            problems.append("%s: routes differ from ia.json" % tid)
+    if len(by_id) != len(tpls):
+        problems.append("ia.json has %d templates, templates.json %d" % (len(by_id), len(tpls)))
+    ids = contract_ids()["sections"]
+    if sorted(ia["sections"]) != sorted(ids):
+        problems.append("section ids differ: only-IA %s / only-repo %s" % (sorted(set(ia["sections"]) - set(ids))[:3], sorted(set(ids) - set(ia["sections"]))[:3]))
+    for sid in ids:
         mine = jload("sections", "%s.json" % sid)
         theirs = ia["sections"].get(sid, {})
         if mine["implementedBy"] != theirs.get("implementedBy"):
@@ -600,14 +776,12 @@ def check_ia_alignment():
     if problems:
         record("ia-alignment", FAIL, problems[0])
     else:
-        record("ia-alignment", PASS, "%d section ids, order, categories and implementedBy match ia.json" % len(order))
+        record("ia-alignment", PASS, "%d templates (orders, routes) and %d sections (categories, implementedBy) match ia.json" % (len(tpls), len(ids)))
 
 
 def check_example_provenance():
-    """Every word of the example's copy must occur somewhere in the clone's own src/.
+    """Every word of every example's copy must occur somewhere in the clone's own src/.
     Catches copy pulled from the saved original HTML, the spec or the live site."""
-    import semantic_validate as sv
-    example = jload("schema", "example.pagespec.json")
     if not source_present():
         record("example-provenance", WARN, "no sibling src/; provenance SKIPPED")
         return
@@ -617,32 +791,35 @@ def check_example_provenance():
             if name.endswith((".jsx", ".js")):
                 corpus.append(open(os.path.join(root, name), encoding="utf-8").read())
     text = "\n".join(corpus)
-    vocab = set(re.findall(r"[A-Za-z]+(?:['’-][A-Za-z]+)*", text.replace("&amp;", "&")))
+    # case-insensitive: the clone's own filler helpers (prose()/words()/phrase()) capitalise sentence starts
+    vocab = {w.lower() for w in re.findall(r"[A-Za-z]+(?:['’-][A-Za-z]+)*", text.replace("&amp;", "&"))}
     skip_keys = {"assetRole", "pattern", "reducedMotionFallback", "trigger", "easing", "section",
-                 "template", "designSystem", "theme", "route", "pageSpecVersion", "kind"}
-    missing = set()
+                 "template", "designSystem", "theme", "route", "pageSpecVersion", "kind", "variant", "assetRef"}
+    missing = {}
     n = 0
 
-    def walk(v, key=None):
+    def walk(v, rel, key=None):
         nonlocal n
         if isinstance(v, dict):
             for k, s in v.items():
-                walk(s, k)
+                walk(s, rel, k)
         elif isinstance(v, list):
             for s in v:
-                walk(s, key)
+                walk(s, rel, key)
         elif isinstance(v, str) and key not in skip_keys:
             for w in re.findall(r"[A-Za-z]+(?:['’-][A-Za-z]+)*", v):
                 n += 1
-                if w not in vocab:
-                    missing.add(w)
+                if w.lower() not in vocab:
+                    missing.setdefault(w, rel)
 
-    walk(example)
+    exs = example_files()
+    for rel in exs:
+        walk(jload(rel), rel)
     if missing:
         record("example-provenance", FAIL, "%d example word(s) not found in the clone's src/: %s"
-               % (len(missing), sorted(missing)[:8]))
+               % (len(missing), sorted(missing.items())[:6]))
     else:
-        record("example-provenance", PASS, "all %d words of example copy occur in the clone's own src/" % n)
+        record("example-provenance", PASS, "all %d words of copy in %d examples occur in the clone's own src/" % (n, len(exs)))
 
 
 def check_adversarial():
@@ -663,7 +840,7 @@ def cross_check():
     import adversarial_test as at
     schema = jload("schema", "pagespec.schema.json")
     Draft7Validator.check_schema(schema)
-    cases = [("example", jload("schema", "example.pagespec.json"))]
+    cases = [(rel, jload(rel)) for rel in example_files()]
     cases += [("control:" + t, at.synth_control(t)) for t in sorted(at.TEMPLATES)]
     cases += [("mutation:" + l, s) for l, _, s in at.mutations()]
     disagree = [l for l, s in cases
@@ -678,7 +855,8 @@ def cross_check():
 CHECKS = [
     check_json_parse, check_no_abs_paths, check_no_images, check_self_contained, check_schema,
     check_schema_sections, check_allowlist_parity, check_allowlist_schema, check_version_parity,
-    check_manifest_counts, check_readme_counts, check_route_coverage, check_graph_validator_agreement,
+    check_manifest_counts, check_readme_counts, check_route_coverage, check_route_sequences,
+    check_route_source, check_template_composition, check_graph_validator_agreement,
     check_pinned_asset_policies, check_citations, check_responsive, check_asset_coverage,
     check_ia_alignment, check_example_provenance, check_adversarial,
 ]
@@ -735,8 +913,10 @@ def _stage_sources(tmp):
         shutil.copy2(src, dst)
     shutil.copytree(os.path.join(SOURCE_ROOT, "src"), os.path.join(tmp, "project", "src"), dirs_exist_ok=True)
     os.makedirs(os.path.join(tmp, "project", "public", "assets"), exist_ok=True)
-    for name in os.listdir(os.path.join(SOURCE_ROOT, "public", "assets")):
-        open(os.path.join(tmp, "project", "public", "assets", name), "w").close()   # names only, no image bytes
+    for sub in ("assets", "stock"):
+        os.makedirs(os.path.join(tmp, "project", "public", sub), exist_ok=True)
+        for name in os.listdir(os.path.join(SOURCE_ROOT, "public", sub)):
+            open(os.path.join(tmp, "project", "public", sub, name), "w").close()   # names only, no image bytes
     if os.path.exists(os.path.join(SOURCE_ROOT, "ia.json")):
         shutil.copy2(os.path.join(SOURCE_ROOT, "ia.json"), os.path.join(tmp, "project", "ia.json"))
     return True
@@ -782,8 +962,8 @@ def prove_drift():
             lambda j: j["rules"][0].update(enforcedBy="semantic_validate.py::check_nothing"))),
         ("allowlist path drifted from the schema (maxWords)", "allowlist-schema", lambda d: _edit(d, "tokens/llm/component-allowlist.json",
             lambda j: j["sections"]["hero.split-visual"]["settableProperties"]["heading"].update(maxWords=50))),
-        ("section contract drifted from its schema branch", "schema-sections", lambda d: _edit(d, S + "conversion.faq.json",
-            lambda j: j["content"]["properties"]["items"].update(maxItems=9))),
+        ("section contract drifted from its schema branch", "schema-sections", lambda d: _edit(d, S + "story.scroll-quote.json",
+            lambda j: j["content"]["properties"]["quote"].update(maxWords=99))),
         ("route double-assigned", "route-coverage", lambda d: _edit(d, "templates/templates.json",
             lambda j: j["routeToTemplate"].update({"/pricing": "home"}))),
         ("reference file dropped from every role", "asset-coverage", lambda d: _edit(d, "assets/asset-roles.json",
@@ -792,6 +972,29 @@ def prove_drift():
             lambda j: j["templates"]["home"]["nodes"].reverse())),
         ("example copy pulled from outside src/ (not in vocabulary)", "example-provenance", lambda d: _edit(d, "schema/example.pagespec.json",
             lambda j: j["nodes"][1]["content"].update(subtitle="Upskill reskill outskill everyone."))),
+        ("per-route sequence that is not a template realization", "route-sequences", lambda d: _edit(d, "templates/templates.json",
+            lambda j: j["templates"]["feature-detail"]["routeSequences"]["/lms/features/spaces"].reverse())),
+        ("route added to src/routes.js with no template", "route-source",
+            lambda d: _sed(os.path.join(d, "..", "src", "routes.js"), "{ path: '/pricing', original: '/pricing' },",
+                           "{ path: '/pricing', original: '/pricing' },\n  { path: '/lms/new-page', original: '/lms/new-page' },")),
+        ("page gains a section the template does not record", "template-composition",
+            lambda d: _sed(os.path.join(d, "..", "src", "pages", "company", "GuidesPage.jsx"), "<GuidesIndex ", "<WhyBlock />\n      <GuidesIndex ")),
+        ("stale SECONDARY_HERO_USES derived set", "graph-validator", lambda d: _edit(d, "compatibility/graph.json",
+            lambda j: j["derivedSets"]["SECONDARY_HERO_USES"].update(value=[]))),
+        ("hand-edited maxPerPage cap (release-block 6 -> 9)", "graph-validator", lambda d: _edit(d, S + "product.release-block.json",
+            lambda j: j["constraints"].update(maxPerPage=9))),
+        ("stock photo dropped from the stock.photo role", "asset-coverage", lambda d: _edit(d, "assets/asset-roles.json",
+            lambda j: j["roles"]["stock.photo"]["files"].pop())),
+        ("stock map picks a photo that is not in public/stock", "asset-coverage",
+            lambda d: _sed(os.path.join(d, "..", "src", "stock", "stockMap.js"), "'/lms/demo-platform': [445]", "'/lms/demo-platform': [9999]")),
+        ("pinned stock.photo -> must-not-reuse (DIFFERENT-BUT-VALID)", "pinned-assets", lambda d: _edit(d, "assets/asset-roles.json",
+            lambda j: j["roles"]["stock.photo"].update(generationPolicy="must-not-reuse"))),
+        ("family example copy pulled from outside src/", "example-provenance", lambda d: _edit(d, "schema/examples/feature-detail.pagespec.json",
+            lambda j: j["nodes"][1]["content"].update(heading="Upskill reskill outskill everyone."))),
+        ("family example breaks the schema", "schema", lambda d: _edit(d, "schema/examples/case-study-platform.pagespec.json",
+            lambda j: j.update(template="landing"))),
+        ("template node order drifted from ia.json (non-home template)", "ia-alignment", lambda d: _edit(d, "templates/templates.json",
+            lambda j: j["templates"]["pricing"]["nodes"].reverse())),
         ("schema accepts a live demo form", "adversarial", lambda d: _edit(d, "schema/pagespec.schema.json",
             lambda j: _loosen_form(j))),
     ]
@@ -807,7 +1010,8 @@ def prove_drift():
         os.makedirs(os.path.dirname(dest))
         shutil.copytree(REPO, dest, ignore=shutil.ignore_patterns("__pycache__", ".DS_Store"))
         staged_ok = _stage_sources(tmp)
-        if not staged_ok and expect in ("citations", "responsive", "asset-coverage", "ia-alignment", "example-provenance"):
+        if not staged_ok and expect in ("citations", "responsive", "asset-coverage", "ia-alignment", "example-provenance",
+                                         "route-source", "template-composition"):
             print("  %-64s SKIP (no source tree to stage)" % label[:64])
             shutil.rmtree(tmp, ignore_errors=True)
             continue

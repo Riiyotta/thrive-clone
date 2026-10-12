@@ -1,0 +1,633 @@
+{
+  "pageSpecVersion": "1.0.0",
+  "route": "/case-studies/lms",
+  "template": "case-studies-lms",
+  "designSystem": "marketing",
+  "theme": "nimbus-dark",
+  "nodes": [
+    {
+      "section": "shell.nav",
+      "content": {
+        "menus": [
+          {
+            "label": "Platform",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Solutions",
+                "items": [
+                  {
+                    "title": "Learning home",
+                    "desc": "One place for all learning"
+                  },
+                  {
+                    "title": "Skill journeys",
+                    "desc": "Guided paths that build skills"
+                  },
+                  {
+                    "title": "Peer mentoring",
+                    "desc": "Match people who can help"
+                  },
+                  {
+                    "title": "Team spaces",
+                    "desc": "Communities around topics"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "More",
+                "items": [
+                  {
+                    "title": "Integrations",
+                    "desc": "Connect the tools you use"
+                  },
+                  {
+                    "title": "Security",
+                    "desc": "How we keep data safe"
+                  },
+                  {
+                    "title": "Analytics",
+                    "desc": "See what moves the needle"
+                  },
+                  {
+                    "title": "What's new",
+                    "desc": "Fresh features this season"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Features",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Experience",
+                "items": [
+                  {
+                    "title": "Home feed"
+                  },
+                  {
+                    "title": "Search"
+                  },
+                  {
+                    "title": "Mobile app"
+                  },
+                  {
+                    "title": "Notifications"
+                  },
+                  {
+                    "title": "Profiles"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Learning",
+                "items": [
+                  {
+                    "title": "Courses"
+                  },
+                  {
+                    "title": "Pathways"
+                  },
+                  {
+                    "title": "Assessments"
+                  },
+                  {
+                    "title": "Events"
+                  },
+                  {
+                    "title": "Certificates"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Admin",
+                "items": [
+                  {
+                    "title": "Reporting"
+                  },
+                  {
+                    "title": "Automations"
+                  },
+                  {
+                    "title": "User groups"
+                  },
+                  {
+                    "title": "Branding"
+                  },
+                  {
+                    "title": "Permissions"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Content",
+            "columns": [
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Course library",
+                    "desc": "Ready-made courses"
+                  },
+                  {
+                    "title": "Authoring",
+                    "desc": "Build your own in minutes"
+                  },
+                  {
+                    "title": "Compliance packs",
+                    "desc": "Required training, sorted"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Content partners",
+                    "desc": "Bring in third-party catalogs"
+                  },
+                  {
+                    "title": "Custom content",
+                    "desc": "Made-to-order by our studio"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Case Studies",
+            "columns": [
+              {
+                "kind": "customers",
+                "headerLink": "Platform",
+                "customers": [
+                  {
+                    "name": "Customer one",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer two",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer three",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer four",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer five",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "customers",
+                "headerLink": "Content",
+                "customers": [
+                  {
+                    "name": "Customer six",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer seven",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer eight",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer nine",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer ten",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Learn",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "About",
+                "items": [
+                  {
+                    "title": "Our story",
+                    "desc": "Why we started Nimbus"
+                  },
+                  {
+                    "title": "What you get",
+                    "desc": "Everything in every plan"
+                  },
+                  {
+                    "title": "Careers",
+                    "desc": "Come work with us"
+                  },
+                  {
+                    "title": "Contact",
+                    "desc": "Get in touch with sales"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Resources",
+                "items": [
+                  {
+                    "title": "Events",
+                    "desc": "Live and recorded talks"
+                  },
+                  {
+                    "title": "Blog",
+                    "desc": "Ideas on workplace learning"
+                  },
+                  {
+                    "title": "Guides",
+                    "desc": "Practical how-to playbooks"
+                  },
+                  {
+                    "title": "Glossary",
+                    "desc": "Terms every team uses"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "aiLinkLabel": "Ask why teams choose Nimbus",
+        "ctaLabel": "Book a demo→"
+      },
+      "motion": {
+        "pattern": "nav.hoverMenus",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "hover",
+        "durationMs": 250,
+        "easing": "outQuart"
+      }
+    },
+    {
+      "section": "hero.wow-content",
+      "content": {
+        "variant": "case-studies",
+        "avatars": {
+          "assetRole": "placeholder.neutral"
+        },
+        "trustLine": "Trusted by 400+ organisations across 50+ countries",
+        "title": "Learning case studies that go beyond completions",
+        "paragraph": "Nimbus is an AI-powered learning platform used by four million people at organisations including Customer one, Customer two, a regional council and a national retail body. These customer stories show measured results in onboarding, compliance, adoption, admin time and sales, across retail, hospitality, public sector and financial services. Filter by industry, company size or use case to find your story.",
+        "feature": {
+          "name": "Customer three",
+          "tag": "Featured",
+          "text": "Customer three drives a 1.5x return on staffing cost savings",
+          "ctaLabel": "Read Case Study"
+        },
+        "visual": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Customer collage"
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "index.cs-filter-grid",
+      "content": {
+        "heading": "Learning stories from onboarding, compliance and performance teams in every sector",
+        "filters": [
+          {
+            "label": "Industries",
+            "options": [
+              "Beauty",
+              "Education & Training",
+              "Finance"
+            ]
+          },
+          {
+            "label": "Use Case",
+            "options": [
+              "Coaching and mentoring",
+              "Communication",
+              "Compliance training"
+            ]
+          },
+          {
+            "label": "Number of employees",
+            "options": [
+              "0 - 250",
+              "250 - 500",
+              "500 - 1,000"
+            ]
+          }
+        ],
+        "items": [
+          {
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo 1"
+            },
+            "text": "Customer 1 cuts onboarding time in half across every store",
+            "industry": "Beauty",
+            "useCases": [
+              "Coaching and mentoring",
+              "Continuing Professional Development"
+            ],
+            "employees": "0 - 250"
+          },
+          {
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo 2"
+            },
+            "text": "Customer 2 transforms compliance training across 1,000+ sites",
+            "industry": "Hospitality",
+            "useCases": [
+              "Customer service training",
+              "Internal communications"
+            ],
+            "employees": "1,000 - 5,000"
+          },
+          {
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo 3"
+            },
+            "text": "Customer 3 reaches a 70% mentoring match rate in eight weeks",
+            "industry": "Retail",
+            "useCases": [
+              "Essential learning",
+              "Communication"
+            ],
+            "employees": "15K+"
+          }
+        ],
+        "emptyText": "No case studies match those filters yet."
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "proof.case-results",
+      "content": {
+        "heading": "Learning results our customers love",
+        "paragraph": "From faster onboarding to stronger culture, these teams turned everyday learning into results their leaders could see, measure and share across the business.",
+        "cards": [
+          {
+            "label": "Slow onboarding",
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Customer one"
+            },
+            "stat": "50%",
+            "result": "shorter time to full productivity for new starters at",
+            "customer": "Customer one"
+          },
+          {
+            "label": "Low engagement",
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Customer two"
+            },
+            "stat": "100%",
+            "result": "completion on required compliance training across every site at",
+            "customer": "Customer two"
+          },
+          {
+            "label": "Admin load",
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Customer three"
+            },
+            "stat": "980",
+            "result": "hours saved each year on manual admin at",
+            "customer": "Customer three"
+          },
+          {
+            "label": "Weak culture",
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Customer four"
+            },
+            "stat": "96%",
+            "result": "of colleagues now learn and share every week at",
+            "customer": "Customer four"
+          },
+          {
+            "label": "Lagging sales",
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Customer five"
+            },
+            "stat": "18%",
+            "result": "lift in weekly sales after store training at",
+            "customer": "Customer five"
+          }
+        ],
+        "ctaLabel": "See Nimbus at work →"
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "conversion.faq",
+      "content": {
+        "variant": "subpage",
+        "heading": "Frequently asked questions",
+        "items": [
+          {
+            "question": "What are spaces in Nimbus?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          },
+          {
+            "question": "How are spaces different from team chat?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          },
+          {
+            "question": "How do spaces compare with other social intranet tools for teams?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "accordion.faq",
+        "reducedMotionFallback": "instant-toggle"
+      }
+    },
+    {
+      "section": "conversion.demo-cta",
+      "content": {
+        "heading": "Give your team a home for real growth",
+        "headingEmphasis": "for real growth",
+        "body": "Bring your questions and we will walk you through the platform, the content and the results teams like yours see.",
+        "ctaLabel": "Let’s talk"
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "shell.footer",
+      "content": {
+        "aiPrompt": "Want another view?",
+        "aiLinks": {
+          "assetRole": "logo.aiVendor",
+          "slotCount": 4
+        },
+        "columns": [
+          {
+            "header": "Platform",
+            "headerIsLink": true,
+            "links": [
+              "Learning home",
+              "Skill journeys",
+              "Peer mentoring",
+              "Team spaces",
+              "Analytics",
+              "Integrations"
+            ],
+            "buttonLabel": "See it in action →"
+          },
+          {
+            "header": "Content",
+            "headerIsLink": true,
+            "links": [
+              "Course library",
+              "Authoring",
+              "Compliance packs",
+              "Content partners"
+            ],
+            "buttonLabel": "Browse content →"
+          },
+          {
+            "header": "Case Studies",
+            "headerIsLink": true,
+            "links": [
+              "Northwind",
+              "Brightway",
+              "Kestrel Co",
+              "Harbor Foods",
+              "All stories"
+            ]
+          },
+          {
+            "header": "Resources",
+            "headerIsLink": false,
+            "links": [
+              "Blog",
+              "Guides",
+              "Webinars",
+              "Help centre",
+              "Events",
+              "Glossary"
+            ]
+          }
+        ],
+        "ratingBadges": {
+          "assetRole": "badge.review",
+          "slotCount": 2,
+          "alt": "Rating badge"
+        },
+        "awardBadges": {
+          "assetRole": "badge.award",
+          "slotCount": 4,
+          "alt": "Award badge"
+        },
+        "complianceLine": {
+          "text": "Nimbus is independently audited, meets accessibility standards, supports teams in over forty languages and follows regional data rules in every market.",
+          "linkPhrases": [
+            "independently audited",
+            "accessibility standards",
+            "regional data rules"
+          ]
+        },
+        "copyright": "© 2026 Nimbus Learning",
+        "legalLinks": [
+          "Trust Centre",
+          "Website Cookies & Policy"
+        ],
+        "dropups": [
+          {
+            "label": "Terms and Conditions",
+            "links": [
+              "Customer terms",
+              "Acceptable use",
+              "Service levels",
+              "Support policy",
+              "Partner terms"
+            ]
+          },
+          {
+            "label": "Privacy Policy",
+            "links": [
+              "Privacy notice",
+              "Data processing",
+              "Sub-processors",
+              "Retention",
+              "Candidate privacy",
+              "Accessibility"
+            ]
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "footer.dropup",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "click",
+        "durationMs": 200,
+        "easing": "ease"
+      }
+    }
+  ]
+}

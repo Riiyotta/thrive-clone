@@ -1,0 +1,464 @@
+{
+  "id": "product.card-slider-legacy",
+  "kind": "section",
+  "name": "Card slider (legacy, paged)",
+  "purpose": "Lays out a step-by-step journey or a set of service offerings as a horizontally paged row of hairline cards.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/CardSliderLegacy.jsx",
+  "description": "Legacy hairline-framed header + Webflow-style paged slider of cards with square prev/next arrows bottom-right and round page dots bottom-left; the visible mask is 25% wide (50% <=991, 80% <=767, 95% <=479) with overflow visible, so ~4 cards show at desktop. `variant` gives three shapes: 'journey' (/lms/impact, theme pink): centred H2, 3.42:5 cards with a serif title and 1-2 eyebrow tags; 'library' (/content/service, theme yellow): 2-col header (H2 | grey para), square cards with title + grey text; 'process' (/content/custom-content, theme green): 2-col header, 3.42:5 cards with an auto-numbered 01/02 chip, brand-colour serif title and small text.",
+  "content": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "journey"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "legacy colour theme (default pink)"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "note": "centred serif H2",
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          },
+          "slides": {
+            "type": "array",
+            "minItems": 4,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 12,
+                  "note": "serif card title",
+                  "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+                },
+                "tags": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 3,
+                    "note": "legacy eyebrow tag (team/role)",
+                    "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                  },
+                  "maxItems": 3
+                }
+              },
+              "required": [
+                "title",
+                "tags"
+              ]
+            },
+            "maxItems": 12
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "slides"
+        ],
+        "note": "/lms/impact"
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "library"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "legacy colour theme (default yellow)"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "note": "serif H2 (left column)",
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 23,
+            "note": "grey paragraph (right column)",
+            "measuredLongestRealInstance": "18 words in the clone's own placeholder copy"
+          },
+          "slides": {
+            "type": "array",
+            "minItems": 4,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 4,
+                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                },
+                "body": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 29,
+                  "note": "grey card text",
+                  "measuredLongestRealInstance": "23 words in the clone's own placeholder copy"
+                }
+              },
+              "required": [
+                "title",
+                "body"
+              ]
+            },
+            "maxItems": 8
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "body",
+          "slides"
+        ],
+        "note": "/content/service"
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "process"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "legacy colour theme (default green)"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "note": "serif H2 (left column)",
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 48,
+            "note": "grey paragraph (right column)",
+            "measuredLongestRealInstance": "38 words in the clone's own placeholder copy"
+          },
+          "slides": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 7,
+                  "note": "brand-colour serif title",
+                  "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+                },
+                "body": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 20,
+                  "note": "small grey text",
+                  "measuredLongestRealInstance": "16 words in the clone's own placeholder copy"
+                }
+              },
+              "required": [
+                "title",
+                "body"
+              ]
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "body",
+          "slides"
+        ],
+        "note": "/content/custom-content. Card numbers (01, 02...) are generated from the index."
+      }
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "journey": 1,
+      "library": 1,
+      "process": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "carousel.pagedSlide"
+    ],
+    "reducedMotionFallback": "instant-slide-change",
+    "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:140-245",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "Proposed pattern carousel.pagedSlide: Webflow w-slider semantics. Slides are grouped into pages (new page when running width exceeds mask width - 100px); arrow/dot click or a >30px horizontal swipe translates every slide to the page start over 500ms ease. Not a loop (next on the last page rewinds to 0), no autoplay. Dots change colour over 100ms; journey cards change background on hover."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-[25%] -> tab:w-[50%] -> mob:w-[80%] -> xs:w-[95%]",
+      "tailwind": [
+        "tab:w-[50%] mob:w-[80%] xs:w-[95%]"
+      ],
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:58-58",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-full -> xs:w-[75%]",
+      "tailwind": [
+        "xs:w-[75%]"
+      ],
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:60-60",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-full -> mob:w-[60%]",
+      "tailwind": [
+        "mob:w-[60%]"
+      ],
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:61-61",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pb-[8rem] -> mob:pb-[6rem]",
+      "tailwind": [
+        "mob:pb-[6rem]"
+      ],
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:65-65",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pb-[3rem] -> mob:pb-[2rem]",
+      "tailwind": [
+        "mob:pb-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:66-66",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "tab:aspect-square",
+      "tailwind": [
+        "tab:aspect-square"
+      ],
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:85-85",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "wide",
+      "query": "min-width: 1440px",
+      "breakpoints": [
+        "wide",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "sizing"
+      ],
+      "changes": "p-[2rem] -> wide:p-[2.5rem] -> mob:p-[1.5rem] -> xs:p-[1rem]; h-full -> mob:h-auto",
+      "tailwind": [
+        "wide:p-[2.5rem] mob:h-auto mob:p-[1.5rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:101-101",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "mob:aspect-square",
+      "tailwind": [
+        "mob:aspect-square"
+      ],
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:108-108",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[2.5rem] -> mob:h-[1.75rem]; w-[2.5rem] -> mob:w-[1.75rem]",
+      "tailwind": [
+        "mob:h-[1.75rem] mob:w-[1.75rem]"
+      ],
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:110-110",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-2 -> mob:grid-cols-1",
+      "tailwind": [
+        "mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:211-211",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[3rem] -> mob:h-[2rem] -> xs:h-[3rem]; w-[3rem] -> mob:w-[2rem] -> xs:w-[3rem]",
+      "tailwind": [
+        "mob:h-[2rem] mob:w-[2rem] xs:h-[3rem] xs:w-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:256-256",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[3rem] -> mob:h-[2rem] -> xs:h-[3rem]; w-[3rem] -> mob:w-[2rem] -> xs:w-[3rem]",
+      "tailwind": [
+        "mob:h-[2rem] mob:w-[2rem] xs:h-[3rem] xs:w-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:266-266",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.pagination"
+  ],
+  "measuredFrom": "src/components/sections/CardSliderLegacy.jsx:126-295",
+  "iaSectionId": "product.card-slider-legacy",
+  "evidenceNotes": [
+    "/lms/impact passes theme=\"pink\" explicitly; /content/service and /content/custom-content rely on the variant default theme.",
+    "process page passes processGap (a className knob, not modelled)."
+  ],
+  "observedOn": [
+    "/content/custom-content",
+    "/content/service",
+    "/lms/impact"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.feature-rows-legacy",
+      "product.grid-cards-legacy",
+      "product.learn-grid"
+    ],
+    "recommendedBefore": [
+      "conversion.faq",
+      "product.grid-cards-legacy",
+      "proof.testimonial-card-legacy"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [],
+  "variants": [
+    "journey",
+    "library",
+    "process"
+  ]
+}

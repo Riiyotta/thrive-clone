@@ -1,0 +1,464 @@
+{
+  "id": "product.layout03-tabs",
+  "kind": "section",
+  "name": "Layout03 vertical tabs (Nova roles)",
+  "purpose": "Presents the AI assistant's roles as expandable vertical tabs beside a media pane, under a centred pitch with a CTA.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/Layout03Tabs.jsx",
+  "description": "Centred H2 + grey paragraph + primary button, then a two-column grid: a vertical list of tab cards (inactive 72px tall showing only the label; the current one expands to show its paragraph) and a pane on the right. `variant` (same content shape): 'image' (/lms/small-business, /lms/corporate-lms; container-large, .3fr/1fr, screenshot anchored bottom-right), 'video' (/lms/enterprise; container-medium, .5fr/1fr, centred 30rem 1:1.1 video), 'video-compact' (/whats-included; like video without section padding, 2.5rem header gap). <=767 two equal columns with 48px tabs; <=479 single column, the pane hides and each tab shows its own screenshot under its text.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "variant": {
+        "enum": [
+          "image",
+          "video",
+          "video-compact"
+        ],
+        "note": "layout + pane media kind"
+      },
+      "heading": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 19,
+            "measuredLongestRealInstance": "15 words in the clone's own placeholder copy"
+          },
+          "linkPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 0,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          },
+          "boldPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          }
+        },
+        "required": [
+          "text",
+          "linkPhrases",
+          "boldPhrases"
+        ],
+        "x-richText": true,
+        "note": "H2; may italicise one phrase (em)"
+      },
+      "paragraph": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 50,
+        "note": "grey intro under the H2",
+        "measuredLongestRealInstance": "40 words in the clone's own placeholder copy"
+      },
+      "buttonLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "primary button under the intro",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "tabs": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tab": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 2,
+              "note": "role name (18px label)",
+              "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 40,
+              "note": "shown only when the tab is current",
+              "measuredLongestRealInstance": "32 words in the clone's own placeholder copy"
+            },
+            "media": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "product.screenshot",
+                "stock.photo",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "product.screenshot",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "<=479 in-tab screenshot (Placeholder \"Product screenshot\") on every variant"
+            }
+          },
+          "required": [
+            "tab",
+            "text",
+            "media"
+          ]
+        },
+        "maxItems": 6
+      },
+      "paneMedia": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "product.screenshot",
+          "product.video",
+          "stock.photo",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "product.screenshot",
+              "product.video",
+              "stock.photo",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "right-hand pane: 'Product screenshot' on image, 'Product video' on video variants"
+      }
+    },
+    "required": [
+      "variant",
+      "heading",
+      "paragraph",
+      "buttonLabel",
+      "tabs",
+      "paneMedia"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "image": 1,
+      "video": 1,
+      "video-compact": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "tabs.fadeOutIn"
+    ],
+    "reducedMotionFallback": "instant-toggle",
+    "measuredFrom": "src/components/sections/Layout03Tabs.jsx:43-50",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "Webflow tabs: on click the pane fades out 200ms, swaps, then fades in 400ms (ease). The tab cards animate height/colour/gap with transition all .3s, so the opening tab visibly settles. No autoplay.",
+    "alsoMeasuredFrom": [
+      "src/components/sections/Layout03Tabs.jsx:153-153"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "p-[1rem] -> tab:p-[2rem] -> mob:p-[1.5rem]; mob:self-stretch",
+      "tailwind": [
+        "tab:p-[2rem] mob:self-stretch mob:p-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:56-56",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "tab:p-[2rem] -> mob:p-[1.5rem]; mob:self-stretch",
+      "tailwind": [
+        "tab:p-[2rem] mob:self-stretch mob:p-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:60-60",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "other",
+        "spacing"
+      ],
+      "changes": "bottom-0 -> tab:bottom-auto; tab:px-[1rem]",
+      "tailwind": [
+        "tab:bottom-auto tab:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:64-64",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:121-121",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-[1.5rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:122-122",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[2.5rem] -> mob:pt-[1.25rem] -> mob:pt-[3rem]",
+      "tailwind": [
+        "mob:pt-[1.25rem] mob:pt-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:129-129",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-[0.5fr_1fr] -> tab:grid-cols-[0.5fr_1fr] -> mob:grid-cols-[1fr_1fr] -> xs:grid-cols-[1fr]",
+      "tailwind": [
+        "tab:grid-cols-[0.5fr_1fr] mob:grid-cols-[1fr_1fr] xs:grid-cols-[1fr]"
+      ],
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:137-137",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "other",
+        "spacing"
+      ],
+      "changes": "mob:rounded-media; mob:p-[1rem]",
+      "tailwind": [
+        "mob:rounded-media mob:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:153-153",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "spacing"
+      ],
+      "changes": "h-auto -> mob:h-[48px]; gap-[4rem] -> mob:gap-[4rem]",
+      "tailwind": [
+        "mob:h-[48px] mob:gap-[4rem]"
+      ],
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:154-154",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout",
+        "sizing"
+      ],
+      "changes": "xs:mt-[0.5rem]; xs:block; xs:w-full",
+      "tailwind": [
+        "xs:mt-[0.5rem] xs:block xs:w-full"
+      ],
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:160-160",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:hidden",
+      "tailwind": [
+        "xs:hidden"
+      ],
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:169-169",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "mob:min-h-[40vh]",
+      "tailwind": [
+        "mob:min-h-[40vh]"
+      ],
+      "measuredFrom": "src/components/sections/Layout03Tabs.jsx:170-170",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.heading-h2",
+    "primitive.button",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/Layout03Tabs.jsx:108-202",
+  "iaSectionId": "product.layout03-tabs",
+  "evidenceNotes": [
+    "/lms/small-business uses variant 'image' with the preset title/tabs and only a custom paragraph; /lms/corporate-lms overrides title (with a <br/>), paragraph and tabs.",
+    "The 'video' preset title has a forced <br/> and an italic 'capable'."
+  ],
+  "observedOn": [
+    "/lms/corporate-lms",
+    "/lms/enterprise",
+    "/lms/small-business",
+    "/whats-included"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.assistant-tabs",
+      "product.included-tabs",
+      "product.split-autotabs"
+    ],
+    "recommendedBefore": [
+      "product.autotabs-group",
+      "proof.results-proof",
+      "proof.results-stats",
+      "proof.testimonial-quote"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "placeholder.neutral",
+    "product.screenshot",
+    "product.video",
+    "stock.photo"
+  ],
+  "variants": [
+    "image",
+    "video",
+    "video-compact"
+  ]
+}

@@ -1,0 +1,258 @@
+{
+  "id": "proof.stats-countup",
+  "kind": "section",
+  "name": "Count-up company stats",
+  "purpose": "Conveys company scale at a glance with three headline numbers that count up as they come into view.",
+  "category": "proof",
+  "designSystem": "marketing",
+  "implementedBy": "src/pages/company/StatsResults.jsx",
+  "description": "Page-local block on /company: a small (24px, 20px mob) Inter H2 with one italic phrase and a grey lead, centred, then three square dark stat cards in a row, each with a label + short line at the top and a big number with suffix at the bottom. At <=767 the three 18.75rem squares stay in one row and scroll sideways (hidden scrollbar), as on the original.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "linkPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 0,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          },
+          "boldPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          }
+        },
+        "required": [
+          "text",
+          "linkPhrases",
+          "boldPhrases"
+        ],
+        "x-richText": true,
+        "note": "The emphasised phrase renders as italic <em>, not bold."
+      },
+      "lead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 27,
+        "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+      },
+      "cards": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 2,
+              "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 8,
+              "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+            },
+            "value": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100000,
+              "note": "Count-up target (integer)."
+            },
+            "suffix": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 2,
+              "note": "Appended after the number, e.g. '+', ' Million+'.",
+              "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "title",
+            "text",
+            "value"
+          ]
+        },
+        "maxItems": 3
+      }
+    },
+    "required": [
+      "heading",
+      "lead",
+      "cards"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "stats.countUp"
+    ],
+    "reducedMotionFallback": "instant-final-state",
+    "measuredFrom": "src/pages/company/StatsResults.jsx:35-38",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "When the card row is 30% in view, every number counts up from 0 to its value in 1.5s power2.out (rounded integers), once."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.5rem] -> mob:text-[1.25rem]",
+      "tailwind": [
+        "mob:text-[1.25rem]"
+      ],
+      "measuredFrom": "src/pages/company/StatsResults.jsx:55-55",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/pages/company/StatsResults.jsx:56-56",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing",
+        "other"
+      ],
+      "changes": "mob:-mx-[1.25rem]; mob:overflow-x-auto; mob:px-[1.25rem]; mob:[scrollbar-width:none]",
+      "tailwind": [
+        "mob:-mx-[1.25rem] mob:overflow-x-auto mob:px-[1.25rem] mob:[scrollbar-width:none]"
+      ],
+      "measuredFrom": "src/pages/company/StatsResults.jsx:60-60",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "layout"
+      ],
+      "changes": "mob:w-max; grid-cols-3 -> mob:grid-cols-[repeat(3,18.75rem)]",
+      "tailwind": [
+        "mob:w-max mob:grid-cols-[repeat(3,18.75rem)]"
+      ],
+      "measuredFrom": "src/pages/company/StatsResults.jsx:61-61",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-[3.7rem] -> mob:gap-[3rem]",
+      "tailwind": [
+        "mob:gap-[3rem]"
+      ],
+      "measuredFrom": "src/pages/company/StatsResults.jsx:63-63",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/pages/company/StatsResults.jsx:64-64",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-stat -> mob:text-stat-48",
+      "tailwind": [
+        "mob:text-stat-48"
+      ],
+      "measuredFrom": "src/pages/company/StatsResults.jsx:70-70",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [],
+  "measuredFrom": "src/pages/company/StatsResults.jsx:15-83",
+  "iaSectionId": "proof.stats-countup",
+  "evidenceNotes": [
+    "CompanyPage.jsx renders <StatsResults /> with no props; all copy is the component defaults."
+  ],
+  "observedOn": [
+    "/company"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.logo-row"
+    ],
+    "recommendedBefore": [
+      "product.two-col-features"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": []
+}

@@ -280,9 +280,9 @@
     ]
   },
   "constraints": {
-    "onePerPage": true,
     "maxPerPage": 1,
-    "mustBeLast": true
+    "mustBeLast": true,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
   },
   "motion": {
     "allowedPatterns": [
@@ -299,56 +299,50 @@
       "query": "max-width: 991px",
       "changes": "Footer card padding 48 -> 32 (16 at <=479).",
       "tailwind": [
-        "rounded-panel bg-surface-1 p-[48px] tab:p-[32px] xs:p-[16px]"
+        "rounded-panel bg-surface-1 p-[3rem] tab:p-[2rem] xs:p-[1rem]"
       ],
-      "measuredFrom": "src/components/Footer.jsx:135-135"
+      "measuredFrom": "src/components/Footer.jsx:172-172",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "AI logo slots 48 -> 40px.",
       "tailwind": [
-        "tab:h-[40px] tab:w-[40px]"
+        "tab:h-[2.5rem] tab:w-[2.5rem]"
       ],
-      "measuredFrom": "src/components/Footer.jsx:141-141"
+      "measuredFrom": "src/components/Footer.jsx:178-178",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "Menu grid 4 -> 3 columns, row gap 48 (24 at <=767; 2 columns at <=479).",
       "tailwind": [
-        "grid grid-cols-4",
-        "tab:grid-cols-3 tab:gap-y-[48px] mob:gap-y-[24px] xs:grid-cols-2"
+        "grid grid-cols-4 tab:grid-cols-3 tab:gap-y-[3rem] mob:gap-y-[1.5rem] xs:grid-cols-2"
       ],
-      "measuredFrom": "src/components/Footer.jsx:157-157"
+      "measuredFrom": "src/components/Footer.jsx:194-194",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "Badges row becomes a column, gap 24.",
       "tailwind": [
-        "mb-[32px] flex justify-between tab:flex-col tab:items-start tab:gap-[24px]"
+        "mb-[2rem] flex justify-between tab:flex-col tab:items-start tab:gap-[1.5rem]"
       ],
-      "measuredFrom": "src/components/Footer.jsx:189-189"
-    },
-    {
-      "breakpoint": "tab",
-      "query": "max-width: 991px",
-      "changes": "Award badges margin-left -24 (-16 at <=479).",
-      "tailwind": [
-        "tab:ml-[-24px]",
-        "xs:ml-[-16px]"
-      ],
-      "measuredFrom": "src/components/Footer.jsx:194-194"
+      "measuredFrom": "src/components/Footer.jsx:226-226",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "Legal row becomes a column, gap 16 (24 at <=767).",
       "tailwind": [
-        "tab:h-auto tab:flex-col tab:gap-[16px] mob:gap-[24px]"
+        "tab:h-auto tab:flex-col tab:gap-[1rem] mob:gap-[1.5rem]"
       ],
-      "measuredFrom": "src/components/Footer.jsx:215-215"
+      "measuredFrom": "src/components/Footer.jsx:252-252",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "mob",
@@ -357,16 +351,18 @@
       "tailwind": [
         "mob:text-footer-head-mob"
       ],
-      "measuredFrom": "src/components/Footer.jsx:163-163"
+      "measuredFrom": "src/components/Footer.jsx:200-200",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Link list gap 8 -> 4.",
       "tailwind": [
-        "flex flex-col gap-[8px] self-stretch mob:gap-[4px]"
+        "flex flex-col gap-[0.5rem] self-stretch mob:gap-[0.25rem]"
       ],
-      "measuredFrom": "src/components/Footer.jsx:170-170"
+      "measuredFrom": "src/components/Footer.jsx:207-207",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "mob",
@@ -375,25 +371,28 @@
       "tailwind": [
         "mob:static"
       ],
-      "measuredFrom": "src/components/Footer.jsx:70-70"
+      "measuredFrom": "src/components/Footer.jsx:71-71",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "xs",
       "query": "max-width: 479px",
       "changes": "Wordmark/social row becomes a column, gap 24.",
       "tailwind": [
-        "flex items-center justify-between xs:flex-col xs:items-start xs:gap-[24px]"
+        "flex items-center justify-between xs:flex-col xs:items-start xs:gap-[1.5rem]"
       ],
-      "measuredFrom": "src/components/Footer.jsx:148-148"
+      "measuredFrom": "src/components/Footer.jsx:185-185",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "xs",
       "query": "max-width: 479px",
       "changes": "Legal links stack centred, gap 4.",
       "tailwind": [
-        "flex items-center gap-[24px] xs:flex-col xs:gap-[4px]"
+        "flex items-center gap-[1.5rem] xs:flex-col xs:gap-[0.25rem]"
       ],
-      "measuredFrom": "src/components/Footer.jsx:218-218"
+      "measuredFrom": "src/components/Footer.jsx:255-255",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "wide",
@@ -402,14 +401,14 @@
       "tailwind": [
         "wide:hover:text-grey"
       ],
-      "measuredFrom": "src/components/Footer.jsx:163-163"
+      "measuredFrom": "src/components/Footer.jsx:200-200",
+      "reCited": "re-cited against current source"
     }
   ],
   "assetRoles": [
-    "brand.wordmark",
-    "logo.aiVendor",
-    "badge.review",
     "badge.award",
+    "badge.review",
+    "logo.aiVendor",
     "placeholder.neutral"
   ],
   "composes": [
@@ -422,13 +421,71 @@
   ],
   "compatibility": {
     "recommendedAfter": [
+      "conversion.demo-cta",
       "conversion.demo-form"
     ],
     "recommendedBefore": [],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
-    "/"
+    "/",
+    "/case-studies-contents/customer-10",
+    "/case-studies-contents/customer-6",
+    "/case-studies-contents/customer-7",
+    "/case-studies-contents/customer-8",
+    "/case-studies-contents/customer-9",
+    "/case-studies/content",
+    "/case-studies/lms",
+    "/case-study/customer-1",
+    "/case-study/customer-2",
+    "/case-study/customer-3",
+    "/case-study/customer-4",
+    "/case-study/customer-5",
+    "/company",
+    "/company/why-nimbus",
+    "/contact-us",
+    "/content",
+    "/content/custom-content",
+    "/content/sector-suites",
+    "/content/service",
+    "/content/topics",
+    "/lms",
+    "/lms/corporate-lms",
+    "/lms/demo-platform",
+    "/lms/enterprise",
+    "/lms/features",
+    "/lms/features/ai-content-creator",
+    "/lms/features/chat",
+    "/lms/features/communication",
+    "/lms/features/employee-assessment-software",
+    "/lms/features/employee-experience",
+    "/lms/features/employee-performance-management-software",
+    "/lms/features/learning-pathways",
+    "/lms/features/lms-admin",
+    "/lms/features/lms-analytics",
+    "/lms/features/lms-gamification",
+    "/lms/features/lms-homepage",
+    "/lms/features/lms-rewards",
+    "/lms/features/lms-security",
+    "/lms/features/mcp",
+    "/lms/features/mobile-lms",
+    "/lms/features/skills",
+    "/lms/features/spaces",
+    "/lms/impact",
+    "/lms/integrations",
+    "/lms/mentoring-software",
+    "/lms/professional-services",
+    "/lms/small-business",
+    "/lms/solutions",
+    "/lms/spring-release",
+    "/mentoring",
+    "/nova",
+    "/pricing",
+    "/resources/blog-and-news",
+    "/resources/events-webinars",
+    "/resources/guides",
+    "/resources/lms-glossary",
+    "/whats-included"
   ],
   "measuredFrom": "src/components/Footer.jsx:134-239",
   "iaSectionId": "shell.footer",

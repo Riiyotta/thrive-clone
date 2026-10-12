@@ -1,0 +1,204 @@
+{
+  "id": "product.learn-grid",
+  "kind": "section",
+  "name": "Formats list grid",
+  "purpose": "Show the range of formats or deliverables on offer as a scannable two-column list beside a heading and short explanation.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/LearnGrid.jsx",
+  "description": "A legacy green hairline component (`.section_learn`, no right border) on a 0.75fr / 1fr grid: left = serif 4rem/1.1 H2 + 16px paragraph; right = 2-column list of items, each a green-outlined icon box (plus glyph) + 20px/500 white label, hairline left/bottom rules (last row unruled). Stacks to one column <=767 (list keeps 2 columns). No variants; theme is fixed green.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "note": "serif H2",
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "text": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 27,
+        "note": "16px paragraph",
+        "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+      },
+      "items": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 8,
+          "note": "item label beside the icon box",
+          "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+        },
+        "maxItems": 12,
+        "note": "format labels, 2 per row; an even count keeps the last row complete"
+      }
+    },
+    "required": [
+      "heading",
+      "text",
+      "items"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/LearnGrid.jsx:21-62",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion and no hover states."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "grid-cols-[0.75fr_1fr] -> mob:grid-cols-1; gap-0 -> mob:gap-[1rem]",
+      "tailwind": [
+        "mob:grid-cols-1 mob:gap-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/LearnGrid.jsx:28-28",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> tab:px-[1.5rem] -> mob:px-[1.25rem] -> xs:px-[1rem]; py-[3.5rem] -> tab:py-[2.5rem] -> mob:py-[2rem]",
+      "tailwind": [
+        "tab:px-[1.5rem] tab:py-[2.5rem] mob:px-[1.25rem] mob:py-[2rem] xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/LearnGrid.jsx:30-30",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "other"
+      ],
+      "changes": "mob:border-t; mob:border-[var(--th-border)]",
+      "tailwind": [
+        "mob:border-t mob:border-[var(--th-border)]"
+      ],
+      "measuredFrom": "src/components/sections/LearnGrid.jsx:40-40",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "p-[2rem] -> tab:p-[1.5rem] -> xs:p-[1rem]",
+      "tailwind": [
+        "tab:p-[1.5rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/LearnGrid.jsx:44-44",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-[1rem] -> tab:gap-[1.25rem]",
+      "tailwind": [
+        "tab:gap-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/LearnGrid.jsx:46-46",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "spacing",
+        "other"
+      ],
+      "changes": "h-[2.5rem] -> tab:h-[2rem] -> xs:h-[1.5rem]; w-[2.5rem] -> tab:w-[2rem] -> xs:w-[1.5rem]; p-[8px] -> mob:p-[4px]; rounded-br-[8px] -> xs:rounded-br-[4px]; rounded-tl-[8px] -> xs:rounded-tl-[4px]",
+      "tailwind": [
+        "tab:h-[2rem] tab:w-[2rem] mob:p-[4px] xs:h-[1.5rem] xs:w-[1.5rem] xs:rounded-br-[4px] xs:rounded-tl-[4px]"
+      ],
+      "measuredFrom": "src/components/sections/LearnGrid.jsx:47-47",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.25rem] -> xs:text-[1.125rem]",
+      "tailwind": [
+        "xs:text-[1.125rem]"
+      ],
+      "measuredFrom": "src/components/sections/LearnGrid.jsx:50-50",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [],
+  "measuredFrom": "src/components/sections/LearnGrid.jsx:21-62",
+  "iaSectionId": "product.learn-grid",
+  "evidenceNotes": [
+    "The page overrides items (two labels differ from the defaults: 'Check-ins' and 'Content uploaded and mapped on Nimbus'); heading/text are defaults. iconShrink is a layout knob (not modelled).",
+    "Icons are a fixed inline SVG plus glyph, not content."
+  ],
+  "observedOn": [
+    "/content/custom-content"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.testimonial-card-legacy"
+    ],
+    "recommendedBefore": [
+      "product.card-slider-legacy"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": []
+}

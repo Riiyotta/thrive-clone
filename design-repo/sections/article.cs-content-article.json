@@ -1,0 +1,540 @@
+{
+  "id": "article.cs-content-article",
+  "kind": "section",
+  "name": "Case study article (content)",
+  "purpose": "Carries the long-form narrative of a content-library customer story, with a TOC, share links and a demo prompt alongside, and closes on the customer quote.",
+  "category": "article",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/CsContentArticle.jsx",
+  "description": "Hairline-bordered two-column block on the legacy content (\"yellow\") theme. Left 30%: sticky sidebar with an \"In this article\" TOC (on the real pages every H2, section titles and sub-headings, is listed via tocFromHeadings), a Share row with three icon buttons and a dotted-texture CTA card with a yellow pill button. Right 70%: rich-text sections (title H2, then a sequence of paragraphs with **bold**/[[link]] spans, sub-heading H2s, spacer/empty paragraphs, centred or full-width figures and yellow-ruled blockquotes), followed by a dotted-texture quote card (quote, avatar, name, role). At 767 and below the sidebar moves under the article and the TOC is hidden.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "tocLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "shareLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 2,
+        "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+      },
+      "sidebarCta": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 25,
+            "measuredLongestRealInstance": "20 words in the clone's own placeholder copy"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "text",
+          "label"
+        ]
+      },
+      "sections": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 10,
+              "note": "Section H2 and TOC entry. May contain \"\\n\" line breaks (rendered as <br>), as on customer-6.",
+              "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+            },
+            "titleBold": {
+              "type": "boolean"
+            },
+            "blocks": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "enum": [
+                      "paragraph",
+                      "heading",
+                      "figure",
+                      "quote",
+                      "spacer",
+                      "empty"
+                    ]
+                  },
+                  "paragraph": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "text": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 193,
+                        "measuredLongestRealInstance": "154 words in the clone's own placeholder copy"
+                      },
+                      "linkPhrases": {
+                        "type": "array",
+                        "minItems": 0,
+                        "maxItems": 1,
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 18
+                        },
+                        "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                      },
+                      "boldPhrases": {
+                        "type": "array",
+                        "minItems": 0,
+                        "maxItems": 2,
+                        "items": {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxWords": 18
+                        },
+                        "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                      }
+                    },
+                    "required": [
+                      "text",
+                      "linkPhrases",
+                      "boldPhrases"
+                    ],
+                    "x-richText": true,
+                    "note": "kind=paragraph. \"\\n\" renders a <br> line break."
+                  },
+                  "heading": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 13,
+                    "note": "kind=heading: in-section H2 sub-heading (also listed in the TOC).",
+                    "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+                  },
+                  "headingBold": {
+                    "type": "boolean"
+                  },
+                  "figure": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "shape": {
+                        "enum": [
+                          "landscape",
+                          "wide",
+                          "full"
+                        ]
+                      },
+                      "image": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "x-allowedRoles": [
+                          "placeholder.neutral",
+                          "photo.brand",
+                          "stock.photo"
+                        ],
+                        "properties": {
+                          "assetRole": {
+                            "enum": [
+                              "placeholder.neutral",
+                              "photo.brand",
+                              "stock.photo"
+                            ]
+                          },
+                          "placeholderLabel": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 6,
+                            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                          },
+                          "alt": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 10
+                          },
+                          "assetRef": {
+                            "type": "string",
+                            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                          }
+                        },
+                        "required": [
+                          "assetRole"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "shape",
+                      "image"
+                    ],
+                    "note": "kind=figure."
+                  },
+                  "quote": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 64,
+                    "note": "kind=quote: yellow-ruled bold italic blockquote.",
+                    "measuredLongestRealInstance": "51 words in the clone's own placeholder copy"
+                  }
+                },
+                "required": [
+                  "kind"
+                ]
+              },
+              "maxItems": 15,
+              "note": "Ordered rich-text blocks; set exactly the field that matches `kind` (none for spacer/empty)."
+            }
+          },
+          "required": [
+            "title",
+            "titleBold",
+            "blocks"
+          ]
+        },
+        "maxItems": 2
+      },
+      "quote": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 73,
+            "measuredLongestRealInstance": "58 words in the clone's own placeholder copy"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 12,
+            "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+          },
+          "avatar": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "photo.person"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "photo.person"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "2.5rem avatar (Placeholder with an empty label)."
+          }
+        },
+        "required": [
+          "text",
+          "name",
+          "role",
+          "avatar"
+        ]
+      }
+    },
+    "required": [
+      "tocLabel",
+      "shareLabel",
+      "sidebarCta",
+      "sections",
+      "quote"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/CsContentArticle.jsx:222-233",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; hover transitions only (share icon background .24s, CTA pill background/radius .3s). The sidebar is CSS-sticky."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[2.85rem] -> mob:text-[2rem]",
+      "tailwind": [
+        "mob:text-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsContentArticle.jsx:131-131",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col",
+      "tailwind": [
+        "mob:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/CsContentArticle.jsx:199-199",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "sizing"
+      ],
+      "changes": "mob:order-[9999]; w-[30%] -> mob:w-full",
+      "tailwind": [
+        "mob:order-[9999] mob:w-full"
+      ],
+      "measuredFrom": "src/components/sections/CsContentArticle.jsx:201-201",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "p-[2.5rem] -> tab:p-[1.5rem]; mob:hidden",
+      "tailwind": [
+        "tab:p-[1.5rem] mob:hidden"
+      ],
+      "measuredFrom": "src/components/sections/CsContentArticle.jsx:202-202",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-col; tab:items-start; tab:gap-y-[1rem]; tab:p-[1.5rem]",
+      "tailwind": [
+        "tab:flex-col tab:items-start tab:gap-y-[1rem] tab:p-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsContentArticle.jsx:214-214",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/CsContentArticle.jsx:215-215",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "p-[2.5rem] -> tab:p-[1.5rem]",
+      "tailwind": [
+        "tab:p-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsContentArticle.jsx:229-229",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/CsContentArticle.jsx:230-230",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "typography",
+        "layout"
+      ],
+      "changes": "px-[1.25rem] -> tab:px-[1rem]; py-[0.75rem] -> tab:py-[0.5rem]; text-[0.9375rem] -> tab:text-[1rem]; xs:block; xs:self-stretch",
+      "tailwind": [
+        "tab:px-[1rem] tab:py-[0.5rem] tab:text-[1rem] xs:block xs:self-stretch"
+      ],
+      "measuredFrom": "src/components/sections/CsContentArticle.jsx:233-233",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing",
+        "sizing"
+      ],
+      "changes": "p-[3rem] -> tab:p-0; w-[70%] -> mob:w-full",
+      "tailwind": [
+        "tab:p-0 mob:w-full"
+      ],
+      "measuredFrom": "src/components/sections/CsContentArticle.jsx:240-240",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "p-[2.5rem] -> tab:p-[1.5rem] -> mob:p-[1.25rem]",
+      "tailwind": [
+        "tab:p-[1.5rem] mob:p-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsContentArticle.jsx:241-241",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "p-[3.5rem] -> tab:p-[2.5rem] -> mob:p-[1rem]",
+      "tailwind": [
+        "tab:p-[2.5rem] mob:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsContentArticle.jsx:254-254",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media",
+    "primitive.legacy-theme"
+  ],
+  "measuredFrom": "src/components/sections/CsContentArticle.jsx:174-272",
+  "iaSectionId": "article.cs-content-article",
+  "evidenceNotes": [
+    "Every route passes `preset` AND its own `sections`/`quote` (caseStudyContentData.js), so the SHORT/LONG presets in the component are never rendered on a real page; they were still counted for budgets. `preset` itself is not modelled (it only picks default copy).",
+    "Route copy is generated by prose()/phrase(); the sample was evaluated with node. The customer-6 first title is \"...before\\n\\u200d\\n\" (a zero-width-joiner line), copied verbatim.",
+    "The page always passes tocFromHeadings, so sub-headings appear in the TOC on every real route.",
+    "On every case-study-content route the page renders layout2-hero, cs-content-stats, cs-content-article, cs-content-related in that order (CaseStudyContent.jsx); separate components, so no mustImmediatelyFollow."
+  ],
+  "observedOn": [
+    "/case-studies-contents/customer-10",
+    "/case-studies-contents/customer-6",
+    "/case-studies-contents/customer-7",
+    "/case-studies-contents/customer-8",
+    "/case-studies-contents/customer-9"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.cs-content-stats"
+    ],
+    "recommendedBefore": [
+      "index.cs-content-related"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.brand",
+    "photo.person",
+    "placeholder.neutral",
+    "stock.photo"
+  ]
+}

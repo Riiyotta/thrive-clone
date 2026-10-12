@@ -1,0 +1,246 @@
+{
+  "id": "product.integrations-visual",
+  "kind": "section",
+  "name": "Integrations visual",
+  "purpose": "Reassures buyers the platform plugs into their existing tools with a short pitch over a wide integrations strip image.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/IntegrationsVisual.jsx",
+  "description": "Centred H2 + grey paragraph above a wide 1440:410 integrations strip image (padded 1.5rem), optionally followed by a centred primary button. `variant` changes layout only: 'mid-market' (/lms/corporate-lms; 45.25rem container, button below the container), 'enterprise' (/lms/enterprise; same, no button), 'features' (/lms/features; 60rem container, 6rem spacer, larger 24px paragraph in 42rem, button row under the image).",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "variant": {
+        "enum": [
+          "mid-market",
+          "enterprise",
+          "features"
+        ],
+        "note": "layout only"
+      },
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 13,
+        "note": "centred H2",
+        "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+      },
+      "body": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 79,
+        "note": "grey paragraph",
+        "measuredLongestRealInstance": "63 words in the clone's own placeholder copy"
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "note": "centred primary button; absent on the enterprise instance",
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "media": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "product.screenshot",
+          "stock.photo",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "product.screenshot",
+              "stock.photo",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "integrations strip (Placeholder \"Integrations strip 1440×410\"): a composite of tool marks"
+      }
+    },
+    "required": [
+      "variant",
+      "heading",
+      "body",
+      "media"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "enterprise": 1,
+      "features": 1,
+      "mid-market": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/IntegrationsVisual.jsx:37-101",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; button hover only."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mob:px-[1rem]",
+      "tailwind": [
+        "mob:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsVisual.jsx:45-45",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[6rem] -> mob:pt-[3.5rem]",
+      "tailwind": [
+        "mob:pt-[3.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsVisual.jsx:46-46",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.5rem] -> mob:text-[1.25rem]",
+      "tailwind": [
+        "mob:text-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsVisual.jsx:55-55",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-[1.5rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsVisual.jsx:61-61",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[5rem] -> mob:pt-[3rem]",
+      "tailwind": [
+        "mob:pt-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsVisual.jsx:79-79",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col",
+      "tailwind": [
+        "mob:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsVisual.jsx:92-92",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.heading-h2",
+    "primitive.button",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/IntegrationsVisual.jsx:37-101",
+  "iaSectionId": "product.integrations-visual",
+  "evidenceNotes": [
+    "All three pages use the per-variant defaults.",
+    "The strip shows third-party integration marks on the original; no closed asset role covers integration-partner logos, so product.screenshot + placeholder.neutral are allowed.",
+    "No sample is given for the 'mid-market' variant (/lms/corporate-lms): its default body copy in IntegrationsVisual.jsx names a real third-party chat product, so it cannot be used verbatim as a sample. The copy should be replaced in source; content shape is identical to the other variants (heading, body, ctaLabel 'See all integrations →', media).",
+    "mid-market sample added after commit 1b3b419 replaced the real product name in the default body (copy verbatim from IntegrationsVisual.jsx DEFAULTS)."
+  ],
+  "observedOn": [
+    "/lms/corporate-lms",
+    "/lms/enterprise",
+    "/lms/features"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.split-autotabs",
+      "product.sticky-tabs",
+      "product.two-col-features"
+    ],
+    "recommendedBefore": [
+      "proof.reviews-slider",
+      "proof.testimonial-quote"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ],
+  "variants": [
+    "mid-market",
+    "enterprise",
+    "features"
+  ]
+}

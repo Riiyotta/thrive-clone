@@ -1,0 +1,272 @@
+{
+  "id": "story.marquee",
+  "kind": "section",
+  "name": "Topic marquee rows",
+  "purpose": "Conveys the breadth of a course library or programme with endlessly scrolling rows of topic pills.",
+  "category": "story",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/Marquee.jsx",
+  "description": "One component with a `variant` prop. header (/lms/small-business): centred serif H2 and a grey paragraph with one inline link, three full-width rows of white-text pills, then a primary + dark button pair. plain (/mentoring, four instances, `set` 1-4): just two rows of grey-text pills inside padding-global, each placed straight after a wow2col block. Each row is an edge-faded (0 -> 15% / 85% -> 0 mask) overflow-hidden strip whose track holds the pill list twice and scrolls with a CSS keyframe loop; rows alternate direction.",
+  "content": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "header"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "paragraph": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 35,
+                "measuredLongestRealInstance": "28 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases"
+            ],
+            "x-richText": true
+          },
+          "rows": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "minItems": 11,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 7,
+                    "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+                  },
+                  "maxItems": 11,
+                  "note": "Pill labels; the track repeats them twice for the loop."
+                },
+                "reverse": {
+                  "type": "boolean",
+                  "note": "Scroll direction (rows alternate)."
+                }
+              },
+              "required": [
+                "items",
+                "reverse"
+              ]
+            },
+            "maxItems": 3
+          },
+          "buttons": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 4,
+                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                }
+              },
+              "required": [
+                "label"
+              ]
+            },
+            "maxItems": 2,
+            "note": "First renders primary, second dark."
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "paragraph",
+          "rows",
+          "buttons"
+        ],
+        "note": "Centred header, three rows, two buttons."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "plain"
+          },
+          "set": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4,
+            "note": "Preset row set (SETS[1-4]); rows mirror it."
+          },
+          "rows": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "minItems": 10,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 7,
+                    "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+                  },
+                  "maxItems": 11,
+                  "note": "Pill labels; the track repeats them twice for the loop."
+                },
+                "reverse": {
+                  "type": "boolean",
+                  "note": "Scroll direction (rows alternate)."
+                }
+              },
+              "required": [
+                "items",
+                "reverse"
+              ]
+            },
+            "maxItems": 2
+          }
+        },
+        "required": [
+          "variant",
+          "rows"
+        ],
+        "note": "Two rows only, no header."
+      }
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 4,
+    "maxPerPageByVariant": {
+      "header": 1,
+      "plain": 4
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "marquee.cssLoop"
+    ],
+    "reducedMotionFallback": "static-first-frame",
+    "measuredFrom": "src/components/sections/Marquee.jsx:12-12",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "Each track translates 0 -> -50% (reversed rows -50% -> 0) over 30s linear, infinitely, from page load; px/s speed therefore depends on row length. Buttons have primitive hover transitions only.",
+    "alsoMeasuredFrom": [
+      "src/components/sections/Marquee.jsx:6-6"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/Marquee.jsx:66-66",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "typography",
+        "spacing"
+      ],
+      "changes": "text-[3.5rem] -> tab:text-[3rem] -> mob:text-[2.5rem] -> xs:text-[2rem]; xs:p-[0.5rem]",
+      "tailwind": [
+        "tab:text-[3rem] mob:text-[2.5rem] xs:p-[0.5rem] xs:text-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/Marquee.jsx:134-134",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-[1.5rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/Marquee.jsx:146-146",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button"
+  ],
+  "measuredFrom": "src/components/sections/Marquee.jsx:96-165",
+  "iaSectionId": "story.marquee",
+  "evidenceNotes": [
+    "On /mentoring every Marquee (plain) follows a Wow2col in a Fragment, but each sits in its own <Sec>, so the pairing is page composition, not structural; no mustImmediatelyFollow.",
+    "Rows of the 'header' variant all reuse the same 11-item list (SB_ITEMS), which itself repeats 'Understanding Data Privacy and Security' twice, to match the original track lengths.",
+    "tone (white/grey pill text) is derived from the variant and not modelled."
+  ],
+  "observedOn": [
+    "/lms/small-business",
+    "/mentoring"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.centred-quote",
+      "story.wow-2col"
+    ],
+    "recommendedBefore": [
+      "product.wow-bento",
+      "story.wow-2col"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [],
+  "variants": [
+    "header",
+    "plain"
+  ]
+}

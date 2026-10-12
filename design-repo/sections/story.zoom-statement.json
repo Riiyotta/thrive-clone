@@ -15,12 +15,14 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "product.screenshot",
+          "stock.photo",
           "placeholder.neutral"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "product.screenshot",
+              "stock.photo",
               "placeholder.neutral"
             ]
           },
@@ -38,7 +40,7 @@
           },
           "assetRef": {
             "type": "string",
-            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
             "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
           }
         },
@@ -74,8 +76,8 @@
     ]
   },
   "constraints": {
-    "onePerPage": true,
-    "maxPerPage": 1
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
   },
   "motion": {
     "allowedPatterns": [
@@ -92,9 +94,10 @@
       "query": "max-width: 991px",
       "changes": "Text block top padding 80 -> 64 (48 at <=767).",
       "tailwind": [
-        "pb-[16px] pt-[80px] tab:pt-[64px] mob:pt-[48px]"
+        "pb-[1rem] pt-[5rem] tab:pt-[4rem] mob:pt-[3rem]"
       ],
-      "measuredFrom": "src/components/Statement.jsx:44-44"
+      "measuredFrom": "src/components/Statement.jsx:44-44",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "all",
@@ -107,8 +110,9 @@
     }
   ],
   "assetRoles": [
+    "placeholder.neutral",
     "product.screenshot",
-    "placeholder.neutral"
+    "stock.photo"
   ],
   "composes": [
     "primitive.heading-h2",
@@ -121,7 +125,7 @@
     "recommendedBefore": [
       "story.scroll-quote"
     ],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
     "/"

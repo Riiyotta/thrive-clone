@@ -1,0 +1,806 @@
+{
+  "id": "product.why-assistant-tabs",
+  "kind": "section",
+  "name": "Why-us assistant tabs (four-part story block)",
+  "purpose": "Makes the \"why choose us\" case in one sequence: pitch the assistant, show its roles, show the platform areas, then prove it with results and a big quote.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/WhyKikitabs.jsx",
+  "description": "Four stacked blocks in one component (only /company/why-nimbus): (1) left-aligned balanced H2 with an italic phrase, grey intro and primary button; (2) a tab row above a loop slider of 5 slides (white lead-in + grey run-on copy, a 1:1 video placeholder bleeding right); (3) a split header (H2 | italic quote card with avatar) over split-layout tabs (large text tabs with green chip on the left, a fading screenshot pane bleeding right, per-tab paragraph + dark button); (4) centred results header with an italic word, a 4-up grid of stat cards (logo, big stat, sentence with the customer name as link), a big centred quote with stacked avatar and a primary CTA. <=991 results go 2-up and the split header stacks; <=767 the split tabs become a scrolling row over a 60dvh pane; <=479 cards are 1-up.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+          },
+          "linkPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 0,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          },
+          "boldPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          }
+        },
+        "required": [
+          "text",
+          "linkPhrases",
+          "boldPhrases"
+        ],
+        "x-richText": true,
+        "note": "opening H2; one italic phrase"
+      },
+      "intro": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 52,
+        "measuredLongestRealInstance": "41 words in the clone's own placeholder copy"
+      },
+      "headerButtonLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "primary button under the intro",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "slides": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tab": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 2,
+              "note": "slider tab label",
+              "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+            },
+            "highlight": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 10,
+              "note": "white lead-in sentence",
+              "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+            },
+            "subdued": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 45,
+              "note": "grey run-on copy",
+              "measuredLongestRealInstance": "36 words in the clone's own placeholder copy"
+            },
+            "media": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "product.video",
+                "stock.photo",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "product.video",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "Placeholder \"Product video 1:1\""
+            }
+          },
+          "required": [
+            "tab",
+            "highlight",
+            "subdued",
+            "media"
+          ]
+        },
+        "maxItems": 6
+      },
+      "splitHeading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "note": "H2 of block 3",
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "quote": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 60,
+            "measuredLongestRealInstance": "48 words in the clone's own placeholder copy"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "note": "role, followed by the org as an inline link",
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "org": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 2,
+            "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+          },
+          "avatar": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "photo.person",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "photo.person",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "round avatar slot (unlabeled placeholder)"
+          }
+        },
+        "required": [
+          "quote",
+          "name",
+          "role",
+          "org"
+        ],
+        "note": "italic quote card beside the split heading"
+      },
+      "tabs": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "note": "split-layout text tab",
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "copy": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 38,
+              "note": "paragraph shown for the current tab",
+              "measuredLongestRealInstance": "30 words in the clone's own placeholder copy"
+            },
+            "ctaLabel": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 4,
+              "note": "dark button under the paragraph",
+              "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+            },
+            "media": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "product.screenshot",
+                "stock.photo",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "product.screenshot",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "pane screenshot (Placeholder \"<label> screen\")"
+            }
+          },
+          "required": [
+            "label",
+            "copy",
+            "ctaLabel",
+            "media"
+          ]
+        },
+        "maxItems": 5
+      },
+      "results": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "heading": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 7,
+                "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 0,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              },
+              "boldPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases",
+              "boldPhrases"
+            ],
+            "x-richText": true,
+            "note": "centred H2 with one italic word"
+          },
+          "lead": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 18,
+            "measuredLongestRealInstance": "14 words in the clone's own placeholder copy"
+          },
+          "cards": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "stat": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 2,
+                  "note": "big number",
+                  "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+                },
+                "brand": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 3,
+                  "note": "customer name: logo placeholder text AND the inline link in the sentence",
+                  "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                },
+                "rest": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 8,
+                  "note": "sentence before the customer name",
+                  "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+                },
+                "after": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10,
+                  "note": "sentence tail after the customer name",
+                  "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+                },
+                "logo": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "logo.customer",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "logo.customer",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "LogoPlaceholder labelled with the brand"
+                }
+              },
+              "required": [
+                "stat",
+                "brand",
+                "rest",
+                "logo"
+              ]
+            },
+            "maxItems": 4
+          }
+        },
+        "required": [
+          "heading",
+          "lead",
+          "cards"
+        ]
+      },
+      "closingQuote": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 48,
+            "measuredLongestRealInstance": "38 words in the clone's own placeholder copy"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "note": "role, followed by the org as an inline link",
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "org": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "avatar": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "photo.person",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "photo.person",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "round avatar slot (unlabeled placeholder)"
+          }
+        },
+        "required": [
+          "quote",
+          "name",
+          "role",
+          "org"
+        ],
+        "note": "big centred quote with stacked 5rem avatar"
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "note": "final primary button",
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "heading",
+      "intro",
+      "headerButtonLabel",
+      "slides",
+      "splitHeading",
+      "quote",
+      "tabs",
+      "results",
+      "closingQuote",
+      "ctaLabel"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "carousel.dragLoop",
+      "tabs.crossFade"
+    ],
+    "reducedMotionFallback": "instant-slide-change",
+    "measuredFrom": "src/components/sections/WhyKikitabs.jsx:72-128",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "Block 2 slider: useLoopCarousel loop, 800ms ease on tab click or drag, no autoplay. Block 3 tabs: pane + copy cross-fade via .fade-pane (opacity/visibility .3s ease). Blocks 1 and 4 are static (button hover only).",
+    "alsoMeasuredFrom": [
+      "src/components/sections/WhyKikitabs.jsx:195-207"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:flex-col",
+      "tailwind": [
+        "xs:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:96-96",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "other"
+      ],
+      "changes": "mob:flex-wrap; mob:justify-start; mob:overflow-auto",
+      "tailwind": [
+        "mob:flex-wrap mob:justify-start mob:overflow-auto"
+      ],
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:109-109",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "typography",
+        "sizing",
+        "layout"
+      ],
+      "changes": "tab:text-[1rem]; h-[4.75rem] -> mob:h-[3.5rem]; w-full -> mob:w-[200px] -> xs:w-auto; mob:min-w-[200px] -> xs:min-w-[150px]; mob:text-kikitab-xs; flex -> xs:flex-1; xs:basis-full",
+      "tailwind": [
+        "tab:text-[1rem] mob:h-[3.5rem] mob:w-[200px] mob:min-w-[200px] mob:text-kikitab-xs xs:w-auto xs:min-w-[150px] xs:flex-1 xs:basis-full"
+      ],
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:117-117",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "sizing"
+      ],
+      "changes": "mob:p-[1.5rem]; min-h-[32.5rem] -> xs:min-h-[35rem]; xs:pb-[4.5rem]",
+      "tailwind": [
+        "mob:p-[1.5rem] xs:min-h-[35rem] xs:pb-[4.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:133-133",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "mob:justify-start; mob:gap-y-[1.5rem]",
+      "tailwind": [
+        "mob:justify-start mob:gap-y-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:134-134",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "other",
+        "layout",
+        "sizing"
+      ],
+      "changes": "left-[594px] -> tab:left-auto; tab:right-0; mob:static; w-[30.4rem] -> mob:w-full",
+      "tailwind": [
+        "tab:left-auto tab:right-0 mob:static mob:w-full"
+      ],
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:143-143",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-col; gap-[3.75rem] -> tab:gap-[2rem] -> xs:gap-[1.5rem]",
+      "tailwind": [
+        "tab:flex-col tab:gap-[2rem] xs:gap-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:161-161",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "layout"
+      ],
+      "changes": "mob:w-full; mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:w-full mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:167-167",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "sizing"
+      ],
+      "changes": "mob:flex; w-1/2 -> mob:w-full; mob:flex-col",
+      "tailwind": [
+        "mob:flex mob:w-full mob:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:185-185",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout",
+        "other"
+      ],
+      "changes": "mob:mb-[3rem]; mob:flex; mob:gap-[1.5rem]; mob:overflow-auto; xs:flex-wrap",
+      "tailwind": [
+        "mob:mb-[3rem] mob:flex mob:gap-[1.5rem] mob:overflow-auto xs:flex-wrap"
+      ],
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:186-186",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout",
+        "sizing"
+      ],
+      "changes": "mr-[-10vw] -> tab:mr-[-15vw]; mob:relative; mob:m-0; mob:mb-[3rem]; mob:h-[60dvh] -> xs:h-[40dvh]; w-[60%] -> mob:w-full",
+      "tailwind": [
+        "tab:mr-[-15vw] mob:relative mob:m-0 mob:mb-[3rem] mob:h-[60dvh] mob:w-full xs:h-[40dvh]"
+      ],
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:205-205",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-4 -> tab:grid-cols-2 -> xs:grid-cols-1",
+      "tailwind": [
+        "tab:grid-cols-2 xs:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/WhyKikitabs.jsx:242-242",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.heading-h2",
+    "primitive.button",
+    "primitive.loop-carousel",
+    "primitive.tab-chip",
+    "primitive.placeholder-media",
+    "primitive.logo-placeholder",
+    "primitive.inline-link",
+    "primitive.stat-card",
+    "primitive.testimonial-block"
+  ],
+  "measuredFrom": "src/components/sections/WhyKikitabs.jsx:59-285",
+  "iaSectionId": "product.why-assistant-tabs",
+  "evidenceNotes": [
+    "The page passes heading/intro/slides/splitHeading/tabs/quote/results; headerButton, bigQuote and cta fall back to component defaults (D)."
+  ],
+  "observedOn": [
+    "/company/why-nimbus"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.logo-row"
+    ],
+    "recommendedBefore": [
+      "product.wow-bento"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "photo.person",
+    "placeholder.neutral",
+    "product.screenshot",
+    "product.video",
+    "stock.photo"
+  ]
+}

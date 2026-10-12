@@ -1,0 +1,206 @@
+{
+  "id": "story.header-image-legacy",
+  "kind": "section",
+  "name": "Legacy header with team image",
+  "purpose": "Introduce the people behind a service: a large serif statement, supporting paragraph and review badges beside a square team photo.",
+  "category": "story",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/HeaderImageLegacy.jsx",
+  "description": "A hairline (#00251e, no top line) 2-column card with no gap: left cell holds a serif H2 (4rem/1.1 at every width), a 16px ink paragraph and a row of 4 review badges (h 4rem, 3rem <=479); right cell is a square team photo. Padding 5rem 2.5rem (3rem 1.5rem <=991, 1.5rem <=767); stacks to one column <=767. Not the page H1 (it follows the centred legacy hero on /lms/professional-services). No variants, no theme prop.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "serif H2 4rem/1.1",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "intro": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 65,
+        "note": "ink 16px paragraph",
+        "measuredLongestRealInstance": "52 words in the clone's own placeholder copy"
+      },
+      "badges": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "badge.review"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "badge.review"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 4
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ],
+        "note": "review-site badges row (aspect 71/63)"
+      },
+      "media": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "photo.person"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "photo.person"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "square team photo (Placeholder 'Team photo')"
+      }
+    },
+    "required": [
+      "heading",
+      "intro",
+      "badges",
+      "media"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/HeaderImageLegacy.jsx:13-43",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion and no hover states; the block is fully static."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-2 -> mob:grid-cols-1",
+      "tailwind": [
+        "mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/HeaderImageLegacy.jsx:20-20",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> tab:px-[1.5rem]; py-[5rem] -> tab:py-[3rem]; mob:p-[1.5rem]",
+      "tailwind": [
+        "tab:px-[1.5rem] tab:py-[3rem] mob:p-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/HeaderImageLegacy.jsx:21-21",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[4rem] -> xs:h-[3rem]; max-w-[6.5rem] -> xs:max-w-[5rem]",
+      "tailwind": [
+        "xs:h-[3rem] xs:max-w-[5rem]"
+      ],
+      "measuredFrom": "src/components/sections/HeaderImageLegacy.jsx:30-30",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/HeaderImageLegacy.jsx:13-43",
+  "iaSectionId": "story.header-image-legacy",
+  "evidenceNotes": [
+    "The page renders <HeaderImageLegacy /> with no props; all copy is component defaults.",
+    "Three of the four badge slots pass real review-site badge SVGs from public/assets (src prop); the fourth is a neutral Placeholder labelled 'Badge'.",
+    "Hairline colour is hard-coded green (#00251e) rather than read from legacyVars; there is no theme prop."
+  ],
+  "observedOn": [
+    "/lms/professional-services"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.results-stats"
+    ],
+    "recommendedBefore": [
+      "story.grid-split-legacy"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "badge.review",
+    "photo.person",
+    "placeholder.neutral"
+  ]
+}

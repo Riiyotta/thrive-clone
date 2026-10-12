@@ -1,0 +1,359 @@
+{
+  "id": "index.integration-filter",
+  "kind": "section",
+  "name": "Integrations directory filter",
+  "purpose": "Lets a visitor browse every available integration, narrowing by category and sorting by name.",
+  "category": "index",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/IntegrationFilter.jsx",
+  "description": "Hairline-bordered (#00251e) block: left 20% sticky \"Filter by category\" checkbox list (wrapping row at 991, 2-column grid at 479); right 80% header \"Showing N connections out of M\" with a Sort by dropdown (Name A-Z / Z-A) above a 3-column grid (2 at 991, 1 at 479) of integration cards (logo mark, arrow chip, serif name). OR filter across ticked categories. Same filter layout family as the blog filter but with name sort and logo cards.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "filterLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "categories": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 3,
+          "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+        },
+        "maxItems": 9
+      },
+      "noun": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 1,
+        "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+      },
+      "items": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+            },
+            "category": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "note": "One of `categories`.",
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "logo": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "stock.photo",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "Integration partner mark; the clone writes the first two letters of the name. No closed-list role fits a third-party integration logo."
+            }
+          },
+          "required": [
+            "name",
+            "category",
+            "logo"
+          ]
+        },
+        "maxItems": 66,
+        "note": "The live CMS list had 66 integrations."
+      }
+    },
+    "required": [
+      "filterLabel",
+      "categories",
+      "noun",
+      "items"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/IntegrationFilter.jsx:69-136",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; hover only: a grid pattern background appears on the card (transition-all .2s), sort options turn #1ee9b6 (.2s); the sort dropdown opens instantly on click."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[0.75rem] -> mob:h-[1rem]; w-[0.75rem] -> xs:w-[0.65rem]",
+      "tailwind": [
+        "mob:h-[1rem] xs:w-[0.65rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationFilter.jsx:22-22",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "xs:w-full",
+      "tailwind": [
+        "xs:w-full"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationFilter.jsx:43-43",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "tab:flex-col",
+      "tailwind": [
+        "tab:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationFilter.jsx:95-95",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "layout",
+        "sizing"
+      ],
+      "changes": "tab:relative; w-[20%] -> tab:w-full",
+      "tailwind": [
+        "tab:relative tab:w-full"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationFilter.jsx:97-97",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing",
+        "sizing"
+      ],
+      "changes": "tab:px-[1.5rem]; min-h-[7.5rem] -> mob:min-h-[5rem]; mob:py-[1.5rem]",
+      "tailwind": [
+        "tab:px-[1.5rem] mob:min-h-[5rem] mob:py-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationFilter.jsx:99-99",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "tab:flex-row; tab:flex-wrap; xs:grid; xs:grid-cols-2",
+      "tailwind": [
+        "tab:flex-row tab:flex-wrap xs:grid xs:grid-cols-2"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationFilter.jsx:102-102",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "other",
+        "spacing"
+      ],
+      "changes": "tab:border-r; xs:px-[1rem]",
+      "tailwind": [
+        "tab:border-r xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationFilter.jsx:108-108",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-[80%] -> tab:w-full",
+      "tailwind": [
+        "tab:w-full"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationFilter.jsx:123-123",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "sizing",
+        "layout"
+      ],
+      "changes": "tab:px-[1.5rem]; min-h-[7.5rem] -> mob:min-h-[5rem]; mob:py-[1.5rem]; xs:flex-col; xs:items-start; xs:gap-y-[1rem]; p-[2.5rem] -> xs:p-[1rem]",
+      "tailwind": [
+        "tab:px-[1.5rem] mob:min-h-[5rem] mob:py-[1.5rem] xs:flex-col xs:items-start xs:gap-y-[1rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationFilter.jsx:124-124",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-3 -> tab:grid-cols-2 -> xs:grid-cols-1",
+      "tailwind": [
+        "tab:grid-cols-2 xs:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationFilter.jsx:130-130",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "max-w-[10rem] -> mob:max-w-[8rem]",
+      "tailwind": [
+        "mob:max-w-[8rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationFilter.jsx:140-140",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "other"
+      ],
+      "changes": "h-[2.5rem] -> mob:h-[1.75rem]; w-[2.5rem] -> mob:w-[1.75rem]; rounded-[8px_0] -> xs:rounded-[6px_0]",
+      "tailwind": [
+        "mob:h-[1.75rem] mob:w-[1.75rem] xs:rounded-[6px_0]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationFilter.jsx:141-141",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.logo-placeholder",
+    "primitive.legacy-theme"
+  ],
+  "measuredFrom": "src/components/sections/IntegrationFilter.jsx:80-159",
+  "iaSectionId": "index.integration-filter",
+  "evidenceNotes": [
+    "The page renders <IntegrationFilter /> with no props; names are synthesised in the component (SYL + END) and the sample re-evaluates that expression.",
+    "Sort labels and \"Sort by\" are hardcoded (not modelled)."
+  ],
+  "observedOn": [
+    "/lms/integrations"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "hero.integrations-header"
+    ],
+    "recommendedBefore": [
+      "proof.reviews-slider"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "placeholder.neutral",
+    "stock.photo"
+  ]
+}

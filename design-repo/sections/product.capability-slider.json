@@ -7,99 +7,190 @@
   "designSystem": "marketing",
   "implementedBy": "src/components/EnterpriseSlider.jsx",
   "content": {
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-      "heading": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 10,
-        "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
-      },
-      "ctaLabel": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 4,
-        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
-      },
-      "slides": {
-        "type": "array",
-        "minItems": 4,
-        "maxItems": 6,
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "image": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "slides": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 6,
+            "items": {
               "type": "object",
               "additionalProperties": false,
-              "x-allowedRoles": [
-                "product.screenshot",
-                "photo.event",
-                "placeholder.neutral"
-              ],
               "properties": {
-                "assetRole": {
-                  "enum": [
+                "image": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
                     "product.screenshot",
                     "photo.event",
+                    "stock.photo",
                     "placeholder.neutral"
-                  ]
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "product.screenshot",
+                        "photo.event",
+                        "stock.photo",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 4,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                      "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "416px (26rem) tall, radius 8, cover."
                 },
-                "placeholderLabel": {
+                "highlight": {
                   "type": "string",
                   "minLength": 1,
-                  "maxWords": 4,
-                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
-                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                  "maxWords": 6,
+                  "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
                 },
-                "alt": {
+                "subdued": {
                   "type": "string",
                   "minLength": 1,
-                  "maxWords": 10
-                },
-                "assetRef": {
-                  "type": "string",
-                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
-                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                  "maxWords": 20,
+                  "measuredLongestRealInstance": "20 words in the clone's own placeholder copy"
                 }
               },
               "required": [
-                "assetRole"
-              ],
-              "note": "416px (26rem) tall, radius 8, cover."
+                "image",
+                "highlight",
+                "subdued"
+              ]
             },
-            "highlight": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 6,
-              "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
-            },
-            "subdued": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 20,
-              "measuredLongestRealInstance": "20 words in the clone's own placeholder copy"
-            }
-          },
-          "required": [
-            "image",
-            "highlight",
-            "subdued"
-          ]
+            "note": "Loop with 3 per view needs at least 4 real slides; 6 measured."
+          }
         },
-        "note": "Loop with 3 per view needs at least 4 real slides; 6 measured."
+        "required": [
+          "heading",
+          "ctaLabel",
+          "slides"
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "case"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Centred H2; no CTA button in this header.",
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          },
+          "slides": {
+            "type": "array",
+            "minItems": 6,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "logo": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "logo.customer",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "logo.customer",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "6rem x 2.625rem customer logo, left-aligned; logo: null renders the neutral uppercase 'Logo' text placeholder."
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 19,
+                  "note": "Story headline, 20/28 ink at the bottom of the card.",
+                  "measuredLongestRealInstance": "15 words in the clone's own placeholder copy"
+                }
+              },
+              "required": [
+                "logo",
+                "text"
+              ]
+            },
+            "maxItems": 6,
+            "note": "Six related-story cards (the same list on all five case-study routes)."
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "slides"
+        ],
+        "note": "CaseStudyPlatform.jsx: <EnterpriseSlider variant=\"case\" header={centred h2} headerSpacerClassName=\"pt-[5rem] xs:pt-[3rem]\" slides={RELATED_SLIDES} />. Section padding and spacer classes are contract-owned."
       }
-    },
-    "required": [
-      "heading",
-      "ctaLabel",
-      "slides"
     ]
   },
   "constraints": {
-    "onePerPage": true,
-    "maxPerPage": 1
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "case": 1,
+      "default": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
   },
   "motion": {
     "allowedPatterns": [
@@ -108,7 +199,12 @@
     "reducedMotionFallback": "autoplay-off-instant-slide-change",
     "measuredFrom": "src/components/EnterpriseSlider.jsx:23-23",
     "sourceImplementsReducedMotion": false,
-    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "alsoMeasuredFrom": [
+      "src/components/EnterpriseSlider.jsx:26-26",
+      "src/components/EnterpriseSlider.jsx:70-71",
+      "src/components/EnterpriseSlider.jsx:86-108"
+    ]
   },
   "responsive": [
     {
@@ -118,7 +214,8 @@
       "tailwind": [
         "[--n:3] tab:[--n:2] mob:[--n:1]"
       ],
-      "measuredFrom": "src/components/EnterpriseSlider.jsx:63-63"
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:105-105",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "mob",
@@ -127,25 +224,28 @@
       "tailwind": [
         "mob:[--n:1]"
       ],
-      "measuredFrom": "src/components/EnterpriseSlider.jsx:63-63"
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:105-105",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Section bottom padding 80 -> 0; TOP padding stays 32 (the spec's 'section padding 0' is wrong -- audit shows the H2 at y=36 at 390).",
       "tailwind": [
-        "pb-[80px] pt-[32px] mob:pb-0"
+        "pb-[5rem] pt-[2rem] mob:pb-0"
       ],
-      "measuredFrom": "src/components/EnterpriseSlider.jsx:49-49"
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:57-57",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "Header spacer 32 -> 24 (20 at <=767).",
       "tailwind": [
-        "pt-[32px] tab:pt-[24px] mob:pt-[20px]"
+        "pt-[2rem] tab:pt-[1.5rem] mob:pt-[1.25rem]"
       ],
-      "measuredFrom": "src/components/EnterpriseSlider.jsx:54-54"
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:38-38",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "mob",
@@ -154,13 +254,16 @@
       "tailwind": [
         "mob:text-slide-mob"
       ],
-      "measuredFrom": "src/components/EnterpriseSlider.jsx:79-79"
+      "measuredFrom": "src/components/EnterpriseSlider.jsx:124-124",
+      "reCited": "re-cited against current source"
     }
   ],
   "assetRoles": [
-    "product.screenshot",
+    "logo.customer",
     "photo.event",
-    "placeholder.neutral"
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
   ],
   "composes": [
     "primitive.heading-h2",
@@ -171,17 +274,33 @@
   ],
   "compatibility": {
     "recommendedAfter": [
+      "article.cs-platform-body",
       "product.assistant-tabs"
     ],
     "recommendedBefore": [
+      "conversion.demo-cta",
       "proof.results-stats"
     ],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
-    "/"
+    "/",
+    "/case-study/customer-1",
+    "/case-study/customer-2",
+    "/case-study/customer-3",
+    "/case-study/customer-4",
+    "/case-study/customer-5"
   ],
   "measuredFrom": "src/components/EnterpriseSlider.jsx:19-105",
   "iaSectionId": "product.capability-slider",
-  "specMeasuredFrom": "CLONE_SPEC.md:294-319"
+  "specMeasuredFrom": "CLONE_SPEC.md:294-319",
+  "subpageUsage": "Same EnterpriseSlider component as the homepage with its real `variant` prop set to \"case\" (homepage = \"feature\"). The case variant (.case-studies-story-section, related-3col-slider) renders a centred H2 with no button, then the 3-up (2-up 768-991, 1-up <768) looping slider of linked surface-1 cards (min-h 23rem, radius 12, padding 24): customer logo top-left, 20px headline text bottom, background colour .2s on hover; the progress-bullet pagination with pause button sits underneath. Used on the five /case-study/customer-1..5 routes (src/pages/content/CaseStudyPlatform.jsx) with the same six RELATED_SLIDES from caseStudyPlatformData.js on every route.",
+  "evidenceNotes": [
+    "`variant` is a real prop on EnterpriseSlider ('feature' | 'case'); the homepage uses the default 'feature'.",
+    "RELATED_SLIDES is shared by all five /case-study/customer-N routes, so each route links to itself among the six cards (the route's own customer is not filtered out).",
+    "Each card is an <a href=\"#\"> (link targets are contract-owned)."
+  ],
+  "variants": [
+    "case"
+  ]
 }

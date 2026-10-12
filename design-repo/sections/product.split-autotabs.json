@@ -1,0 +1,380 @@
+{
+  "id": "product.split-autotabs",
+  "kind": "section",
+  "name": "Split autotabs (text | image slider, tabs below)",
+  "purpose": "Presents 4-5 platform pillars or service stages as a tabbed slider of text-plus-image slides under a configurable header, optionally closed by a big customer quote and CTA.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/pages/platform/SplitAutotabs.jsx",
+  "description": "Page-local block (/lms/corporate-lms once, /lms/enterprise twice). A header slot (H2 alone; H2 | grey intro with an inline link; or eyebrow + H2 | italic quote card with avatar) sits above a loop slider whose slides are split 47%/47%: a 20px title, grey paragraph and optional arrow text-link on the left, a square/1440:1289 product image on the right (stacked <=767). The tab row sits BELOW the slider (equal 4.75rem tabs; <=767 two per row, 3.5rem). An optional closing node follows the slider: on the enterprise services instance a big centred 32px quote with stacked avatar and a centred primary button.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "header": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "eyebrow": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "eyebrow chip above the H2",
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "note": "H2",
+            "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+          },
+          "intro": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 53,
+                "measuredLongestRealInstance": "42 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases"
+            ],
+            "x-richText": true,
+            "note": "grey paragraph to the right of the H2, up to 1 inline link"
+          },
+          "quote": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "quote": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 43,
+                "note": "italic quote in the card",
+                "measuredLongestRealInstance": "34 words in the clone's own placeholder copy"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "org": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 2,
+                "note": "inline link after the role",
+                "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+              },
+              "avatar": {
+                "type": "object",
+                "additionalProperties": false,
+                "x-allowedRoles": [
+                  "photo.person",
+                  "placeholder.neutral"
+                ],
+                "properties": {
+                  "assetRole": {
+                    "enum": [
+                      "photo.person",
+                      "placeholder.neutral"
+                    ]
+                  },
+                  "placeholderLabel": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 6,
+                    "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                  },
+                  "alt": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 10
+                  },
+                  "assetRef": {
+                    "type": "string",
+                    "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                    "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                  }
+                },
+                "required": [
+                  "assetRole"
+                ],
+                "note": "unlabeled 2.5rem avatar"
+              }
+            },
+            "required": [
+              "quote",
+              "name",
+              "role",
+              "org"
+            ],
+            "note": "quote card to the right of the H2 (use instead of intro)"
+          }
+        },
+        "required": [
+          "heading"
+        ],
+        "note": "header JSX slot, modelled as a closed object"
+      },
+      "slides": {
+        "type": "array",
+        "minItems": 4,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tab": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "note": "tab label below the slider",
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 13,
+              "note": "20px slide title",
+              "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 74,
+              "note": "grey slide paragraph",
+              "measuredLongestRealInstance": "59 words in the clone's own placeholder copy"
+            },
+            "linkLabel": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 7,
+              "note": "arrow text-link under the paragraph",
+              "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+            },
+            "media": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "product.screenshot",
+                "stock.photo",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "product.screenshot",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "slide image (Placeholder \"Product UI\")"
+            }
+          },
+          "required": [
+            "tab",
+            "title",
+            "text",
+            "media"
+          ]
+        },
+        "maxItems": 6
+      },
+      "closingQuote": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 75,
+            "note": "big centred quote",
+            "measuredLongestRealInstance": "60 words in the clone's own placeholder copy"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "org": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "inline link after the role",
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "note": "centred primary button under the quote",
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "quote",
+          "name",
+          "role",
+          "org",
+          "ctaLabel"
+        ],
+        "note": "the `after` slot (CentredQuote + Button)"
+      }
+    },
+    "required": [
+      "header",
+      "slides"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 2,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "carousel.dragLoop"
+    ],
+    "reducedMotionFallback": "instant-slide-change",
+    "measuredFrom": "src/pages/platform/SplitAutotabs.jsx:16-58",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "useLoopCarousel loop slider: 800ms ease on tab click or drag, no autoplay. Slide text-link arrow gap widens on hover (.25s)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[4rem] -> mob:pt-[2rem]",
+      "tailwind": [
+        "mob:pt-[2rem]"
+      ],
+      "measuredFrom": "src/pages/platform/SplitAutotabs.jsx:41-41",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-wrap",
+      "tailwind": [
+        "mob:flex-wrap"
+      ],
+      "measuredFrom": "src/pages/platform/SplitAutotabs.jsx:66-66",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "layout",
+        "typography"
+      ],
+      "changes": "h-[4.75rem] -> mob:h-[3.5rem]; mob:w-[calc(50%-0.375rem)]; flex -> mob:flex-none; mob:text-kikitab-xs",
+      "tailwind": [
+        "mob:h-[3.5rem] mob:w-[calc(50%-0.375rem)] mob:flex-none mob:text-kikitab-xs"
+      ],
+      "measuredFrom": "src/pages/platform/SplitAutotabs.jsx:74-74",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.heading-h2",
+    "primitive.loop-carousel",
+    "primitive.placeholder-media",
+    "primitive.inline-link",
+    "primitive.testimonial-block",
+    "primitive.button"
+  ],
+  "measuredFrom": "src/pages/platform/SplitAutotabs.jsx:36-89",
+  "iaSectionId": "product.split-autotabs",
+  "evidenceNotes": [
+    "pages-manifest.json / CLONE_SPEC_PAGES.md map these slots (kiki-autotabs on /lms/corporate-lms and twice on /lms/enterprise) to the shared KikiTabs component; the clone implements them page-locally in src/pages/platform/SplitAutotabs.jsx because the tabs sit below split slides.",
+    "Header and `after` are free JSX slots in code; the object shapes here are the three real header forms and the one real closing form (CentredQuote + Button in Enterprise.jsx SERVICE_AFTER)."
+  ],
+  "observedOn": [
+    "/lms/corporate-lms",
+    "/lms/enterprise"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "hero.logos-overlap",
+      "hero.wow-content",
+      "product.two-col-features"
+    ],
+    "recommendedBefore": [
+      "product.integrations-visual",
+      "product.layout03-tabs"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.person",
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ]
+}

@@ -1,0 +1,1461 @@
+{
+  "id": "hero.wow-content",
+  "kind": "section",
+  "name": "Wow content hero (10 page variants)",
+  "purpose": "Open a one-off marketing page with its H1, a short pitch and the demo CTA, in the layout measured for that page.",
+  "category": "hero",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/WowContentHero.jsx",
+  "description": "One component with a `variant` prop that switches between ten measured layouts of the `.section_wowcontent` hero: split layouts (copy left, media right, stacking to one column <=767) for small-business, enterprise, features, mentoring, case-studies and why; centred single-column layouts for solutions, spring-release and whats-included; and an empty spacer for corporate. Routes: small-business /lms/small-business, corporate /lms/corporate-lms, enterprise /lms/enterprise, solutions /lms/solutions, spring-release /lms/spring-release, features /lms/features, mentoring /mentoring, case-studies /case-studies/lms, why /company/why-nimbus, whats-included /whats-included. The H1 is serif 3.8rem/1.15 (2.5rem <=767) except case-studies (heading-h2 size).",
+  "content": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "small-business"
+          },
+          "eyebrow": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "Eyebrow chip label (purple #9335fe chip on this variant).",
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "note": "H1, serif 3.8rem/1.15.",
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "paragraph": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 59,
+            "note": "A blank line (\\n\\n) renders as the original's <br><br> paragraph break.",
+            "measuredLongestRealInstance": "47 words in the clone's own placeholder copy"
+          },
+          "quote": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "quote": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 54,
+                "note": "Italic quote including its typographic quote marks; a single \\n renders as <br>.",
+                "measuredLongestRealInstance": "43 words in the clone's own placeholder copy"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 7,
+                "note": "Role line; rendered before the organisation, usually ending with a comma.",
+                "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+              },
+              "org": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 4,
+                "note": "Organisation, rendered bold.",
+                "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+              },
+              "avatar": {
+                "type": "object",
+                "additionalProperties": false,
+                "x-allowedRoles": [
+                  "placeholder.neutral",
+                  "photo.person"
+                ],
+                "properties": {
+                  "assetRole": {
+                    "enum": [
+                      "placeholder.neutral",
+                      "photo.person"
+                    ]
+                  },
+                  "placeholderLabel": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 6,
+                    "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                  },
+                  "alt": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 10
+                  },
+                  "assetRef": {
+                    "type": "string",
+                    "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                    "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                  }
+                },
+                "required": [
+                  "assetRole"
+                ],
+                "note": "40px round author avatar (unlabelled neutral slot)."
+              }
+            },
+            "required": [
+              "quote",
+              "name",
+              "role",
+              "org",
+              "avatar"
+            ],
+            "note": "Hero quote (.testimonial11_content)."
+          },
+          "buttonLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "visual": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "product.screenshot",
+              "stock.photo"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "product.screenshot",
+                  "stock.photo"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "Product screenshot, 1440:1002."
+          }
+        },
+        "required": [
+          "variant",
+          "eyebrow",
+          "title",
+          "paragraph",
+          "quote",
+          "buttonLabel",
+          "visual"
+        ],
+        "note": "/lms/small-business: split; purple eyebrow chip, H1 (max 28rem), two-paragraph intro, hero quote, one primary button; product screenshot right (max-h 40rem)."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "corporate"
+          }
+        },
+        "required": [
+          "variant"
+        ],
+        "note": "/lms/corporate-lms: an EMPTY spacer block (py 5rem / 3rem <=767) with no content; the page hero is LogosHeroOverlap (hero.logos-overlap), which is pulled up over it."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "enterprise"
+          },
+          "title": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 7,
+                "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 0,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              },
+              "boldPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases",
+              "boldPhrases"
+            ],
+            "x-richText": true,
+            "note": "H1; the bold phrase renders as the italic <em> phrase."
+          },
+          "paragraph": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 63,
+            "note": "A blank line (\\n\\n) renders as the original's <br><br> paragraph break.",
+            "measuredLongestRealInstance": "50 words in the clone's own placeholder copy"
+          },
+          "quote": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "quote": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 25,
+                "note": "Italic quote including its typographic quote marks; a single \\n renders as <br>.",
+                "measuredLongestRealInstance": "20 words in the clone's own placeholder copy"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 5,
+                "note": "Role line; rendered before the organisation, usually ending with a comma.",
+                "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+              },
+              "org": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 2,
+                "note": "Organisation, rendered bold.",
+                "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+              },
+              "avatar": {
+                "type": "object",
+                "additionalProperties": false,
+                "x-allowedRoles": [
+                  "placeholder.neutral",
+                  "photo.person"
+                ],
+                "properties": {
+                  "assetRole": {
+                    "enum": [
+                      "placeholder.neutral",
+                      "photo.person"
+                    ]
+                  },
+                  "placeholderLabel": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 6,
+                    "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                  },
+                  "alt": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 10
+                  },
+                  "assetRef": {
+                    "type": "string",
+                    "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                    "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                  }
+                },
+                "required": [
+                  "assetRole"
+                ],
+                "note": "40px round author avatar (unlabelled neutral slot)."
+              }
+            },
+            "required": [
+              "quote",
+              "name",
+              "role",
+              "org",
+              "avatar"
+            ],
+            "note": "Hero quote (.testimonial11_content)."
+          },
+          "buttonLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "visual": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "product.screenshot",
+              "stock.photo"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "product.screenshot",
+                  "stock.photo"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "Product visual, 1440:1339, contain."
+          },
+          "logosLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 18,
+            "note": "Centred line above the logo row.",
+            "measuredLongestRealInstance": "14 words in the clone's own placeholder copy"
+          },
+          "logos": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "logo.customer"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "logo.customer"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              },
+              "slotCount": {
+                "type": "integer",
+                "minimum": 7,
+                "maximum": 7
+              }
+            },
+            "required": [
+              "assetRole",
+              "slotCount"
+            ],
+            "note": "Customer logo row (LogoPlaceholder 'Logo')."
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "paragraph",
+          "quote",
+          "buttonLabel",
+          "visual",
+          "logosLabel",
+          "logos"
+        ],
+        "note": "/lms/enterprise: split; H1 with one italic phrase, two-paragraph intro, hero quote, button; contained product visual right; centred line + 7-logo row below."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "solutions"
+          },
+          "title": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 7,
+                "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 0,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              },
+              "boldPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases",
+              "boldPhrases"
+            ],
+            "x-richText": true,
+            "note": "H1 on two lines (<br> before the italic phrase); the bold phrase renders as <em>."
+          },
+          "paragraph": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 33,
+            "measuredLongestRealInstance": "26 words in the clone's own placeholder copy"
+          },
+          "buttonLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "paragraph",
+          "buttonLabel"
+        ],
+        "note": "/lms/solutions: centred; two-line H1 with an italic phrase, paragraph, one button. No media."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "spring-release"
+          },
+          "tag": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 2,
+            "note": "Small green pill tag above the H1.",
+            "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          },
+          "paragraph": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 33,
+            "measuredLongestRealInstance": "26 words in the clone's own placeholder copy"
+          },
+          "buttonLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "visual": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "product.screenshot",
+              "stock.photo"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "product.screenshot",
+                  "stock.photo"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "Release overview, full width 1439:1340."
+          }
+        },
+        "required": [
+          "variant",
+          "tag",
+          "title",
+          "paragraph",
+          "buttonLabel",
+          "visual"
+        ],
+        "note": "/lms/spring-release: centred; green 'NEW' pill tag, one-line H1, paragraph, button; full-width release image below."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "features"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 9,
+            "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+          },
+          "paragraph": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 20,
+            "measuredLongestRealInstance": "16 words in the clone's own placeholder copy"
+          },
+          "buttons": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 5,
+                  "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                },
+                "style": {
+                  "enum": [
+                    "primary",
+                    "dark-small"
+                  ],
+                  "note": "Button variant; the original pairs one primary with one dark-small."
+                }
+              },
+              "required": [
+                "label",
+                "style"
+              ]
+            },
+            "maxItems": 2
+          },
+          "visual": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "product.screenshot",
+              "stock.photo"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "product.screenshot",
+                  "stock.photo"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "Platform overview, 1440:920."
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "paragraph",
+          "buttons",
+          "visual"
+        ],
+        "note": "/lms/features: split with no left padding; H1, paragraph, primary + dark-small buttons; platform overview image bleeding past the right edge (-10vw)."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "mentoring"
+          },
+          "avatars": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "photo.person"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "photo.person"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "Stacked avatar strip (144:64)."
+          },
+          "trustLine": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 9,
+            "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+          },
+          "paragraph": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 19,
+            "measuredLongestRealInstance": "15 words in the clone's own placeholder copy"
+          },
+          "buttonLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "avatars",
+          "trustLine",
+          "title",
+          "paragraph",
+          "buttonLabel"
+        ],
+        "note": "/mentoring: split; avatar strip + line, H1, paragraph, one button; the right visual column is EMPTY (takes flex space only)."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "case-studies"
+          },
+          "avatars": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "photo.person"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "photo.person"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "Stacked avatar strip (144:64)."
+          },
+          "trustLine": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 9,
+            "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 9,
+            "note": "H1 styled as heading-h2.",
+            "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+          },
+          "paragraph": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 75,
+            "measuredLongestRealInstance": "60 words in the clone's own placeholder copy"
+          },
+          "feature": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "note": "Customer name beside the dark logo square.",
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "tag": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 2,
+                "note": "Green pill tag.",
+                "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 13,
+                "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+              },
+              "ctaLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 4,
+                "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+              }
+            },
+            "required": [
+              "name",
+              "tag",
+              "text",
+              "ctaLabel"
+            ],
+            "note": "Featured case-study card (25rem wide)."
+          },
+          "visual": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "photo.brand",
+              "stock.photo"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "photo.brand",
+                  "stock.photo"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "Customer collage, 1440:1155."
+          }
+        },
+        "required": [
+          "variant",
+          "avatars",
+          "trustLine",
+          "title",
+          "paragraph",
+          "feature",
+          "visual"
+        ],
+        "note": "/case-studies/lms: top-aligned split in container-large; avatar strip + line, heading-h2-sized H1, long paragraph, featured case-study card (logo square, name, tag pill, text, dark-small button); customer collage image right."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "why"
+          },
+          "avatars": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "photo.person"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "photo.person"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "Stacked avatar strip (144:64)."
+          },
+          "trustLine": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 9,
+            "note": "H1; a single \\n renders as <br>.",
+            "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+          },
+          "paragraph": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 33,
+            "note": "A blank line (\\n\\n) renders as the original's <br><br> paragraph break.",
+            "measuredLongestRealInstance": "26 words in the clone's own placeholder copy"
+          },
+          "quote": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "quote": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 27,
+                "note": "Italic quote including its typographic quote marks; a single \\n renders as <br>.",
+                "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 7,
+                "note": "Role line; rendered before the organisation, usually ending with a comma.",
+                "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+              },
+              "org": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 2,
+                "note": "Organisation, rendered as an inline link.",
+                "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+              },
+              "avatar": {
+                "type": "object",
+                "additionalProperties": false,
+                "x-allowedRoles": [
+                  "placeholder.neutral",
+                  "photo.person"
+                ],
+                "properties": {
+                  "assetRole": {
+                    "enum": [
+                      "placeholder.neutral",
+                      "photo.person"
+                    ]
+                  },
+                  "placeholderLabel": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 6,
+                    "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                  },
+                  "alt": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 10
+                  },
+                  "assetRef": {
+                    "type": "string",
+                    "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                    "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                  }
+                },
+                "required": [
+                  "assetRole"
+                ],
+                "note": "40px round author avatar (unlabelled neutral slot)."
+              }
+            },
+            "required": [
+              "quote",
+              "name",
+              "role",
+              "org",
+              "avatar"
+            ],
+            "note": "Hero quote (.testimonial11_content)."
+          },
+          "badges": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "badge.review"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "badge.review"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              },
+              "slotCount": {
+                "type": "integer",
+                "minimum": 3,
+                "maximum": 3
+              }
+            },
+            "required": [
+              "assetRole",
+              "slotCount"
+            ],
+            "note": "Review-site badges (288:150)."
+          },
+          "buttonLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          },
+          "visual": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "product.screenshot",
+              "stock.photo"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "product.screenshot",
+                  "stock.photo"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "Platform overview, 1440:920."
+          }
+        },
+        "required": [
+          "variant",
+          "avatars",
+          "trustLine",
+          "title",
+          "paragraph",
+          "quote",
+          "badges",
+          "buttonLabel",
+          "visual"
+        ],
+        "note": "/company/why-nimbus: split; avatar strip + line, two-line H1, two-paragraph intro, larger hero quote (org is an inline link), 3 review badges, one button; platform overview image right."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "whats-included"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 9,
+            "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+          },
+          "paragraph": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 24,
+            "measuredLongestRealInstance": "19 words in the clone's own placeholder copy"
+          },
+          "buttonLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "paragraph",
+          "buttonLabel"
+        ],
+        "note": "/whats-included: centred; H1, ink paragraph, one button. No media."
+      }
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "case-studies": 1,
+      "corporate": 1,
+      "enterprise": 1,
+      "features": 1,
+      "mentoring": 1,
+      "small-business": 1,
+      "solutions": 1,
+      "spring-release": 1,
+      "whats-included": 1,
+      "why": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/WowContentHero.jsx:22-22",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion: every variant renders static. Only the shared Button hover (SplitText char roll 0.45s power4.inOut, bg 240ms) moves. The original small-business 'Thrive Go Header Animation' IX2 is deliberately reproduced as its static end state."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "layout"
+      ],
+      "changes": "mob:w-full; mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:w-full mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/WowContentHero.jsx:46-46",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/WowContentHero.jsx:70-70",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/WowContentHero.jsx:132-132",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/WowContentHero.jsx:184-184",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-wrap; tab:justify-center; tab:gap-y-[2rem]; mob:justify-around; gap-[3rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "tab:flex-wrap tab:justify-center tab:gap-y-[2rem] mob:justify-around xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/WowContentHero.jsx:204-204",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:items-center",
+      "tailwind": [
+        "mob:items-center"
+      ],
+      "measuredFrom": "src/components/sections/WowContentHero.jsx:237-237",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:items-center",
+      "tailwind": [
+        "mob:items-center"
+      ],
+      "measuredFrom": "src/components/sections/WowContentHero.jsx:262-262",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "gap-[3rem] -> tab:gap-0 -> mob:gap-[3rem]; tab:px-[2.5rem]; mob:flex-col; xs:pl-[1rem]; xs:pr-0",
+      "tailwind": [
+        "tab:gap-0 tab:px-[2.5rem] mob:flex-col mob:gap-[3rem] xs:pl-[1rem] xs:pr-0"
+      ],
+      "measuredFrom": "src/components/sections/WowContentHero.jsx:284-284",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:items-stretch",
+      "tailwind": [
+        "mob:items-stretch"
+      ],
+      "measuredFrom": "src/components/sections/WowContentHero.jsx:291-291",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/WowContentHero.jsx:311-311",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col",
+      "tailwind": [
+        "mob:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/WowContentHero.jsx:350-350",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/WowContentHero.jsx:415-415",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.placeholder-media",
+    "primitive.logo-placeholder",
+    "primitive.inline-link"
+  ],
+  "measuredFrom": "src/components/sections/WowContentHero.jsx:95-102",
+  "iaSectionId": "hero.wow-content",
+  "evidenceNotes": [
+    "Only /lms/enterprise and /lms/features pass props (enterprise: logoAspects only; features: a shorter title 'Platform features that improve learning and work' vs default '...learning and output'); every other page uses the component defaults.",
+    "The 'corporate' variant renders no content at all; the corporate page's H1 lives in LogosHeroOverlap, pulled up -16rem over this spacer.",
+    "Enterprise logo defaults reference third-party file names in /assets/ (src); the clone renders them as images when present, otherwise a 'Logo' text placeholder. Contract-wise these are neutral logo.customer slots.",
+    "CLONE_SPEC_PAGES.md motion table lists 'ThriveGo header + cards' scroll-into-view for the small-business hero; the clone renders it static (component comment says so).",
+    "The why-variant quote uses size 'md' (18px quote, org as inline link); small-business and enterprise use 'sm' (16px, org bold)."
+  ],
+  "observedOn": [
+    "/case-studies/lms",
+    "/company/why-nimbus",
+    "/lms/corporate-lms",
+    "/lms/enterprise",
+    "/lms/features",
+    "/lms/small-business",
+    "/lms/solutions",
+    "/lms/spring-release",
+    "/mentoring",
+    "/whats-included"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "shell.nav"
+    ],
+    "recommendedBefore": [
+      "hero.logos-overlap",
+      "index.cs-filter-grid",
+      "product.split-autotabs",
+      "proof.logo-row"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "badge.review",
+    "logo.customer",
+    "photo.brand",
+    "photo.person",
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ],
+  "variants": [
+    "small-business",
+    "corporate",
+    "enterprise",
+    "solutions",
+    "spring-release",
+    "features",
+    "mentoring",
+    "case-studies",
+    "why",
+    "whats-included"
+  ]
+}

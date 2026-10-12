@@ -1,0 +1,316 @@
+{
+  "id": "story.company-news",
+  "kind": "section",
+  "name": "Company news",
+  "purpose": "Shows the company is active and growing by surfacing one featured news story and a short list of recent headlines.",
+  "category": "story",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/CompanyNews.jsx",
+  "description": "Left-aligned header (green-chip eyebrow, H2, one-line lead), then a 0.6fr / 1fr grid (one column <=767): a featured news card (3:2 image, serif title, grey summary, faded date + read-time meta) beside a rounded list of four headline rows separated by hairlines. Card and rows are links whose background lightens on hover. Used once, on /company.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "eyebrow": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 2,
+        "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+      },
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 6,
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "lead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 12,
+        "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+      },
+      "featured": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "image": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "photo.brand",
+              "photo.event",
+              "photo.person",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "photo.brand",
+                  "photo.event",
+                  "photo.person",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 17,
+            "measuredLongestRealInstance": "13 words in the clone's own placeholder copy"
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 23,
+            "measuredLongestRealInstance": "18 words in the clone's own placeholder copy"
+          },
+          "date": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "readTime": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "image",
+          "title",
+          "text",
+          "date",
+          "readTime"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "minItems": 4,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18,
+              "measuredLongestRealInstance": "14 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "title"
+          ]
+        },
+        "maxItems": 4
+      }
+    },
+    "required": [
+      "eyebrow",
+      "heading",
+      "lead",
+      "featured",
+      "items"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/CompanyNews.jsx:28-100",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; the featured card and headline rows switch background #131313 -> #1a1a1a instantly on hover (as on the original)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pb-[7rem] -> tab:pb-[6rem] -> mob:pb-[4rem]",
+      "tailwind": [
+        "tab:pb-[6rem] mob:pb-[4rem]"
+      ],
+      "measuredFrom": "src/components/sections/CompanyNews.jsx:38-38",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "other"
+      ],
+      "changes": "[&>span:last-child]:leading-[1.1] -> mob:[&>span:last-child]:text-[1rem]",
+      "tailwind": [
+        "mob:[&>span:last-child]:text-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/CompanyNews.jsx:42-42",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mt-[2.5rem] -> tab:mt-[1.5rem] -> mob:mt-[1.25rem]",
+      "tailwind": [
+        "tab:mt-[1.5rem] mob:mt-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/CompanyNews.jsx:46-46",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs; leading-[1.1] -> xs:leading-[1.1]",
+      "tailwind": [
+        "xs:text-body-xs xs:leading-[1.1]"
+      ],
+      "measuredFrom": "src/components/sections/CompanyNews.jsx:47-47",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mt-[5rem] -> tab:mt-[4rem] -> mob:mt-[3rem]",
+      "tailwind": [
+        "tab:mt-[4rem] mob:mt-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/CompanyNews.jsx:50-50",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-[0.6fr_1fr] -> mob:grid-cols-1",
+      "tailwind": [
+        "mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/CompanyNews.jsx:51-51",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "typography",
+        "spacing"
+      ],
+      "changes": "text-[1.125rem] -> mob:text-[1.25rem]; mb-[1rem] -> xs:mb-[0.125rem]",
+      "tailwind": [
+        "mob:text-[1.25rem] xs:mb-[0.125rem]"
+      ],
+      "measuredFrom": "src/components/sections/CompanyNews.jsx:63-63",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "other"
+      ],
+      "changes": "p-[2.5rem] -> tab:p-[2rem] -> mob:p-[1.5rem] -> xs:p-[1rem]; mob:border-t; mob:border-[#00251e]",
+      "tailwind": [
+        "tab:p-[2rem] mob:border-t mob:border-[#00251e] mob:p-[1.5rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/CompanyNews.jsx:83-83",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.eyebrow",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/CompanyNews.jsx:28-100",
+  "iaSectionId": "story.company-news",
+  "evidenceNotes": [
+    "CompanyPage.jsx renders <CompanyNews /> with no props; all copy is the component defaults."
+  ],
+  "observedOn": [
+    "/company"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.results-proof"
+    ],
+    "recommendedBefore": [
+      "proof.case-study-carousel"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.brand",
+    "photo.event",
+    "photo.person",
+    "placeholder.neutral"
+  ]
+}

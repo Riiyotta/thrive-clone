@@ -1,0 +1,222 @@
+{
+  "id": "index.cs-content-related",
+  "kind": "section",
+  "name": "Related client stories (content)",
+  "purpose": "Keeps a reader moving through content-library case studies by linking three other customer stories at the end of one.",
+  "category": "index",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/CsContentRelated.jsx",
+  "description": "Hairline-bordered block on the content (\"yellow\") theme: a left-aligned serif 4rem H2 header row, then a 3-column grid (1 column at 767 and below) of fixed-aspect cards, each with a customer logo, a one-sentence summary and a \"Learn more ›\" link to that case study. Not a slider.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "items": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "logo": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "placeholder.neutral",
+                "logo.customer"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "placeholder.neutral",
+                    "logo.customer"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ]
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 37,
+              "measuredLongestRealInstance": "29 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "logo",
+            "text"
+          ]
+        },
+        "maxItems": 3
+      },
+      "linkLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "heading",
+      "items",
+      "linkLabel"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/CsContentRelated.jsx:42-42",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; hover only: the \"Learn more\" link gap widens .75rem -> 1rem over .25s."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> tab:px-[2rem] -> mob:px-[1.5rem] -> xs:px-[1rem]; pt-[5.5rem] -> tab:pt-[4rem]",
+      "tailwind": [
+        "tab:px-[2rem] tab:pt-[4rem] mob:px-[1.5rem] xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsContentRelated.jsx:24-24",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mob:pr-0",
+      "tailwind": [
+        "mob:pr-0"
+      ],
+      "measuredFrom": "src/components/sections/CsContentRelated.jsx:25-25",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-3 -> mob:grid-cols-1",
+      "tailwind": [
+        "mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/CsContentRelated.jsx:31-31",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "spacing",
+        "other"
+      ],
+      "changes": "aspect-[4.56/3.5] -> tab:aspect-auto; gap-y-[0.75rem] -> tab:gap-y-[3rem]; p-[2rem] -> tab:p-[1.5rem] -> mob:p-[1.25rem] -> xs:p-[1rem]; border-r-0 -> mob:border-r; xs:min-h-[10rem]",
+      "tailwind": [
+        "tab:aspect-auto tab:gap-y-[3rem] tab:p-[1.5rem] mob:border-r mob:p-[1.25rem] xs:min-h-[10rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsContentRelated.jsx:34-34",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "typography"
+      ],
+      "changes": "h-[2rem] -> mob:h-[1.25rem]; w-[6.1rem] -> mob:w-[3.8rem]; text-[0.75rem] -> mob:text-[0.5rem]",
+      "tailwind": [
+        "mob:h-[1.25rem] mob:w-[3.8rem] mob:text-[0.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsContentRelated.jsx:36-36",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.logo-placeholder",
+    "primitive.legacy-theme"
+  ],
+  "measuredFrom": "src/components/sections/CsContentRelated.jsx:18-59",
+  "iaSectionId": "index.cs-content-related",
+  "evidenceNotes": [
+    "Real pages pass heading \"Read more client stories\" (component default is \"Explore more customer stories\").",
+    "Card summaries are phrase() output from caseStudyContentData.js, evaluated with node."
+  ],
+  "observedOn": [
+    "/case-studies-contents/customer-10",
+    "/case-studies-contents/customer-6",
+    "/case-studies-contents/customer-7",
+    "/case-studies-contents/customer-8",
+    "/case-studies-contents/customer-9"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "article.cs-content-article"
+    ],
+    "recommendedBefore": [
+      "conversion.demo-cta"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "placeholder.neutral"
+  ]
+}

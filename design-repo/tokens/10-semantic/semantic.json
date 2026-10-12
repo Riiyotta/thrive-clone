@@ -5,7 +5,10 @@
   "roles": {
     "surface.page": {
       "ref": "color.page",
-      "observedOn": "body, page wrapper, footer, nav at <=479"
+      "observedOn": "body, page wrapper, footer, nav at <=479",
+      "themeOverrides": {
+        "nimbus-content": "color.content-bg"
+      }
     },
     "surface.card": {
       "ref": "color.surface-1",

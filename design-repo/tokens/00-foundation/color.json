@@ -99,6 +99,111 @@
       "$value": "#ffffff",
       "usage": "bullet progress fill",
       "measuredFrom": "tailwind.config.js:35-35"
+    },
+    "color.eyebrow-grey": {
+      "$value": "#666c6a",
+      "measuredFrom": "tailwind.config.js:37-37",
+      "usage": "eyebrow label, slider arrows"
+    },
+    "color.subdued": {
+      "$value": "#888888",
+      "measuredFrom": "tailwind.config.js:38-38",
+      "usage": "autotab image-slide secondary text"
+    },
+    "color.hairline": {
+      "$value": "#303030",
+      "measuredFrom": "tailwind.config.js:39-39",
+      "usage": "stat-card hairlines"
+    },
+    "color.brand-blue": {
+      "$value": "#2a63f6",
+      "measuredFrom": "tailwind.config.js:40-40",
+      "usage": "mentoring brand button"
+    },
+    "color.legacy-green": {
+      "$value": "#1ee9b6",
+      "measuredFrom": "tailwind.config.js:42-42",
+      "usage": "legacy page theme (green)"
+    },
+    "color.legacy-green-hover": {
+      "$value": "#016b57",
+      "measuredFrom": "tailwind.config.js:43-43",
+      "usage": "legacy page theme (green)"
+    },
+    "color.legacy-green-ink": {
+      "$value": "#000a06",
+      "measuredFrom": "tailwind.config.js:44-44",
+      "usage": "legacy page theme (green)"
+    },
+    "color.legacy-green-hover-text": {
+      "$value": "#eafff7",
+      "measuredFrom": "tailwind.config.js:45-45",
+      "usage": "legacy page theme (green)"
+    },
+    "color.legacy-green-border": {
+      "$value": "#00251e",
+      "measuredFrom": "tailwind.config.js:46-46",
+      "usage": "legacy page theme (green)"
+    },
+    "color.legacy-green-eyebrow-border": {
+      "$value": "#01584b",
+      "measuredFrom": "tailwind.config.js:47-47",
+      "usage": "legacy page theme (green)"
+    },
+    "color.legacy-green-bg-2": {
+      "$value": "#001811",
+      "measuredFrom": "tailwind.config.js:48-48",
+      "usage": "legacy page theme (green)"
+    },
+    "color.legacy-green-accent": {
+      "$value": "#00886d",
+      "measuredFrom": "tailwind.config.js:49-49",
+      "usage": "legacy page theme (green)"
+    },
+    "color.legacy-light": {
+      "$value": "#fafefe",
+      "measuredFrom": "tailwind.config.js:50-50",
+      "usage": "legacy page theme (green)"
+    },
+    "color.content-bg": {
+      "$value": "#0a0700",
+      "measuredFrom": "tailwind.config.js:51-51",
+      "usage": "content theme (warm yellow)"
+    },
+    "color.content-yellow": {
+      "$value": "#eee96d",
+      "measuredFrom": "tailwind.config.js:52-52",
+      "usage": "content theme (warm yellow)"
+    },
+    "color.content-yellow-hover": {
+      "$value": "#edcf00",
+      "measuredFrom": "tailwind.config.js:53-53",
+      "usage": "content theme (warm yellow)"
+    },
+    "color.content-border": {
+      "$value": "#2d2919",
+      "measuredFrom": "tailwind.config.js:54-54",
+      "usage": "content theme (warm yellow)"
+    },
+    "color.content-bg-2": {
+      "$value": "#232011",
+      "measuredFrom": "tailwind.config.js:55-55",
+      "usage": "content theme (warm yellow)"
+    },
+    "color.content-border-2": {
+      "$value": "#301b08",
+      "measuredFrom": "tailwind.config.js:56-56",
+      "usage": "content theme (warm yellow)"
+    },
+    "color.impact-pink": {
+      "$value": "#570039",
+      "measuredFrom": "tailwind.config.js:57-57",
+      "usage": "impact page theme (pink)"
+    },
+    "color.impact-pink-deep": {
+      "$value": "#3b041d",
+      "measuredFrom": "tailwind.config.js:58-58",
+      "usage": "impact page theme (pink)"
     }
   }
 }

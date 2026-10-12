@@ -1,0 +1,531 @@
+{
+  "id": "hero.demo-form",
+  "kind": "section",
+  "name": "Demo request hero with static form",
+  "purpose": "Open the demo page with the H1, the reasons to book and the (static) demo request form, backed by two customer quotes.",
+  "category": "hero",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/DemoHero.jsx",
+  "description": "In container-large (/lms/demo-platform): avatar strip + trust line, then three 2-column grids (gap 5rem): [serif 3.8rem/1.1 H1 | serif 1.75rem form title, bottom-aligned], [grey intro with one bold phrase, 4-item bullet list and 3 review badges | static 300x358 form placeholder], [quote | quote]. At <=479 grids become one column, the form moves above the copy and the second quote is hidden.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "avatars": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "photo.person"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "photo.person"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "Stacked avatar strip (144:64)."
+      },
+      "trustLine": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 12,
+        "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+      },
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 8,
+        "note": "H1.",
+        "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+      },
+      "formTitle": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "note": "H3 above the form column.",
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "intro": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 28,
+            "measuredLongestRealInstance": "22 words in the clone's own placeholder copy"
+          },
+          "linkPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 0,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          },
+          "boldPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          }
+        },
+        "required": [
+          "text",
+          "linkPhrases",
+          "boldPhrases"
+        ],
+        "x-richText": true,
+        "note": "Grey intro; the bold phrase renders as ink <strong>."
+      },
+      "points": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 27,
+          "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+        },
+        "maxItems": 5,
+        "note": "Bullet list (18px/1.4em, grey)."
+      },
+      "badges": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "badge.review"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "badge.review"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 3,
+            "maximum": 3
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ],
+        "note": "Review-site badges; first 7rem wide, others 10rem."
+      },
+      "form": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "live": {
+            "const": false
+          },
+          "fieldLabels": {
+            "type": "array",
+            "minItems": 0,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 6,
+              "note": "No real instance: the clone renders no field labels inside the placeholder box."
+            },
+            "maxItems": 6
+          },
+          "submitLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "note": "No real instance: the clone renders no submit label inside the placeholder box."
+          }
+        },
+        "required": [
+          "live"
+        ],
+        "note": "Static form placeholder ('Demo request form', 300x358). The original's HubSpot iframe is not reproduced; no submission."
+      },
+      "quotes": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 42,
+              "note": "Italic quote with typographic quote marks.",
+              "measuredLongestRealInstance": "33 words in the clone's own placeholder copy"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "role": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 7,
+              "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+            },
+            "org": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 4,
+              "note": "Rendered bold.",
+              "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+            },
+            "avatar": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "placeholder.neutral",
+                "photo.person"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "placeholder.neutral",
+                    "photo.person"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "40px round avatar."
+            }
+          },
+          "required": [
+            "text",
+            "name",
+            "role",
+            "org",
+            "avatar"
+          ]
+        },
+        "maxItems": 2,
+        "note": "Two quotes side by side; the second is hidden <=479."
+      }
+    },
+    "required": [
+      "avatars",
+      "trustLine",
+      "heading",
+      "formTitle",
+      "intro",
+      "points",
+      "badges",
+      "form",
+      "quotes"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/DemoHero.jsx:44-101",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; the block is fully static (no buttons, the form is a placeholder box)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/DemoHero.jsx:9-9",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pb-[5rem] -> tab:pb-[4rem] -> mob:pb-[3rem]",
+      "tailwind": [
+        "tab:pb-[4rem] mob:pb-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/DemoHero.jsx:54-54",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "grid-cols-2 -> xs:grid-cols-1; gap-[5rem] -> xs:gap-[1rem]",
+      "tailwind": [
+        "xs:grid-cols-1 xs:gap-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/DemoHero.jsx:56-56",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[3.8rem] -> xs:text-[2.5rem]",
+      "tailwind": [
+        "xs:text-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/DemoHero.jsx:58-58",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "typography"
+      ],
+      "changes": "xs:self-start; text-[1.75rem] -> xs:text-[1.5rem]",
+      "tailwind": [
+        "xs:self-start xs:text-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/DemoHero.jsx:60-60",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "grid-cols-2 -> xs:grid-cols-1; gap-[5rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "xs:grid-cols-1 xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/DemoHero.jsx:62-62",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:order-2",
+      "tailwind": [
+        "xs:order-2"
+      ],
+      "measuredFrom": "src/components/sections/DemoHero.jsx:63-63",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/DemoHero.jsx:64-64",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pl-[1.5rem] -> xs:pl-[24px]",
+      "tailwind": [
+        "xs:pl-[24px]"
+      ],
+      "measuredFrom": "src/components/sections/DemoHero.jsx:67-67",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "sizing"
+      ],
+      "changes": "xs:order-1; xs:w-full",
+      "tailwind": [
+        "xs:order-1 xs:w-full"
+      ],
+      "measuredFrom": "src/components/sections/DemoHero.jsx:81-81",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-2 -> xs:grid-cols-1",
+      "tailwind": [
+        "xs:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/DemoHero.jsx:85-85",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:hidden",
+      "tailwind": [
+        "xs:hidden"
+      ],
+      "measuredFrom": "src/components/sections/DemoHero.jsx:87-87",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media",
+    "primitive.placeholder-form",
+    "primitive.badge-row"
+  ],
+  "measuredFrom": "src/components/sections/DemoHero.jsx:44-101",
+  "iaSectionId": "hero.demo-form",
+  "evidenceNotes": [
+    "The intro is assembled from three props (introA + <strong>introStrong</strong> + introB); modelled as one rich field.",
+    "The form is a Placeholder labelled 'Demo request form' with no inputs or labels; fieldLabels/submitLabel are optional and absent in the real page.",
+    "DemoPlatform.jsx overrides points (adds 'team') and quote 1 (drops 'really') vs. the component defaults."
+  ],
+  "observedOn": [
+    "/lms/demo-platform"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "shell.nav"
+    ],
+    "recommendedBefore": [
+      "proof.logo-row"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "badge.review",
+    "photo.person",
+    "placeholder.neutral"
+  ]
+}

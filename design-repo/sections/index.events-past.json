@@ -1,0 +1,251 @@
+{
+  "id": "index.events-past",
+  "kind": "section",
+  "name": "Past webinars grid",
+  "purpose": "Archives past webinars so a visitor can find and watch a recording.",
+  "category": "index",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/EventsFilter.jsx",
+  "description": "Hairline-bordered block on the legacy \"green\" theme: centred serif 4rem H2, then a 2-column grid (1 at 479) of fixed-aspect cells (auto height at 991 and below), each with an optional green month-year label, a big day number, a title and a \"Watch now ›\" link. On hover a photo layer with a 75% black overlay fades in behind the cell. An optional year-pill filter exists (showFilter) but no page enables it.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "items": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "day": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 1,
+              "note": "Two-digit day number.",
+              "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+            },
+            "month": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 2,
+              "note": "Month + year label; omitted on the two newest items as on the original.",
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 19,
+              "measuredLongestRealInstance": "15 words in the clone's own placeholder copy"
+            },
+            "image": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "placeholder.neutral",
+                "photo.event",
+                "stock.photo"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "placeholder.neutral",
+                    "photo.event",
+                    "stock.photo"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "Hover-reveal background photo (Placeholder with empty label); real data sets it from item 18 onward."
+            }
+          },
+          "required": [
+            "day",
+            "title"
+          ]
+        },
+        "maxItems": 52,
+        "note": "Real page: 51 items (component default 52)."
+      },
+      "linkLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "heading",
+      "items",
+      "linkLabel"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/EventsFilter.jsx:80-87",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; hover only: the cell image layer (photo + rgba(0,0,0,.75) overlay) fades 0 -> 1 over 300ms ease-in and back; link gap widens over .25s."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> tab:px-[2rem] -> mob:px-[1.5rem] -> xs:px-[1rem]; pt-[5.5rem] -> tab:pt-[4rem]",
+      "tailwind": [
+        "tab:px-[2rem] tab:pt-[4rem] mob:px-[1.5rem] xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/EventsFilter.jsx:44-44",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-2 -> xs:grid-cols-1",
+      "tailwind": [
+        "xs:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/EventsFilter.jsx:65-65",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "spacing"
+      ],
+      "changes": "aspect-[5.34/4.05] -> tab:aspect-auto; p-[2.5rem] -> tab:p-[2rem] -> mob:p-[1.5rem]",
+      "tailwind": [
+        "tab:aspect-auto tab:p-[2rem] mob:p-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/EventsFilter.jsx:70-70",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/EventsFilter.jsx:74-74",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[3rem] -> xs:text-[2rem]",
+      "tailwind": [
+        "xs:text-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/EventsFilter.jsx:75-75",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.25rem] -> xs:text-[1.125rem]",
+      "tailwind": [
+        "xs:text-[1.125rem]"
+      ],
+      "measuredFrom": "src/components/sections/EventsFilter.jsx:79-79",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media",
+    "primitive.legacy-theme"
+  ],
+  "measuredFrom": "src/components/sections/EventsFilter.jsx:32-103",
+  "iaSectionId": "index.events-past",
+  "evidenceNotes": [
+    "Section id is index.events-past but the component, data-section attribute and pages-manifest.json id are \"events-filter\"; the original's Finsweet filter UI is hidden and showFilter is never set, so the block is a plain archive grid.",
+    "Component comment and default say 52 items; the page passes PAST_WEBINARS with 51 (eventsData.js comment says 51).",
+    "Days/months are computed from Date.UTC in eventsData.js; the sample (items 1, 3 and 18 of 51) re-evaluates that expression. `year` is derived data for the hidden filter, not modelled."
+  ],
+  "observedOn": [
+    "/resources/events-webinars"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "index.webinars-upcoming"
+    ],
+    "recommendedBefore": [
+      "conversion.demo-cta"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.event",
+    "placeholder.neutral",
+    "stock.photo"
+  ]
+}

@@ -1,0 +1,261 @@
+{
+  "id": "index.events-upcoming",
+  "kind": "section",
+  "name": "Upcoming events + subscribe",
+  "purpose": "Shows where the company will be in person next and invites visitors to join the events mailing list.",
+  "category": "index",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/EventsUpcoming.jsx",
+  "description": "Hairline-bordered block on the legacy \"green\" theme: centred serif 4rem H2, a 3-column list (1 at 767) of upcoming-event link cards (date chip with green gradient and left rule, semibold event name, \"Register today ›\"), then the shared newsletter callout (heading, sub line, static email field + Subscribe button). The live CMS had a single event.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "events": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "date": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 7,
+              "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 6,
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "date",
+            "name"
+          ]
+        },
+        "maxItems": 3
+      },
+      "linkLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      },
+      "subscribe": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "live": {
+            "const": false
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 14,
+            "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+          },
+          "sub": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "fieldLabels": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+            },
+            "maxItems": 1
+          },
+          "submitLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 2,
+            "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "live",
+          "heading",
+          "sub",
+          "fieldLabels",
+          "submitLabel"
+        ],
+        "note": "Static SubscribeCallout form (submit prevented)."
+      }
+    },
+    "required": [
+      "heading",
+      "events",
+      "linkLabel",
+      "subscribe"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/EventsUpcoming.jsx:34-44",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; hover only: card background switches to #001811 (no transition) and the link gap widens over .25s."
+  },
+  "responsive": [
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/EventsUpcoming.jsx:13-13",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> tab:px-[2rem] -> mob:px-[1.5rem] -> xs:px-[1rem]; pt-[5.5rem] -> tab:pt-[4rem]",
+      "tailwind": [
+        "tab:px-[2rem] tab:pt-[4rem] mob:px-[1.5rem] xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/EventsUpcoming.jsx:22-22",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-3 -> mob:grid-cols-1",
+      "tailwind": [
+        "mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/EventsUpcoming.jsx:29-29",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-y-[0.75rem] -> tab:gap-y-[2rem]; p-[2rem] -> tab:p-[1.25rem] -> xs:p-[1rem]",
+      "tailwind": [
+        "tab:gap-y-[2rem] tab:p-[1.25rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/EventsUpcoming.jsx:34-34",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.35rem] -> mob:text-[1.25rem]",
+      "tailwind": [
+        "mob:text-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/EventsUpcoming.jsx:37-37",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mt-[2.75rem] -> mob:mt-[3rem]",
+      "tailwind": [
+        "mob:mt-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/EventsUpcoming.jsx:41-41",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.5rem] -> tab:text-[1.25rem]",
+      "tailwind": [
+        "tab:text-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/EventsUpcoming.jsx:42-42",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.subscribe-callout",
+    "primitive.legacy-theme"
+  ],
+  "measuredFrom": "src/components/sections/EventsUpcoming.jsx:16-60",
+  "iaSectionId": "index.events-upcoming",
+  "evidenceNotes": [
+    "Event name budget allows more than the single real 2-word name (\"People Expo\") to fit realistic event names.",
+    "Subscribe placeholder/button come from SubscribeCallout defaults in BlogFeatured.jsx; the page overrides only the heading."
+  ],
+  "observedOn": [
+    "/resources/events-webinars"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "hero.layout2-media"
+    ],
+    "recommendedBefore": [
+      "index.webinars-upcoming"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": []
+}

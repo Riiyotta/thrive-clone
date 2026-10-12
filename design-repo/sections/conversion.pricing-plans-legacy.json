@@ -1,0 +1,352 @@
+{
+  "id": "conversion.pricing-plans-legacy",
+  "kind": "section",
+  "name": "Legacy two-plan pricing",
+  "purpose": "Show the price of a paid service in two tiers and list what every plan includes, so the reader can pick a tier.",
+  "category": "conversion",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/PricingProLegacy.jsx",
+  "description": "Legacy purple-hairline (#570039) block: centred serif 4rem H2 header over a shrink-to-fit 2-plan grid (second plan tinted #3b041d); each plan = name, serif 3rem price, period, then a count label (+ optional note) with a large count at the bottom-right. Below, a centred 36rem feature list: grey lead line + rows with top/left hairlines. Plans stack to one column <=479. No variants or theme prop.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 6,
+        "note": "centred serif H2",
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "plans": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 2,
+              "note": "plan name",
+              "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+            },
+            "price": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 2,
+              "note": "price figure, e.g. $18,500",
+              "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+            },
+            "period": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "note": "billing period",
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "countLabel": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "note": "label for the included-count",
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 8,
+              "note": "optional grey note under the count label",
+              "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+            },
+            "count": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 2,
+              "note": "large included-count figure",
+              "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "name",
+            "price",
+            "period",
+            "countLabel",
+            "count"
+          ]
+        },
+        "maxItems": 2,
+        "note": "exactly two plan cells (grid-cols-2, second plan tinted)"
+      },
+      "listLead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "grey lead line above the feature list",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "features": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 14,
+          "note": "feature row, 16px/600",
+          "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+        },
+        "maxItems": 7,
+        "note": "rows of the 'every plan includes' list"
+      }
+    },
+    "required": [
+      "heading",
+      "plans",
+      "listLead",
+      "features"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/PricingProLegacy.jsx:46-82",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion and no hover states; there is no CTA in this block."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing",
+        "sizing"
+      ],
+      "changes": "p-[2.5rem] -> tab:p-[1.5rem]; mob:h-full",
+      "tailwind": [
+        "tab:p-[1.5rem] mob:h-full"
+      ],
+      "measuredFrom": "src/components/sections/PricingProLegacy.jsx:9-9",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing",
+        "typography"
+      ],
+      "changes": "tab:flex-col; tab:items-start; tab:gap-[1rem]; text-[1.25rem] -> xs:text-[1.125rem]",
+      "tailwind": [
+        "tab:flex-col tab:items-start tab:gap-[1rem] xs:text-[1.125rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingProLegacy.jsx:10-10",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[3rem] -> mob:text-[2.5rem]",
+      "tailwind": [
+        "mob:text-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingProLegacy.jsx:14-14",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1rem] -> mob:text-[0.75rem]",
+      "tailwind": [
+        "mob:text-[0.75rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingProLegacy.jsx:16-16",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-[5rem] -> tab:gap-[1rem]",
+      "tailwind": [
+        "tab:gap-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingProLegacy.jsx:19-19",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/PricingProLegacy.jsx:21-21",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1rem] -> mob:text-[0.75rem]",
+      "tailwind": [
+        "mob:text-[0.75rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingProLegacy.jsx:22-22",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[3rem] -> xs:text-[2rem]",
+      "tailwind": [
+        "xs:text-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingProLegacy.jsx:24-24",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> tab:px-[2rem] -> mob:px-[1.5rem] -> xs:px-[1rem]; pt-[5.5rem] -> tab:pt-[4rem]",
+      "tailwind": [
+        "tab:px-[2rem] tab:pt-[4rem] mob:px-[1.5rem] xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingProLegacy.jsx:53-53",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "other",
+        "layout"
+      ],
+      "changes": "mx-auto -> tab:mx-0; tab:border-x-0; grid-cols-2 -> xs:grid-cols-1",
+      "tailwind": [
+        "tab:mx-0 tab:border-x-0 xs:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/PricingProLegacy.jsx:60-60",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "col-span-2 -> xs:col-span-1",
+      "tailwind": [
+        "xs:col-span-1"
+      ],
+      "measuredFrom": "src/components/sections/PricingProLegacy.jsx:64-64",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "other"
+      ],
+      "changes": "tab:gap-[1rem]; mob:border-r; p-[1.125rem] -> mob:p-[1rem] -> xs:p-[0.875rem]",
+      "tailwind": [
+        "tab:gap-[1rem] mob:border-r mob:p-[1rem] xs:p-[0.875rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingProLegacy.jsx:69-69",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [],
+  "measuredFrom": "src/components/sections/PricingProLegacy.jsx:46-82",
+  "iaSectionId": "conversion.pricing-plans-legacy",
+  "evidenceNotes": [
+    "The page renders <PricingProLegacy /> with no props; all copy is component defaults. Plan names/prices are placeholders per the component comment.",
+    "Colours are hard-coded purple (#570039 / #3b041d), not the pink legacyVars theme the rest of /lms/impact uses; no theme prop.",
+    "Plans are keyed by name in code, so plan names must be unique."
+  ],
+  "observedOn": [
+    "/lms/impact"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "story.grid-split-legacy"
+    ],
+    "recommendedBefore": [
+      "conversion.demo-cta"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": []
+}

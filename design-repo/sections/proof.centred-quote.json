@@ -1,0 +1,191 @@
+{
+  "id": "proof.centred-quote",
+  "kind": "section",
+  "name": "Centred results quote with CTA",
+  "purpose": "Caps a results block with a customer voice that confirms the numbers, then invites the reader to the demo.",
+  "category": "proof",
+  "designSystem": "marketing",
+  "implementedBy": "src/pages/platform/CentredQuote.jsx",
+  "description": "Page-local block placed directly after the Results card grid inside the same container-medium wrapper: a 32px (28 tab / 24 mob) medium-weight quote in a 60rem column (centred, or left-aligned on /lms/small-business), a stacked avatar (5rem, 3rem on small-business) with the site's 6px tag corners below 1440 and round at >=1440, the name and a grey role with an optional linked org; the page then renders a centred primary button row. On /lms the same markup is the inline FinalQuote function (quote + author + button in one component). /lms/enterprise uses CentredQuote twice: after Results, and as the `after` slot of the service SplitAutotabs.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "quote": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 75,
+        "note": "Includes quotation marks.",
+        "measuredLongestRealInstance": "60 words in the clone's own placeholder copy"
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      },
+      "role": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 8,
+        "note": "Ends with a comma when org follows.",
+        "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+      },
+      "org": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "note": "Rendered as an inline link after the role.",
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      },
+      "avatar": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "photo.person",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "photo.person",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ]
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 10,
+        "note": "Centred primary button rendered by the page right after the quote (inside FinalQuote on /lms).",
+        "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "quote",
+      "name",
+      "role",
+      "avatar"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/pages/platform/CentredQuote.jsx:7-30",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; org link and button have primitive hover transitions only."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[2rem] -> tab:text-[1.75rem] -> mob:text-[1.5rem]",
+      "tailwind": [
+        "tab:text-[1.75rem] mob:text-[1.5rem]"
+      ],
+      "measuredFrom": "src/pages/platform/CentredQuote.jsx:10-10",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "wide",
+      "query": "min-width: 1440px",
+      "breakpoints": [
+        "wide"
+      ],
+      "kinds": [
+        "other"
+      ],
+      "changes": "wide:rounded-avatar",
+      "tailwind": [
+        "wide:rounded-avatar"
+      ],
+      "measuredFrom": "src/pages/platform/CentredQuote.jsx:12-12",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/pages/platform/CentredQuote.jsx:14-14",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/pages/platform/CentredQuote.jsx:7-30",
+  "iaSectionId": "proof.centred-quote",
+  "alsoImplementedBy": [
+    "src/pages/platform/Lms.jsx > FinalQuote"
+  ],
+  "evidenceNotes": [
+    "The CTA button is not part of CentredQuote.jsx: SmallBusiness.jsx and Enterprise.jsx render it as a sibling <div className=\"flex justify-center ...\"><Button/></div> right after the quote; on /lms FinalQuote includes it.",
+    "/lms/enterprise has a second CentredQuote (60-word quote, role 'Digital Learning Experience Platform Manager,', org 'Northwind Roads', button 'Explore our expert services →') inside SERVICE_AFTER, rendered by SplitAutotabs' `after` slot; it sets the quote budget.",
+    "The source comment in CentredQuote.jsx says it is used 'inside the results blocks of /lms', but /lms actually uses its own inline FinalQuote copy, not CentredQuote.",
+    "align ('left' on /lms/small-business) and avatar size are layout knobs, not modelled."
+  ],
+  "observedOn": [
+    "/lms",
+    "/lms/enterprise",
+    "/lms/small-business"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.results-stats"
+    ],
+    "recommendedBefore": [
+      "product.comparison-table",
+      "product.two-col-features",
+      "story.marquee"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.person",
+    "placeholder.neutral"
+  ]
+}

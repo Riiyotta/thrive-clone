@@ -1,0 +1,284 @@
+{
+  "id": "hero.header-grid-card",
+  "kind": "section",
+  "name": "Catalogue hero card (copy | media)",
+  "purpose": "Open a content-catalogue page with an eyebrow, H1, short pitch and tour CTA beside a large image or video.",
+  "category": "hero",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/HeaderGridCard.jsx",
+  "description": "Legacy content ('yellow') theme, two hairline-framed grid cells (one column <=767): left card with a dark eyebrow pill, serif 3rem/1.1 H1 (2rem <=479), grey paragraph and a yellow pill button; right cell is media. One component with `variant`: 'topics' (/content/topics) shows a 923:600 header image (3:2 <=991); 'suites' (/content/sector-suites) shows a 500px background-video slot. Content shape is identical.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "variant": {
+        "enum": [
+          "topics",
+          "suites"
+        ],
+        "note": "topics = image media, suites = background-video media."
+      },
+      "eyebrow": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 9,
+        "note": "H1.",
+        "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+      },
+      "text": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 27,
+        "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+      },
+      "buttonLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "media": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "product.screenshot",
+          "product.video",
+          "stock.photo"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "product.screenshot",
+              "product.video",
+              "stock.photo"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "topics: header image; suites: background video."
+      }
+    },
+    "required": [
+      "variant",
+      "eyebrow",
+      "title",
+      "text",
+      "buttonLabel",
+      "media"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "*": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/HeaderGridCard.jsx:49-49",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; the yellow button swaps bg #eee96d -> #edcf00 instantly on hover (only border-radius has a 300ms transition)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-2 -> mob:grid-cols-1",
+      "tailwind": [
+        "mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/HeaderGridCard.jsx:36-36",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "other"
+      ],
+      "changes": "gap-y-[0.75rem] -> tab:gap-y-[2rem]; p-[2rem] -> tab:p-[1.5rem] -> mob:p-[1.25rem] -> xs:p-[1rem]; border-r-0 -> mob:border-r",
+      "tailwind": [
+        "tab:gap-y-[2rem] tab:p-[1.5rem] mob:border-r mob:p-[1.25rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/HeaderGridCard.jsx:37-37",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "typography"
+      ],
+      "changes": "px-[0.75rem] -> tab:px-[0.625rem]; py-[0.325rem] -> tab:py-[0.425rem]; text-[0.875rem] -> tab:text-[0.725rem]; mb-[0.75rem] -> xs:mb-[0.25rem]; xs:leading-none",
+      "tailwind": [
+        "tab:px-[0.625rem] tab:py-[0.425rem] tab:text-[0.725rem] xs:mb-[0.25rem] xs:leading-none"
+      ],
+      "measuredFrom": "src/components/sections/HeaderGridCard.jsx:40-40",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[3rem] -> xs:text-[2rem]",
+      "tailwind": [
+        "xs:text-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/HeaderGridCard.jsx:43-43",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/HeaderGridCard.jsx:45-45",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "layout",
+        "spacing"
+      ],
+      "changes": "xs:w-full; xs:flex-col; xs:items-stretch; gap-[1.5rem] -> xs:gap-[1rem]",
+      "tailwind": [
+        "xs:w-full xs:flex-col xs:items-stretch xs:gap-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/HeaderGridCard.jsx:46-46",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "typography",
+        "layout"
+      ],
+      "changes": "px-[1.25rem] -> tab:px-[1rem]; py-[0.75rem] -> tab:py-[0.5rem]; text-[1.125rem] -> tab:text-[1rem]; xs:block; xs:self-stretch",
+      "tailwind": [
+        "tab:px-[1rem] tab:py-[0.5rem] tab:text-[1rem] xs:block xs:self-stretch"
+      ],
+      "measuredFrom": "src/components/sections/HeaderGridCard.jsx:49-49",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "aspect-[923/600] -> tab:aspect-[3/2]",
+      "tailwind": [
+        "tab:aspect-[3/2]"
+      ],
+      "measuredFrom": "src/components/sections/HeaderGridCard.jsx:60-60",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/HeaderGridCard.jsx:25-69",
+  "iaSectionId": "hero.header-grid-card",
+  "evidenceNotes": [
+    "ContentCatalogue.jsx overrides only the eyebrow and button label per route (HEADER_TOPICS / HEADER_SUITES); titles and paragraphs are the variant defaults."
+  ],
+  "observedOn": [
+    "/content/sector-suites",
+    "/content/topics"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "shell.nav"
+    ],
+    "recommendedBefore": [
+      "proof.flip-logos"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "placeholder.neutral",
+    "product.screenshot",
+    "product.video",
+    "stock.photo"
+  ],
+  "variants": [
+    "topics",
+    "suites"
+  ]
+}

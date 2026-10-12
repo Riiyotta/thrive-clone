@@ -10,17 +10,25 @@
    project. These were measured against the live original after the build and
    corrected the recon spec in several places. They are cited as `audit:<file>`
    in the ledger and degrade to a warning when absent.
-3. **The IA**: `ia.json` at the project root (`template.home`, 15 sections).
-   Section ids, categories, order and `implementedBy` here are aligned to it.
+3. **The IA**: `ia.json` at the project root (33 templates, 58 routes, 94 sections).
+   Template ids/orders/routes and section ids, categories and `implementedBy` here are aligned to it.
    `verify_all.py::check_ia_alignment` re-checks this.
 4. **`CLONE_SPEC.md`**: the recon spec, measured on the live original. It is a
    strong first draft but was wrong in the places listed below. Sections cite it
    as `specMeasuredFrom`, and the code wins wherever the two disagree.
 5. **`asset-manifest.json`**: the original's CDN URLs, cited only to show where
    the product videos and embeds live. None of them is used.
+6. **The page files** (`src/pages/**`, 2.0.0): the authoritative source for every
+   template's composition, parsed with babel when building and re-read by
+   `verify_all.py::check_template_composition` on every run. `CLONE_SPEC_PAGES.md`
+   and `pages-manifest.json` (recon of the live subpages) were a first draft; see the
+   2.0.0 table below. The session audit dumps of the subpage families were not cited
+   (session-scoped scratch paths cannot be referenced portably from this repo).
 
-Evidence level: the one template, `home`, is **measured**: the code, the audit
-at 1440 and at 390, and the spec all describe the same 15-section sequence.
+Evidence levels: `home` is **measured** (code, the 1440/390 audit and the spec
+agree on the 15-section sequence). The 32 subpage templates are **code-derived**
+(`templates.json` → `evidenceLevel`): their compositions come from the page files,
+cross-read against the recon of the live pages.
 
 ## Where CLONE_SPEC.md is wrong against the code and the audit
 
@@ -57,3 +65,40 @@ These were left in the source on purpose. This repo is read-only against `src/`.
 - The HubSpot form internals (cross-origin iframe).
 - The YouTube player chrome.
 - Webflow A/B variants: only the default variant was measured.
+
+## 2.0.0: recon (pages-manifest.json / CLONE_SPEC_PAGES.md) vs the real page files
+
+The 32-template recon of the live site was used as a first draft only. Templates
+were re-derived from what each page component actually renders
+(`src/pages/**`, parsed with babel; `verify_all.py::check_template_composition`
+re-reads them on every run). Where the two disagree, the page files win:
+
+| Route(s) | Recon says | The code renders |
+|---|---|---|
+| `/nova` | ends at split-tabs | split-tabs, **then** the vendor comparison table, an autotabs-group (platform), a video section and the FAQ, plus an inline centred demo button between the feature tabs and the quote |
+| `/pricing` | reviews-grid only | reviews-grid with a **VideoSection nested inside it** (children), modelled as `proof.reviews-grid.video` |
+| `/lms/corporate-lms`, `/lms/enterprise` (×2) | kiki-autotabs (shared KikiTabs) | page-local `src/pages/platform/SplitAutotabs.jsx` → `product.split-autotabs` |
+| `/whats-included` | kiki-autotabs + results | page-local `IncludedTabs.jsx` → `product.included-tabs`; page-local `ProofResults.jsx` |
+| `/company` | results ×2 | page-local `StatsResults.jsx` (count-up, `proof.stats-countup`) and `ProofResults.jsx` (`proof.results-proof`) |
+| `/case-studies/lms` | results (shared Results) | page-local `CaseStudiesLms.jsx > CaseStudyResults` → `proof.case-results` |
+| `/content/sector-suites` | topics-grid | `GridSplitLegacy` variant `suites` (a choice slot in `content-catalogue`) |
+| `/company` | layout2-hero (as a hero) | the layout2 media card renders mid-page as an H2 block before the FAQ → `SECONDARY_HERO_USES` |
+| `/lms/small-business`, `/lms/enterprise`, `/lms` | quotes folded into results | a separate centred quote block (`CentredQuote.jsx`; `/lms` has an inline copy, `Lms.jsx > FinalQuote`) → `proof.centred-quote` |
+| `/lms/features/*` | one sequence | `video` only on 6 of 17 routes; `employee-experience` and `communication` render CMS empty states for the FAQ and the explore slider (choice slots) |
+| case-study-content | "stat counters" | a y/opacity scroll reveal (1000ms, delays 250/200ms), no counting |
+| case-study-platform | 3s icon bob | no such animation in the code |
+| spring-release, mentoring | WowCard image reveal | not reproduced (the IX2 target is not inside those cards on the original) |
+| small-business hero | ThriveGo header scroll reveal | rendered as the static end state |
+| reviews-slider | 25 pages | 24 routes |
+| events-webinars | events filter | the filter UI is hidden on the original; renders as a plain archive grid (`index.events-past`) |
+
+### Source copy flagged during the expansion
+
+- Real product/company names in the clone's own copy (Microsoft Teams in IntegrationsVisual's mid-market body,
+  "Vista Air" in TestimonialQuote's autotabs preset, Workday / OneDrive / LinkedIn Learning in CsPlatformBody's
+  integration tags, LinkedIn in WebinarsUpcoming) were reported and replaced in source by commit 1b3b419. They
+  remain banned terms (`assets/asset-roles.json` -> `bannedTerms`).
+- The default slides of `CaseStudyCarousel` (used unchanged on `/lms/solutions`, `/company`,
+  `/company/why-nimbus`, `/contact-us`) and of `ReviewsGrid`'s logo grid still load files from
+  `public/assets/` (the user's reference copies of the original's imagery). The contracts expose those
+  slots only as pinned `must-not-reuse` roles, so generated pages never reproduce them.

@@ -1,0 +1,453 @@
+{
+  "id": "hero.integrations-header",
+  "kind": "section",
+  "name": "Integrations hero card with logos and split intro",
+  "purpose": "Open the integrations directory with the H1 and demo CTA, show customer logos, then introduce the directory below with a split H2.",
+  "category": "hero",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/IntegrationsHeader.jsx",
+  "description": "Green legacy styling (/lms/integrations): a hairline-bordered 2-column card (copy: eyebrow tag, serif 3.8rem/1.1 H1, 18px paragraph, green pill button + 3 overlapping avatars and a users line | full-height visual, 3:2 <=991), one column <=767. Below: a centred logo lead line + 6 logos, then a split header (heading-h2 left, grey paragraph right; stacked <=991).",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "eyebrow": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 2,
+        "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+      },
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 10,
+        "note": "H1.",
+        "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+      },
+      "intro": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 38,
+        "measuredLongestRealInstance": "30 words in the clone's own placeholder copy"
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "avatars": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "photo.person"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "photo.person"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 3,
+            "maximum": 3
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ],
+        "note": "Overlapping 40px avatars."
+      },
+      "users": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "visual": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "product.screenshot",
+          "stock.photo"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "product.screenshot",
+              "stock.photo"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "Connections visual."
+      },
+      "logosLead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 10,
+        "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+      },
+      "logos": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "logo.customer"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "logo.customer"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 6,
+            "maximum": 6
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ]
+      },
+      "heading2": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "note": "H2 of the split header introducing the directory.",
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "intro2": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 32,
+        "measuredLongestRealInstance": "25 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "eyebrow",
+      "heading",
+      "intro",
+      "ctaLabel",
+      "avatars",
+      "users",
+      "visual",
+      "logosLead",
+      "logos",
+      "heading2",
+      "intro2"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:11-11",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; the green button swaps bg #1ee9b6 -> #016b57 and text instantly on hover (only border-radius transitions)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "typography",
+        "layout"
+      ],
+      "changes": "px-[1.25rem] -> tab:px-[1rem]; py-[0.75rem] -> tab:py-[0.5rem]; text-[1.125rem] -> tab:text-[1rem]; xs:block; xs:self-stretch",
+      "tailwind": [
+        "tab:px-[1rem] tab:py-[0.5rem] tab:text-[1rem] xs:block xs:self-stretch"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:11-11",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "typography"
+      ],
+      "changes": "px-[0.75rem] -> tab:px-[0.625rem]; py-[0.325rem] -> tab:py-[0.425rem]; tab:text-[0.725rem]; mb-[0.75rem] -> xs:mb-[0.25rem]; xs:leading-none",
+      "tailwind": [
+        "tab:px-[0.625rem] tab:py-[0.425rem] tab:text-[0.725rem] xs:mb-[0.25rem] xs:leading-none"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:21-21",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "gap-[4rem] -> tab:gap-[2rem]; grid-cols-2 -> mob:grid-cols-1",
+      "tailwind": [
+        "tab:gap-[2rem] mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:48-48",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> tab:px-[1.5rem]; py-[5rem] -> tab:py-[3rem]; mob:p-[1.5rem]",
+      "tailwind": [
+        "tab:px-[1.5rem] tab:py-[3rem] mob:p-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:49-49",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[3.8rem] -> xs:text-[2.5rem]",
+      "tailwind": [
+        "xs:text-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:53-53",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:55-55",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "layout",
+        "spacing"
+      ],
+      "changes": "xs:w-full; xs:flex-col; xs:items-stretch; gap-[1.5rem] -> xs:gap-[1rem]",
+      "tailwind": [
+        "xs:w-full xs:flex-col xs:items-stretch xs:gap-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:56-56",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:justify-center",
+      "tailwind": [
+        "xs:justify-center"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:58-58",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "sizing",
+        "spacing"
+      ],
+      "changes": "h-[2.5rem] -> tab:h-[2rem]; w-[2.5rem] -> tab:w-[2rem]; -ml-[1rem] -> tab:-ml-[0.5rem]",
+      "tailwind": [
+        "tab:h-[2rem] tab:w-[2rem] tab:-ml-[0.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:65-65",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "tab:aspect-[3/2]; h-full -> tab:h-auto",
+      "tailwind": [
+        "tab:aspect-[3/2] tab:h-auto"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:75-75",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-wrap; tab:justify-center; tab:gap-y-[2rem]; mob:justify-around; gap-[3rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "tab:flex-wrap tab:justify-center tab:gap-y-[2rem] mob:justify-around xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:85-85",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-col; tab:items-start; gap-[3.75rem] -> tab:gap-[2rem] -> xs:gap-[1.5rem]",
+      "tailwind": [
+        "tab:flex-col tab:items-start tab:gap-[2rem] xs:gap-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:95-95",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media",
+    "primitive.logo-placeholder",
+    "primitive.heading-h2"
+  ],
+  "measuredFrom": "src/components/sections/IntegrationsHeader.jsx:41-109",
+  "iaSectionId": "hero.integrations-header",
+  "evidenceNotes": [
+    "Theme colours are hard-coded green (#00251e / #1ee9b6); there is no theme prop. The file defines its own LegacyButton/EyebrowTag copies rather than importing GlobalHeaderLegacy's."
+  ],
+  "observedOn": [
+    "/lms/integrations"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "shell.nav"
+    ],
+    "recommendedBefore": [
+      "index.integration-filter"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "photo.person",
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ]
+}

@@ -1,0 +1,396 @@
+{
+  "id": "proof.testimonial-card-legacy",
+  "kind": "section",
+  "name": "Legacy testimonial card",
+  "purpose": "Closes a legacy content page with one customer's endorsement of the content service, framed by their logo.",
+  "category": "proof",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/TestimonialCardLegacy.jsx",
+  "description": "A hairline-bordered card (legacy theme border colour) over a decorative full-bleed background image at 85% opacity, holding a 2-column grid: customer logo on the left, and on the right a body-size quote with a client row below (3.5rem round photo, semibold name, grey role). Padding 3.5rem/2.5rem, tightening per breakpoint; at <=767 it becomes one column and the client photo stacks above the name. Theme switches the legacy colour set (yellow on /content/service, green on /content/custom-content); the logo box is tall (5rem, 3rem at >=1440) or wide (2.5rem).",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "theme": {
+        "enum": [
+          "yellow",
+          "green",
+          "pink"
+        ],
+        "note": "Legacy colour theme (border colour). Real usages: yellow, green."
+      },
+      "logoShape": {
+        "enum": [
+          "tall",
+          "wide"
+        ],
+        "note": "`logo` prop: picks the logo box proportions to suit the customer mark (tall on /content/service, wide on /content/custom-content)."
+      },
+      "logo": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "logo.customer",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "logo.customer",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ]
+      },
+      "quote": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 33,
+        "note": "Includes quotation marks; no closing full stop on the real instances.",
+        "measuredLongestRealInstance": "26 words in the clone's own placeholder copy"
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      },
+      "role": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 8,
+        "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+      },
+      "avatar": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "photo.person",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "photo.person",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ]
+      },
+      "background": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "stock.photo",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "stock.photo",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "Purely decorative card background (testimonial-card_background is-green)."
+      }
+    },
+    "required": [
+      "theme",
+      "logo",
+      "quote",
+      "name",
+      "role",
+      "avatar"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/TestimonialCardLegacy.jsx:11-62",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion and no hover states."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> tab:px-[1.5rem] -> mob:px-[1.25rem] -> xs:px-[1rem]; py-[3.5rem] -> tab:py-[2.5rem] -> mob:py-[2rem]",
+      "tailwind": [
+        "tab:px-[1.5rem] tab:py-[2.5rem] mob:px-[1.25rem] mob:py-[2rem] xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialCardLegacy.jsx:23-23",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "grid-cols-2 -> mob:grid-cols-1; gap-0 -> mob:gap-[1rem]",
+      "tailwind": [
+        "mob:grid-cols-1 mob:gap-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialCardLegacy.jsx:24-24",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "wide",
+      "query": "min-width: 1440px",
+      "breakpoints": [
+        "wide"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[5rem] -> wide:h-[3rem]",
+      "tailwind": [
+        "wide:h-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialCardLegacy.jsx:31-31",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:justify-start",
+      "tailwind": [
+        "mob:justify-start"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialCardLegacy.jsx:36-36",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialCardLegacy.jsx:37-37",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mt-[2.5rem] -> mob:mt-[1.25rem]",
+      "tailwind": [
+        "mob:mt-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialCardLegacy.jsx:38-38",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "layout",
+        "spacing",
+        "typography"
+      ],
+      "changes": "mob:w-full; mob:flex-col; items-center -> mob:items-center; gap-[1rem] -> mob:gap-[0.75rem]; mob:text-center",
+      "tailwind": [
+        "mob:w-full mob:flex-col mob:items-center mob:gap-[0.75rem] mob:text-center"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialCardLegacy.jsx:39-39",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:self-start",
+      "tailwind": [
+        "mob:self-start"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialCardLegacy.jsx:40-40",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout",
+        "typography"
+      ],
+      "changes": "mob:mb-[1rem]; mob:self-start; mob:text-left; xs:flex; xs:flex-col; xs:gap-[0.5rem]",
+      "tailwind": [
+        "mob:mb-[1rem] mob:self-start mob:text-left xs:flex xs:flex-col xs:gap-[0.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialCardLegacy.jsx:41-41",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialCardLegacy.jsx:42-42",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialCardLegacy.jsx:43-43",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media",
+    "primitive.legacy-theme"
+  ],
+  "measuredFrom": "src/components/sections/TestimonialCardLegacy.jsx:11-62",
+  "iaSectionId": "proof.testimonial-card-legacy",
+  "evidenceNotes": [
+    "The background placeholder always carries data-bg 'testimonial-card_background is-green' regardless of theme; only the border colour follows the theme.",
+    "legacyVars() accepts green / yellow / pink (unknown values fall back to green); only yellow and green are used for this section."
+  ],
+  "observedOn": [
+    "/content/custom-content",
+    "/content/service"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.card-slider-legacy",
+      "story.custom-video"
+    ],
+    "recommendedBefore": [
+      "conversion.demo-cta",
+      "product.learn-grid"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "photo.person",
+    "placeholder.neutral",
+    "stock.photo"
+  ]
+}

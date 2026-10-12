@@ -1,0 +1,552 @@
+{
+  "id": "hero.content-overview",
+  "kind": "section",
+  "name": "Content library hero with logo strip and 2-col feature",
+  "purpose": "Open the content-library page with its sub-brand lockup, H1 and tour CTA, then prove it with customer logos and a why-choose-us feature with a quote.",
+  "category": "hero",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/ContentHero.jsx",
+  "description": "Legacy content ('yellow') theme, three parts (/content): (1) a hairline-framed centred hero: sub-brand lockup, serif 3.8rem H1, paragraph, yellow pill button + 3 overlapping avatars and a social line; (2) a one-line caption and 6-logo row; (3) a 2-column feature: serif 3.5rem H2, grey paragraphs with two inline links, quote card with avatar, name and role | square image card with a yellow button. The feature stacks <=767.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "brandLockup": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "note": "Text inside the sub-brand logo slot (LogoPlaceholder).",
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 12,
+        "note": "H1.",
+        "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+      },
+      "text": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 30,
+        "measuredLongestRealInstance": "24 words in the clone's own placeholder copy"
+      },
+      "buttonLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "avatars": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "photo.person"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "photo.person"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 3,
+            "maximum": 3
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ],
+        "note": "Overlapping 40px avatar circles."
+      },
+      "social": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "logosCaption": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 12,
+        "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+      },
+      "logos": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "logo.customer"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "logo.customer"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 6,
+            "maximum": 6
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ]
+      },
+      "feature": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "note": "H2, serif 3.5rem.",
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "text": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 112,
+                "measuredLongestRealInstance": "89 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 2,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases"
+            ],
+            "x-richText": true,
+            "note": "A blank line (\\n\\n) renders as the original's <br><br> paragraph break. Link phrases render as underlined inline links."
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 34,
+            "measuredLongestRealInstance": "27 words in the clone's own placeholder copy"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "avatar": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "photo.person"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "photo.person"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "40px round avatar."
+          },
+          "image": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "product.screenshot",
+              "stock.photo"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "product.screenshot",
+                  "stock.photo"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "Content hub image card (square; 828:478 <=767)."
+          },
+          "buttonLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "heading",
+          "text",
+          "quote",
+          "name",
+          "role",
+          "avatar",
+          "image",
+          "buttonLabel"
+        ],
+        "note": "2-column feature block under the logos."
+      }
+    },
+    "required": [
+      "brandLockup",
+      "title",
+      "text",
+      "buttonLabel",
+      "avatars",
+      "social",
+      "logosCaption",
+      "logos",
+      "feature"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "scroll.revealOnce"
+    ],
+    "reducedMotionFallback": "instant-final-state",
+    "measuredFrom": "src/components/sections/ContentHero.jsx:67-69",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "IX2 '2Col Feature Animation' on scroll into view, once: feature copy from x -3rem / opacity 0 / blur 5px and image card from x 5rem / opacity 0 / blur 5px to rest, 750ms after 500ms, power3.out. The hero and logos are static; yellow buttons swap bg instantly on hover (only border-radius transitions, 300ms)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "typography",
+        "layout"
+      ],
+      "changes": "px-[1.25rem] -> tab:px-[1rem]; py-[0.75rem] -> tab:py-[0.5rem]; text-[1.125rem] -> tab:text-[1rem]; xs:block; xs:self-stretch",
+      "tailwind": [
+        "tab:px-[1rem] tab:py-[0.5rem] tab:text-[1rem] xs:block xs:self-stretch"
+      ],
+      "measuredFrom": "src/components/sections/ContentHero.jsx:14-14",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> tab:px-[2rem] -> mob:px-[1.5rem] -> xs:px-[1rem]; pt-[5.5rem] -> tab:pt-[4rem]",
+      "tailwind": [
+        "tab:px-[2rem] tab:pt-[4rem] mob:px-[1.5rem] xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContentHero.jsx:80-80",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "layout",
+        "spacing"
+      ],
+      "changes": "xs:w-full; xs:flex-col; xs:items-stretch; gap-[1.5rem] -> xs:gap-[1rem]",
+      "tailwind": [
+        "xs:w-full xs:flex-col xs:items-stretch xs:gap-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContentHero.jsx:89-89",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:justify-center",
+      "tailwind": [
+        "xs:justify-center"
+      ],
+      "measuredFrom": "src/components/sections/ContentHero.jsx:93-93",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "sizing",
+        "spacing"
+      ],
+      "changes": "h-[2.5rem] -> tab:h-[2rem]; w-[2.5rem] -> tab:w-[2rem]; ml-[-1rem] -> tab:ml-[-0.5rem]",
+      "tailwind": [
+        "tab:h-[2rem] tab:w-[2rem] tab:ml-[-0.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContentHero.jsx:99-99",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-wrap; tab:justify-center; tab:gap-y-[2rem]; mob:justify-around; gap-[3rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "tab:flex-wrap tab:justify-center tab:gap-y-[2rem] mob:justify-around xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContentHero.jsx:116-116",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-[5rem] -> xs:w-[6rem]",
+      "tailwind": [
+        "xs:w-[6rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContentHero.jsx:120-120",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "mob:flex-col; mob:gap-[1.5rem]",
+      "tailwind": [
+        "mob:flex-col mob:gap-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContentHero.jsx:128-128",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "layout"
+      ],
+      "changes": "mob:w-full; mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:w-full mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/ContentHero.jsx:136-136",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "tab:min-h-[20rem]",
+      "tailwind": [
+        "tab:min-h-[20rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContentHero.jsx:150-150",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "mob:aspect-[828/478]",
+      "tailwind": [
+        "mob:aspect-[828/478]"
+      ],
+      "measuredFrom": "src/components/sections/ContentHero.jsx:151-151",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:block; xs:self-stretch",
+      "tailwind": [
+        "xs:block xs:self-stretch"
+      ],
+      "measuredFrom": "src/components/sections/ContentHero.jsx:153-153",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media",
+    "primitive.logo-placeholder",
+    "primitive.inline-link"
+  ],
+  "measuredFrom": "src/components/sections/ContentHero.jsx:51-165",
+  "iaSectionId": "hero.content-overview",
+  "evidenceNotes": [
+    "Feature text uses a [[link phrase]] markup parsed by rich(); the sample text has the brackets removed and lists the phrases in linkPhrases.",
+    "Logo labels are 'Logo 1'..'Logo 6' (text LogoPlaceholders); the sample uses the first label.",
+    "The sub-brand lockup and yellow theme are hard-coded (no theme prop), so no theme field.",
+    "The sub-brand logo slot (own brand, not a customer) has no matching asset role; it is modelled as the text field brandLockup."
+  ],
+  "observedOn": [
+    "/content"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "shell.nav"
+    ],
+    "recommendedBefore": [
+      "product.sector-tabs"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "photo.person",
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ]
+}

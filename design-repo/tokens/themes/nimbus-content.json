@@ -1,0 +1,23 @@
+{
+  "id": "theme.nimbus-content",
+  "designSystem": "marketing",
+  "default": false,
+  "note": "Content-theme routes (/content, /content/topics, /content/sector-suites, /case-studies/content, /case-studies-contents/*) sit on a warm near-black body instead of #000 (src/components/Layout.jsx isContentTheme -> bg-content-bg). Everything else resolves exactly as nimbus-dark.",
+  "measuredFrom": "src/components/Layout.jsx:27-29",
+  "extends": "theme.nimbus-dark",
+  "resolves": {
+    "surface.page": "color.content-bg",
+    "surface.card": "color.surface-1",
+    "surface.raised": "color.surface-2",
+    "surface.control": "color.surface-3",
+    "surface.hover": "color.hover",
+    "text.primary": "color.ink",
+    "text.secondary": "color.grey",
+    "text.onPrimaryButton": "color.surface-1",
+    "text.quoteBase": "color.surface-3",
+    "accent.chip": "color.green",
+    "accent.primaryHover": "color.green-hover",
+    "border.divider": "color.surface-3",
+    "icon.muted": "color.icon"
+  }
+}

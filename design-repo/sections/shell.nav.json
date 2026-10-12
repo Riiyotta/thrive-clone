@@ -186,9 +186,9 @@
     ]
   },
   "constraints": {
-    "onePerPage": true,
     "maxPerPage": 1,
-    "mustBeFirst": true
+    "mustBeFirst": true,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
   },
   "motion": {
     "allowedPatterns": [
@@ -205,29 +205,30 @@
       "query": "max-width: 991px",
       "changes": "Centre pill and AI link hidden; 32x32 outlined hamburger shown.",
       "tailwind": [
-        "relative flex rounded-pill bg-surface-2 p-[4px] tab:hidden"
+        "relative flex rounded-pill bg-surface-2 p-[0.25rem] tab:hidden"
       ],
-      "measuredFrom": "src/components/Nav.jsx:192-192"
+      "measuredFrom": "src/components/Nav.jsx:352-352",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "Hamburger trigger becomes visible.",
       "tailwind": [
-        "hidden h-[32px] w-[32px]",
-        "tab:flex"
+        "hidden h-[2rem] w-[2rem] tab:flex"
       ],
-      "measuredFrom": "src/components/Nav.jsx:238-238"
+      "measuredFrom": "src/components/Nav.jsx:401-401",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "Mobile menu panel: absolute under the bar (margin-top 64), rows expand inline.",
       "tailwind": [
-        "mobile-menu absolute",
-        "tab:flex"
+        "mobile-menu absolute tab:flex"
       ],
-      "measuredFrom": "src/components/Nav.jsx:252-252"
+      "measuredFrom": "src/components/Nav.jsx:417-417",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "xs",
@@ -236,7 +237,8 @@
       "tailwind": [
         "xs:bg-page"
       ],
-      "measuredFrom": "src/components/Nav.jsx:179-179"
+      "measuredFrom": "src/components/Nav.jsx:338-338",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "xs",
@@ -245,7 +247,8 @@
       "tailwind": [
         "xs:max-w-[6rem]"
       ],
-      "measuredFrom": "src/components/Nav.jsx:185-185"
+      "measuredFrom": "src/components/Nav.jsx:344-344",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "xs",
@@ -254,11 +257,11 @@
       "tailwind": [
         "xs:h-[100vh]"
       ],
-      "measuredFrom": "src/components/Nav.jsx:252-252"
+      "measuredFrom": "src/components/Nav.jsx:417-417",
+      "reCited": "re-cited against current source"
     }
   ],
   "assetRoles": [
-    "brand.wordmark",
     "logo.customer",
     "placeholder.neutral"
   ],
@@ -271,12 +274,86 @@
   "compatibility": {
     "recommendedAfter": [],
     "recommendedBefore": [
-      "hero.split-visual"
+      "article.cs-platform-body",
+      "hero.assistant-video",
+      "hero.center-legacy",
+      "hero.company-video",
+      "hero.content-overview",
+      "hero.demo-form",
+      "hero.global-header-legacy",
+      "hero.header-grid-card",
+      "hero.integrations-header",
+      "hero.layout2-media",
+      "hero.mentoring-software",
+      "hero.platform",
+      "hero.pricing-calculator",
+      "hero.split-visual",
+      "hero.wow-content",
+      "index.blog-featured",
+      "index.glossary",
+      "index.guides"
     ],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
-    "/"
+    "/",
+    "/case-studies-contents/customer-10",
+    "/case-studies-contents/customer-6",
+    "/case-studies-contents/customer-7",
+    "/case-studies-contents/customer-8",
+    "/case-studies-contents/customer-9",
+    "/case-studies/content",
+    "/case-studies/lms",
+    "/case-study/customer-1",
+    "/case-study/customer-2",
+    "/case-study/customer-3",
+    "/case-study/customer-4",
+    "/case-study/customer-5",
+    "/company",
+    "/company/why-nimbus",
+    "/contact-us",
+    "/content",
+    "/content/custom-content",
+    "/content/sector-suites",
+    "/content/service",
+    "/content/topics",
+    "/lms",
+    "/lms/corporate-lms",
+    "/lms/demo-platform",
+    "/lms/enterprise",
+    "/lms/features",
+    "/lms/features/ai-content-creator",
+    "/lms/features/chat",
+    "/lms/features/communication",
+    "/lms/features/employee-assessment-software",
+    "/lms/features/employee-experience",
+    "/lms/features/employee-performance-management-software",
+    "/lms/features/learning-pathways",
+    "/lms/features/lms-admin",
+    "/lms/features/lms-analytics",
+    "/lms/features/lms-gamification",
+    "/lms/features/lms-homepage",
+    "/lms/features/lms-rewards",
+    "/lms/features/lms-security",
+    "/lms/features/mcp",
+    "/lms/features/mobile-lms",
+    "/lms/features/skills",
+    "/lms/features/spaces",
+    "/lms/impact",
+    "/lms/integrations",
+    "/lms/mentoring-software",
+    "/lms/professional-services",
+    "/lms/small-business",
+    "/lms/solutions",
+    "/lms/spring-release",
+    "/mentoring",
+    "/nova",
+    "/pricing",
+    "/resources/blog-and-news",
+    "/resources/events-webinars",
+    "/resources/guides",
+    "/resources/lms-glossary",
+    "/whats-included"
   ],
   "measuredFrom": "src/components/Nav.jsx:144-290",
   "iaSectionId": "shell.nav",

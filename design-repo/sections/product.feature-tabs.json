@@ -7,139 +7,263 @@
   "designSystem": "marketing",
   "implementedBy": "src/components/ProductTabs.jsx",
   "content": {
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-      "heading": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 10,
-        "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
-      },
-      "intro": {
+    "oneOf": [
+      {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "text": {
+          "heading": {
             "type": "string",
             "minLength": 1,
-            "maxWords": 26,
-            "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+            "maxWords": 10,
+            "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
           },
-          "linkPhrases": {
+          "intro": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 26,
+                "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 5,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 5,
+                  "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered as a white underlined .inline-link."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases"
+            ],
+            "note": "Grey 18.4/25.76 paragraph, max 448, with up to five white underlined pillar links.",
+            "x-richText": true
+          },
+          "tabs": {
             "type": "array",
-            "minItems": 0,
-            "maxItems": 5,
+            "minItems": 2,
+            "maxItems": 4,
             "items": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 5,
-              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
-            },
-            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered as a white underlined .inline-link."
-          }
-        },
-        "required": [
-          "text",
-          "linkPhrases"
-        ],
-        "note": "Grey 18.4/25.76 paragraph, max 448, with up to five white underlined pillar links.",
-        "x-richText": true
-      },
-      "tabs": {
-        "type": "array",
-        "minItems": 2,
-        "maxItems": 4,
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "label": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 12,
-              "note": "Desktop tab sentence, 24/33.6; 1 line = 83px row, 2 lines = 116px row.",
-              "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
-            },
-            "shortLabel": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 2,
-              "note": "Replaces label at <=767 (chips).",
-              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
-            },
-            "copy": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 28,
-              "note": "Grey 18/25.2 child copy in a 192px (12rem) box; 3 lines.",
-              "measuredLongestRealInstance": "24 words in the clone's own placeholder copy"
-            },
-            "ctaLabel": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 4,
-              "note": "Dark button.",
-              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
-            },
-            "visual": {
               "type": "object",
               "additionalProperties": false,
-              "x-allowedRoles": [
-                "product.screenshot",
-                "placeholder.neutral"
-              ],
               "properties": {
-                "assetRole": {
-                  "enum": [
-                    "product.screenshot",
-                    "placeholder.neutral"
-                  ]
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 12,
+                  "note": "Desktop tab sentence, 24/33.6; 1 line = 83px row, 2 lines = 116px row.",
+                  "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
                 },
-                "placeholderLabel": {
+                "shortLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 2,
+                  "note": "Replaces label at <=767 (chips).",
+                  "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                },
+                "copy": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 28,
+                  "note": "Grey 18/25.2 child copy in a 192px (12rem) box; 3 lines.",
+                  "measuredLongestRealInstance": "24 words in the clone's own placeholder copy"
+                },
+                "ctaLabel": {
                   "type": "string",
                   "minLength": 1,
                   "maxWords": 4,
-                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
-                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                  "note": "Dark button.",
+                  "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
                 },
-                "alt": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxWords": 10
-                },
-                "assetRef": {
-                  "type": "string",
-                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
-                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                "visual": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "product.screenshot",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "product.screenshot",
+                        "stock.photo",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 4,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                      "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "670:600 pane image, bleeds -10vw off the right edge."
                 }
               },
               "required": [
-                "assetRole"
-              ],
-              "note": "670:600 pane image, bleeds -10vw off the right edge."
-            }
-          },
-          "required": [
-            "label",
-            "shortLabel",
-            "copy",
-            "ctaLabel",
-            "visual"
-          ]
+                "label",
+                "shortLabel",
+                "copy",
+                "ctaLabel",
+                "visual"
+              ]
+            },
+            "note": "The 592px (37rem) tab body fits at most four rows."
+          }
         },
-        "note": "The 592px (37rem) tab body fits at most four rows."
+        "required": [
+          "heading",
+          "intro",
+          "tabs"
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "subpage"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 17,
+            "note": "H2 in the left column (no max-width on subpages).",
+            "measuredLongestRealInstance": "13 words in the clone's own placeholder copy"
+          },
+          "intro": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 78,
+            "note": "Plain grey 18.4/25.76 paragraph, max 28rem, no inline links on any subpage. Omitted (null) on /lms/features/employee-experience and /lms/features/communication.",
+            "measuredLongestRealInstance": "62 words in the clone's own placeholder copy"
+          },
+          "tabs": {
+            "type": "array",
+            "minItems": 4,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 14,
+                  "note": "Desktop tab text (24/33.6); 1-word labels on /lms, short sentences on feature routes.",
+                  "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+                },
+                "shortLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 14,
+                  "note": "<=767 chip text (nowrap). Every subpage passes the same string as label.",
+                  "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+                },
+                "copy": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 68,
+                  "note": "Grey child copy under the tabs; one paragraph shared by all four tabs on every current subpage.",
+                  "measuredLongestRealInstance": "54 words in the clone's own placeholder copy"
+                },
+                "ctaLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 7,
+                  "note": "Dark button under the copy; same label on all four tabs ('Explore this feature →' on /lms, 'See it in action →' on feature routes).",
+                  "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+                },
+                "visual": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "product.screenshot",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "product.screenshot",
+                        "stock.photo",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "Pane product UI shot, labelled neutral placeholder 'Product UI <w>:<h>' (670:600 default; 1457:1305 on spaces, 670:385 on employee-experience / communication)."
+                }
+              },
+              "required": [
+                "label",
+                "shortLabel",
+                "copy",
+                "ctaLabel",
+                "visual"
+              ]
+            },
+            "maxItems": 4,
+            "note": "Exactly four tabs on every subpage instance."
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "tabs"
+        ],
+        "note": "Lms.jsx (TABS_A / TABS_B via productTabs()) and FeatureDetail.jsx (d.tabs + d.tabCopy). Section padding, inner padding, heading/intro column classes, body/child heights and paneAspect are contract-owned classNames."
       }
-    },
-    "required": [
-      "heading",
-      "intro",
-      "tabs"
     ]
   },
   "constraints": {
-    "onePerPage": true,
-    "maxPerPage": 1
+    "maxPerPage": 2,
+    "maxPerPageByVariant": {
+      "default": 1,
+      "subpage": 2
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
   },
   "motion": {
     "allowedPatterns": [
@@ -148,7 +272,11 @@
     "reducedMotionFallback": "instant-toggle",
     "measuredFrom": "src/index.css:48-55",
     "sourceImplementsReducedMotion": false,
-    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "alsoMeasuredFrom": [
+      "src/components/ProductTabs.jsx:6-107",
+      "src/index.css:65-70"
+    ]
   },
   "responsive": [
     {
@@ -156,46 +284,50 @@
       "query": "max-width: 991px",
       "changes": "Header row becomes a column, gap 24.",
       "tailwind": [
-        "tab:flex-col tab:items-start tab:gap-[24px]"
+        "tab:flex-col tab:items-start tab:gap-[1.5rem]"
       ],
-      "measuredFrom": "src/components/ProductTabs.jsx:45-45"
+      "measuredFrom": "src/components/ProductTabs.jsx:86-86",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "Header-to-body spacer 80 -> 64 (48 at <=767).",
       "tailwind": [
-        "h-[80px] tab:h-[64px] mob:h-[48px]"
+        "h-[5rem] tab:h-[4rem] mob:h-[3rem]"
       ],
-      "measuredFrom": "src/components/ProductTabs.jsx:59-59"
+      "measuredFrom": "src/components/ProductTabs.jsx:93-93",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Section bottom padding 0.",
       "tailwind": [
-        "py-[32px] mob:pb-0 xs:pb-[32px]"
+        "py-[2rem] mob:pb-0 xs:pb-[2rem]"
       ],
-      "measuredFrom": "src/components/ProductTabs.jsx:41-41"
+      "measuredFrom": "src/components/ProductTabs.jsx:58-58",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Tab body height auto.",
       "tailwind": [
-        "h-[592px]",
-        "mob:h-auto"
+        "h-[37rem]"
       ],
-      "measuredFrom": "src/components/ProductTabs.jsx:62-62"
+      "measuredFrom": "src/components/ProductTabs.jsx:62-62",
+      "reCited": "re-cited; 1 of 2 classes no longer exist in current source and were dropped"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Tab list becomes wrapped chips, gap 24, margin-bottom 48.",
       "tailwind": [
-        "mob:mb-[48px] mob:flex-row mob:flex-wrap mob:gap-[24px]"
+        "mob:mb-[3rem] mob:flex-row mob:flex-wrap mob:gap-[1.5rem]"
       ],
-      "measuredFrom": "src/components/ProductTabs.jsx:64-64"
+      "measuredFrom": "src/components/ProductTabs.jsx:98-98",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "mob",
@@ -204,7 +336,8 @@
       "tailwind": [
         "mob:hidden"
       ],
-      "measuredFrom": "src/components/ProductTabs.jsx:78-78"
+      "measuredFrom": "src/components/ProductTabs.jsx:112-112",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "mob",
@@ -213,34 +346,38 @@
       "tailwind": [
         "hidden mob:inline"
       ],
-      "measuredFrom": "src/components/ProductTabs.jsx:79-79"
+      "measuredFrom": "src/components/ProductTabs.jsx:113-113",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Pane becomes relative, full width, 60dvh, no bleed.",
       "tailwind": [
-        "mob:relative mob:m-0 mob:mb-[48px] mob:h-[60dvh] mob:w-full"
+        "mob:relative mob:m-0 mob:mb-[3rem] mob:h-[60dvh] mob:w-full"
       ],
-      "measuredFrom": "src/components/ProductTabs.jsx:86-86"
+      "measuredFrom": "src/components/ProductTabs.jsx:120-120",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Child copy full width, 14rem tall.",
       "tailwind": [
-        "mob:h-[14rem] mob:w-full"
+        "mob:w-full"
       ],
-      "measuredFrom": "src/components/ProductTabs.jsx:96-96"
+      "measuredFrom": "src/components/ProductTabs.jsx:97-97",
+      "reCited": "re-cited; 1 of 2 classes no longer exist in current source and were dropped"
     },
     {
       "breakpoint": "xs",
       "query": "max-width: 479px",
       "changes": "Section bottom padding back to 32.",
       "tailwind": [
-        "xs:pb-[32px]"
+        "xs:pb-[2rem]"
       ],
-      "measuredFrom": "src/components/ProductTabs.jsx:41-41"
+      "measuredFrom": "src/components/ProductTabs.jsx:58-58",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "xs",
@@ -249,12 +386,14 @@
       "tailwind": [
         "xs:h-[40dvh]"
       ],
-      "measuredFrom": "src/components/ProductTabs.jsx:86-86"
+      "measuredFrom": "src/components/ProductTabs.jsx:120-120",
+      "reCited": "re-cited against current source"
     }
   ],
   "assetRoles": [
+    "placeholder.neutral",
     "product.screenshot",
-    "placeholder.neutral"
+    "stock.photo"
   ],
   "composes": [
     "primitive.heading-h2",
@@ -265,17 +404,48 @@
   ],
   "compatibility": {
     "recommendedAfter": [
+      "product.autotabs-group",
       "proof.logo-row"
     ],
     "recommendedBefore": [
-      "product.assistant-tabs"
+      "conversion.cta-strip",
+      "product.assistant-tabs",
+      "proof.testimonial-quote"
     ],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
-    "/"
+    "/",
+    "/lms",
+    "/lms/features/ai-content-creator",
+    "/lms/features/chat",
+    "/lms/features/communication",
+    "/lms/features/employee-assessment-software",
+    "/lms/features/employee-experience",
+    "/lms/features/employee-performance-management-software",
+    "/lms/features/learning-pathways",
+    "/lms/features/lms-admin",
+    "/lms/features/lms-analytics",
+    "/lms/features/lms-gamification",
+    "/lms/features/lms-homepage",
+    "/lms/features/lms-rewards",
+    "/lms/features/lms-security",
+    "/lms/features/mcp",
+    "/lms/features/mobile-lms",
+    "/lms/features/skills",
+    "/lms/features/spaces"
   ],
   "measuredFrom": "src/components/ProductTabs.jsx:37-115",
   "iaSectionId": "product.feature-tabs",
-  "specMeasuredFrom": "CLONE_SPEC.md:215-248"
+  "specMeasuredFrom": "CLONE_SPEC.md:215-248",
+  "subpageUsage": "Same ProductTabs component as the homepage, configured by props (no explicit `variant` prop). Subpage instances (.wow-customs-homepage) differ in content shape: the intro is plain grey text with no inline links, and is null on two feature routes (an empty 28rem column keeps the heading width); there are always exactly four tabs whose mobile chip text equals the desktop label; the tab copy is one shared paragraph for all four tabs on most pages; the CTA is a constant per page. Layout matches the homepage: H2 left / intro right (stacked <=991), a 37rem tab body with the 60% pane bleeding -10vw right at >=768, and at <=767 a nowrap chip row, the pane (60dvh, 40dvh <=479) then the copy. Used twice on /lms (two instances back to back) and once on each of the 17 /lms/features/* routes (FeatureDetail.jsx, per-route copy from featureDetailData.js).",
+  "evidenceNotes": [
+    "No `variant` prop exists on ProductTabs; the subpage branch is a set of prop overrides. The `variant: \"subpage\"` const is a contract discriminator only.",
+    "Longest real instances: heading 13 words (/lms TABS_B instance), intro 62 words (/lms/features/skills), tab label 11 words (/lms/features/employee-performance-management-software), copy 54 words (/lms/features/mcp).",
+    "featureDetailData.js allows a per-tab copy override ([label, copy]) but no route uses it; every tab falls back to d.tabCopy.",
+    "On the feature routes the full sentence label is also the <=767 nowrap chip, so the chip row overflows and is clipped by the page's overflow-x-clip wrapper (FeatureDetail.jsx comment)."
+  ],
+  "variants": [
+    "subpage"
+  ]
 }

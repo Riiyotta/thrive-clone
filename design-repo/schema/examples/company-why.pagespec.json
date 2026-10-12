@@ -1,0 +1,889 @@
+{
+  "pageSpecVersion": "1.0.0",
+  "route": "/company/why-nimbus",
+  "template": "company-why",
+  "designSystem": "marketing",
+  "theme": "nimbus-dark",
+  "nodes": [
+    {
+      "section": "shell.nav",
+      "content": {
+        "menus": [
+          {
+            "label": "Platform",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Solutions",
+                "items": [
+                  {
+                    "title": "Learning home",
+                    "desc": "One place for all learning"
+                  },
+                  {
+                    "title": "Skill journeys",
+                    "desc": "Guided paths that build skills"
+                  },
+                  {
+                    "title": "Peer mentoring",
+                    "desc": "Match people who can help"
+                  },
+                  {
+                    "title": "Team spaces",
+                    "desc": "Communities around topics"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "More",
+                "items": [
+                  {
+                    "title": "Integrations",
+                    "desc": "Connect the tools you use"
+                  },
+                  {
+                    "title": "Security",
+                    "desc": "How we keep data safe"
+                  },
+                  {
+                    "title": "Analytics",
+                    "desc": "See what moves the needle"
+                  },
+                  {
+                    "title": "What's new",
+                    "desc": "Fresh features this season"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Features",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Experience",
+                "items": [
+                  {
+                    "title": "Home feed"
+                  },
+                  {
+                    "title": "Search"
+                  },
+                  {
+                    "title": "Mobile app"
+                  },
+                  {
+                    "title": "Notifications"
+                  },
+                  {
+                    "title": "Profiles"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Learning",
+                "items": [
+                  {
+                    "title": "Courses"
+                  },
+                  {
+                    "title": "Pathways"
+                  },
+                  {
+                    "title": "Assessments"
+                  },
+                  {
+                    "title": "Events"
+                  },
+                  {
+                    "title": "Certificates"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Admin",
+                "items": [
+                  {
+                    "title": "Reporting"
+                  },
+                  {
+                    "title": "Automations"
+                  },
+                  {
+                    "title": "User groups"
+                  },
+                  {
+                    "title": "Branding"
+                  },
+                  {
+                    "title": "Permissions"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Content",
+            "columns": [
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Course library",
+                    "desc": "Ready-made courses"
+                  },
+                  {
+                    "title": "Authoring",
+                    "desc": "Build your own in minutes"
+                  },
+                  {
+                    "title": "Compliance packs",
+                    "desc": "Required training, sorted"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Content partners",
+                    "desc": "Bring in third-party catalogs"
+                  },
+                  {
+                    "title": "Custom content",
+                    "desc": "Made-to-order by our studio"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Case Studies",
+            "columns": [
+              {
+                "kind": "customers",
+                "headerLink": "Platform",
+                "customers": [
+                  {
+                    "name": "Customer one",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer two",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer three",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer four",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer five",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "customers",
+                "headerLink": "Content",
+                "customers": [
+                  {
+                    "name": "Customer six",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer seven",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer eight",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer nine",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer ten",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Learn",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "About",
+                "items": [
+                  {
+                    "title": "Our story",
+                    "desc": "Why we started Nimbus"
+                  },
+                  {
+                    "title": "What you get",
+                    "desc": "Everything in every plan"
+                  },
+                  {
+                    "title": "Careers",
+                    "desc": "Come work with us"
+                  },
+                  {
+                    "title": "Contact",
+                    "desc": "Get in touch with sales"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Resources",
+                "items": [
+                  {
+                    "title": "Events",
+                    "desc": "Live and recorded talks"
+                  },
+                  {
+                    "title": "Blog",
+                    "desc": "Ideas on workplace learning"
+                  },
+                  {
+                    "title": "Guides",
+                    "desc": "Practical how-to playbooks"
+                  },
+                  {
+                    "title": "Glossary",
+                    "desc": "Terms every team uses"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "aiLinkLabel": "Ask why teams choose Nimbus",
+        "ctaLabel": "Book a demo→"
+      },
+      "motion": {
+        "pattern": "nav.hoverMenus",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "hover",
+        "durationMs": 250,
+        "easing": "outQuart"
+      }
+    },
+    {
+      "section": "hero.wow-content",
+      "content": {
+        "variant": "why",
+        "avatars": {
+          "assetRole": "placeholder.neutral"
+        },
+        "trustLine": "Loved by 4 million learners across 50+ countries",
+        "title": "Why should your tools\nstop at learning?",
+        "paragraph": "AI where it helps. Human where it counts. Everything your people need to learn, connect and grow, all in one place.\n\nThat's why teams trust Nimbus.",
+        "quote": {
+          "quote": "\"It never feels like we're just another client.\nWe're on their journey, and they're on ours. Nothing is ever too much.\"",
+          "name": "Jordan Ellis",
+          "role": "Head of Learning and Development,",
+          "org": "Fabrik",
+          "avatar": {
+            "assetRole": "placeholder.neutral"
+          }
+        },
+        "badges": {
+          "assetRole": "placeholder.neutral",
+          "slotCount": 3
+        },
+        "buttonLabel": "See for yourself →",
+        "visual": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Platform overview"
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "proof.logo-row",
+      "content": {
+        "variant": "subpage",
+        "heading": "Used every day at",
+        "headingPlacement": "inside",
+        "logos": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Logo",
+          "slotCount": 6
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "product.why-assistant-tabs",
+      "content": {
+        "heading": {
+          "text": "The friendly assistant your team keeps asking for",
+          "linkPhrases": [],
+          "boldPhrases": [
+            "asking for"
+          ]
+        },
+        "intro": "Flexible and built around how your people already work, Nova answers questions, finds the right resource and nudges every learner forward, so managers spend less time chasing updates and teams spend more time learning together.",
+        "headerButtonLabel": "Meet Nova →",
+        "slides": [
+          {
+            "tab": "Guide",
+            "highlight": "Coaching that really grows people.",
+            "subdued": "Guidance in the flow of work, with prompts, check-ins and honest feedback that adapt to each person, so growth keeps moving even when managers are busy with everything else on their plate this week.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Product video 1:1"
+            }
+          },
+          {
+            "tab": "Builder",
+            "highlight": "Great content, ready in minutes.",
+            "subdued": "An extra designer on the team, turning rough notes, long documents and half-formed ideas into polished learning that people actually want to finish this week.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Product video 1:1"
+            }
+          },
+          {
+            "tab": "Analyst",
+            "highlight": "Skip the dashboards and just ask.",
+            "subdued": "Nova spots gaps, trends and risks across all of your learning data, then explains what it found in plain words that anyone on the team can act on right away.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Product video 1:1"
+            }
+          },
+          {
+            "tab": "Admin",
+            "highlight": "Housekeeping that quietly happens in the background.",
+            "subdued": "Tidy old content, fix broken links and keep every pathway current, so your platform stays fresh without hours of manual clean-up each month, and all of your teams always see what is new.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Product video 1:1"
+            }
+          },
+          {
+            "tab": "Assistant",
+            "highlight": "One place for every answer.",
+            "subdued": "Nova searches all your courses, documents, people and conversations at once, then gives one clear answer with links to every source, so nobody has to dig through old folders or wait around.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Product video 1:1"
+            }
+          }
+        ],
+        "splitHeading": "The next era of learning",
+        "quote": {
+          "quote": "“We needed a platform that could grow with us and keep our people engaged from the very first day. Nimbus gave us all of that and more, with a team that listens closely and a product that keeps on improving every single month for all of our people.”",
+          "name": "Casey Morgan",
+          "role": "Chief Product and Marketing Officer,",
+          "org": "Northwind"
+        },
+        "tabs": [
+          {
+            "label": "Hub",
+            "copy": "Bring your tools together in one place, so people find learning, news and help without switching between apps all day long or losing track of what matters most to them.",
+            "ctaLabel": "Book a demo",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Hub screen"
+            }
+          },
+          {
+            "label": "Mentors",
+            "copy": "Give every team its own space to share updates, celebrate wins and learn from each other in the open.",
+            "ctaLabel": "Book a demo",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Mentors screen"
+            }
+          },
+          {
+            "label": "Spaces",
+            "copy": "See the skills your people have today and the ones they need next, then build pathways that close the gap.",
+            "ctaLabel": "Book a demo",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Spaces screen"
+            }
+          },
+          {
+            "label": "People Search",
+            "copy": "Turn activity into answers with reports that show what is working and where to focus your effort next.",
+            "ctaLabel": "Book a demo",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "People Search screen"
+            }
+          }
+        ],
+        "results": {
+          "heading": {
+            "text": "What could your people achieve?",
+            "linkPhrases": [],
+            "boldPhrases": [
+              "achieve?"
+            ]
+          },
+          "lead": "Real outcomes from real teams who chose Nimbus to power their learning every day.",
+          "cards": [
+            {
+              "stat": "1.5x",
+              "brand": "Customer one",
+              "rest": "faster onboarding for new starters at",
+              "after": "across all of their stores",
+              "logo": {
+                "assetRole": "placeholder.neutral",
+                "placeholderLabel": "Customer one"
+              }
+            },
+            {
+              "stat": "8.2%",
+              "brand": "Customer two",
+              "rest": "increase in sales for",
+              "after": "after launching new product learning in every region",
+              "logo": {
+                "assetRole": "placeholder.neutral",
+                "placeholderLabel": "Customer two"
+              }
+            },
+            {
+              "stat": "50%",
+              "brand": "Customer three",
+              "rest": "less time spent on administration at",
+              "after": "this year after switching",
+              "logo": {
+                "assetRole": "placeholder.neutral",
+                "placeholderLabel": "Customer three"
+              }
+            },
+            {
+              "stat": "150%",
+              "brand": "Customer four",
+              "rest": "more active learners at",
+              "after": "within six months of launching the new platform",
+              "logo": {
+                "assetRole": "placeholder.neutral",
+                "placeholderLabel": "Customer four"
+              }
+            }
+          ]
+        },
+        "closingQuote": {
+          "quote": "“What really stood out was how quickly people took to it. Within weeks our teams were sharing, learning and helping each other in ways we had always hoped for but never quite managed before, and the results followed.”",
+          "name": "Jordan Ellis",
+          "role": "Operational Learning and Development at",
+          "org": "Northwind Building Group"
+        },
+        "ctaLabel": "Book a demo today →"
+      },
+      "motion": {
+        "pattern": "carousel.dragLoop",
+        "reducedMotionFallback": "instant-slide-change"
+      }
+    },
+    {
+      "section": "product.wow-bento",
+      "content": {
+        "variant": "why",
+        "title": "Built hand in hand with the people who use it",
+        "paragraph": "Nimbus is shaped by the teams who use it every day. Customer councils, open roadmaps and regular feedback sessions mean every release solves a real problem for real people.",
+        "ctaLabel": "Book a demo",
+        "quote": {
+          "quote": "“One of the things that really sets Nimbus apart is how closely they listen. Our ideas show up in the product, and the whole team treats us like partners rather than customers.”",
+          "name": "Jordan Ellis",
+          "role": "Learning and Development Lead,",
+          "org": "Northwind Hotels",
+          "avatar": {
+            "assetRole": "placeholder.neutral"
+          }
+        },
+        "eventPhoto": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Event photo"
+        },
+        "teamPhoto": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Team photo"
+        },
+        "caption": "We don’t just hand you a platform. We build it with you, listen to your feedback and keep improving it together.",
+        "awardsText": "Nimbus is recognised by leading industry awards for innovation, employee experience, product design and the quality of our long-term customer partnerships with teams all around the world.",
+        "awards": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Award",
+          "slotCount": 4
+        },
+        "closing": {
+          "quote": "“We have had people telling us this is the best learning experience they have ever had at work. That says it all about how much care and effort goes into making every part of Nimbus feel this good.”",
+          "name": "Sam Rivera",
+          "role": "Learning & Development Manager,",
+          "org": "Contoso",
+          "avatar": {
+            "assetRole": "placeholder.neutral"
+          }
+        }
+      },
+      "motion": {
+        "pattern": "scroll.revealOnce",
+        "reducedMotionFallback": "instant-final-state"
+      }
+    },
+    {
+      "section": "conversion.why-cta",
+      "content": {
+        "heading": "Time to find out what Nimbus can do for you",
+        "buttonLabel": "Book a demo"
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "proof.case-study-carousel",
+      "content": {
+        "variant": "subpage",
+        "eyebrow": "Results",
+        "heading": "Real learning results",
+        "intro": "More than five hundred organisations use Nimbus to build skills, share knowledge and keep their people learning every week.",
+        "slides": [
+          {
+            "photo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Brand photo 16:9"
+            },
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "text": "Customer one adds new revenue by training its partners on one platform",
+            "ctaLabel": "Read more",
+            "stats": [
+              {
+                "value": "100%",
+                "label": "Adoption within four months"
+              },
+              {
+                "value": "21K",
+                "label": "Course views"
+              }
+            ]
+          },
+          {
+            "photo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Brand photo 16:9"
+            },
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "text": "Customer two speeds up onboarding for every new hire",
+            "ctaLabel": "Read more",
+            "stats": [
+              {
+                "value": "120,000",
+                "label": "Course views since launch"
+              },
+              {
+                "value": "80%",
+                "label": "Monthly active user reach"
+              }
+            ]
+          },
+          {
+            "photo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Brand photo 16:9"
+            },
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "text": "Customer three uses Nimbus to move its training online",
+            "ctaLabel": "Read more",
+            "stats": [
+              {
+                "value": "4",
+                "label": "Languages live on the platform"
+              },
+              {
+                "value": "78%",
+                "label": "Adoption within the first six weeks"
+              }
+            ]
+          },
+          {
+            "photo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Brand photo 16:9"
+            },
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "text": "Driving growth and performance at Customer four",
+            "ctaLabel": "Read more",
+            "stats": [
+              {
+                "value": "75%",
+                "label": "Customer growth in the very first year"
+              },
+              {
+                "value": "500k+",
+                "label": "Platform views in three months"
+              }
+            ]
+          },
+          {
+            "photo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Brand photo 16:9"
+            },
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "text": "Building a global learning culture at Customer five",
+            "ctaLabel": "Read more",
+            "stats": [
+              {
+                "value": "50%",
+                "label": "Lift in employee engagement"
+              },
+              {
+                "value": "90%",
+                "label": "Training completion rate"
+              }
+            ]
+          },
+          {
+            "photo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Brand photo 16:9"
+            },
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "text": "Customer six gives its learning team the tools to grow skills across every single location",
+            "ctaLabel": "Read more",
+            "stats": [
+              {
+                "value": "70%",
+                "label": "Engagement lifted across sites"
+              },
+              {
+                "value": "50%",
+                "label": "Onboarding time reduced"
+              }
+            ]
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "carousel.centeredAutoplay",
+        "reducedMotionFallback": "autoplay-off-instant-slide-change"
+      }
+    },
+    {
+      "section": "conversion.faq",
+      "content": {
+        "variant": "subpage",
+        "heading": "Frequently asked questions",
+        "items": [
+          {
+            "question": "What are spaces in Nimbus?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          },
+          {
+            "question": "How are spaces different from team chat?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          },
+          {
+            "question": "How do spaces compare with other social intranet tools for teams?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "accordion.faq",
+        "reducedMotionFallback": "instant-toggle"
+      }
+    },
+    {
+      "section": "conversion.demo-cta",
+      "content": {
+        "heading": "Give your team a home for real growth",
+        "headingEmphasis": "for real growth",
+        "body": "Bring your questions and we will walk you through the platform, the content and the results teams like yours see.",
+        "ctaLabel": "Let’s talk"
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "shell.footer",
+      "content": {
+        "aiPrompt": "Want another view?",
+        "aiLinks": {
+          "assetRole": "logo.aiVendor",
+          "slotCount": 4
+        },
+        "columns": [
+          {
+            "header": "Platform",
+            "headerIsLink": true,
+            "links": [
+              "Learning home",
+              "Skill journeys",
+              "Peer mentoring",
+              "Team spaces",
+              "Analytics",
+              "Integrations"
+            ],
+            "buttonLabel": "See it in action →"
+          },
+          {
+            "header": "Content",
+            "headerIsLink": true,
+            "links": [
+              "Course library",
+              "Authoring",
+              "Compliance packs",
+              "Content partners"
+            ],
+            "buttonLabel": "Browse content →"
+          },
+          {
+            "header": "Case Studies",
+            "headerIsLink": true,
+            "links": [
+              "Northwind",
+              "Brightway",
+              "Kestrel Co",
+              "Harbor Foods",
+              "All stories"
+            ]
+          },
+          {
+            "header": "Resources",
+            "headerIsLink": false,
+            "links": [
+              "Blog",
+              "Guides",
+              "Webinars",
+              "Help centre",
+              "Events",
+              "Glossary"
+            ]
+          }
+        ],
+        "ratingBadges": {
+          "assetRole": "badge.review",
+          "slotCount": 2,
+          "alt": "Rating badge"
+        },
+        "awardBadges": {
+          "assetRole": "badge.award",
+          "slotCount": 4,
+          "alt": "Award badge"
+        },
+        "complianceLine": {
+          "text": "Nimbus is independently audited, meets accessibility standards, supports teams in over forty languages and follows regional data rules in every market.",
+          "linkPhrases": [
+            "independently audited",
+            "accessibility standards",
+            "regional data rules"
+          ]
+        },
+        "copyright": "© 2026 Nimbus Learning",
+        "legalLinks": [
+          "Trust Centre",
+          "Website Cookies & Policy"
+        ],
+        "dropups": [
+          {
+            "label": "Terms and Conditions",
+            "links": [
+              "Customer terms",
+              "Acceptable use",
+              "Service levels",
+              "Support policy",
+              "Partner terms"
+            ]
+          },
+          {
+            "label": "Privacy Policy",
+            "links": [
+              "Privacy notice",
+              "Data processing",
+              "Sub-processors",
+              "Retention",
+              "Candidate privacy",
+              "Accessibility"
+            ]
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "footer.dropup",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "click",
+        "durationMs": 200,
+        "easing": "ease"
+      }
+    }
+  ]
+}

@@ -1,0 +1,382 @@
+{
+  "id": "index.blog-filter",
+  "kind": "section",
+  "name": "Blog filter and post grid",
+  "purpose": "Lets a reader browse every blog and news post, narrowing by category and sorting by date, and load more as they go.",
+  "category": "index",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/BlogFilter.jsx",
+  "description": "Hairline-bordered block on the legacy \"green\" theme. Left 20%: sticky \"Filter by category\" checkbox list (2-column grid at 991 and below, wrapping row at 479). Right 80%: a header row \"Showing N articles out of M\" with a Sort by dropdown (newest / oldest), a 2-column grid (1 at 479) of post cards (image, serif title, date and read-time pills) and a \"Load more\" pill that reveals 20 more. Client-side filtering, OR across ticked categories.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "filterLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "categories": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 5,
+          "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+        },
+        "maxItems": 18
+      },
+      "noun": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 1,
+        "note": "Plural noun in \"Showing N <noun> out of M\".",
+        "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+      },
+      "posts": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 21,
+              "measuredLongestRealInstance": "17 words in the clone's own placeholder copy"
+            },
+            "category": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "note": "One of `categories`.",
+              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+            },
+            "date": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 4,
+              "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+            },
+            "readTime": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+            },
+            "image": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "placeholder.neutral",
+                "photo.brand",
+                "product.screenshot",
+                "stock.photo"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "placeholder.neutral",
+                    "photo.brand",
+                    "product.screenshot",
+                    "stock.photo"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ]
+            }
+          },
+          "required": [
+            "title",
+            "category",
+            "date",
+            "readTime",
+            "image"
+          ]
+        },
+        "maxItems": 249,
+        "note": "The live list had 249 posts; 20 per page."
+      }
+    },
+    "required": [
+      "filterLabel",
+      "categories",
+      "noun",
+      "posts"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/BlogFilter.jsx:154-174",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; card background .24s on hover, Load more pill hover .3s; the sort dropdown opens instantly on click. The sidebar is CSS-sticky."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "typography"
+      ],
+      "changes": "px-[0.75rem] -> tab:px-[0.625rem]; py-[0.325rem] -> tab:py-[0.425rem]; text-[0.875rem] -> tab:text-[0.725rem]; mb-[0.75rem] -> xs:mb-[0.25rem]; leading-[1.4] -> xs:leading-none",
+      "tailwind": [
+        "tab:px-[0.625rem] tab:py-[0.425rem] tab:text-[0.725rem] xs:mb-[0.25rem] xs:leading-none"
+      ],
+      "measuredFrom": "src/components/sections/BlogFilter.jsx:41-41",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "other",
+        "spacing"
+      ],
+      "changes": "tab:border-r; tab:pl-[1.5rem] -> xs:pl-[1rem]; xs:pr-[calc(1rem+14px)]",
+      "tailwind": [
+        "tab:border-r tab:pl-[1.5rem] xs:pl-[1rem] xs:pr-[calc(1rem+14px)]"
+      ],
+      "measuredFrom": "src/components/sections/BlogFilter.jsx:49-49",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "xs:w-full",
+      "tailwind": [
+        "xs:w-full"
+      ],
+      "measuredFrom": "src/components/sections/BlogFilter.jsx:69-69",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "tab:flex-col; tab:items-stretch",
+      "tailwind": [
+        "tab:flex-col tab:items-stretch"
+      ],
+      "measuredFrom": "src/components/sections/BlogFilter.jsx:115-115",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "layout",
+        "sizing"
+      ],
+      "changes": "tab:relative; w-[20%] -> tab:w-full",
+      "tailwind": [
+        "tab:relative tab:w-full"
+      ],
+      "measuredFrom": "src/components/sections/BlogFilter.jsx:116-116",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing",
+        "sizing"
+      ],
+      "changes": "tab:px-[1.5rem]; min-h-[7.5rem] -> mob:min-h-[5rem]; mob:py-[1.5rem]",
+      "tailwind": [
+        "tab:px-[1.5rem] mob:min-h-[5rem] mob:py-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/BlogFilter.jsx:119-119",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "tab:grid; tab:grid-cols-2; flex -> xs:flex; xs:flex-row; xs:flex-wrap",
+      "tailwind": [
+        "tab:grid tab:grid-cols-2 xs:flex xs:flex-row xs:flex-wrap"
+      ],
+      "measuredFrom": "src/components/sections/BlogFilter.jsx:123-123",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "xs",
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "other"
+      ],
+      "changes": "xs:flex-[1.25_1_auto]; mob:last:border-b -> mob:last:border-[var(--th-border)]",
+      "tailwind": [
+        "xs:flex-[1.25_1_auto] mob:last:border-b mob:last:border-[var(--th-border)]"
+      ],
+      "measuredFrom": "src/components/sections/BlogFilter.jsx:125-125",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-[80%] -> tab:w-full",
+      "tailwind": [
+        "tab:w-full"
+      ],
+      "measuredFrom": "src/components/sections/BlogFilter.jsx:134-134",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "sizing",
+        "layout"
+      ],
+      "changes": "tab:px-[1.5rem]; min-h-[7.5rem] -> mob:min-h-[5rem]; mob:py-[1.5rem]; xs:flex-col; xs:items-start; xs:gap-y-[1rem]; p-[2.5rem] -> xs:p-[1rem]",
+      "tailwind": [
+        "tab:px-[1.5rem] mob:min-h-[5rem] mob:py-[1.5rem] xs:flex-col xs:items-start xs:gap-y-[1rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/BlogFilter.jsx:135-135",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-2 -> xs:grid-cols-1",
+      "tailwind": [
+        "xs:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/BlogFilter.jsx:149-149",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[15rem] -> tab:h-[12rem] -> xs:h-[10rem]",
+      "tailwind": [
+        "tab:h-[12rem] xs:h-[10rem]"
+      ],
+      "measuredFrom": "src/components/sections/BlogFilter.jsx:156-156",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media",
+    "primitive.eyebrow",
+    "primitive.legacy-theme"
+  ],
+  "measuredFrom": "src/components/sections/BlogFilter.jsx:97-188",
+  "iaSectionId": "index.blog-filter",
+  "evidenceNotes": [
+    "Post dates/read times are computed in DEFAULT_POSTS (BlogFilter.jsx); the sample re-evaluates that exact expression. The page overrides the first 20 titles (FIRST_PAGE_TITLES).",
+    "The sort labels (\"Date (newest first)\" / \"Date (oldest first)\"), \"Sort by\", \"Load more\" and the empty-state line are hardcoded in the component (not props), so they are contract-owned and not modelled. On the only route it follows BlogFeatured (page order only).",
+    "Post image role is not certain from code (Placeholder \"Post image\"); allowed photo.brand and product.screenshot alongside neutral."
+  ],
+  "observedOn": [
+    "/resources/blog-and-news"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "index.blog-featured"
+    ],
+    "recommendedBefore": [
+      "conversion.demo-cta"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.brand",
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ]
+}

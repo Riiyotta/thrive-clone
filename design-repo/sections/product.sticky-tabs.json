@@ -1,0 +1,624 @@
+{
+  "id": "product.sticky-tabs",
+  "kind": "section",
+  "name": "Sticky anchor tabs over autotab panels",
+  "purpose": "Lets visitors jump between the main solution/feature areas of a long page via a sticky anchor bar, each area presenting its sub-capabilities in a tabbed slider.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/StickyTabs.jsx",
+  "description": "One component with a `variant` prop: 'solutions' (/lms/solutions) and 'features' (/lms/features). A sticky (top 0, z 999) bar of equal anchor pills (green when its panel is in view, scroll-spy) sits over a stack of panels; each panel is a header plus a tab row ABOVE a loop slider whose slides hold one paragraph, a fixed primary button ('Learn more' on solutions, 'Explore' on features) and a clipped product shot. 'solutions' headers are eyebrow + H4-style heading + paragraph beside a bordered stat card (40%); its bar sits in a 45.25rem container and its 5th anchor targets the sector-tabs block further down. 'features' headers are eyebrow / title / paragraph, bar in container-medium. <=767 the anchor bar and tab rows scroll horizontally (200px pills, 150px at <=479) and the stat card stacks under the copy.",
+  "content": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "solutions"
+          },
+          "navLabels": {
+            "type": "array",
+            "minItems": 4,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 2,
+              "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+            },
+            "maxItems": 6,
+            "note": "anchor bar pill labels"
+          },
+          "panels": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "eyebrow": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 5,
+                  "note": "eyebrow chip",
+                  "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                },
+                "heading": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 12,
+                  "note": "2rem panel heading",
+                  "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+                },
+                "body": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 40,
+                      "measuredLongestRealInstance": "32 words in the clone's own placeholder copy"
+                    },
+                    "linkPhrases": {
+                      "type": "array",
+                      "minItems": 0,
+                      "maxItems": 1,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 18
+                      },
+                      "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                    }
+                  },
+                  "required": [
+                    "text",
+                    "linkPhrases"
+                  ],
+                  "x-richText": true,
+                  "note": "grey paragraph, optional inline link"
+                },
+                "stat": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 3,
+                  "note": "big green stat in the bordered card",
+                  "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                },
+                "statBody": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 23,
+                      "measuredLongestRealInstance": "18 words in the clone's own placeholder copy"
+                    },
+                    "linkPhrases": {
+                      "type": "array",
+                      "minItems": 0,
+                      "maxItems": 1,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 18
+                      },
+                      "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                    }
+                  },
+                  "required": [
+                    "text",
+                    "linkPhrases"
+                  ],
+                  "x-richText": true,
+                  "note": "stat explanation; customer name usually the inline link"
+                },
+                "tabs": {
+                  "type": "array",
+                  "minItems": 3,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "tab": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 4,
+                        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                      },
+                      "text": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 29,
+                        "note": "slide paragraph beside the fixed \"Learn more\" button",
+                        "measuredLongestRealInstance": "23 words in the clone's own placeholder copy"
+                      },
+                      "media": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "x-allowedRoles": [
+                          "product.screenshot",
+                          "stock.photo",
+                          "placeholder.neutral"
+                        ],
+                        "properties": {
+                          "assetRole": {
+                            "enum": [
+                              "product.screenshot",
+                              "stock.photo",
+                              "placeholder.neutral"
+                            ]
+                          },
+                          "placeholderLabel": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 6,
+                            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                          },
+                          "alt": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 10
+                          },
+                          "assetRef": {
+                            "type": "string",
+                            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                          }
+                        },
+                        "required": [
+                          "assetRole"
+                        ],
+                        "note": "clipped product shot (Placeholder \"<tab> product shot\")"
+                      }
+                    },
+                    "required": [
+                      "tab",
+                      "text",
+                      "media"
+                    ]
+                  },
+                  "maxItems": 6
+                }
+              },
+              "required": [
+                "eyebrow",
+                "heading",
+                "body",
+                "stat",
+                "statBody",
+                "tabs"
+              ]
+            },
+            "maxItems": 5
+          }
+        },
+        "required": [
+          "variant",
+          "navLabels",
+          "panels"
+        ],
+        "note": "/lms/solutions. Nav labels map 1:1 to panels except the last, which jumps to the sector-tabs (industries) section."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "features"
+          },
+          "navLabels": {
+            "type": "array",
+            "minItems": 5,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 4,
+              "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+            },
+            "maxItems": 7,
+            "note": "anchor bar pill labels, one per panel"
+          },
+          "panels": {
+            "type": "array",
+            "minItems": 5,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "eyebrow": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 4,
+                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10,
+                  "note": "24px panel title",
+                  "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+                },
+                "body": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 44,
+                      "measuredLongestRealInstance": "35 words in the clone's own placeholder copy"
+                    },
+                    "linkPhrases": {
+                      "type": "array",
+                      "minItems": 0,
+                      "maxItems": 1,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 18
+                      },
+                      "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                    }
+                  },
+                  "required": [
+                    "text",
+                    "linkPhrases"
+                  ],
+                  "x-richText": true,
+                  "note": "grey paragraph; customer names as the inline link"
+                },
+                "tabs": {
+                  "type": "array",
+                  "minItems": 3,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "tab": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 3,
+                        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                      },
+                      "text": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 40,
+                        "note": "slide paragraph beside the fixed \"Explore\" button",
+                        "measuredLongestRealInstance": "32 words in the clone's own placeholder copy"
+                      },
+                      "media": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "x-allowedRoles": [
+                          "product.screenshot",
+                          "stock.photo",
+                          "placeholder.neutral"
+                        ],
+                        "properties": {
+                          "assetRole": {
+                            "enum": [
+                              "product.screenshot",
+                              "stock.photo",
+                              "placeholder.neutral"
+                            ]
+                          },
+                          "placeholderLabel": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 6,
+                            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                          },
+                          "alt": {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxWords": 10
+                          },
+                          "assetRef": {
+                            "type": "string",
+                            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                          }
+                        },
+                        "required": [
+                          "assetRole"
+                        ],
+                        "note": "tall clipped product shot"
+                      }
+                    },
+                    "required": [
+                      "tab",
+                      "text",
+                      "media"
+                    ]
+                  },
+                  "maxItems": 6
+                }
+              },
+              "required": [
+                "eyebrow",
+                "title",
+                "body",
+                "tabs"
+              ]
+            },
+            "maxItems": 7
+          }
+        },
+        "required": [
+          "variant",
+          "navLabels",
+          "panels"
+        ],
+        "note": "/lms/features (fixed 16px root). Page passes its own panels (same headers as the defaults, slide copy resized)."
+      }
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "features": 1,
+      "solutions": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "sticky.anchorTabs",
+      "carousel.dragLoop"
+    ],
+    "reducedMotionFallback": "instant-slide-change",
+    "measuredFrom": "src/components/sections/StickyTabs.jsx:144-149",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "Anchor click: rAF smooth scroll to the panel top, duration 472.143*ln(|d|+125)-2000 ms, easeInOutCubic. Scroll-spy toggles the green current pill (colour transition all .25s ease, same on hover). Each panel slider is a useLoopCarousel loop: 800ms ease on tab click or drag, no autoplay.",
+    "alsoMeasuredFrom": [
+      "src/components/sections/StickyTabs.jsx:156-237",
+      "src/components/sections/StickyTabs.jsx:322-322"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:167-167",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "mob:text-xlarge-mob",
+      "tailwind": [
+        "mob:text-xlarge-mob"
+      ],
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:172-172",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-[40%] -> mob:w-full",
+      "tailwind": [
+        "mob:w-full"
+      ],
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:186-186",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "other"
+      ],
+      "changes": "mob:flex-wrap; mob:items-center; mob:justify-start; mob:overflow-auto",
+      "tailwind": [
+        "mob:flex-wrap mob:items-center mob:justify-start mob:overflow-auto"
+      ],
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:214-214",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-nowrap; xs:flex-wrap",
+      "tailwind": [
+        "mob:flex-nowrap xs:flex-wrap"
+      ],
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:215-215",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "typography",
+        "sizing",
+        "layout"
+      ],
+      "changes": "tab:text-[1rem] -> mob:text-[1rem]; h-[4.75rem] -> mob:h-[3.5rem]; w-full -> mob:w-[200px] -> xs:w-auto; mob:min-w-[200px] -> xs:min-w-[150px]; flex -> mob:flex-none; mob:leading-[1.4]",
+      "tailwind": [
+        "tab:text-[1rem] mob:h-[3.5rem] mob:w-[200px] mob:min-w-[200px] mob:flex-none mob:text-[1rem] mob:leading-[1.4] xs:w-auto xs:min-w-[150px]"
+      ],
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:225-225",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:flex-1",
+      "tailwind": [
+        "xs:flex-1"
+      ],
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:226-226",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "sizing"
+      ],
+      "changes": "mob:p-[1.5rem]; mob:pb-0; xs:min-h-[26.75rem] -> xs:min-h-[27.25rem]",
+      "tailwind": [
+        "mob:p-[1.5rem] mob:pb-0 xs:min-h-[26.75rem] xs:min-h-[27.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:246-246",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:248-248",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[36.6rem] -> xs:h-[11.08rem] -> xs:h-[10.56rem]",
+      "tailwind": [
+        "xs:h-[11.08rem] xs:h-[10.56rem]"
+      ],
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:256-256",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "other"
+      ],
+      "changes": "mob:items-center; mob:justify-start; mob:overflow-auto",
+      "tailwind": [
+        "mob:items-center mob:justify-start mob:overflow-auto"
+      ],
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:310-310",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-full -> mob:w-[200px] -> xs:w-[150px]; mob:min-w-[200px] -> xs:min-w-[150px]",
+      "tailwind": [
+        "mob:w-[200px] mob:min-w-[200px] xs:w-[150px] xs:min-w-[150px]"
+      ],
+      "measuredFrom": "src/components/sections/StickyTabs.jsx:322-322",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.loop-carousel",
+    "primitive.button",
+    "primitive.placeholder-media",
+    "primitive.inline-link",
+    "primitive.stat-card"
+  ],
+  "measuredFrom": "src/components/sections/StickyTabs.jsx:273-340",
+  "iaSectionId": "product.sticky-tabs",
+  "evidenceNotes": [
+    "/lms/features passes its own PANELS: slide copy is generated per tab and some include a <br/> or a second block <span> (\"It is quick to set up.\"); flattened to plain text with a space in the sample.",
+    "/lms/features panel 6 title is 'Security and admin built for scale' (page) vs 'Security and admin features built for scale' (component default).",
+    "Button labels ('Learn more' / 'Explore') are hard-coded per variant, not props, so they are not modelled.",
+    "Solutions 5th nav anchor (#industries) resolves to the Sectors block, which the page renders with id=\"industries\"."
+  ],
+  "observedOn": [
+    "/lms/features",
+    "/lms/solutions"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.anchor-intro"
+    ],
+    "recommendedBefore": [
+      "product.integrations-visual",
+      "proof.testimonial-quote"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ],
+  "variants": [
+    "solutions",
+    "features"
+  ]
+}

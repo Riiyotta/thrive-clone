@@ -1,0 +1,286 @@
+{
+  "id": "product.assistant-feature-tabs",
+  "kind": "section",
+  "name": "Assistant feature tabs (vertical list + fading video)",
+  "purpose": "Explains three things the AI assistant does for a given audience, one at a time, with a matching visual for the selected item.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/KikiFeatureTabs.jsx",
+  "description": "Header (H2 + grey intro) stacked above a vertical list of 3 items, each with an 8px left track that lights white when active; only the active item shows its body. Beside it a 40% visual column cross-fades between one 30rem-tall video per item. `reversed: true` mirrors the row (visual left, gap 5rem, list column 55%). Used twice in a row on /nova (default, then reversed). <=479 stacks: the visual column hides and the active item shows its own video under the body.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "reversed": {
+        "type": "boolean",
+        "note": "mirror the layout (visual on the left)"
+      },
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 9,
+        "note": "H2",
+        "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+      },
+      "intro": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 59,
+        "note": "grey paragraph under the H2",
+        "measuredLongestRealInstance": "47 words in the clone's own placeholder copy"
+      },
+      "items": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 12,
+              "note": "24px item title",
+              "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+            },
+            "body": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 39,
+              "note": "shown only for the active item",
+              "measuredLongestRealInstance": "31 words in the clone's own placeholder copy"
+            },
+            "media": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "product.video",
+                "stock.photo",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "product.video",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "per-item video (Placeholder \"Nova video N\")"
+            }
+          },
+          "required": [
+            "title",
+            "body",
+            "media"
+          ]
+        },
+        "maxItems": 4
+      }
+    },
+    "required": [
+      "reversed",
+      "heading",
+      "intro",
+      "items"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 2,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "tabs.crossFade"
+    ],
+    "reducedMotionFallback": "instant-toggle",
+    "measuredFrom": "src/components/sections/KikiFeatureTabs.jsx:51-56",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "Click (or Enter/Space) an item: its white track bar and its video fade in (opacity .3s ease), others fade out; the body appears instantly. No autoplay, no loop."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[5rem] -> tab:py-[4rem] -> mob:py-[3rem]",
+      "tailwind": [
+        "tab:py-[4rem] mob:py-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/KikiFeatureTabs.jsx:29-29",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "xs:flex-col; gap-[5rem] -> xs:gap-[1rem]; xs:pb-[1rem]",
+      "tailwind": [
+        "xs:flex-col xs:gap-[1rem] xs:pb-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/KikiFeatureTabs.jsx:32-32",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "xs",
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-[55%] -> xs:w-full -> tab:w-[50%] -> tab:w-[60%] -> mob:w-[50%]",
+      "tailwind": [
+        "xs:w-full tab:w-[50%] tab:w-[60%] mob:w-[50%]"
+      ],
+      "measuredFrom": "src/components/sections/KikiFeatureTabs.jsx:33-33",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/KikiFeatureTabs.jsx:40-40",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.5rem] -> xs:text-[1.25rem]",
+      "tailwind": [
+        "xs:text-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/KikiFeatureTabs.jsx:59-59",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "xs:flex; xs:-mt-[1rem]",
+      "tailwind": [
+        "xs:flex xs:-mt-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/KikiFeatureTabs.jsx:63-63",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "layout"
+      ],
+      "changes": "w-[40%] -> tab:w-[35%] -> mob:w-[50%]; mob:self-end; xs:hidden",
+      "tailwind": [
+        "tab:w-[35%] mob:w-[50%] mob:self-end xs:hidden"
+      ],
+      "measuredFrom": "src/components/sections/KikiFeatureTabs.jsx:71-71",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "tab:items-end",
+      "tailwind": [
+        "tab:items-end"
+      ],
+      "measuredFrom": "src/components/sections/KikiFeatureTabs.jsx:75-75",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.heading-h2",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/KikiFeatureTabs.jsx:23-89",
+  "iaSectionId": "product.assistant-feature-tabs",
+  "evidenceNotes": [
+    "First /nova instance uses the component DEFAULTS; the second passes SECOND_TABS with reversed: true."
+  ],
+  "observedOn": [
+    "/nova"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.logo-row"
+    ],
+    "recommendedBefore": [
+      "conversion.cta-strip"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "placeholder.neutral",
+    "product.video",
+    "stock.photo"
+  ]
+}

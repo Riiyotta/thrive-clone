@@ -1,113 +1,3660 @@
 {
-  "$comment": "One entry per distinct PAGE SHAPE. This is a SINGLE-ROUTE, SINGLE-TEMPLATE repo: the source app renders exactly one route ('/') and has no router. No other template or route exists, and none may be invented.",
-  "version": "1.0.0",
-  "templateCount": 1,
-  "routePatternCount": 1,
+  "$comment": "One entry per distinct PAGE SHAPE, re-derived from the real page files (src/pages/**). Every real route maps to exactly one template. Slots: required / repeatable / variants (the content.variant values allowed in that slot; 'default' = the homepage branch with no variant field) / alternatives (a CHOICE slot: exactly one of the slot or an alternative). Chrome (nav, footer CTA block, footer) is rendered once by src/components/Layout.jsx. src/pages/__preview-* are build-time preview routes, NOT site routes, and are excluded.",
+  "version": "2.0.0",
+  "templateCount": 33,
+  "routePatternCount": 58,
   "routeToTemplate": {
-    "/": "home"
+    "/": "home",
+    "/case-studies-contents/customer-10": "case-study-content",
+    "/case-studies-contents/customer-6": "case-study-content",
+    "/case-studies-contents/customer-7": "case-study-content",
+    "/case-studies-contents/customer-8": "case-study-content",
+    "/case-studies-contents/customer-9": "case-study-content",
+    "/case-studies/content": "case-studies-content",
+    "/case-studies/lms": "case-studies-lms",
+    "/case-study/customer-1": "case-study-platform",
+    "/case-study/customer-2": "case-study-platform",
+    "/case-study/customer-3": "case-study-platform",
+    "/case-study/customer-4": "case-study-platform",
+    "/case-study/customer-5": "case-study-platform",
+    "/company": "company",
+    "/company/why-nimbus": "company-why",
+    "/contact-us": "contact-us",
+    "/content": "content-overview",
+    "/content/custom-content": "content-custom",
+    "/content/sector-suites": "content-catalogue",
+    "/content/service": "content-service",
+    "/content/topics": "content-catalogue",
+    "/lms": "lms",
+    "/lms/corporate-lms": "lms-corporate",
+    "/lms/demo-platform": "lms-demo-platform",
+    "/lms/enterprise": "lms-enterprise",
+    "/lms/features": "lms-features",
+    "/lms/features/ai-content-creator": "feature-detail",
+    "/lms/features/chat": "feature-detail",
+    "/lms/features/communication": "feature-detail",
+    "/lms/features/employee-assessment-software": "feature-detail",
+    "/lms/features/employee-experience": "feature-detail",
+    "/lms/features/employee-performance-management-software": "feature-detail",
+    "/lms/features/learning-pathways": "feature-detail",
+    "/lms/features/lms-admin": "feature-detail",
+    "/lms/features/lms-analytics": "feature-detail",
+    "/lms/features/lms-gamification": "feature-detail",
+    "/lms/features/lms-homepage": "feature-detail",
+    "/lms/features/lms-rewards": "feature-detail",
+    "/lms/features/lms-security": "feature-detail",
+    "/lms/features/mcp": "feature-detail",
+    "/lms/features/mobile-lms": "feature-detail",
+    "/lms/features/skills": "feature-detail",
+    "/lms/features/spaces": "feature-detail",
+    "/lms/impact": "lms-impact",
+    "/lms/integrations": "lms-integrations",
+    "/lms/mentoring-software": "lms-mentoring-software",
+    "/lms/professional-services": "lms-professional-services",
+    "/lms/small-business": "lms-small-business",
+    "/lms/solutions": "lms-solutions",
+    "/lms/spring-release": "lms-spring-release",
+    "/mentoring": "mentoring",
+    "/nova": "nova",
+    "/pricing": "pricing",
+    "/resources/blog-and-news": "blog-and-news",
+    "/resources/events-webinars": "events-webinars",
+    "/resources/guides": "guides",
+    "/resources/lms-glossary": "lms-glossary",
+    "/whats-included": "whats-included"
   },
-  "routeCoverageNote": "src/App.jsx renders one page with no router; '/' is the only route and maps to 'home'. Asserted by verify_all.py::check_route_coverage.",
-  "deliberatelyAbsent": {},
+  "routeCoverageNote": "src/App.jsx mounts '/' (Home) plus every path in src/routes.js through src/pages/registry.js (families' index.js `pages` maps). verify_all.py::check_route_coverage asserts 1:1 coverage here and, when the source is present, against src/routes.js.",
+  "excludedPaths": {
+    "/__preview/*": "build-time section previews registered by src/pages/__preview-*/index.js; not linked, not in src/routes.js."
+  },
+  "layout": {
+    "component": "src/components/Layout.jsx",
+    "measuredFrom": "src/components/Layout.jsx:31-75",
+    "wrapper": "root div: overflow-x-clip, bg-page (bg-content-bg on content-theme routes), pt-[4rem] clearing the fixed nav; Nav, <main>, Footer.",
+    "rootFontSize": "html.fluid-rem (fluid root) except FIXED_REM_PAGES, which keep 16px",
+    "footerVariant": "Footer variant 'home' (demo form) on '/' and '/company'; 'subpage' (demo CTA button) elsewhere"
+  },
   "templates": {
     "home": {
       "id": "home",
       "name": "Marketing homepage",
       "designSystem": "marketing",
-      "evidenceLevel": "measured",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fixed-16px",
+      "footerVariant": "home",
+      "evidenceLevel": "code-derived",
       "routes": [
         "/"
       ],
-      "wrapper": {
-        "className": "bg-page pt-[64px]",
-        "note": "The page wrapper's 64px top padding clears the fixed nav; the hero then adds its own 64px.",
-        "measuredFrom": "src/App.jsx:17-17"
-      },
+      "pageComponent": "src/pages/Home.jsx > Home",
+      "measuredFrom": "src/pages/Home.jsx:13-29",
       "nodes": [
         {
           "section": "shell.nav",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
         },
         {
           "section": "hero.split-visual",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "variants": [
+            "default"
+          ],
+          "measuredFrom": "src/pages/Home.jsx:16-16"
         },
         {
           "section": "proof.logo-row",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "variants": [
+            "default"
+          ],
+          "measuredFrom": "src/pages/Home.jsx:17-17"
         },
         {
           "section": "product.feature-tabs",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "variants": [
+            "default"
+          ],
+          "measuredFrom": "src/pages/Home.jsx:18-18"
         },
         {
           "section": "product.assistant-tabs",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "variants": [
+            "default"
+          ],
+          "measuredFrom": "src/pages/Home.jsx:19-19"
         },
         {
           "section": "product.capability-slider",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "variants": [
+            "default"
+          ],
+          "measuredFrom": "src/pages/Home.jsx:20-20"
         },
         {
           "section": "proof.results-stats",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "variants": [
+            "default"
+          ],
+          "measuredFrom": "src/pages/Home.jsx:21-21"
         },
         {
           "section": "proof.testimonial",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "measuredFrom": "src/pages/Home.jsx:21-21",
+          "note": "Rendered by the same Results.jsx call as proof.results-stats (shared container)."
         },
         {
           "section": "story.zoom-statement",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "measuredFrom": "src/pages/Home.jsx:22-22"
         },
         {
           "section": "story.scroll-quote",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "measuredFrom": "src/pages/Home.jsx:23-23"
         },
         {
           "section": "proof.case-study-carousel",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "variants": [
+            "default"
+          ],
+          "measuredFrom": "src/pages/Home.jsx:24-24"
         },
         {
           "section": "story.brand-video",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "variants": [
+            "default"
+          ],
+          "measuredFrom": "src/pages/Home.jsx:25-25"
         },
         {
           "section": "conversion.faq",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "variants": [
+            "default"
+          ],
+          "measuredFrom": "src/pages/Home.jsx:26-26"
         },
         {
           "section": "conversion.demo-form",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
         },
         {
           "section": "shell.footer",
           "required": true,
-          "repeatable": false
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
         }
       ],
-      "measuredFrom": "src/App.jsx:15-35",
-      "auditMeasuredFrom": "audit:orig1440.txt:2-2",
+      "componentTags": [
+        "Hero",
+        "LogoStrip",
+        "ProductTabs",
+        "KikiTabs",
+        "EnterpriseSlider",
+        "Results",
+        "Statement",
+        "QuoteHighlight",
+        "CaseStudyCarousel",
+        "VideoSection",
+        "Faq"
+      ],
       "notes": [
-        "Node order is the exact JSX order in App.jsx: Nav, then <main> with Hero, LogoStrip, ProductTabs, KikiTabs, EnterpriseSlider, Results, Statement, QuoteHighlight, CaseStudyCarousel, VideoSection, Faq, then Footer.",
-        "proof.results-stats and proof.testimonial share one bare container-medium (no <section>, no padding-global) rendered by Results.jsx -- intentional, it runs edge to edge at 390.",
-        "conversion.demo-form and shell.footer are both rendered inside the single <footer> element by Footer.jsx.",
-        "Section ids, categories and order are aligned 1:1 with the project's IA (ia.json -> template.home); extraction/verify_all.py::check_ia_alignment re-checks this whenever ia.json is present."
+        "Node order is the exact JSX order in src/pages/Home.jsx; Layout.jsx adds Nav before and the footer (demo-form variant) after."
       ],
       "iaTemplateId": "template.home"
+    },
+    "feature-detail": {
+      "id": "feature-detail",
+      "name": "Feature detail",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/lms/features/lms-homepage",
+        "/lms/features/spaces",
+        "/lms/features/chat",
+        "/lms/features/learning-pathways",
+        "/lms/features/lms-analytics",
+        "/lms/features/skills",
+        "/lms/features/employee-assessment-software",
+        "/lms/features/ai-content-creator",
+        "/lms/features/lms-admin",
+        "/lms/features/lms-rewards",
+        "/lms/features/mcp",
+        "/lms/features/mobile-lms",
+        "/lms/features/lms-security",
+        "/lms/features/employee-experience",
+        "/lms/features/communication",
+        "/lms/features/employee-performance-management-software",
+        "/lms/features/lms-gamification"
+      ],
+      "pageComponent": "src/pages/features/FeatureDetail.jsx > FeatureDetail",
+      "measuredFrom": "src/pages/features/FeatureDetail.jsx:99-199",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.split-visual",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "feature-detail"
+          ],
+          "measuredFrom": "src/pages/features/FeatureDetail.jsx:117-129"
+        },
+        {
+          "section": "proof.logo-row",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/features/FeatureDetail.jsx:130-139"
+        },
+        {
+          "section": "product.feature-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/features/FeatureDetail.jsx:142-155"
+        },
+        {
+          "section": "conversion.cta-strip",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "heading"
+          ],
+          "measuredFrom": "src/pages/features/FeatureDetail.jsx:157-157"
+        },
+        {
+          "section": "story.brand-video",
+          "required": false,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/features/FeatureDetail.jsx:159-169",
+          "note": "Present only on routes whose featureDetailData.js entry has `video` (6 of 17)."
+        },
+        {
+          "section": "proof.reviews-slider",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/features/FeatureDetail.jsx:172-172",
+          "note": "Two JSX branches (empty slides on the 2 empty-state routes); one section."
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/features/FeatureDetail.jsx:176-176",
+          "note": "CHOICE: the CMS empty state replaces the FAQ on routes with `empty: true`.",
+          "alternatives": [
+            {
+              "section": "conversion.faq-empty",
+              "measuredFrom": "src/pages/features/FeatureDetail.jsx:176-176"
+            }
+          ]
+        },
+        {
+          "section": "product.assistant-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "image-slides"
+          ],
+          "measuredFrom": "src/pages/features/FeatureDetail.jsx:180-195",
+          "note": "CHOICE: the explore slider, or its CMS empty state on routes with `empty: true`.",
+          "alternatives": [
+            {
+              "section": "product.explore-empty",
+              "measuredFrom": "src/pages/features/FeatureDetail.jsx:178-178"
+            }
+          ]
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "Hero",
+        "LogoStrip",
+        "ProductTabs",
+        "CtaStrip",
+        "VideoSection",
+        "ReviewsSlider",
+        "ReviewsSlider",
+        "FaqEmpty",
+        "Faq",
+        "ExploreEmpty",
+        "KikiTabs",
+        "ExploreHeader"
+      ],
+      "notes": [
+        "One component + featureDetailData.js keyed by path; `routeSequences` lists the realized node sequence of every route."
+      ],
+      "iaTemplateId": "template.feature-detail",
+      "routeSequences": {
+        "/lms/features/lms-homepage": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "story.brand-video",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/spaces": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "story.brand-video",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/chat": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "story.brand-video",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/learning-pathways": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/lms-analytics": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/skills": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/employee-assessment-software": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/ai-content-creator": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "story.brand-video",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/lms-admin": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/lms-rewards": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/mcp": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "story.brand-video",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/mobile-lms": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "story.brand-video",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/lms-security": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/employee-experience": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "proof.reviews-slider",
+          "conversion.faq-empty",
+          "product.explore-empty",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/communication": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "proof.reviews-slider",
+          "conversion.faq-empty",
+          "product.explore-empty",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/employee-performance-management-software": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/lms/features/lms-gamification": [
+          "shell.nav",
+          "hero.split-visual",
+          "proof.logo-row",
+          "product.feature-tabs",
+          "conversion.cta-strip",
+          "proof.reviews-slider",
+          "conversion.faq",
+          "product.assistant-tabs",
+          "conversion.demo-cta",
+          "shell.footer"
+        ]
+      },
+      "routeSequencesMeasuredFrom": "src/pages/features/featureDetailData.js (video / empty per route, evaluated)"
+    },
+    "case-study-platform": {
+      "id": "case-study-platform",
+      "name": "Case study detail (platform)",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/case-study/customer-1",
+        "/case-study/customer-2",
+        "/case-study/customer-3",
+        "/case-study/customer-4",
+        "/case-study/customer-5"
+      ],
+      "pageComponent": "src/pages/content/CaseStudyPlatform.jsx > CaseStudyPlatform",
+      "measuredFrom": "src/pages/content/CaseStudyPlatform.jsx:10-31",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "article.cs-platform-body",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/CaseStudyPlatform.jsx:15-15"
+        },
+        {
+          "section": "product.capability-slider",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "case"
+          ],
+          "measuredFrom": "src/pages/content/CaseStudyPlatform.jsx:17-27"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "CsPlatformBody",
+        "EnterpriseSlider"
+      ],
+      "notes": [
+        "No separate hero: CsPlatformBody renders the customer logo + H1 header itself (NO_HERO_TEMPLATES)."
+      ],
+      "iaTemplateId": "template.case-study-platform"
+    },
+    "case-study-content": {
+      "id": "case-study-content",
+      "name": "Case study detail (content)",
+      "designSystem": "marketing",
+      "theme": "nimbus-content",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/case-studies-contents/customer-6",
+        "/case-studies-contents/customer-7",
+        "/case-studies-contents/customer-8",
+        "/case-studies-contents/customer-9",
+        "/case-studies-contents/customer-10"
+      ],
+      "pageComponent": "src/pages/content/CaseStudyContent.jsx > CaseStudyContent",
+      "measuredFrom": "src/pages/content/CaseStudyContent.jsx:10-21",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.layout2-media",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "case-study"
+          ],
+          "measuredFrom": "src/pages/content/CaseStudyContent.jsx:15-15"
+        },
+        {
+          "section": "proof.cs-content-stats",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/CaseStudyContent.jsx:16-16"
+        },
+        {
+          "section": "article.cs-content-article",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/CaseStudyContent.jsx:17-17"
+        },
+        {
+          "section": "index.cs-content-related",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/CaseStudyContent.jsx:18-18"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "Layout2Hero",
+        "CsContentStats",
+        "CsContentArticle",
+        "CsContentRelated"
+      ],
+      "notes": [
+        "Content theme (warm near-black body, Layout.jsx isContentTheme)."
+      ],
+      "iaTemplateId": "template.case-study-content"
+    },
+    "content-catalogue": {
+      "id": "content-catalogue",
+      "name": "Content catalogue (topics / sector suites)",
+      "designSystem": "marketing",
+      "theme": "nimbus-content",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/content/topics",
+        "/content/sector-suites"
+      ],
+      "pageComponent": "src/pages/content/ContentCatalogue.jsx > ContentCatalogue",
+      "measuredFrom": "src/pages/content/ContentCatalogue.jsx:33-48",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.header-grid-card",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "topics",
+            "suites"
+          ],
+          "measuredFrom": "src/pages/content/ContentCatalogue.jsx:37-37"
+        },
+        {
+          "section": "proof.flip-logos",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/ContentCatalogue.jsx:38-38"
+        },
+        {
+          "section": "index.topics-grid",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "topics"
+          ],
+          "measuredFrom": "src/pages/content/ContentCatalogue.jsx:42-42",
+          "note": "CHOICE: /content/topics renders the topic grid; /content/sector-suites the sector split list.",
+          "alternatives": [
+            {
+              "section": "story.grid-split-legacy",
+              "variants": [
+                "suites"
+              ],
+              "measuredFrom": "src/pages/content/ContentCatalogue.jsx:40-40"
+            }
+          ]
+        },
+        {
+          "section": "proof.reviews-slider",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/ContentCatalogue.jsx:44-44"
+        },
+        {
+          "section": "conversion.faq-legacy",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/ContentCatalogue.jsx:45-45"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "HeaderGridCard",
+        "FlipLogos",
+        "GridSplitLegacy",
+        "TopicsGrid",
+        "ReviewsSlider",
+        "FaqLegacy"
+      ],
+      "notes": [
+        "Content theme. The middle block differs per route (topic cards | sector split list)."
+      ],
+      "iaTemplateId": "template.content-catalogue",
+      "routeSequences": {
+        "/content/topics": [
+          "shell.nav",
+          "hero.header-grid-card",
+          "proof.flip-logos",
+          "index.topics-grid",
+          "proof.reviews-slider",
+          "conversion.faq-legacy",
+          "conversion.demo-cta",
+          "shell.footer"
+        ],
+        "/content/sector-suites": [
+          "shell.nav",
+          "hero.header-grid-card",
+          "proof.flip-logos",
+          "story.grid-split-legacy",
+          "proof.reviews-slider",
+          "conversion.faq-legacy",
+          "conversion.demo-cta",
+          "shell.footer"
+        ]
+      }
+    },
+    "lms": {
+      "id": "lms",
+      "name": "Platform overview",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/lms"
+      ],
+      "pageComponent": "src/pages/platform/Lms.jsx > Lms",
+      "measuredFrom": "src/pages/platform/Lms.jsx:169-230",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.platform",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Lms.jsx:172-172"
+        },
+        {
+          "section": "product.platform-intro",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Lms.jsx:173-173"
+        },
+        {
+          "section": "product.assistant-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "image-slides"
+          ],
+          "measuredFrom": "src/pages/platform/Lms.jsx:174-174"
+        },
+        {
+          "section": "proof.testimonial-quote",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "platform"
+          ],
+          "measuredFrom": "src/pages/platform/Lms.jsx:175-178"
+        },
+        {
+          "section": "product.assistant-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "video-slides"
+          ],
+          "measuredFrom": "src/pages/platform/Lms.jsx:179-179"
+        },
+        {
+          "section": "proof.testimonial-quote",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "platform-lg"
+          ],
+          "measuredFrom": "src/pages/platform/Lms.jsx:180-183"
+        },
+        {
+          "section": "product.autotabs-group",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "platform"
+          ],
+          "measuredFrom": "src/pages/platform/Lms.jsx:184-184"
+        },
+        {
+          "section": "product.feature-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/Lms.jsx:185-192"
+        },
+        {
+          "section": "product.feature-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/Lms.jsx:193-200"
+        },
+        {
+          "section": "proof.testimonial-quote",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "section"
+          ],
+          "measuredFrom": "src/pages/platform/Lms.jsx:201-204"
+        },
+        {
+          "section": "product.feature-bento",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Lms.jsx:205-208"
+        },
+        {
+          "section": "proof.results-stats",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/Lms.jsx:210-223"
+        },
+        {
+          "section": "proof.centred-quote",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Lms.jsx:224-224",
+          "note": "Lms.jsx > FinalQuote: page-local inline copy of the CentredQuote block (+ button)."
+        },
+        {
+          "section": "product.comparison-table",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "platform"
+          ],
+          "measuredFrom": "src/pages/platform/Lms.jsx:226-226"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/Lms.jsx:227-227"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "PlatformHero",
+        "PlatformIntroHeader",
+        "KikiTabs",
+        "TestimonialQuote",
+        "KikiTabs",
+        "TestimonialQuote",
+        "AutotabsGroup",
+        "ProductTabs",
+        "ProductTabs",
+        "TestimonialQuote",
+        "FeatureBento",
+        "Results",
+        "FinalQuote",
+        "ComparisonTable",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.lms"
+    },
+    "lms-small-business": {
+      "id": "lms-small-business",
+      "name": "Segment landing: small business",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/lms/small-business"
+      ],
+      "pageComponent": "src/pages/platform/SmallBusiness.jsx > SmallBusiness",
+      "measuredFrom": "src/pages/platform/SmallBusiness.jsx:100-201",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.wow-content",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "small-business"
+          ],
+          "measuredFrom": "src/pages/platform/SmallBusiness.jsx:103-103"
+        },
+        {
+          "section": "proof.logo-row",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/SmallBusiness.jsx:104-115"
+        },
+        {
+          "section": "product.wow-bento",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "cards"
+          ],
+          "measuredFrom": "src/pages/platform/SmallBusiness.jsx:116-116"
+        },
+        {
+          "section": "product.assistant-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "image-slides"
+          ],
+          "measuredFrom": "src/pages/platform/SmallBusiness.jsx:117-117"
+        },
+        {
+          "section": "product.layout03-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "image"
+          ],
+          "measuredFrom": "src/pages/platform/SmallBusiness.jsx:118-121"
+        },
+        {
+          "section": "proof.results-stats",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/SmallBusiness.jsx:123-144"
+        },
+        {
+          "section": "proof.centred-quote",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/SmallBusiness.jsx:145-153",
+          "note": "Followed in the page by an inline centred primary Button row (ctaLabel)."
+        },
+        {
+          "section": "story.marquee",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "header"
+          ],
+          "measuredFrom": "src/pages/platform/SmallBusiness.jsx:160-160"
+        },
+        {
+          "section": "product.wow-bento",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "cards-cta"
+          ],
+          "measuredFrom": "src/pages/platform/SmallBusiness.jsx:161-196"
+        },
+        {
+          "section": "conversion.cta-strip",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "pricing"
+          ],
+          "measuredFrom": "src/pages/platform/SmallBusiness.jsx:197-197"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/SmallBusiness.jsx:198-198"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "WowContentHero",
+        "LogoStrip",
+        "WowBento",
+        "KikiTabs",
+        "Layout03Tabs",
+        "Results",
+        "CentredQuote",
+        "Button",
+        "Marquee",
+        "WowBento",
+        "CtaStrip",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.lms-small-business"
+    },
+    "lms-corporate": {
+      "id": "lms-corporate",
+      "name": "Segment landing: mid-market",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fixed-16px",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/lms/corporate-lms"
+      ],
+      "pageComponent": "src/pages/platform/CorporateLms.jsx > CorporateLms",
+      "measuredFrom": "src/pages/platform/CorporateLms.jsx:62-131",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.wow-content",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "corporate"
+          ],
+          "measuredFrom": "src/pages/platform/CorporateLms.jsx:65-65",
+          "note": "Empty wowcontent block; the visible split hero is hero.logos-overlap pulled up over it."
+        },
+        {
+          "section": "hero.logos-overlap",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/CorporateLms.jsx:66-71"
+        },
+        {
+          "section": "product.split-autotabs",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/CorporateLms.jsx:72-72"
+        },
+        {
+          "section": "product.layout03-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "image"
+          ],
+          "measuredFrom": "src/pages/platform/CorporateLms.jsx:73-84"
+        },
+        {
+          "section": "proof.testimonial-quote",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "mid-market"
+          ],
+          "measuredFrom": "src/pages/platform/CorporateLms.jsx:85-85"
+        },
+        {
+          "section": "proof.results-stats",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/CorporateLms.jsx:88-111"
+        },
+        {
+          "section": "product.two-col-features",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/CorporateLms.jsx:115-115"
+        },
+        {
+          "section": "product.integrations-visual",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "mid-market"
+          ],
+          "measuredFrom": "src/pages/platform/CorporateLms.jsx:117-117"
+        },
+        {
+          "section": "proof.reviews-slider",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/CorporateLms.jsx:118-127"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/CorporateLms.jsx:128-128"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "WowContentHero",
+        "LogosHeroOverlap",
+        "SplitAutotabs",
+        "Layout03Tabs",
+        "TestimonialQuote",
+        "Results",
+        "TwoColFeatures",
+        "IntegrationsVisual",
+        "ReviewsSlider",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.lms-corporate"
+    },
+    "lms-enterprise": {
+      "id": "lms-enterprise",
+      "name": "Segment landing: enterprise",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fixed-16px",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/lms/enterprise"
+      ],
+      "pageComponent": "src/pages/platform/Enterprise.jsx > Enterprise",
+      "measuredFrom": "src/pages/platform/Enterprise.jsx:217-271",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.wow-content",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "enterprise"
+          ],
+          "measuredFrom": "src/pages/platform/Enterprise.jsx:220-224"
+        },
+        {
+          "section": "product.split-autotabs",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Enterprise.jsx:225-225"
+        },
+        {
+          "section": "product.layout03-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "video"
+          ],
+          "measuredFrom": "src/pages/platform/Enterprise.jsx:226-226"
+        },
+        {
+          "section": "product.autotabs-group",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "enterprise"
+          ],
+          "measuredFrom": "src/pages/platform/Enterprise.jsx:227-227"
+        },
+        {
+          "section": "proof.results-stats",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/Enterprise.jsx:229-242"
+        },
+        {
+          "section": "proof.centred-quote",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Enterprise.jsx:243-250",
+          "note": "Followed in the page by an inline centred primary Button row (ctaLabel)."
+        },
+        {
+          "section": "product.two-col-features",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Enterprise.jsx:258-258"
+        },
+        {
+          "section": "product.split-autotabs",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Enterprise.jsx:259-259",
+          "note": "Second instance carries the `after` closing quote + button."
+        },
+        {
+          "section": "product.integrations-visual",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "enterprise"
+          ],
+          "measuredFrom": "src/pages/platform/Enterprise.jsx:260-260"
+        },
+        {
+          "section": "proof.testimonial-quote",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "enterprise"
+          ],
+          "measuredFrom": "src/pages/platform/Enterprise.jsx:261-264"
+        },
+        {
+          "section": "conversion.cta-strip",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "button"
+          ],
+          "measuredFrom": "src/pages/platform/Enterprise.jsx:265-265"
+        },
+        {
+          "section": "product.comparison-table",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "enterprise"
+          ],
+          "measuredFrom": "src/pages/platform/Enterprise.jsx:267-267"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/Enterprise.jsx:268-268"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "WowContentHero",
+        "SplitAutotabs",
+        "Layout03Tabs",
+        "AutotabsGroup",
+        "Results",
+        "CentredQuote",
+        "Button",
+        "TwoColFeatures",
+        "SplitAutotabs",
+        "IntegrationsVisual",
+        "TestimonialQuote",
+        "CtaStrip",
+        "ComparisonTable",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.lms-enterprise"
+    },
+    "lms-solutions": {
+      "id": "lms-solutions",
+      "name": "Solutions index (sticky anchor tabs)",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/lms/solutions"
+      ],
+      "pageComponent": "src/pages/platform/Solutions.jsx > Solutions",
+      "measuredFrom": "src/pages/platform/Solutions.jsx:28-59",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.wow-content",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "solutions"
+          ],
+          "measuredFrom": "src/pages/platform/Solutions.jsx:31-31"
+        },
+        {
+          "section": "proof.logo-row",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/Solutions.jsx:32-42"
+        },
+        {
+          "section": "product.anchor-intro",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "solutions"
+          ],
+          "measuredFrom": "src/pages/platform/Solutions.jsx:43-43"
+        },
+        {
+          "section": "product.sticky-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "solutions"
+          ],
+          "measuredFrom": "src/pages/platform/Solutions.jsx:44-44"
+        },
+        {
+          "section": "proof.testimonial-quote",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "platform"
+          ],
+          "measuredFrom": "src/pages/platform/Solutions.jsx:45-50"
+        },
+        {
+          "section": "product.sector-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "industries"
+          ],
+          "measuredFrom": "src/pages/platform/Solutions.jsx:51-51"
+        },
+        {
+          "section": "proof.case-study-carousel",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/Solutions.jsx:52-55"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/Solutions.jsx:56-56"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "WowContentHero",
+        "LogoStrip",
+        "AnchorNav",
+        "StickyTabs",
+        "TestimonialQuote",
+        "Sectors",
+        "CaseStudyCarousel",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.lms-solutions"
+    },
+    "lms-professional-services": {
+      "id": "lms-professional-services",
+      "name": "Professional services (legacy grid system)",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/lms/professional-services"
+      ],
+      "pageComponent": "src/pages/platform/ProfessionalServices.jsx > ProfessionalServices",
+      "measuredFrom": "src/pages/platform/ProfessionalServices.jsx:19-53",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.center-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "services"
+          ],
+          "measuredFrom": "src/pages/platform/ProfessionalServices.jsx:22-22"
+        },
+        {
+          "section": "proof.results-stats",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/ProfessionalServices.jsx:23-42"
+        },
+        {
+          "section": "story.header-image-legacy",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/ProfessionalServices.jsx:43-43"
+        },
+        {
+          "section": "story.grid-split-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "testimonial"
+          ],
+          "measuredFrom": "src/pages/platform/ProfessionalServices.jsx:44-44"
+        },
+        {
+          "section": "product.tabs-horizontal-legacy",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/ProfessionalServices.jsx:45-45"
+        },
+        {
+          "section": "story.grid-split-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "text"
+          ],
+          "measuredFrom": "src/pages/platform/ProfessionalServices.jsx:46-46"
+        },
+        {
+          "section": "product.feature-rows-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "services"
+          ],
+          "measuredFrom": "src/pages/platform/ProfessionalServices.jsx:47-47"
+        },
+        {
+          "section": "product.grid-cards-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "services-extra"
+          ],
+          "measuredFrom": "src/pages/platform/ProfessionalServices.jsx:48-48"
+        },
+        {
+          "section": "proof.reviews-slider",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/ProfessionalServices.jsx:50-50"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "HeroCenterLegacy",
+        "Results",
+        "HeaderImageLegacy",
+        "GridSplitLegacy",
+        "TabsHLegacy",
+        "GridSplitLegacy",
+        "FeatureTwoColLegacy",
+        "GridCardsLegacy",
+        "ReviewsSlider"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.lms-professional-services"
+    },
+    "lms-impact": {
+      "id": "lms-impact",
+      "name": "Impact (legacy layout, pink theme)",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/lms/impact"
+      ],
+      "pageComponent": "src/pages/platform/Impact.jsx > Impact",
+      "measuredFrom": "src/pages/platform/Impact.jsx:10-64",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.layout2-media",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "impact"
+          ],
+          "measuredFrom": "src/pages/platform/Impact.jsx:13-13"
+        },
+        {
+          "section": "proof.flip-logos",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Impact.jsx:14-14"
+        },
+        {
+          "section": "product.feature-rows-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "impact"
+          ],
+          "measuredFrom": "src/pages/platform/Impact.jsx:15-24"
+        },
+        {
+          "section": "product.grid-cards-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "people"
+          ],
+          "measuredFrom": "src/pages/platform/Impact.jsx:25-25"
+        },
+        {
+          "section": "product.card-slider-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "journey"
+          ],
+          "measuredFrom": "src/pages/platform/Impact.jsx:26-26"
+        },
+        {
+          "section": "product.grid-cards-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "stats"
+          ],
+          "measuredFrom": "src/pages/platform/Impact.jsx:27-41"
+        },
+        {
+          "section": "product.grid-cards-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "awards"
+          ],
+          "measuredFrom": "src/pages/platform/Impact.jsx:43-55"
+        },
+        {
+          "section": "story.grid-split-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "image"
+          ],
+          "measuredFrom": "src/pages/platform/Impact.jsx:56-60"
+        },
+        {
+          "section": "conversion.pricing-plans-legacy",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Impact.jsx:61-61"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "Layout2Hero",
+        "FlipLogos",
+        "FeatureTwoColLegacy",
+        "GridCardsLegacy",
+        "CardSliderLegacy",
+        "GridCardsLegacy",
+        "GridCardsLegacy",
+        "GridSplitLegacy",
+        "PricingProLegacy"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.lms-impact"
+    },
+    "lms-integrations": {
+      "id": "lms-integrations",
+      "name": "Integrations directory",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/lms/integrations"
+      ],
+      "pageComponent": "src/pages/platform/Integrations.jsx > Integrations",
+      "measuredFrom": "src/pages/platform/Integrations.jsx:24-44",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.integrations-header",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Integrations.jsx:27-37"
+        },
+        {
+          "section": "index.integration-filter",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Integrations.jsx:38-38"
+        },
+        {
+          "section": "proof.reviews-slider",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Integrations.jsx:40-40"
+        },
+        {
+          "section": "conversion.faq-legacy",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Integrations.jsx:41-41"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "IntegrationsHeader",
+        "IntegrationFilter",
+        "ReviewsSlider",
+        "FaqLegacy"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.lms-integrations"
+    },
+    "lms-spring-release": {
+      "id": "lms-spring-release",
+      "name": "Release notes landing",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/lms/spring-release"
+      ],
+      "pageComponent": "src/pages/platform/SpringRelease.jsx > SpringRelease",
+      "measuredFrom": "src/pages/platform/SpringRelease.jsx:125-166",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.wow-content",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "spring-release"
+          ],
+          "measuredFrom": "src/pages/platform/SpringRelease.jsx:128-128"
+        },
+        {
+          "section": "proof.logo-row",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/SpringRelease.jsx:129-144"
+        },
+        {
+          "section": "product.release-block",
+          "required": true,
+          "repeatable": true,
+          "measuredFrom": "src/pages/platform/SpringRelease.jsx:146-158",
+          "note": "Repeatable: the real page renders 6 release blocks (1 literal + 5 mapped from BLOCKS)."
+        },
+        {
+          "section": "product.wow-bento",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "release"
+          ],
+          "measuredFrom": "src/pages/platform/SpringRelease.jsx:162-162"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/SpringRelease.jsx:163-163"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "WowContentHero",
+        "LogoStrip",
+        "SpringGrid",
+        "SpringGrid",
+        "WowBento",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.lms-spring-release"
+    },
+    "lms-demo-platform": {
+      "id": "lms-demo-platform",
+      "name": "Book a demo",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/lms/demo-platform"
+      ],
+      "pageComponent": "src/pages/platform/DemoPlatform.jsx > DemoPlatform",
+      "measuredFrom": "src/pages/platform/DemoPlatform.jsx:35-99",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.demo-form",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/DemoPlatform.jsx:39-52"
+        },
+        {
+          "section": "proof.logo-row",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/DemoPlatform.jsx:53-75"
+        },
+        {
+          "section": "proof.results-stats",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/DemoPlatform.jsx:77-94"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/DemoPlatform.jsx:96-96"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "DemoHero",
+        "LogoStrip",
+        "Results",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.lms-demo-platform"
+    },
+    "pricing": {
+      "id": "pricing",
+      "name": "Pricing",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/pricing"
+      ],
+      "pageComponent": "src/pages/platform/Pricing.jsx > Pricing",
+      "measuredFrom": "src/pages/platform/Pricing.jsx:50-89",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.pricing-calculator",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Pricing.jsx:53-56"
+        },
+        {
+          "section": "proof.reviews-grid",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Pricing.jsx:57-84",
+          "note": "The page nests a VideoSection inside ReviewsGrid (children); modelled as the reviews-grid `video` field."
+        },
+        {
+          "section": "conversion.content-pricing",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/platform/Pricing.jsx:85-85"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/platform/Pricing.jsx:86-86"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "PricingHero",
+        "ReviewsGrid",
+        "VideoSection",
+        "ContentPricing",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.pricing"
+    },
+    "lms-features": {
+      "id": "lms-features",
+      "name": "Features index (sticky anchor tabs)",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fixed-16px",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/lms/features"
+      ],
+      "pageComponent": "src/pages/features/LmsFeatures.jsx > LmsFeatures",
+      "measuredFrom": "src/pages/features/LmsFeatures.jsx:92-127",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.wow-content",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "features"
+          ],
+          "measuredFrom": "src/pages/features/LmsFeatures.jsx:97-97"
+        },
+        {
+          "section": "proof.logo-row",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/features/LmsFeatures.jsx:99-108"
+        },
+        {
+          "section": "product.features-intro",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/features/LmsFeatures.jsx:109-109"
+        },
+        {
+          "section": "product.anchor-intro",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "features"
+          ],
+          "measuredFrom": "src/pages/features/LmsFeatures.jsx:110-110"
+        },
+        {
+          "section": "product.sticky-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "features"
+          ],
+          "measuredFrom": "src/pages/features/LmsFeatures.jsx:111-111"
+        },
+        {
+          "section": "product.integrations-visual",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "features"
+          ],
+          "measuredFrom": "src/pages/features/LmsFeatures.jsx:112-112"
+        },
+        {
+          "section": "proof.testimonial-quote",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "platform"
+          ],
+          "measuredFrom": "src/pages/features/LmsFeatures.jsx:113-113"
+        },
+        {
+          "section": "conversion.cta-strip",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "button"
+          ],
+          "measuredFrom": "src/pages/features/LmsFeatures.jsx:114-114"
+        },
+        {
+          "section": "proof.case-study-carousel",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/features/LmsFeatures.jsx:115-123"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/features/LmsFeatures.jsx:124-124"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "WowContentHero",
+        "LogoStrip",
+        "FeaturesIntro",
+        "AnchorNav",
+        "StickyTabs",
+        "IntegrationsVisual",
+        "TestimonialQuote",
+        "CtaStrip",
+        "CaseStudyCarousel",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.lms-features"
+    },
+    "nova": {
+      "id": "nova",
+      "name": "AI agent product page",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/nova"
+      ],
+      "pageComponent": "src/pages/features/Nova.jsx > Nova",
+      "measuredFrom": "src/pages/features/Nova.jsx:65-112",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.assistant-video",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/features/Nova.jsx:68-68"
+        },
+        {
+          "section": "proof.logo-row",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/features/Nova.jsx:69-78"
+        },
+        {
+          "section": "product.assistant-feature-tabs",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/features/Nova.jsx:81-81"
+        },
+        {
+          "section": "product.assistant-feature-tabs",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/features/Nova.jsx:82-82"
+        },
+        {
+          "section": "conversion.cta-strip",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "button"
+          ],
+          "measuredFrom": "src/pages/features/Nova.jsx:87-89",
+          "note": "Inline centred demo Button row in Nova.jsx, visually the CtaStrip 'button' variant."
+        },
+        {
+          "section": "proof.testimonial-quote",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "kiki"
+          ],
+          "measuredFrom": "src/pages/features/Nova.jsx:93-93"
+        },
+        {
+          "section": "product.split-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "base"
+          ],
+          "measuredFrom": "src/pages/features/Nova.jsx:95-100"
+        },
+        {
+          "section": "product.comparison-table",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "vendor"
+          ],
+          "measuredFrom": "src/pages/features/Nova.jsx:101-101"
+        },
+        {
+          "section": "product.autotabs-group",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "platform"
+          ],
+          "measuredFrom": "src/pages/features/Nova.jsx:102-102"
+        },
+        {
+          "section": "story.brand-video",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/features/Nova.jsx:103-108"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/features/Nova.jsx:109-109"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "KikiHeader",
+        "LogoStrip",
+        "KikiFeatureTabs",
+        "KikiFeatureTabs",
+        "Button",
+        "TestimonialQuote",
+        "SplitTabs",
+        "ComparisonTable",
+        "AutotabsGroup",
+        "VideoSection",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.nova"
+    },
+    "lms-mentoring-software": {
+      "id": "lms-mentoring-software",
+      "name": "Mentoring software product page",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/lms/mentoring-software"
+      ],
+      "pageComponent": "src/pages/features/MentoringSoftware.jsx > MentoringSoftware",
+      "measuredFrom": "src/pages/features/MentoringSoftware.jsx:45-77",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.mentoring-software",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/features/MentoringSoftware.jsx:48-53"
+        },
+        {
+          "section": "product.autotabs-group",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "mentoring"
+          ],
+          "measuredFrom": "src/pages/features/MentoringSoftware.jsx:54-54"
+        },
+        {
+          "section": "product.split-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "reversed"
+          ],
+          "measuredFrom": "src/pages/features/MentoringSoftware.jsx:55-55"
+        },
+        {
+          "section": "proof.case-study-video",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/features/MentoringSoftware.jsx:56-56"
+        },
+        {
+          "section": "story.brand-video",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/features/MentoringSoftware.jsx:57-72"
+        },
+        {
+          "section": "conversion.cta-strip",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "spacer"
+          ],
+          "measuredFrom": "src/pages/features/MentoringSoftware.jsx:73-73"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/features/MentoringSoftware.jsx:74-74"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "MentoringHeader",
+        "AutotabsGroup",
+        "SplitTabs",
+        "CaseStudyVideo",
+        "VideoSection",
+        "CtaStrip",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.lms-mentoring-software"
+    },
+    "content-overview": {
+      "id": "content-overview",
+      "name": "Content overview",
+      "designSystem": "marketing",
+      "theme": "nimbus-content",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/content"
+      ],
+      "pageComponent": "src/pages/content/ContentOverview.jsx > ContentOverview",
+      "measuredFrom": "src/pages/content/ContentOverview.jsx:69-82",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.content-overview",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/ContentOverview.jsx:72-72"
+        },
+        {
+          "section": "product.sector-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "topics"
+          ],
+          "measuredFrom": "src/pages/content/ContentOverview.jsx:73-73"
+        },
+        {
+          "section": "product.solution-tabs",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/ContentOverview.jsx:74-74"
+        },
+        {
+          "section": "product.grid-cards-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "content"
+          ],
+          "measuredFrom": "src/pages/content/ContentOverview.jsx:75-75"
+        },
+        {
+          "section": "proof.reviews-slider",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/ContentOverview.jsx:76-76"
+        },
+        {
+          "section": "conversion.faq-legacy",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/ContentOverview.jsx:78-78"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "ContentHero",
+        "Sectors",
+        "SolutionTabs",
+        "GridCardsLegacy",
+        "ReviewsSlider",
+        "FaqLegacy"
+      ],
+      "notes": [
+        "Content theme."
+      ],
+      "iaTemplateId": "template.content-overview"
+    },
+    "content-service": {
+      "id": "content-service",
+      "name": "Content service (legacy layout)",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/content/service"
+      ],
+      "pageComponent": "src/pages/content/ContentService.jsx > ContentService",
+      "measuredFrom": "src/pages/content/ContentService.jsx:25-35",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.layout2-media",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "service"
+          ],
+          "measuredFrom": "src/pages/content/ContentService.jsx:28-28"
+        },
+        {
+          "section": "proof.flip-logos",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/ContentService.jsx:29-29"
+        },
+        {
+          "section": "product.feature-rows-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "service"
+          ],
+          "measuredFrom": "src/pages/content/ContentService.jsx:30-30"
+        },
+        {
+          "section": "product.card-slider-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "library"
+          ],
+          "measuredFrom": "src/pages/content/ContentService.jsx:31-31"
+        },
+        {
+          "section": "proof.testimonial-card-legacy",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/ContentService.jsx:32-32"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "Layout2Hero",
+        "FlipLogos",
+        "FeatureTwoColLegacy",
+        "CardSliderLegacy",
+        "TestimonialCardLegacy"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.content-service"
+    },
+    "content-custom": {
+      "id": "content-custom",
+      "name": "Custom content",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/content/custom-content"
+      ],
+      "pageComponent": "src/pages/content/CustomContent.jsx > CustomContent",
+      "measuredFrom": "src/pages/content/CustomContent.jsx:22-53",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.center-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "custom"
+          ],
+          "measuredFrom": "src/pages/content/CustomContent.jsx:25-25"
+        },
+        {
+          "section": "proof.flip-logos",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/CustomContent.jsx:26-26"
+        },
+        {
+          "section": "story.custom-video",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/CustomContent.jsx:28-32"
+        },
+        {
+          "section": "proof.testimonial-card-legacy",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/CustomContent.jsx:35-41"
+        },
+        {
+          "section": "product.learn-grid",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/CustomContent.jsx:44-47"
+        },
+        {
+          "section": "product.card-slider-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "process"
+          ],
+          "measuredFrom": "src/pages/content/CustomContent.jsx:49-49"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/content/CustomContent.jsx:50-50"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "HeroCenterLegacy",
+        "FlipLogos",
+        "CustomVideo",
+        "TestimonialCardLegacy",
+        "LearnGrid",
+        "CardSliderLegacy",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.content-custom"
+    },
+    "mentoring": {
+      "id": "mentoring",
+      "name": "Mentoring programmes",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fixed-16px",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/mentoring"
+      ],
+      "pageComponent": "src/pages/content/Mentoring.jsx > Mentoring",
+      "measuredFrom": "src/pages/content/Mentoring.jsx:34-59",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.wow-content",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "mentoring"
+          ],
+          "measuredFrom": "src/pages/content/Mentoring.jsx:37-37"
+        },
+        {
+          "section": "proof.logo-row",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/content/Mentoring.jsx:39-47"
+        },
+        {
+          "section": "story.wow-2col",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/Mentoring.jsx:51-51",
+          "note": "Pair 1 of 4 (the page maps PAIRS into wow2col + marquee pairs)."
+        },
+        {
+          "section": "story.marquee",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "plain"
+          ],
+          "measuredFrom": "src/pages/content/Mentoring.jsx:52-52"
+        },
+        {
+          "section": "story.wow-2col",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/Mentoring.jsx:51-51",
+          "note": "Pair 2 of 4."
+        },
+        {
+          "section": "story.marquee",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "plain"
+          ],
+          "measuredFrom": "src/pages/content/Mentoring.jsx:52-52"
+        },
+        {
+          "section": "story.wow-2col",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/Mentoring.jsx:51-51",
+          "note": "Pair 3 of 4."
+        },
+        {
+          "section": "story.marquee",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "plain"
+          ],
+          "measuredFrom": "src/pages/content/Mentoring.jsx:52-52"
+        },
+        {
+          "section": "story.wow-2col",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/Mentoring.jsx:51-51",
+          "note": "Pair 4 of 4."
+        },
+        {
+          "section": "story.marquee",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "plain"
+          ],
+          "measuredFrom": "src/pages/content/Mentoring.jsx:52-52"
+        },
+        {
+          "section": "product.wow-bento",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "included"
+          ],
+          "measuredFrom": "src/pages/content/Mentoring.jsx:55-55"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/content/Mentoring.jsx:56-56"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "WowContentHero",
+        "LogoStrip",
+        "Wow2col",
+        "Marquee",
+        "WowBento",
+        "Faq"
+      ],
+      "notes": [
+        "The four wow2col + marquee pairs come from one JSX map (Mentoring.jsx PAIRS); each pair is a separate slot."
+      ],
+      "iaTemplateId": "template.mentoring"
+    },
+    "case-studies-lms": {
+      "id": "case-studies-lms",
+      "name": "Case study index (platform, filterable)",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/case-studies/lms"
+      ],
+      "pageComponent": "src/pages/content/CaseStudiesLms.jsx > CaseStudiesLms",
+      "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:58-67",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.wow-content",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "case-studies"
+          ],
+          "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:61-61"
+        },
+        {
+          "section": "index.cs-filter-grid",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:62-62"
+        },
+        {
+          "section": "proof.case-results",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:63-63"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/content/CaseStudiesLms.jsx:64-64"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "WowContentHero",
+        "CsFilterGrid",
+        "CaseStudyResults",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.case-studies-lms"
+    },
+    "case-studies-content": {
+      "id": "case-studies-content",
+      "name": "Case study index (content)",
+      "designSystem": "marketing",
+      "theme": "nimbus-content",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/case-studies/content"
+      ],
+      "pageComponent": "src/pages/content/CaseStudiesContent.jsx > CaseStudiesContent",
+      "measuredFrom": "src/pages/content/CaseStudiesContent.jsx:17-30",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.global-header-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "logo"
+          ],
+          "measuredFrom": "src/pages/content/CaseStudiesContent.jsx:21-25"
+        },
+        {
+          "section": "index.cs-content-list",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/CaseStudiesContent.jsx:27-27"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "GlobalHeaderLegacy",
+        "CsContentList"
+      ],
+      "notes": [
+        "Content theme."
+      ],
+      "iaTemplateId": "template.case-studies-content"
+    },
+    "company": {
+      "id": "company",
+      "name": "Company",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "home",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/company"
+      ],
+      "pageComponent": "src/pages/company/CompanyPage.jsx > CompanyPage",
+      "measuredFrom": "src/pages/company/CompanyPage.jsx:13-65",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.company-video",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/CompanyPage.jsx:16-16"
+        },
+        {
+          "section": "proof.logo-row",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/company/CompanyPage.jsx:17-26"
+        },
+        {
+          "section": "proof.stats-countup",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/CompanyPage.jsx:27-27"
+        },
+        {
+          "section": "product.two-col-features",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/CompanyPage.jsx:28-31"
+        },
+        {
+          "section": "proof.results-proof",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/CompanyPage.jsx:32-52"
+        },
+        {
+          "section": "story.company-news",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/CompanyPage.jsx:53-53"
+        },
+        {
+          "section": "proof.case-study-carousel",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/company/CompanyPage.jsx:54-60"
+        },
+        {
+          "section": "hero.layout2-media",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "company"
+          ],
+          "measuredFrom": "src/pages/company/CompanyPage.jsx:61-61",
+          "note": "Mid-page media CTA card, not the opener (SECONDARY_HERO_USES)."
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/company/CompanyPage.jsx:62-62"
+        },
+        {
+          "section": "conversion.demo-form",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "CompanyHeader",
+        "LogoStrip",
+        "StatsResults",
+        "TwoColFeatures",
+        "ProofResults",
+        "CompanyNews",
+        "CaseStudyCarousel",
+        "Layout2Hero",
+        "Faq"
+      ],
+      "notes": [
+        "Footer keeps the homepage demo-form block on /company (Layout.jsx FORM_FOOTER_PAGES)."
+      ],
+      "iaTemplateId": "template.company"
+    },
+    "company-why": {
+      "id": "company-why",
+      "name": "Why us",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fixed-16px",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/company/why-nimbus"
+      ],
+      "pageComponent": "src/pages/company/WhyNimbusPage.jsx > WhyNimbusPage",
+      "measuredFrom": "src/pages/company/WhyNimbusPage.jsx:64-105",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.wow-content",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "why"
+          ],
+          "measuredFrom": "src/pages/company/WhyNimbusPage.jsx:67-67"
+        },
+        {
+          "section": "proof.logo-row",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/company/WhyNimbusPage.jsx:68-78"
+        },
+        {
+          "section": "product.why-assistant-tabs",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/WhyNimbusPage.jsx:79-79"
+        },
+        {
+          "section": "product.wow-bento",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "why"
+          ],
+          "measuredFrom": "src/pages/company/WhyNimbusPage.jsx:80-95"
+        },
+        {
+          "section": "conversion.why-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/WhyNimbusPage.jsx:96-96"
+        },
+        {
+          "section": "proof.case-study-carousel",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/company/WhyNimbusPage.jsx:97-101"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/company/WhyNimbusPage.jsx:102-102"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "WowContentHero",
+        "LogoStrip",
+        "WhyKikitabs",
+        "WowBento",
+        "WhyBlock",
+        "CaseStudyCarousel",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.company-why"
+    },
+    "whats-included": {
+      "id": "whats-included",
+      "name": "What's included",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fixed-16px",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/whats-included"
+      ],
+      "pageComponent": "src/pages/company/WhatsIncludedPage.jsx > WhatsIncludedPage",
+      "measuredFrom": "src/pages/company/WhatsIncludedPage.jsx:25-75",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.wow-content",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "whats-included"
+          ],
+          "measuredFrom": "src/pages/company/WhatsIncludedPage.jsx:28-28"
+        },
+        {
+          "section": "proof.logo-row",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/company/WhatsIncludedPage.jsx:29-37"
+        },
+        {
+          "section": "product.included-tabs",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/WhatsIncludedPage.jsx:38-38"
+        },
+        {
+          "section": "product.layout03-tabs",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "video-compact"
+          ],
+          "measuredFrom": "src/pages/company/WhatsIncludedPage.jsx:39-39"
+        },
+        {
+          "section": "proof.results-proof",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/WhatsIncludedPage.jsx:41-69"
+        },
+        {
+          "section": "proof.reviews-slider",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/WhatsIncludedPage.jsx:71-71"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/company/WhatsIncludedPage.jsx:72-72"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "WowContentHero",
+        "LogoStrip",
+        "IncludedTabs",
+        "Layout03Tabs",
+        "ProofResults",
+        "ReviewsSlider",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.whats-included"
+    },
+    "contact-us": {
+      "id": "contact-us",
+      "name": "Contact",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/contact-us"
+      ],
+      "pageComponent": "src/pages/company/ContactPage.jsx > ContactPage",
+      "measuredFrom": "src/pages/company/ContactPage.jsx:23-53",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.global-header-legacy",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "eyebrow"
+          ],
+          "measuredFrom": "src/pages/company/ContactPage.jsx:26-26"
+        },
+        {
+          "section": "proof.logo-row",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/company/ContactPage.jsx:29-36"
+        },
+        {
+          "section": "conversion.contact-form",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/ContactPage.jsx:39-45"
+        },
+        {
+          "section": "proof.case-study-carousel",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/company/ContactPage.jsx:46-49"
+        },
+        {
+          "section": "conversion.faq",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "subpage"
+          ],
+          "measuredFrom": "src/pages/company/ContactPage.jsx:50-50"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "GlobalHeaderLegacy",
+        "LogoStrip",
+        "ContactForm",
+        "CaseStudyCarousel",
+        "Faq"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.contact-us"
+    },
+    "events-webinars": {
+      "id": "events-webinars",
+      "name": "Events & webinars index",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/resources/events-webinars"
+      ],
+      "pageComponent": "src/pages/company/EventsPage.jsx > EventsPage",
+      "measuredFrom": "src/pages/company/EventsPage.jsx:17-26",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "hero.layout2-media",
+          "required": true,
+          "repeatable": false,
+          "variants": [
+            "events"
+          ],
+          "measuredFrom": "src/pages/company/EventsPage.jsx:20-20"
+        },
+        {
+          "section": "index.events-upcoming",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/EventsPage.jsx:21-21"
+        },
+        {
+          "section": "index.webinars-upcoming",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/EventsPage.jsx:22-22"
+        },
+        {
+          "section": "index.events-past",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/EventsPage.jsx:23-23"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "Layout2Hero",
+        "EventsUpcoming",
+        "WebinarsUpcoming",
+        "EventsFilter"
+      ],
+      "notes": [],
+      "iaTemplateId": "template.events-webinars"
+    },
+    "blog-and-news": {
+      "id": "blog-and-news",
+      "name": "Blog & news index",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fluid",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/resources/blog-and-news"
+      ],
+      "pageComponent": "src/pages/company/BlogPage.jsx > BlogPage",
+      "measuredFrom": "src/pages/company/BlogPage.jsx:39-47",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "index.blog-featured",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/BlogPage.jsx:43-43"
+        },
+        {
+          "section": "index.blog-filter",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/BlogPage.jsx:44-44"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "BlogFeatured",
+        "BlogFilter"
+      ],
+      "notes": [
+        "No hero-category node: BlogFeatured carries the page H1 header (NO_HERO_TEMPLATES)."
+      ],
+      "iaTemplateId": "template.blog-and-news"
+    },
+    "guides": {
+      "id": "guides",
+      "name": "Guides index",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fixed-16px",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/resources/guides"
+      ],
+      "pageComponent": "src/pages/company/GuidesPage.jsx > GuidesPage",
+      "measuredFrom": "src/pages/company/GuidesPage.jsx:19-26",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "index.guides",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/GuidesPage.jsx:23-23"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "GuidesIndex"
+      ],
+      "notes": [
+        "No hero-category node: GuidesIndex carries the page H1 header (NO_HERO_TEMPLATES)."
+      ],
+      "iaTemplateId": "template.guides"
+    },
+    "lms-glossary": {
+      "id": "lms-glossary",
+      "name": "Glossary index",
+      "designSystem": "marketing",
+      "theme": "nimbus-dark",
+      "rootFontSize": "fixed-16px",
+      "footerVariant": "subpage",
+      "evidenceLevel": "code-derived",
+      "routes": [
+        "/resources/lms-glossary"
+      ],
+      "pageComponent": "src/pages/company/GlossaryPage.jsx > GlossaryPage",
+      "measuredFrom": "src/pages/company/GlossaryPage.jsx:6-17",
+      "nodes": [
+        {
+          "section": "shell.nav",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:68-68"
+        },
+        {
+          "section": "index.glossary",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/GlossaryPage.jsx:9-12"
+        },
+        {
+          "section": "conversion.glossary-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/company/GlossaryPage.jsx:14-14"
+        },
+        {
+          "section": "conversion.demo-cta",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        },
+        {
+          "section": "shell.footer",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/components/Layout.jsx:72-72"
+        }
+      ],
+      "componentTags": [
+        "GlossaryIndex",
+        "GlossaryCta"
+      ],
+      "notes": [
+        "No hero-category node: GlossaryIndex carries the page H1 header (NO_HERO_TEMPLATES)."
+      ],
+      "iaTemplateId": "template.lms-glossary"
     }
   }
 }

@@ -1,0 +1,405 @@
+{
+  "id": "product.included-tabs",
+  "kind": "section",
+  "name": "What's-included tabbed slider",
+  "purpose": "Shows every product module included in the plan, one slide per module, with a quote for reassurance and a demo CTA.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/pages/company/IncludedTabs.jsx",
+  "description": "Page-local block for /whats-included. Split header: H2 + grey lead on the left, an italic quote card (avatar, name, role) on the right (stacks <=767). Then a loop slider of full-width slides, each a large rounded panel with an offset 1440:873 product image, a bottom gradient and the module name (H3) + paragraph pinned bottom-left; the tab row sits BELOW the slider (4.75rem; <=767 two per row, 3.5rem). A centred primary CTA follows.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 9,
+        "note": "H2",
+        "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+      },
+      "lead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 20,
+        "note": "grey paragraph under the H2",
+        "measuredLongestRealInstance": "16 words in the clone's own placeholder copy"
+      },
+      "quote": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 27,
+            "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "note": "role and org in one line",
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "avatar": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "photo.person",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "photo.person",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "unlabeled round avatar"
+          }
+        },
+        "required": [
+          "quote",
+          "name",
+          "role"
+        ],
+        "note": "italic quote card in the header"
+      },
+      "slides": {
+        "type": "array",
+        "minItems": 4,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tab": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "note": "module name: tab label AND slide H3",
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 25,
+              "note": "slide paragraph",
+              "measuredLongestRealInstance": "20 words in the clone's own placeholder copy"
+            },
+            "media": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "product.screenshot",
+                "stock.photo",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "product.screenshot",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "offset product image (Placeholder \"Product UI 1440:873\")"
+            }
+          },
+          "required": [
+            "tab",
+            "text",
+            "media"
+          ]
+        },
+        "maxItems": 8
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "note": "centred primary button under the slider",
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "heading",
+      "lead",
+      "quote",
+      "slides",
+      "ctaLabel"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "carousel.dragLoop"
+    ],
+    "reducedMotionFallback": "instant-slide-change",
+    "measuredFrom": "src/pages/company/IncludedTabs.jsx:33-92",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "useLoopCarousel loop slider: 800ms ease on tab click or drag, no autoplay (the original progress overlay is display:none and not rendered)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "mob:flex-col; gap-[5rem] -> mob:gap-[1rem]",
+      "tailwind": [
+        "mob:flex-col mob:gap-[1rem]"
+      ],
+      "measuredFrom": "src/pages/company/IncludedTabs.jsx:40-40",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/pages/company/IncludedTabs.jsx:46-46",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/pages/company/IncludedTabs.jsx:47-47",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mob:mb-[1rem]",
+      "tailwind": [
+        "mob:mb-[1rem]"
+      ],
+      "measuredFrom": "src/pages/company/IncludedTabs.jsx:49-49",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[2rem] -> mob:pt-[1.25rem]",
+      "tailwind": [
+        "mob:pt-[1.25rem]"
+      ],
+      "measuredFrom": "src/pages/company/IncludedTabs.jsx:56-56",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "spacing"
+      ],
+      "changes": "min-h-[40rem] -> mob:min-h-[24rem]; px-[2.5rem] -> mob:px-[1.5rem]; pt-[2.5rem] -> mob:pt-[1.5rem]",
+      "tailwind": [
+        "mob:min-h-[24rem] mob:px-[1.5rem] mob:pt-[1.5rem]"
+      ],
+      "measuredFrom": "src/pages/company/IncludedTabs.jsx:66-66",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "ml-[12.6rem] -> mob:ml-[3.4rem]; mt-[3.6rem] -> mob:mt-[1rem]",
+      "tailwind": [
+        "mob:ml-[3.4rem] mob:mt-[1rem]"
+      ],
+      "measuredFrom": "src/pages/company/IncludedTabs.jsx:70-70",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "other"
+      ],
+      "changes": "top-[21.25rem] -> mob:top-[5.25rem]",
+      "tailwind": [
+        "mob:top-[5.25rem]"
+      ],
+      "measuredFrom": "src/pages/company/IncludedTabs.jsx:72-72",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-wrap",
+      "tailwind": [
+        "mob:flex-wrap"
+      ],
+      "measuredFrom": "src/pages/company/IncludedTabs.jsx:85-85",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "layout",
+        "typography"
+      ],
+      "changes": "h-[4.75rem] -> mob:h-[3.5rem]; mob:basis-[calc(50%-0.375rem)]; mob:text-[1rem]; mob:leading-[1.4]",
+      "tailwind": [
+        "mob:h-[3.5rem] mob:basis-[calc(50%-0.375rem)] mob:text-[1rem] mob:leading-[1.4]"
+      ],
+      "measuredFrom": "src/pages/company/IncludedTabs.jsx:93-93",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "xs:px-0",
+      "tailwind": [
+        "xs:px-0"
+      ],
+      "measuredFrom": "src/pages/company/IncludedTabs.jsx:105-105",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.heading-h2",
+    "primitive.loop-carousel",
+    "primitive.placeholder-media",
+    "primitive.button"
+  ],
+  "measuredFrom": "src/pages/company/IncludedTabs.jsx:21-111",
+  "iaSectionId": "product.included-tabs",
+  "evidenceNotes": [
+    "pages-manifest.json / CLONE_SPEC_PAGES.md map this slot (kiki-autotabs on /whats-included) to the shared KikiTabs component; the clone implements it page-locally in IncludedTabs.jsx (tabs below the slider, split header with quote card).",
+    "The page renders <IncludedTabs /> with all defaults."
+  ],
+  "observedOn": [
+    "/whats-included"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.logo-row"
+    ],
+    "recommendedBefore": [
+      "product.layout03-tabs"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.person",
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ]
+}

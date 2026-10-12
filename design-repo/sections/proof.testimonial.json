@@ -100,10 +100,10 @@
     ]
   },
   "constraints": {
-    "onePerPage": true,
     "maxPerPage": 1,
     "mustImmediatelyFollow": "proof.results-stats",
-    "neighbourRuleId": "TESTIMONIAL_FOLLOWS_STATS"
+    "neighbourRuleId": "TESTIMONIAL_FOLLOWS_STATS",
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
   },
   "motion": {
     "allowedPatterns": [
@@ -122,7 +122,8 @@
       "tailwind": [
         "tab:text-quote-tab mob:text-quote-mob"
       ],
-      "measuredFrom": "src/components/Results.jsx:39-39"
+      "measuredFrom": "src/components/Results.jsx:97-97",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "xs",
@@ -131,7 +132,8 @@
       "tailwind": [
         "text-para text-ink xs:text-body-xs"
       ],
-      "measuredFrom": "src/components/Results.jsx:47-47"
+      "measuredFrom": "src/components/Results.jsx:105-105",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "xs",
@@ -140,16 +142,18 @@
       "tailwind": [
         "text-body text-grey xs:text-small"
       ],
-      "measuredFrom": "src/components/Results.jsx:48-48"
+      "measuredFrom": "src/components/Results.jsx:106-106",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "wide",
       "query": "min-width: 1440px",
       "changes": "Avatar fully round at >=1440 ('6px 0' corners below).",
       "tailwind": [
-        "rounded-[6px_0] wide:rounded-avatar"
+        "wide:rounded-avatar"
       ],
-      "measuredFrom": "src/components/Results.jsx:45-45"
+      "measuredFrom": "src/components/Results.jsx:103-103",
+      "reCited": "re-cited; 1 of 2 classes no longer exist in current source and were dropped"
     }
   ],
   "assetRoles": [
@@ -168,7 +172,7 @@
     "recommendedBefore": [
       "story.zoom-statement"
     ],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
     "/"

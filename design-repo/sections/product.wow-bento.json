@@ -1,0 +1,1203 @@
+{
+  "id": "product.wow-bento",
+  "kind": "section",
+  "name": "Wow bento card grid",
+  "purpose": "Lays out a set of concrete use-cases, release items or inclusions as image-led cards under a heading, often with a supporting customer quote.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/WowBento.jsx",
+  "description": "One component with a `variant` prop whose variants have genuinely different shapes. cards (/lms/small-business, 1st): split header (H2 left, small italic side quote right), a 1.5fr/1fr row (rect + square media) then three squares, each with a caption whose lead-in is white, and a centred demo button. cards-cta (/lms/small-business, 2nd): serif H3 + paragraph beside a side quote, then two rect 'Team photo' cards with a serif H4, text and a small dark button each. release (/lms/spring-release): H2 | paragraph + green pill button, then three rows of two feature cards (one per row is 150% wide). included (/mentoring): centred H2 and three feature cards with a 20px title and text. why (/company/why-nimbus): H2 + paragraph + dark button beside a quote card, two square photos (event, team) with a caption, an awards line with four award shields, and a closing large quote. All stack at <=991/767.",
+  "content": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "cards"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 12,
+            "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+          },
+          "quote": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "quote": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 38,
+                "note": "Italic side quote, includes quotation marks.",
+                "measuredLongestRealInstance": "30 words in the clone's own placeholder copy"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 5,
+                "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+              },
+              "org": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "note": "Rendered bold after the role.",
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "avatar": {
+                "type": "object",
+                "additionalProperties": false,
+                "x-allowedRoles": [
+                  "photo.person",
+                  "placeholder.neutral"
+                ],
+                "properties": {
+                  "assetRole": {
+                    "enum": [
+                      "photo.person",
+                      "placeholder.neutral"
+                    ]
+                  },
+                  "placeholderLabel": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 6,
+                    "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                  },
+                  "alt": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 10
+                  },
+                  "assetRef": {
+                    "type": "string",
+                    "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                    "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                  }
+                },
+                "required": [
+                  "assetRole"
+                ]
+              }
+            },
+            "required": [
+              "quote",
+              "name",
+              "role",
+              "org",
+              "avatar"
+            ]
+          },
+          "cards": {
+            "type": "array",
+            "minItems": 5,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "media": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "product.screenshot",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "product.screenshot",
+                        "stock.photo",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ]
+                },
+                "lead": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 3,
+                  "note": "White lead-in sentence.",
+                  "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 23,
+                  "measuredLongestRealInstance": "18 words in the clone's own placeholder copy"
+                },
+                "link": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 3,
+                  "note": "Inline link phrase rendered after text.",
+                  "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                },
+                "after": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 24,
+                  "note": "Rest of the caption after the link.",
+                  "measuredLongestRealInstance": "19 words in the clone's own placeholder copy"
+                }
+              },
+              "required": [
+                "media",
+                "lead",
+                "text"
+              ]
+            },
+            "maxItems": 5
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "quote",
+          "cards"
+        ],
+        "note": "Five cards: first two in a 1.5fr/1fr row, remaining three in a 3-col row."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "cards-cta"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 13,
+            "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+          },
+          "paragraph": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 39,
+                "measuredLongestRealInstance": "31 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases"
+            ],
+            "x-richText": true
+          },
+          "quote": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "quote": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 39,
+                "note": "Italic side quote; the page forces a line break after the first sentence.",
+                "measuredLongestRealInstance": "31 words in the clone's own placeholder copy"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 5,
+                "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+              },
+              "org": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+              },
+              "avatar": {
+                "type": "object",
+                "additionalProperties": false,
+                "x-allowedRoles": [
+                  "photo.person",
+                  "placeholder.neutral"
+                ],
+                "properties": {
+                  "assetRole": {
+                    "enum": [
+                      "photo.person",
+                      "placeholder.neutral"
+                    ]
+                  },
+                  "placeholderLabel": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 6,
+                    "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                  },
+                  "alt": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 10
+                  },
+                  "assetRef": {
+                    "type": "string",
+                    "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                    "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                  }
+                },
+                "required": [
+                  "assetRole"
+                ]
+              }
+            },
+            "required": [
+              "quote",
+              "name",
+              "role",
+              "org",
+              "avatar"
+            ]
+          },
+          "cards": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "media": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "photo.person",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "photo.person",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ]
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 3,
+                  "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 37,
+                  "measuredLongestRealInstance": "29 words in the clone's own placeholder copy"
+                },
+                "ctaLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 5,
+                  "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                }
+              },
+              "required": [
+                "media",
+                "title",
+                "text",
+                "ctaLabel"
+              ]
+            },
+            "maxItems": 2
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "paragraph",
+          "quote",
+          "cards"
+        ],
+        "note": "Serif H3 header with paragraph and side quote; two CTA cards."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "release"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "paragraph": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 30,
+                "measuredLongestRealInstance": "24 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases"
+            ],
+            "x-richText": true
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "note": "Green pill button.",
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "rows": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "media": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "x-allowedRoles": [
+                      "product.screenshot",
+                      "stock.photo",
+                      "placeholder.neutral"
+                    ],
+                    "properties": {
+                      "assetRole": {
+                        "enum": [
+                          "product.screenshot",
+                          "stock.photo",
+                          "placeholder.neutral"
+                        ]
+                      },
+                      "placeholderLabel": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 6,
+                        "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                      },
+                      "alt": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 10
+                      },
+                      "assetRef": {
+                        "type": "string",
+                        "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                        "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                      }
+                    },
+                    "required": [
+                      "assetRole"
+                    ]
+                  },
+                  "title": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 5,
+                    "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                  },
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 22,
+                    "measuredLongestRealInstance": "17 words in the clone's own placeholder copy"
+                  }
+                },
+                "required": [
+                  "media",
+                  "title",
+                  "text"
+                ]
+              },
+              "maxItems": 2
+            },
+            "maxItems": 3
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "paragraph",
+          "ctaLabel",
+          "rows"
+        ],
+        "note": "Three rows of two cards; one card per row is rendered 150% wide."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "included"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "cards": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "media": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "product.screenshot",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "product.screenshot",
+                        "stock.photo",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ]
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 5,
+                  "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 24,
+                  "measuredLongestRealInstance": "19 words in the clone's own placeholder copy"
+                }
+              },
+              "required": [
+                "media",
+                "title",
+                "text"
+              ]
+            },
+            "maxItems": 3
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "cards"
+        ],
+        "note": "Centred heading, three equal cards."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "why"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 13,
+            "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+          },
+          "paragraph": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 37,
+            "measuredLongestRealInstance": "29 words in the clone's own placeholder copy"
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "note": "Dark button under the paragraph.",
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "quote": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "quote": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 40,
+                "measuredLongestRealInstance": "32 words in the clone's own placeholder copy"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 5,
+                "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+              },
+              "org": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "note": "Inline link.",
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "avatar": {
+                "type": "object",
+                "additionalProperties": false,
+                "x-allowedRoles": [
+                  "photo.person",
+                  "placeholder.neutral"
+                ],
+                "properties": {
+                  "assetRole": {
+                    "enum": [
+                      "photo.person",
+                      "placeholder.neutral"
+                    ]
+                  },
+                  "placeholderLabel": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 6,
+                    "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                  },
+                  "alt": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 10
+                  },
+                  "assetRef": {
+                    "type": "string",
+                    "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                    "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                  }
+                },
+                "required": [
+                  "assetRole"
+                ]
+              }
+            },
+            "required": [
+              "quote",
+              "name",
+              "role",
+              "org",
+              "avatar"
+            ]
+          },
+          "eventPhoto": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "photo.event",
+              "stock.photo",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "photo.event",
+                  "stock.photo",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ]
+          },
+          "teamPhoto": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "photo.person",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "photo.person",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ]
+          },
+          "caption": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 27,
+            "measuredLongestRealInstance": "21 words in the clone's own placeholder copy"
+          },
+          "awardsText": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 34,
+            "measuredLongestRealInstance": "27 words in the clone's own placeholder copy"
+          },
+          "awards": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "badge.award",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "badge.award",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              },
+              "slotCount": {
+                "type": "integer",
+                "minimum": 4,
+                "maximum": 4
+              }
+            },
+            "required": [
+              "assetRole",
+              "slotCount"
+            ]
+          },
+          "closing": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "quote": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 48,
+                "note": "Large 32px closing quote.",
+                "measuredLongestRealInstance": "38 words in the clone's own placeholder copy"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 5,
+                "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+              },
+              "org": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 3,
+                "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+              },
+              "avatar": {
+                "type": "object",
+                "additionalProperties": false,
+                "x-allowedRoles": [
+                  "photo.person",
+                  "placeholder.neutral"
+                ],
+                "properties": {
+                  "assetRole": {
+                    "enum": [
+                      "photo.person",
+                      "placeholder.neutral"
+                    ]
+                  },
+                  "placeholderLabel": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 6,
+                    "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                  },
+                  "alt": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 10
+                  },
+                  "assetRef": {
+                    "type": "string",
+                    "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                    "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                  }
+                },
+                "required": [
+                  "assetRole"
+                ]
+              }
+            },
+            "required": [
+              "quote",
+              "name",
+              "role",
+              "org",
+              "avatar"
+            ]
+          }
+        },
+        "required": [
+          "variant",
+          "title",
+          "paragraph",
+          "ctaLabel",
+          "quote",
+          "eventPhoto",
+          "teamPhoto",
+          "caption",
+          "awardsText",
+          "awards",
+          "closing"
+        ],
+        "note": "Header + quote card, two photos with caption, awards row, closing quote."
+      }
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "cards": 1,
+      "cards-cta": 1,
+      "included": 1,
+      "release": 1,
+      "why": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "scroll.revealOnce",
+      "none"
+    ],
+    "reducedMotionFallback": "instant-final-state",
+    "measuredFrom": "src/components/sections/WowBento.jsx:56-61",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "cards and cards-cta only: each card starts at opacity 0, y 3rem, blur 5px and reveals to rest in 500ms power3.out when its top crosses the viewport bottom, once (cards already in view animate immediately). release, included and why have no section motion; buttons and links have primitive hover transitions only.",
+    "alsoMeasuredFrom": [
+      "src/components/sections/WowBento.jsx:177-177"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "layout"
+      ],
+      "changes": "mob:w-full; mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:w-full mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/WowBento.jsx:28-28",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "grid-cols-[1.5fr_1fr] -> mob:grid-cols-1; gap-[1rem] -> xs:gap-[3rem]",
+      "tailwind": [
+        "mob:grid-cols-1 xs:gap-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/WowBento.jsx:110-110",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "grid-cols-3 -> mob:grid-cols-1; gap-[1rem] -> xs:gap-[3rem]",
+      "tailwind": [
+        "mob:grid-cols-1 xs:gap-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/WowBento.jsx:115-115",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-col; tab:items-start; gap-[3.75rem] -> tab:gap-[2rem]",
+      "tailwind": [
+        "tab:flex-col tab:items-start tab:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/WowBento.jsx:206-206",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-col; tab:items-start; gap-[3.75rem] -> tab:gap-[2rem]",
+      "tailwind": [
+        "tab:flex-col tab:items-start tab:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/WowBento.jsx:265-265",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "grid-cols-2 -> mob:grid-cols-1; gap-[1rem] -> xs:gap-[3rem]",
+      "tailwind": [
+        "mob:grid-cols-1 xs:gap-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/WowBento.jsx:273-273",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-col; tab:items-start; gap-[3.75rem] -> tab:gap-[2rem]",
+      "tailwind": [
+        "tab:flex-col tab:items-start tab:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/WowBento.jsx:315-315",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "tab:flex-col",
+      "tailwind": [
+        "tab:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/WowBento.jsx:333-333",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "tab:flex-col",
+      "tailwind": [
+        "tab:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/WowBento.jsx:357-357",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-col; tab:items-start; gap-[3.75rem] -> tab:gap-[2rem] -> mob:gap-[1.5rem]",
+      "tailwind": [
+        "tab:flex-col tab:items-start tab:gap-[2rem] mob:gap-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/WowBento.jsx:391-391",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-col; tab:items-start; gap-[3.75rem] -> tab:gap-[2rem] -> mob:gap-[1.5rem]",
+      "tailwind": [
+        "tab:flex-col tab:items-start tab:gap-[2rem] mob:gap-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/WowBento.jsx:402-402",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-wrap; tab:justify-center; tab:gap-y-[2rem]; mob:justify-around; gap-[3rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "tab:flex-wrap tab:justify-center tab:gap-y-[2rem] mob:justify-around xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/WowBento.jsx:419-419",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.placeholder-media",
+    "primitive.logo-placeholder",
+    "primitive.side-quote"
+  ],
+  "measuredFrom": "src/components/sections/WowBento.jsx:176-183",
+  "iaSectionId": "product.wow-bento",
+  "evidenceNotes": [
+    "/mentoring card texts are computed with prose(106,150) / prose(120,170) / prose(87,190) from src/pages/content/filler.js; the sample strings are the evaluated output (they are deliberately sentence fragments sized to the original's line counts).",
+    "The 'why' variant loads homepage award files (/assets/award-1.svg ... award-4.svg) as real images rather than neutral placeholders.",
+    "The 'release' row cards carry per-card layout flags (wider = 150% width, bold text, contain = 1440:960 media); these are layout knobs and are not modelled. The source comment notes the IX2 'WowCard Imge Reveal' on spring/mentoring targets nothing visible on the original, so it is intentionally not reproduced.",
+    "/lms/small-business uses two different variants (cards, cards-cta), hence maxPerPage 2 for the section; each variant appears at most once per page."
+  ],
+  "observedOn": [
+    "/company/why-nimbus",
+    "/lms/small-business",
+    "/lms/spring-release",
+    "/mentoring"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.release-block",
+      "product.why-assistant-tabs",
+      "proof.logo-row",
+      "story.marquee"
+    ],
+    "recommendedBefore": [
+      "conversion.cta-strip",
+      "conversion.faq",
+      "conversion.why-cta",
+      "product.assistant-tabs"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "badge.award",
+    "photo.event",
+    "photo.person",
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ],
+  "variants": [
+    "cards",
+    "cards-cta",
+    "release",
+    "included",
+    "why"
+  ]
+}

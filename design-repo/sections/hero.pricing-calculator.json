@@ -1,0 +1,554 @@
+{
+  "id": "hero.pricing-calculator",
+  "kind": "section",
+  "name": "Pricing hero with plan calculator",
+  "purpose": "Open the pricing page with the H1 and let a visitor size the plan by team size and currency, then book a demo or explore what is included.",
+  "category": "hero",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/PricingHero.jsx",
+  "description": "Centred column (/pricing): eyebrow chip, heading-h2-sized H1, grey intro and 3 review badges; a 'We have [learners] learners' custom dropdown; a plan card (currency dropdown top-right, plan eyebrow, lead, large serif price computed from the selected bracket, primary CTA + dark button that opens a right-hand feature drawer, check list); under the card a results ticker that steps through one stat row at a time. The drawer (hidden <=479) has a title, intro, tab buttons and cross-fading screenshot panes. Card contents stack <=479.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "eyebrow": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 2,
+        "note": "Eyebrow chip label.",
+        "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+      },
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "note": "H1 styled heading-h2.",
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "intro": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 20,
+        "measuredLongestRealInstance": "16 words in the clone's own placeholder copy"
+      },
+      "badges": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "badge.review"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "badge.review"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 3,
+            "maximum": 3
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ],
+        "note": "Review-site badges (71:63, 4rem tall)."
+      },
+      "userBrackets": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 2,
+          "note": "Learner-count bracket label shown in the dropdown.",
+          "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+        },
+        "maxItems": 8,
+        "note": "Dropdown options; the price per bracket is contract-owned placeholder data."
+      },
+      "planEyebrow": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 8,
+        "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+      },
+      "planLead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 12,
+        "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+      },
+      "primaryCta": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "secondaryCta": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 8,
+        "note": "Opens the feature drawer.",
+        "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+      },
+      "listLead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 8,
+        "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+      },
+      "features": {
+        "type": "array",
+        "minItems": 5,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 17,
+          "measuredLongestRealInstance": "13 words in the clone's own placeholder copy"
+        },
+        "maxItems": 8,
+        "note": "Check-list items."
+      },
+      "results": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "stat": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 10,
+              "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+            },
+            "logo": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "placeholder.neutral",
+                "logo.customer"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "placeholder.neutral",
+                    "logo.customer"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "Small logo slot beside the stat."
+            }
+          },
+          "required": [
+            "stat",
+            "logo"
+          ]
+        },
+        "maxItems": 4,
+        "note": "Ticker rows, shown one at a time."
+      },
+      "drawer": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "intro": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 15,
+            "measuredLongestRealInstance": "12 words in the clone's own placeholder copy"
+          },
+          "tabs": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 2,
+                  "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10,
+                  "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+                },
+                "body": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 35,
+                  "measuredLongestRealInstance": "28 words in the clone's own placeholder copy"
+                },
+                "screenshot": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "placeholder.neutral",
+                    "product.screenshot",
+                    "stock.photo"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "placeholder.neutral",
+                        "product.screenshot",
+                        "stock.photo"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "Pane screenshot."
+                }
+              },
+              "required": [
+                "label",
+                "title",
+                "body",
+                "screenshot"
+              ]
+            },
+            "maxItems": 6
+          }
+        },
+        "required": [
+          "title",
+          "intro",
+          "tabs"
+        ],
+        "note": "Right-hand feature drawer opened by the secondary CTA."
+      }
+    },
+    "required": [
+      "eyebrow",
+      "heading",
+      "intro",
+      "badges",
+      "planEyebrow",
+      "planLead",
+      "primaryCta",
+      "secondaryCta",
+      "listLead",
+      "features",
+      "results",
+      "drawer"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "ticker.verticalLoop",
+      "modal.drawerSlide",
+      "tabs.crossFade"
+    ],
+    "reducedMotionFallback": "static-first-frame",
+    "measuredFrom": "src/components/sections/PricingHero.jsx:133-137",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "Results ticker: once the block enters the viewport a repeat:-1 GSAP timeline moves the track up one row every 4s (850ms power3.out) and loops back via a duplicated first row. Secondary CTA click opens a drawer: overlay opacity 0->1 500ms ease, panel translateX 100%->0 500ms easeOutQuad (proposed pattern modal.drawerSlide). Drawer tabs cross-fade panes (.fade-pane opacity/visibility 0.3s). Dropdowns open instantly.",
+    "alsoMeasuredFrom": [
+      "src/components/sections/PricingHero.jsx:172-177",
+      "src/index.css:65-69"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:hidden",
+      "tailwind": [
+        "xs:hidden"
+      ],
+      "measuredFrom": "src/components/sections/PricingHero.jsx:169-169",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "spacing"
+      ],
+      "changes": "w-[75vw] -> tab:w-[80%] -> mob:w-[90%]; max-w-[60rem] -> tab:max-w-none; py-[5rem] -> tab:py-[4rem]; px-[3rem] -> mob:px-[2rem]; mob:pb-[7rem]",
+      "tailwind": [
+        "tab:w-[80%] tab:max-w-none tab:py-[4rem] mob:w-[90%] mob:px-[2rem] mob:pb-[7rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingHero.jsx:176-176",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[5rem] -> mob:pt-[3rem]",
+      "tailwind": [
+        "mob:pt-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingHero.jsx:274-274",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[4rem] -> xs:h-[3rem]; max-w-[6.5rem] -> xs:max-w-[5rem]",
+      "tailwind": [
+        "xs:h-[3rem] xs:max-w-[5rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingHero.jsx:285-285",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:flex-col; xs:justify-start",
+      "tailwind": [
+        "xs:flex-col xs:justify-start"
+      ],
+      "measuredFrom": "src/components/sections/PricingHero.jsx:291-291",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "xs:flex; xs:flex-col; xs:items-start; xs:justify-between; pt-[3.5rem] -> xs:pt-[2rem]",
+      "tailwind": [
+        "xs:flex xs:flex-col xs:items-start xs:justify-between xs:pt-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingHero.jsx:300-300",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "xs:static; xs:mb-[0.9rem]",
+      "tailwind": [
+        "xs:static xs:mb-[0.9rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingHero.jsx:301-301",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[4rem] -> xs:text-[2.5rem]",
+      "tailwind": [
+        "xs:text-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingHero.jsx:308-308",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "gap-[1.5rem] -> xs:gap-[1rem]; xs:self-stretch",
+      "tailwind": [
+        "xs:gap-[1rem] xs:self-stretch"
+      ],
+      "measuredFrom": "src/components/sections/PricingHero.jsx:311-311",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[4.5rem] -> xs:h-[5rem]",
+      "tailwind": [
+        "xs:h-[5rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingHero.jsx:332-332",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mx-[1rem] -> xs:mx-0; xs:px-[0.5rem]; pb-[1rem] -> xs:pb-[1.25rem]",
+      "tailwind": [
+        "xs:mx-0 xs:px-[0.5rem] xs:pb-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingHero.jsx:333-333",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[2rem] -> xs:h-[3rem]",
+      "tailwind": [
+        "xs:h-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/PricingHero.jsx:335-335",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.placeholder-media",
+    "primitive.logo-placeholder",
+    "primitive.badge-row"
+  ],
+  "measuredFrom": "src/components/sections/PricingHero.jsx:261-354",
+  "iaSectionId": "hero.pricing-calculator",
+  "evidenceNotes": [
+    "Code comment says the ticker easing is 'outQuart', the code uses GSAP 'power3.out' (equivalent).",
+    "Prices (PLAN_USD) and currency rates are hard-coded placeholder data, not modelled; 'We have' / 'learners' labels are fixed in the component.",
+    "The results ticker logo slot uses LogoPlaceholder default text 'Logo'."
+  ],
+  "observedOn": [
+    "/pricing"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "shell.nav"
+    ],
+    "recommendedBefore": [
+      "proof.reviews-grid"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "badge.review",
+    "logo.customer",
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ]
+}

@@ -1,0 +1,297 @@
+{
+  "id": "hero.global-header-legacy",
+  "kind": "section",
+  "name": "Legacy global page header",
+  "purpose": "Open a legacy-themed utility or index page with a simple H1 and one supporting paragraph (no CTA).",
+  "category": "hero",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/GlobalHeaderLegacy.jsx",
+  "description": "Top + side hairline frame (no bottom border) with legacy header padding. One component with `variant`: 'eyebrow' (/contact-us; centred eyebrow tag, H1 3.8rem/1.1, grey paragraph) and 'logo' (/case-studies/content; centred content-brand logo, H1 3.8rem/1.15, grey paragraph that keeps the original's 12rem left offset). No buttons. The file also exports the shared legacy theme primitives (legacyVars, LegacyButton, LegacyEyebrow).",
+  "content": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "eyebrow"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "Legacy page colour theme (legacyVars): green, yellow (content pages) or pink (impact)."
+          },
+          "eyebrow": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "note": "H1.",
+            "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 23,
+            "measuredLongestRealInstance": "18 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "eyebrow",
+          "heading",
+          "body"
+        ],
+        "note": "/contact-us"
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "logo"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "Legacy page colour theme (legacyVars): green, yellow (content pages) or pink (impact)."
+          },
+          "logo": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "stock.photo",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "stock.photo",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "Own content-brand logo slot (512:125); no customer/vendor role fits."
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "note": "H1.",
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 38,
+            "measuredLongestRealInstance": "30 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "logo",
+          "heading",
+          "body"
+        ],
+        "note": "/case-studies/content"
+      }
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "eyebrow": 1,
+      "logo": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/GlobalHeaderLegacy.jsx:123-165",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; static text block."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "spacing",
+        "typography"
+      ],
+      "changes": "px-[1.25rem] -> tab:px-[1rem]; py-[0.75rem] -> tab:py-[0.5rem]; text-[1.125rem] -> tab:text-[1rem]",
+      "tailwind": [
+        "tab:px-[1rem] tab:py-[0.5rem] tab:text-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/GlobalHeaderLegacy.jsx:83-83",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "typography"
+      ],
+      "changes": "px-[0.75rem] -> tab:px-[0.625rem]; py-[0.325rem] -> tab:py-[0.425rem]; text-[0.875rem] -> tab:text-[0.725rem]; mb-[0.75rem] -> xs:mb-[0.25rem]; leading-[1.4] -> xs:leading-none",
+      "tailwind": [
+        "tab:px-[0.625rem] tab:py-[0.425rem] tab:text-[0.725rem] xs:mb-[0.25rem] xs:leading-none"
+      ],
+      "measuredFrom": "src/components/sections/GlobalHeaderLegacy.jsx:95-95",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[5.5rem] -> tab:pt-[4rem]; px-[2.5rem] -> tab:px-[2rem] -> mob:px-[1.5rem] -> xs:px-[1rem]",
+      "tailwind": [
+        "tab:pt-[4rem] tab:px-[2rem] mob:px-[1.5rem] xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/GlobalHeaderLegacy.jsx:104-104",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[3.8rem] -> mob:text-[2.5rem]",
+      "tailwind": [
+        "mob:text-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/GlobalHeaderLegacy.jsx:109-109",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[3.8rem] -> mob:text-[2.5rem]",
+      "tailwind": [
+        "mob:text-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/GlobalHeaderLegacy.jsx:111-111",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/GlobalHeaderLegacy.jsx:113-113",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[3.8rem] -> mob:text-[2.5rem]",
+      "tailwind": [
+        "mob:text-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/GlobalHeaderLegacy.jsx:143-143",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/GlobalHeaderLegacy.jsx:123-165",
+  "iaSectionId": "hero.global-header-legacy",
+  "evidenceNotes": [
+    "Theme defaults follow the variant (logo -> yellow, eyebrow -> green); /contact-us relies on the default green, /case-studies/content passes theme='yellow' explicitly."
+  ],
+  "observedOn": [
+    "/case-studies/content",
+    "/contact-us"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "shell.nav"
+    ],
+    "recommendedBefore": [
+      "index.cs-content-list",
+      "proof.logo-row"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "placeholder.neutral",
+    "stock.photo"
+  ],
+  "variants": [
+    "eyebrow",
+    "logo"
+  ]
+}

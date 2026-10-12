@@ -1,0 +1,627 @@
+{
+  "id": "story.grid-split-legacy",
+  "kind": "section",
+  "name": "Legacy hairline split row",
+  "purpose": "Make one point in a two-cell legacy row: a heading + message on the left backed by a quote, extra paragraph, story image or CTA on the right (plus, for sector suites, a list of linked sector cards).",
+  "category": "story",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/GridSplitLegacy.jsx",
+  "description": "One hairline-framed `.grid_section` row split into a header cell (left, padding 2.5rem / 1.5 <=991 / 1.25 <=767) and a companion cell (right); stacks to one column <=767. One component with `variant`: 'testimonial' (/lms/professional-services; cols 1fr .6fr, H2 + grey para | bottom-aligned quote card with italic quote, 40px avatar, name, role + linked org), 'text' (/lms/professional-services; 1:1, H2 | grey 16px paragraph), 'image' (/lms/impact; no top hairline, 16px gap, H3 28px + para + legacy CTA vertically centred | 3:2 story image) and 'suites' (/content/sector-suites; no top hairline, spacer + H2 + para | CTA bottom-right, followed by a 3-col (1 col <=767) list of hairline link cards: H3 + grey text + 3:2 image).",
+  "content": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "testimonial"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "Legacy colour theme (legacyVars); default green."
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "note": "legacy H2",
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 14,
+            "note": "grey paragraph under the H2",
+            "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 43,
+            "note": "italic quote (includes its own quote marks)",
+            "measuredLongestRealInstance": "34 words in the clone's own placeholder copy"
+          },
+          "avatar": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "photo.person"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "photo.person"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "40px square author avatar"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "author name, 16px/600",
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "note": "author role, followed by the linked org name",
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          },
+          "org": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "customer/org name rendered as an underlined link",
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "body",
+          "quote",
+          "avatar",
+          "name",
+          "role",
+          "org"
+        ],
+        "note": "/lms/professional-services (green), all copy from component defaults"
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "text"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "Legacy colour theme (legacyVars); default green."
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "note": "legacy H2 (left cell)",
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 63,
+            "note": "grey 16px paragraph (right cell)",
+            "measuredLongestRealInstance": "50 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "body"
+        ],
+        "note": "/lms/professional-services (green), all copy from component defaults"
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "image"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "Legacy colour theme (legacyVars); default pink."
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "note": "H3 28px/1.1",
+            "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 59,
+            "note": "ink paragraph",
+            "measuredLongestRealInstance": "47 words in the clone's own placeholder copy"
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "note": "legacy button",
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "media": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "placeholder.neutral",
+              "photo.brand",
+              "stock.photo"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "placeholder.neutral",
+                  "photo.brand",
+                  "stock.photo"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "3:2 customer story image (Placeholder 'Story image 3:2')"
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "body",
+          "ctaLabel",
+          "media"
+        ],
+        "note": "/lms/impact (pink); page overrides body"
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "suites"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "Legacy colour theme (legacyVars); default yellow."
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "note": "legacy H2",
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 44,
+            "note": "ink paragraph",
+            "measuredLongestRealInstance": "35 words in the clone's own placeholder copy"
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "note": "legacy button, bottom-right of the row",
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          },
+          "cards": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 5,
+                  "note": "H3 20px/500",
+                  "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                },
+                "body": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 40,
+                  "note": "grey copy",
+                  "measuredLongestRealInstance": "32 words in the clone's own placeholder copy"
+                },
+                "media": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "placeholder.neutral",
+                    "photo.brand",
+                    "stock.photo"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "placeholder.neutral",
+                        "photo.brand",
+                        "stock.photo"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "3:2 sector image (Placeholder 'Suite image 3:2')"
+                }
+              },
+              "required": [
+                "title",
+                "body",
+                "media"
+              ]
+            },
+            "maxItems": 9,
+            "note": "linked sector cards, 3 per row (hover: theme bg2, instant)"
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "body",
+          "ctaLabel",
+          "cards"
+        ],
+        "note": "/content/sector-suites (yellow); page passes body + cards (prose() filler), heading + CTA from defaults"
+      }
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "image": 1,
+      "suites": 1,
+      "testimonial": 1,
+      "text": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/GlobalHeaderLegacy.jsx:83-83",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion. Hover only: LegacyButton (image/suites) swaps colour instantly with a 300ms ease-in-out border-radius transition; suite cards switch to the theme bg2 on hover with no transition; the testimonial org link is a plain underline link.",
+    "alsoMeasuredFrom": [
+      "src/components/sections/GridSplitLegacy.jsx:164-164"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "p-[2.5rem] -> tab:p-[1.5rem] -> mob:p-[1.25rem]",
+      "tailwind": [
+        "tab:p-[1.5rem] mob:p-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/GridSplitLegacy.jsx:52-52",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "p-[2.5rem] -> tab:p-[2rem] -> mob:p-[1.5rem] -> xs:p-[1rem]",
+      "tailwind": [
+        "tab:p-[2rem] mob:p-[1.5rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/GridSplitLegacy.jsx:53-53",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:items-stretch",
+      "tailwind": [
+        "xs:items-stretch"
+      ],
+      "measuredFrom": "src/components/sections/GridSplitLegacy.jsx:55-55",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.75rem] -> mob:text-[1.5rem]",
+      "tailwind": [
+        "mob:text-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/GridSplitLegacy.jsx:69-69",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "layout",
+        "spacing"
+      ],
+      "changes": "xs:w-full; xs:flex-col; xs:items-stretch; gap-[1.5rem] -> xs:gap-[1rem]",
+      "tailwind": [
+        "xs:w-full xs:flex-col xs:items-stretch xs:gap-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/GridSplitLegacy.jsx:72-72",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[3rem] -> tab:pt-[2.5rem] -> mob:pt-[1.5rem]",
+      "tailwind": [
+        "tab:pt-[2.5rem] mob:pt-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/GridSplitLegacy.jsx:88-88",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/GridSplitLegacy.jsx:108-108",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "layout"
+      ],
+      "changes": "mob:w-full; mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:w-full mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/GridSplitLegacy.jsx:109-109",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-[1fr_0.6fr] -> mob:grid-cols-1",
+      "tailwind": [
+        "mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/GridSplitLegacy.jsx:143-143",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-2 -> mob:grid-cols-1",
+      "tailwind": [
+        "mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/GridSplitLegacy.jsx:144-144",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-3 -> mob:grid-cols-1",
+      "tailwind": [
+        "mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/GridSplitLegacy.jsx:159-159",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "p-[2rem] -> mob:p-[1.25rem] -> xs:p-[1rem]; gap-y-[3rem] -> xs:gap-y-[2rem]",
+      "tailwind": [
+        "mob:p-[1.25rem] xs:gap-y-[2rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/GridSplitLegacy.jsx:164-164",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/GridSplitLegacy.jsx:58-181",
+  "iaSectionId": "story.grid-split-legacy",
+  "evidenceNotes": [
+    "Testimonial avatar Placeholder has an empty label (label=\"\").",
+    "Suites body and card bodies come from prose(n, seed) in src/pages/content/filler.js (evaluated with node); they start mid-sentence by design. The component's own suites defaults (Healthcare, Manufacturing...) are never shown on a real route.",
+    "CLONE_SPEC_PAGES.md section A says the /content/sector-suites middle block is topics-grid with a 'suites' variant; the code renders GridSplitLegacy variant='suites' there (pages-manifest.json sectionsByRoute agrees with the code).",
+    "/lms/professional-services renders two variants (testimonial, text) - one of each, so maxPerPage is 1 per variant.",
+    "Theme is not passed on /content/sector-suites; the suites preset defaults to yellow."
+  ],
+  "observedOn": [
+    "/content/sector-suites",
+    "/content/topics",
+    "/lms/impact",
+    "/lms/professional-services"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.grid-cards-legacy",
+      "product.tabs-horizontal-legacy",
+      "proof.flip-logos",
+      "story.header-image-legacy"
+    ],
+    "recommendedBefore": [
+      "conversion.pricing-plans-legacy",
+      "product.feature-rows-legacy",
+      "product.tabs-horizontal-legacy",
+      "proof.reviews-slider"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.brand",
+    "photo.person",
+    "placeholder.neutral",
+    "stock.photo"
+  ],
+  "variants": [
+    "testimonial",
+    "text",
+    "image",
+    "suites"
+  ]
+}

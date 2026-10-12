@@ -1,0 +1,398 @@
+{
+  "id": "hero.mentoring-software",
+  "kind": "section",
+  "name": "Mentoring software hero with wide image and load reveal",
+  "purpose": "Open the mentoring product page with a wide hero image, the H1, the people-first pitch and video/demo CTAs, plus a customer-logo line.",
+  "category": "hero",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/MentoringHeader.jsx",
+  "description": "A wide hero image (150% of the container, 35rem tall, black-to-transparent top fade) pulled up -8rem under the nav, then a centred block overlapping it by 3rem: avatar strip + trust line, two-line serif H1 (h1 token), 20px grey copy (lead line + paragraph), brand-blue primary and dark buttons; then a logo lead line and 6 logos. <=767 the image becomes an in-flow 3:2 card with radius and buttons stack <=479.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "image": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "photo.person",
+          "product.screenshot"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "photo.person",
+              "product.screenshot"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "Wide mentoring hero image."
+      },
+      "avatars": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "photo.person"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "photo.person"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "Stacked avatar strip (144:64)."
+      },
+      "trustLine": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 12,
+        "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+      },
+      "headingLine1": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "note": "H1 line 1.",
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      },
+      "headingLine2": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "H1 line 2 (after <br>).",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "introLead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 12,
+        "note": "First line of the copy, followed by <br>.",
+        "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+      },
+      "intro": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 39,
+        "measuredLongestRealInstance": "31 words in the clone's own placeholder copy"
+      },
+      "primaryLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "Brand-blue button (scrolls to the page video).",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "secondaryLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "logosLead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "logos": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "logo.customer"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "logo.customer"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 6,
+            "maximum": 6
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ]
+      }
+    },
+    "required": [
+      "image",
+      "avatars",
+      "trustLine",
+      "headingLine1",
+      "headingLine2",
+      "introLead",
+      "intro",
+      "primaryLabel",
+      "secondaryLabel",
+      "logosLead",
+      "logos"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "hero.loadReveal"
+    ],
+    "reducedMotionFallback": "instant-final-state",
+    "measuredFrom": "src/components/sections/MentoringHeader.jsx:12-17",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "IX2 'Mentoring Hero Reveal' on load: avatar line 0.5s (y40 scale .9 skew 10); image 0.85s (y 2rem, blur 1.25rem); H1 1.25s (y40 scale .9 skew 10 blur); copy 1.25s delay .25; buttons 1.25s delay .35; all power3.out.",
+    "alsoMeasuredFrom": [
+      "src/components/sections/MentoringHeader.jsx:41-41"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pb-[6rem] -> tab:pb-[5rem] -> mob:pb-[3.5rem]",
+      "tailwind": [
+        "tab:pb-[5rem] mob:pb-[3.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/MentoringHeader.jsx:54-54",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "layout",
+        "spacing"
+      ],
+      "changes": "h-[35rem] -> mob:h-auto; mob:justify-start; gap-[4rem] -> mob:gap-[2rem] -> xs:gap-[1rem]",
+      "tailwind": [
+        "mob:h-auto mob:justify-start mob:gap-[2rem] xs:gap-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/MentoringHeader.jsx:56-56",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:relative",
+      "tailwind": [
+        "mob:relative"
+      ],
+      "measuredFrom": "src/components/sections/MentoringHeader.jsx:57-57",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "other",
+        "layout",
+        "sizing"
+      ],
+      "changes": "tab:rounded-panel; mob:relative; h-full -> mob:h-auto",
+      "tailwind": [
+        "tab:rounded-panel mob:relative mob:h-auto"
+      ],
+      "measuredFrom": "src/components/sections/MentoringHeader.jsx:58-58",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-h1 -> tab:text-h1-tab -> mob:text-h1-mob",
+      "tailwind": [
+        "tab:text-h1-tab mob:text-h1-mob"
+      ],
+      "measuredFrom": "src/components/sections/MentoringHeader.jsx:68-68",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-medium-xs",
+      "tailwind": [
+        "xs:text-medium-xs"
+      ],
+      "measuredFrom": "src/components/sections/MentoringHeader.jsx:75-75",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:flex-col; xs:items-stretch",
+      "tailwind": [
+        "xs:flex-col xs:items-stretch"
+      ],
+      "measuredFrom": "src/components/sections/MentoringHeader.jsx:81-81",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/MentoringHeader.jsx:90-90",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-wrap; tab:justify-center; tab:gap-y-[2rem]; mob:justify-around; gap-[3rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "tab:flex-wrap tab:justify-center tab:gap-y-[2rem] mob:justify-around xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/MentoringHeader.jsx:93-93",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.placeholder-media",
+    "primitive.logo-placeholder"
+  ],
+  "measuredFrom": "src/components/sections/MentoringHeader.jsx:35-108",
+  "iaSectionId": "hero.mentoring-software",
+  "evidenceNotes": [
+    "Logo slots use LogoPlaceholder with src (third-party file names in /assets/); rendered here as neutral logo.customer slots."
+  ],
+  "observedOn": [
+    "/lms/mentoring-software"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "shell.nav"
+    ],
+    "recommendedBefore": [
+      "product.autotabs-group"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "photo.person",
+    "placeholder.neutral",
+    "product.screenshot"
+  ]
+}

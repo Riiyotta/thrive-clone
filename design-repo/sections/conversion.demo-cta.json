@@ -1,0 +1,193 @@
+{
+  "id": "conversion.demo-cta",
+  "kind": "section",
+  "name": "Subpage demo CTA above the footer",
+  "purpose": "Close every subpage with one last invitation to talk to the team, sending the visitor to the demo page with a single button.",
+  "category": "conversion",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/Footer.jsx",
+  "description": "The SUBPAGE_CTA block that Footer renders above the footer card when its real `variant` prop is 'subpage' (Layout.jsx passes 'subpage' on every route except '/' and '/company', which get the 'home' variant = conversion.demo-form). A centred 40rem column, gap 2rem: Nimbus wordmark, H2 whose last three words are italic, an 18px ink paragraph (max 32rem) and one green accent pill button linking to /lms/demo-platform; no form. Padding 3rem (1.5rem at <=479); the column simply narrows on smaller screens. It sits inside the <footer> element, directly above the shared footer card.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 10,
+        "note": "Centred H2 (2 lines at 1440).",
+        "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+      },
+      "headingEmphasis": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "Trailing words of heading wrapped in <em> (italic serif); must occur at the end of heading.",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "body": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 25,
+        "note": "18/25.2 ink paragraph, max 32rem (2 lines at 1440).",
+        "measuredLongestRealInstance": "20 words in the clone's own placeholder copy"
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "note": "Green accent pill button (links to /lms/demo-platform; target is contract-owned).",
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "heading",
+      "body",
+      "ctaLabel"
+    ]
+  },
+  "constraints": {
+    "mustImmediatelyPrecede": "shell.footer",
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)",
+    "neighbourRuleId": "DEMO_CTA_PRECEDES_FOOTER"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/Footer.jsx:110-154",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; the button has the shared primitive hover (background colour 240ms ease plus the Button label mask roll)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "p-[3rem] -> xs:p-[1.5rem]",
+      "tailwind": [
+        "xs:p-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:147-147",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/Footer.jsx:152-152",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.wordmark"
+  ],
+  "measuredFrom": "src/components/Footer.jsx:146-155",
+  "iaSectionId": "conversion.demo-cta",
+  "evidenceNotes": [
+    "Copy is a single constant (SUBPAGE_CTA in Footer.jsx), identical on all 56 registered routes other than / and /company (58 routes rendered via the page families); no page passes props to Footer (Layout.jsx renders it once with variant from FORM_FOOTER_PAGES = {'/', '/company'}).",
+    "The Footer.jsx comment says the paragraph is 18 words; the actual SUBPAGE_CTA.body is 20 words.",
+    "/company is a non-home route that keeps the 'home' variant (demo form, conversion.demo-form) per the Layout.jsx comment 'measured live 2026-10-09'.",
+    "mustImmediatelyPrecede shell.footer is structural: the block is the first child of the same <footer> container as the footer card (mirrors conversion.demo-form's DEMO_FORM_PRECEDES_FOOTER rule).",
+    "The Wordmark above the heading is the brand mark (contract-owned), not modelled as content."
+  ],
+  "observedOn": [
+    "/case-studies-contents/customer-10",
+    "/case-studies-contents/customer-6",
+    "/case-studies-contents/customer-7",
+    "/case-studies-contents/customer-8",
+    "/case-studies-contents/customer-9",
+    "/case-studies/content",
+    "/case-studies/lms",
+    "/case-study/customer-1",
+    "/case-study/customer-2",
+    "/case-study/customer-3",
+    "/case-study/customer-4",
+    "/case-study/customer-5",
+    "/company/why-nimbus",
+    "/contact-us",
+    "/content",
+    "/content/custom-content",
+    "/content/sector-suites",
+    "/content/service",
+    "/content/topics",
+    "/lms",
+    "/lms/corporate-lms",
+    "/lms/demo-platform",
+    "/lms/enterprise",
+    "/lms/features",
+    "/lms/features/ai-content-creator",
+    "/lms/features/chat",
+    "/lms/features/communication",
+    "/lms/features/employee-assessment-software",
+    "/lms/features/employee-experience",
+    "/lms/features/employee-performance-management-software",
+    "/lms/features/learning-pathways",
+    "/lms/features/lms-admin",
+    "/lms/features/lms-analytics",
+    "/lms/features/lms-gamification",
+    "/lms/features/lms-homepage",
+    "/lms/features/lms-rewards",
+    "/lms/features/lms-security",
+    "/lms/features/mcp",
+    "/lms/features/mobile-lms",
+    "/lms/features/skills",
+    "/lms/features/spaces",
+    "/lms/impact",
+    "/lms/integrations",
+    "/lms/mentoring-software",
+    "/lms/professional-services",
+    "/lms/small-business",
+    "/lms/solutions",
+    "/lms/spring-release",
+    "/mentoring",
+    "/nova",
+    "/pricing",
+    "/resources/blog-and-news",
+    "/resources/events-webinars",
+    "/resources/guides",
+    "/resources/lms-glossary",
+    "/whats-included"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "conversion.faq",
+      "conversion.faq-legacy",
+      "conversion.glossary-cta",
+      "conversion.pricing-plans-legacy",
+      "index.blog-filter",
+      "index.cs-content-list",
+      "index.cs-content-related",
+      "index.events-past",
+      "index.guides",
+      "product.assistant-tabs",
+      "product.capability-slider",
+      "product.explore-empty",
+      "proof.reviews-slider",
+      "proof.testimonial-card-legacy"
+    ],
+    "recommendedBefore": [
+      "shell.footer"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": []
+}

@@ -24,6 +24,18 @@
     "loadedFrom": {
       "$value": "Google Fonts (Inter opsz,wght 24,400;24,500;24,600 + Instrument Serif ital 0;1)",
       "measuredFrom": "index.html:11-11"
+    },
+    "sans": {
+      "stack": "'Inter', '\"Inter 24 Pt\"', 'Arial', 'sans-serif'",
+      "measuredFrom": "tailwind.config.js:61-61"
+    },
+    "serif": {
+      "stack": "'\"Instrument Serif\"', 'Instrumentserif', 'Georgia', 'sans-serif'",
+      "measuredFrom": "tailwind.config.js:62-62"
+    },
+    "source-serif": {
+      "stack": "'\"Source Serif 4\"', 'Georgia', 'serif'",
+      "measuredFrom": "tailwind.config.js:63-63"
     }
   },
   "fontWeight": {
@@ -215,6 +227,186 @@
       "size": "12px",
       "lineHeight": "16.8px",
       "measuredFrom": "tailwind.config.js:87-87"
+    },
+    "h1": {
+      "size": "4.5rem",
+      "lineHeight": "5.175rem",
+      "measuredFrom": "tailwind.config.js:76-76"
+    },
+    "h1-tab": {
+      "size": "4rem",
+      "lineHeight": "4.6rem",
+      "measuredFrom": "tailwind.config.js:77-77"
+    },
+    "h1-mob": {
+      "size": "3rem",
+      "lineHeight": "3.45rem",
+      "measuredFrom": "tailwind.config.js:78-78"
+    },
+    "h2": {
+      "size": "4rem",
+      "lineHeight": "4.6rem",
+      "measuredFrom": "tailwind.config.js:79-79"
+    },
+    "h2-mob": {
+      "size": "3.5rem",
+      "lineHeight": "4.025rem",
+      "measuredFrom": "tailwind.config.js:80-80"
+    },
+    "h2-xs": {
+      "size": "2.5rem",
+      "lineHeight": "2.875rem",
+      "measuredFrom": "tailwind.config.js:81-81"
+    },
+    "medium": {
+      "size": "1.25rem",
+      "lineHeight": "1.75rem",
+      "measuredFrom": "tailwind.config.js:82-82"
+    },
+    "medium-xs": {
+      "size": "1.125rem",
+      "lineHeight": "1.575rem",
+      "measuredFrom": "tailwind.config.js:83-83"
+    },
+    "para": {
+      "size": "1.15rem",
+      "lineHeight": "1.61rem",
+      "measuredFrom": "tailwind.config.js:84-84"
+    },
+    "body": {
+      "size": "1.125rem",
+      "lineHeight": "1.575rem",
+      "measuredFrom": "tailwind.config.js:85-85"
+    },
+    "body-xs": {
+      "size": "1.1rem",
+      "lineHeight": "1.54rem",
+      "measuredFrom": "tailwind.config.js:86-86"
+    },
+    "small": {
+      "size": "0.875rem",
+      "lineHeight": "1.225rem",
+      "measuredFrom": "tailwind.config.js:87-87"
+    },
+    "btn": {
+      "size": "1rem",
+      "lineHeight": "1rem",
+      "measuredFrom": "tailwind.config.js:88-88"
+    },
+    "btn-sm": {
+      "size": "0.9rem",
+      "lineHeight": "1rem",
+      "measuredFrom": "tailwind.config.js:89-89"
+    },
+    "btn-dark-sm": {
+      "size": "0.875rem",
+      "lineHeight": "1rem",
+      "measuredFrom": "tailwind.config.js:90-90"
+    },
+    "tab": {
+      "size": "1.5rem",
+      "lineHeight": "2.1rem",
+      "measuredFrom": "tailwind.config.js:91-91"
+    },
+    "tab-mob": {
+      "size": "1.25rem",
+      "lineHeight": "1.75rem",
+      "measuredFrom": "tailwind.config.js:92-92"
+    },
+    "kikitab": {
+      "size": "1.15rem",
+      "lineHeight": "1.61rem",
+      "measuredFrom": "tailwind.config.js:93-93"
+    },
+    "kikitab-xs": {
+      "size": "1rem",
+      "lineHeight": "1.4rem",
+      "measuredFrom": "tailwind.config.js:94-94"
+    },
+    "feature": {
+      "size": "1.25rem",
+      "lineHeight": "1.5625rem",
+      "measuredFrom": "tailwind.config.js:95-95"
+    },
+    "slide": {
+      "size": "1rem",
+      "lineHeight": "1.4rem",
+      "measuredFrom": "tailwind.config.js:96-96"
+    },
+    "slide-mob": {
+      "size": "1.25rem",
+      "lineHeight": "1.75rem",
+      "measuredFrom": "tailwind.config.js:97-97"
+    },
+    "stat": {
+      "size": "4rem",
+      "lineHeight": "4rem",
+      "measuredFrom": "tailwind.config.js:98-98"
+    },
+    "stat-48": {
+      "size": "3rem",
+      "lineHeight": "3rem",
+      "measuredFrom": "tailwind.config.js:99-99"
+    },
+    "stat-40": {
+      "size": "2.5rem",
+      "lineHeight": "2.5rem",
+      "measuredFrom": "tailwind.config.js:100-100"
+    },
+    "xlarge": {
+      "size": "2rem",
+      "lineHeight": "2.8rem",
+      "measuredFrom": "tailwind.config.js:101-101"
+    },
+    "xlarge-mob": {
+      "size": "1.5rem",
+      "lineHeight": "2.1rem",
+      "measuredFrom": "tailwind.config.js:102-102"
+    },
+    "quote": {
+      "size": "2rem",
+      "lineHeight": "2.4rem",
+      "measuredFrom": "tailwind.config.js:103-103"
+    },
+    "quote-tab": {
+      "size": "1.75rem",
+      "lineHeight": "2.1rem",
+      "measuredFrom": "tailwind.config.js:104-104"
+    },
+    "quote-mob": {
+      "size": "1.5rem",
+      "lineHeight": "1.8rem",
+      "measuredFrom": "tailwind.config.js:105-105"
+    },
+    "faq": {
+      "size": "1.25rem",
+      "lineHeight": "1.4375rem",
+      "measuredFrom": "tailwind.config.js:106-106"
+    },
+    "footer-head": {
+      "size": "1.15rem",
+      "lineHeight": "1.3225rem",
+      "measuredFrom": "tailwind.config.js:107-107"
+    },
+    "footer-head-mob": {
+      "size": "1.125rem",
+      "lineHeight": "1.29375rem",
+      "measuredFrom": "tailwind.config.js:108-108"
+    },
+    "footer-link": {
+      "size": "1rem",
+      "lineHeight": "1.4rem",
+      "measuredFrom": "tailwind.config.js:109-109"
+    },
+    "dd-title": {
+      "size": "0.85rem",
+      "lineHeight": "1.19rem",
+      "measuredFrom": "tailwind.config.js:110-110"
+    },
+    "dd-head": {
+      "size": "0.75rem",
+      "lineHeight": "1.05rem",
+      "measuredFrom": "tailwind.config.js:111-111"
     }
   },
   "specMeasuredFrom": "CLONE_SPEC.md:60-89"

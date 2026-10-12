@@ -1,0 +1,103 @@
+{
+  "id": "product.platform-intro",
+  "kind": "section",
+  "name": "Platform intro header (two forced lines)",
+  "purpose": "Bridges the platform hero into the product tour with a centred two-line statement and a one-sentence promise.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/PlatformIntroHeader.jsx",
+  "description": "Centred, shrink-to-fit header with no section padding: an H2 split into two lines by a forced break, then a grey paragraph also split into two lines by a forced break. No media or CTA. Only on /lms, between the platform hero and the first tabbed slider.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "headingTop": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "note": "H2 line 1",
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "headingBottom": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "note": "H2 line 2 (after the forced break)",
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "introTop": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 28,
+        "note": "paragraph line 1",
+        "measuredLongestRealInstance": "22 words in the clone's own placeholder copy"
+      },
+      "introBottom": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 14,
+        "note": "paragraph line 2 (after the forced break)",
+        "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "headingTop",
+      "headingBottom",
+      "introTop",
+      "introBottom"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/PlatformIntroHeader.jsx:10-31",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; static text."
+  },
+  "responsive": [
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/PlatformIntroHeader.jsx:24-24",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.heading-h2"
+  ],
+  "measuredFrom": "src/components/sections/PlatformIntroHeader.jsx:10-31",
+  "iaSectionId": "product.platform-intro",
+  "evidenceNotes": [
+    "The page renders <PlatformIntroHeader /> with defaults."
+  ],
+  "observedOn": [
+    "/lms"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "hero.platform"
+    ],
+    "recommendedBefore": [
+      "product.assistant-tabs"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": []
+}

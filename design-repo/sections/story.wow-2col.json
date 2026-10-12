@@ -1,0 +1,188 @@
+{
+  "id": "story.wow-2col",
+  "kind": "section",
+  "name": "Two-column story block",
+  "purpose": "Introduces one programme theme with a headline, a short framing lead and supporting copy beside a single illustrative image.",
+  "category": "story",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/Wow2col.jsx",
+  "description": "A 2-column row in container-medium: the text column has the H2 pinned to the top and, pinned to the bottom (4rem minimum gap), a large 24px lead (optionally held to 28rem) and an 18px grey paragraph; the right column is a 1:1 dark rounded image card. Stacks at <=991 on /mentoring (stackTab) or <=767 by default, with a 20rem minimum image height. Used four times on /mentoring, each followed by a plain marquee.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "lead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 43,
+        "note": "Short ones (<= 10 words) are held to the 28rem column via leadNarrow.",
+        "measuredLongestRealInstance": "34 words in the clone's own placeholder copy"
+      },
+      "body": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 63,
+        "measuredLongestRealInstance": "50 words in the clone's own placeholder copy"
+      },
+      "image": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "photo.person",
+          "photo.brand",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "photo.person",
+              "photo.brand",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ]
+      }
+    },
+    "required": [
+      "heading",
+      "lead",
+      "body",
+      "image"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 4,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/Wow2col.jsx:8-49",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.5rem] -> mob:text-[1.25rem]",
+      "tailwind": [
+        "mob:text-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/Wow2col.jsx:17-17",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[5rem] -> tab:py-[4rem] -> mob:py-[3rem]",
+      "tailwind": [
+        "tab:py-[4rem] mob:py-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/Wow2col.jsx:22-22",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-col -> mob:flex-col; gap-[3.75rem] -> mob:gap-[1.5rem]",
+      "tailwind": [
+        "tab:flex-col mob:flex-col mob:gap-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/Wow2col.jsx:24-24",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "mob:min-h-[20rem]",
+      "tailwind": [
+        "mob:min-h-[20rem]"
+      ],
+      "measuredFrom": "src/components/sections/Wow2col.jsx:39-39",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/Wow2col.jsx:8-49",
+  "iaSectionId": "story.wow-2col",
+  "evidenceNotes": [
+    "Mentoring.jsx computes lead/body with prose(chars, seed) from src/pages/content/filler.js (e.g. prose(216,3), prose(131,40), prose(287,120)); sample strings are the evaluated outputs, which start mid-sentence by design.",
+    "leadNarrow and stackTab are layout knobs (not modelled); three of the four /mentoring instances set leadNarrow true."
+  ],
+  "observedOn": [
+    "/mentoring"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.logo-row",
+      "story.marquee"
+    ],
+    "recommendedBefore": [
+      "story.marquee"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.brand",
+    "photo.person",
+    "placeholder.neutral"
+  ]
+}

@@ -1,0 +1,245 @@
+{
+  "id": "hero.company-video",
+  "kind": "section",
+  "name": "Company hero over full-viewport background video",
+  "purpose": "Open the company page with a full-screen brand moment: the mission H1, a one-line lead and demo / ask-AI CTAs.",
+  "category": "hero",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/CompanyHeader.jsx",
+  "description": "Full-viewport header (/company; min-h 100svh, max 60rem) with a background-video slot under a 50% black wash and a bottom-up #00030a gradient; white centred content sits at the bottom: serif 4rem/1.1 H1 (2.5rem <=767), 20px lead, primary button and a dark 'ask AI' button with an icon track. Buttons wrap and stretch <=479.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 14,
+        "note": "H1.",
+        "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+      },
+      "lead": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 17,
+        "measuredLongestRealInstance": "13 words in the clone's own placeholder copy"
+      },
+      "primaryLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "secondaryLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "note": "Dark AI button with icon.",
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "video": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "product.video",
+          "stock.photo"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "product.video",
+              "stock.photo"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "Background video (static placeholder)."
+      }
+    },
+    "required": [
+      "title",
+      "lead",
+      "primaryLabel",
+      "secondaryLabel",
+      "video"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/CompanyHeader.jsx:28-29",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; hover only: the AI button repeats the shared button char roll (chars y -1.5em 0.45s, stagger .25, power4.inOut) plus its icon track y -50% at 0.125s, and bg/text swap over 240ms."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "py-[0.75rem] -> mob:py-[0.5rem]; xs:flex-auto; xs:self-stretch",
+      "tailwind": [
+        "mob:py-[0.5rem] xs:flex-auto xs:self-stretch"
+      ],
+      "measuredFrom": "src/components/sections/CompanyHeader.jsx:45-45",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[7rem] -> tab:py-[6rem] -> mob:py-[4rem]",
+      "tailwind": [
+        "tab:py-[6rem] mob:py-[4rem]"
+      ],
+      "measuredFrom": "src/components/sections/CompanyHeader.jsx:72-72",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:block",
+      "tailwind": [
+        "mob:block"
+      ],
+      "measuredFrom": "src/components/sections/CompanyHeader.jsx:73-73",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[4rem] -> mob:text-[2.5rem]",
+      "tailwind": [
+        "mob:text-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/CompanyHeader.jsx:75-75",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.25rem] -> xs:text-[1.125rem]",
+      "tailwind": [
+        "xs:text-[1.125rem]"
+      ],
+      "measuredFrom": "src/components/sections/CompanyHeader.jsx:77-77",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mt-[2.5rem] -> tab:mt-[1.5rem] -> mob:mt-[1.25rem]",
+      "tailwind": [
+        "tab:mt-[1.5rem] mob:mt-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/CompanyHeader.jsx:78-78",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-[1.5rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/CompanyHeader.jsx:79-79",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/CompanyHeader.jsx:60-95",
+  "iaSectionId": "hero.company-video",
+  "evidenceNotes": [
+    "/company renders <CompanyHeader /> with defaults; the `video` prop (src) is null and is not modelled."
+  ],
+  "observedOn": [
+    "/company"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "shell.nav"
+    ],
+    "recommendedBefore": [
+      "proof.logo-row"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "placeholder.neutral",
+    "product.video",
+    "stock.photo"
+  ]
+}

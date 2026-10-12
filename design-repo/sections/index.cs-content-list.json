@@ -1,0 +1,176 @@
+{
+  "id": "index.cs-content-list",
+  "kind": "section",
+  "name": "Content case study list",
+  "purpose": "Lists every content-library customer story as a scannable grid so a visitor can pick one to read.",
+  "category": "index",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/CsContentList.jsx",
+  "description": "Unfiltered CMS-style grid on the content (\"yellow\") legacy theme: 3 columns (2 at 767 and below, 1 at 479 and below) of hairline-bordered link cards, each with a customer logo top-left, a short summary and a \"Learn more ›\" label at the bottom. Sits under the page's legacy header; carries no heading of its own.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "logo": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "placeholder.neutral",
+                "logo.customer"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "placeholder.neutral",
+                    "logo.customer"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ]
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 34,
+              "measuredLongestRealInstance": "27 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "logo",
+            "text"
+          ]
+        },
+        "maxItems": 10,
+        "note": "The live list had 10 cards."
+      },
+      "linkLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "items",
+      "linkLabel"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/CsContentList.jsx:7-43",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; hover only: dotted texture appears on the card instantly and the link gap widens over .25s."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-3 -> mob:grid-cols-2 -> xs:grid-cols-1",
+      "tailwind": [
+        "mob:grid-cols-2 xs:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/CsContentList.jsx:31-31",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-y-[5rem] -> tab:gap-y-[2rem]; p-[2rem] -> tab:p-[1.5rem] -> mob:p-[1.25rem] -> xs:p-[1rem]",
+      "tailwind": [
+        "tab:gap-y-[2rem] tab:p-[1.5rem] mob:p-[1.25rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsContentList.jsx:36-36",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[2rem] -> xs:h-[1.5rem]",
+      "tailwind": [
+        "xs:h-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsContentList.jsx:39-39",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.logo-placeholder",
+    "primitive.legacy-theme"
+  ],
+  "measuredFrom": "src/components/sections/CsContentList.jsx:25-59",
+  "iaSectionId": "index.cs-content-list",
+  "evidenceNotes": [
+    "Page summaries are phrase() output (CaseStudiesContent.jsx), evaluated with node; the sample keeps the first 3 of 10 cards.",
+    "All 10 cards link to customer-6..10 cyclically (href is contract-owned, not modelled)."
+  ],
+  "observedOn": [
+    "/case-studies/content"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "hero.global-header-legacy"
+    ],
+    "recommendedBefore": [
+      "conversion.demo-cta"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "placeholder.neutral"
+  ]
+}

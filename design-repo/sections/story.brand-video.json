@@ -7,118 +7,202 @@
   "designSystem": "marketing",
   "implementedBy": "src/components/VideoSection.jsx",
   "content": {
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-      "heading": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 4,
-        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
-      },
-      "subLines": {
-        "type": "array",
-        "minItems": 1,
-        "maxItems": 2,
-        "items": {
-          "type": "string",
-          "minLength": 1,
-          "maxWords": 8,
-          "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
-        },
-        "note": "Grey centred; lines separated by <br>."
-      },
-      "video": {
+    "oneOf": [
+      {
         "type": "object",
         "additionalProperties": false,
-        "x-allowedRoles": [
-          "product.video",
-          "placeholder.neutral"
-        ],
         "properties": {
-          "assetRole": {
-            "enum": [
-              "product.video",
-              "placeholder.neutral"
-            ]
-          },
-          "placeholderLabel": {
+          "heading": {
             "type": "string",
             "minLength": 1,
             "maxWords": 4,
-            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
-            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
           },
-          "alt": {
-            "type": "string",
-            "minLength": 1,
-            "maxWords": 10
+          "subLines": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 8,
+              "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+            },
+            "note": "Grey centred; lines separated by <br>."
           },
-          "assetRef": {
-            "type": "string",
-            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
-            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          "video": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "product.video",
+              "stock.photo",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "product.video",
+                  "stock.photo",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 4,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "16:9, radius 16, with a 36px play button. STATIC: the original's YouTube/embedly iframe is not reproduced and there is no embed field (VIDEO_STAYS_PLACEHOLDER)."
+          },
+          "description": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 70,
+                "measuredLongestRealInstance": "60 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 3,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 5,
+                  "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered as a white underlined .inline-link."
+              },
+              "boldPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 3,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 5,
+                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered font-semibold."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases",
+              "boldPhrases"
+            ],
+            "note": "max 800, centred 18/25.2 white; some phrases semibold, some semibold underlined links.",
+            "x-richText": true
           }
         },
         "required": [
-          "assetRole"
-        ],
-        "note": "16:9, radius 16, with a 36px play button. STATIC: the original's YouTube/embedly iframe is not reproduced and there is no embed field (VIDEO_STAYS_PLACEHOLDER)."
+          "heading",
+          "subLines",
+          "video",
+          "description"
+        ]
       },
-      "description": {
+      {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "text": {
+          "variant": {
+            "const": "subpage"
+          },
+          "heading": {
             "type": "string",
             "minLength": 1,
-            "maxWords": 70,
-            "measuredLongestRealInstance": "60 words in the clone's own placeholder copy"
+            "maxWords": 9,
+            "note": "Centred H2. /lms/mentoring-software breaks it over two lines before the italic word.",
+            "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
           },
-          "linkPhrases": {
-            "type": "array",
-            "minItems": 0,
-            "maxItems": 3,
-            "items": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 5,
-              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
-            },
-            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered as a white underlined .inline-link."
+          "headingEmphasis": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 2,
+            "note": "Trailing word wrapped in <em> (italic serif); must occur at the end of heading ('hello' on /lms/mentoring-software, 'platform' on /pricing).",
+            "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
           },
-          "boldPhrases": {
-            "type": "array",
-            "minItems": 0,
-            "maxItems": 3,
-            "items": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 5,
-              "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 15,
+            "note": "One grey centred line under the H2 (no <br> on subpages). Omitted on /pricing (body={null}).",
+            "measuredLongestRealInstance": "12 words in the clone's own placeholder copy"
+          },
+          "video": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "product.video",
+              "stock.photo",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "product.video",
+                  "stock.photo",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
             },
-            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT); rendered font-semibold."
+            "required": [
+              "assetRole"
+            ],
+            "note": "Static rounded video placeholder with play button, labelled 'Video 16:9' ('Video 4:3' on /pricing). No embed field."
           }
         },
         "required": [
-          "text",
-          "linkPhrases",
-          "boldPhrases"
+          "variant",
+          "heading",
+          "video"
         ],
-        "note": "max 800, centred 18/25.2 white; some phrases semibold, some semibold underlined links.",
-        "x-richText": true
+        "note": "FeatureDetail.jsx (heading=d.video[0], body=d.video[1]), Nova.jsx, MentoringSoftware.jsx. No footnote on any subpage. Padding, heading margin and video margin/aspect classes are contract-owned."
       }
-    },
-    "required": [
-      "heading",
-      "subLines",
-      "video",
-      "description"
     ]
   },
   "constraints": {
-    "onePerPage": true,
-    "maxPerPage": 1
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "default": 1,
+      "subpage": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
   },
   "motion": {
     "allowedPatterns": [
@@ -127,7 +211,10 @@
     "reducedMotionFallback": "none",
     "measuredFrom": "src/components/VideoSection.jsx:3-3",
     "sourceImplementsReducedMotion": false,
-    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "alsoMeasuredFrom": [
+      "src/components/VideoSection.jsx:23-23"
+    ]
   },
   "responsive": [
     {
@@ -135,32 +222,36 @@
       "query": "max-width: 991px",
       "changes": "Bottom padding 112 -> 96 (64 at <=767).",
       "tailwind": [
-        "pb-[112px] pt-[32px] tab:pb-[96px] mob:pb-[64px]"
+        "pb-[7rem] pt-[2rem] tab:pb-[6rem] mob:pb-[4rem]"
       ],
-      "measuredFrom": "src/components/VideoSection.jsx:9-9"
+      "measuredFrom": "src/components/VideoSection.jsx:30-30",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "wide",
       "query": "min-width: 1440px",
       "changes": "Sub-paragraph margin-bottom 44 at >=1440 (block layout below, margins collapse).",
       "tailwind": [
-        "wide:mb-[44px]"
+        "wide:mb-[2.75rem]"
       ],
-      "measuredFrom": "src/components/VideoSection.jsx:13-13"
+      "measuredFrom": "src/components/VideoSection.jsx:54-54",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "xs",
       "query": "max-width: 479px",
       "changes": "Sub-paragraph 18 -> 17.6px.",
       "tailwind": [
-        "mb-0 text-body text-grey wide:mb-[44px] xs:text-body-xs"
+        "mb-0 text-body text-grey wide:mb-[2.75rem] xs:text-body-xs"
       ],
-      "measuredFrom": "src/components/VideoSection.jsx:13-13"
+      "measuredFrom": "src/components/VideoSection.jsx:54-54",
+      "reCited": "re-cited against current source (px classes became rem)"
     }
   ],
   "assetRoles": [
+    "placeholder.neutral",
     "product.video",
-    "placeholder.neutral"
+    "stock.photo"
   ],
   "composes": [
     "primitive.heading-h2",
@@ -169,17 +260,51 @@
   ],
   "compatibility": {
     "recommendedAfter": [
-      "proof.case-study-carousel"
+      "conversion.cta-strip",
+      "product.autotabs-group",
+      "proof.case-study-carousel",
+      "proof.case-study-video"
     ],
     "recommendedBefore": [
-      "conversion.faq"
+      "conversion.cta-strip",
+      "conversion.faq",
+      "proof.reviews-slider"
     ],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
-    "/"
+    "/",
+    "/lms/features/ai-content-creator",
+    "/lms/features/chat",
+    "/lms/features/communication",
+    "/lms/features/employee-assessment-software",
+    "/lms/features/employee-experience",
+    "/lms/features/employee-performance-management-software",
+    "/lms/features/learning-pathways",
+    "/lms/features/lms-admin",
+    "/lms/features/lms-analytics",
+    "/lms/features/lms-gamification",
+    "/lms/features/lms-homepage",
+    "/lms/features/lms-rewards",
+    "/lms/features/lms-security",
+    "/lms/features/mcp",
+    "/lms/features/mobile-lms",
+    "/lms/features/skills",
+    "/lms/features/spaces",
+    "/lms/mentoring-software",
+    "/nova"
   ],
   "measuredFrom": "src/components/VideoSection.jsx:4-49",
   "iaSectionId": "story.brand-video",
-  "specMeasuredFrom": "CLONE_SPEC.md:418-429"
+  "specMeasuredFrom": "CLONE_SPEC.md:418-429",
+  "subpageUsage": "Same VideoSection component as the homepage, configured by props (no explicit `variant` prop). Subpage instances drop the homepage's trailing LLM paragraph (footnote={null} everywhere), use a single-line body or none (body={null} on /pricing), may put an italic emphasis word in the H2 (with a forced line break on /lms/mentoring-software) and use per-page padding / video margins / a 4:3 video on /pricing. Structure: centred H2, optional grey line, then a full-width (45.25rem max on /lms/mentoring-software) rounded video placeholder with a 36px play button; no embed. Used on the six /lms/features/* routes that define d.video (lms-homepage, spaces, chat, ai-content-creator, mcp, mobile-lms), /nova and /lms/mentoring-software; on /pricing it is rendered as a child inside ReviewsGrid (modelled by that section, not here).",
+  "evidenceNotes": [
+    "footnote={null} on every subpage usage (FeatureDetail.jsx, Nova.jsx, MentoringSoftware.jsx, Pricing.jsx); only the homepage renders the LLM paragraph.",
+    "/pricing nests <VideoSection body={null} videoLabel=\"Video 4:3\" .../> as children of <ReviewsGrid> (src/pages/platform/Pricing.jsx); another section contract models that composite. Its heading ('You are not buying just a platform', 7 words) is included in this branch's budget so the nested instance also validates.",
+    "Feature routes without d.video (learning-pathways, lms-analytics, skills, employee-assessment-software, lms-admin, lms-rewards, lms-security, employee-experience, communication, employee-performance-management-software, lms-gamification) render no VideoSection.",
+    "pages-manifest.json's page-nova template lists neither a video nor a faq section, yet Nova.jsx renders VideoSection ('See Nova at work') and Faq. For /pricing the manifest only has 'reviews-grid' (the VideoSection is nested inside it in code)."
+  ],
+  "variants": [
+    "subpage"
+  ]
 }

@@ -1,0 +1,150 @@
+{
+  "id": "product.explore-empty",
+  "kind": "section",
+  "name": "Explore-features empty state",
+  "purpose": "Keep the 'explore further features' closing block on feature pages whose CMS feature list is empty: the header and link to all features stay, the slider is replaced by empty bars.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/pages/features/FeatureDetail.jsx > ExploreEmpty",
+  "description": "Page-local CMS empty state of the feature-page autotabs block (data-section 'kiki', data-variant 'empty'), padding 5rem top (3rem mob) / 2rem bottom. Top: the shared ExploreHeader in container-medium (28rem column: 1.5rem H2 and a primary 'see every feature' button, then a 2rem spacer). Below, inside the doubled gutter, two stacked full-width #dddddd bars each reading 'No items found.' (0.5rem gap). No tabs, slides or images.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 13,
+        "note": "ExploreHeader H2 (EXPLORE_HEADING constant).",
+        "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+      },
+      "buttonLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "note": "Primary button label in ExploreHeader.",
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      },
+      "emptyMessages": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 4,
+          "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+        },
+        "maxItems": 2,
+        "note": "The two grey empty-list bars (both 'No items found.')."
+      }
+    },
+    "required": [
+      "heading",
+      "buttonLabel",
+      "emptyMessages"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/pages/features/FeatureDetail.jsx:78-79",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; only the shared primary Button hover in the header."
+  },
+  "responsive": [
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/pages/features/FeatureDetail.jsx:79-79",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[5rem] -> mob:pt-[3rem]",
+      "tailwind": [
+        "mob:pt-[3rem]"
+      ],
+      "measuredFrom": "src/pages/features/FeatureDetail.jsx:81-81",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2rem] -> mob:px-[1.25rem]",
+      "tailwind": [
+        "mob:px-[1.25rem]"
+      ],
+      "measuredFrom": "src/pages/features/FeatureDetail.jsx:83-83",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button"
+  ],
+  "measuredFrom": "src/pages/features/FeatureDetail.jsx:78-97",
+  "iaSectionId": "product.explore-empty",
+  "evidenceNotes": [
+    "ExploreEmpty takes no props; the heading (EXPLORE_HEADING), button label and bar text are literals in FeatureDetail.jsx. It renders on /lms/features/employee-experience and /lms/features/communication (featureDetailData.js `empty: true`), replacing the KikiTabs autotabs block.",
+    "ExploreHeader is shared with the non-empty KikiTabs block (passed as its `header`), so heading/button copy is identical on all 17 feature routes.",
+    "pages-manifest.json / CLONE_SPEC_PAGES.md list these two routes with a normal 'autotabs-cta' section; the code renders this empty state instead."
+  ],
+  "observedOn": [
+    "/lms/features/ai-content-creator",
+    "/lms/features/chat",
+    "/lms/features/communication",
+    "/lms/features/employee-assessment-software",
+    "/lms/features/employee-experience",
+    "/lms/features/employee-performance-management-software",
+    "/lms/features/learning-pathways",
+    "/lms/features/lms-admin",
+    "/lms/features/lms-analytics",
+    "/lms/features/lms-gamification",
+    "/lms/features/lms-homepage",
+    "/lms/features/lms-rewards",
+    "/lms/features/lms-security",
+    "/lms/features/mcp",
+    "/lms/features/mobile-lms",
+    "/lms/features/skills",
+    "/lms/features/spaces"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "conversion.faq-empty"
+    ],
+    "recommendedBefore": [
+      "conversion.demo-cta"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": []
+}

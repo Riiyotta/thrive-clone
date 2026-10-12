@@ -1,0 +1,438 @@
+{
+  "id": "product.two-col-features",
+  "kind": "section",
+  "name": "Two alternating feature rows",
+  "purpose": "Makes two big differentiating claims, each argued in a paragraph and backed by a customer quote beside a large image.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/TwoColFeatures.jsx",
+  "description": "Two alternating rows inside container-medium/large: row 1 text left + square image right, row 2 image left + text right (stacking below 991, image first on row 2). Each text column holds a serif H3-size heading (56/48/40/32px), an 18px grey paragraph (can contain inline links and paragraph breaks) and a translucent quote card (italic quote, 2.5rem avatar, bold name, role with optional linked org). `preset` selects default copy and spacing per route: company (/company), corporate (/lms/corporate-lms, row 1 puts the heading after the quote), enterprise (/lms/enterprise, no reveal motion).",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "preset": {
+        "enum": [
+          "company",
+          "corporate",
+          "enterprise"
+        ],
+        "note": "Per-route spacing (corporate/enterprise use the mid-market row spacing) and reveal on/off; also the default-copy key."
+      },
+      "rows": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 12,
+              "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+            },
+            "text": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 100,
+                  "measuredLongestRealInstance": "80 words in the clone's own placeholder copy"
+                },
+                "linkPhrases": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 4,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 18
+                  },
+                  "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                }
+              },
+              "required": [
+                "text",
+                "linkPhrases"
+              ],
+              "x-richText": true,
+              "note": "May contain paragraph breaks (double <br>) between sentences."
+            },
+            "quote": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 52,
+              "note": "Italic, includes quotation marks.",
+              "measuredLongestRealInstance": "41 words in the clone's own placeholder copy"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "role": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 12,
+                  "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+                },
+                "linkPhrases": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 1,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 18
+                  },
+                  "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                }
+              },
+              "required": [
+                "text",
+                "linkPhrases"
+              ],
+              "x-richText": true,
+              "note": "Job title, comma, organisation; the organisation is a link on the corporate preset."
+            },
+            "avatar": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "photo.person",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "photo.person",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ]
+            },
+            "image": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "photo.person",
+                "product.screenshot",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "photo.person",
+                    "product.screenshot",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ]
+            }
+          },
+          "required": [
+            "title",
+            "text",
+            "quote",
+            "name",
+            "role",
+            "avatar",
+            "image"
+          ]
+        },
+        "maxItems": 2,
+        "note": "Row 1 image is labelled 'Team photo', row 2 'Product visual'."
+      }
+    },
+    "required": [
+      "preset",
+      "rows"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "scroll.revealOnce",
+      "none"
+    ],
+    "reducedMotionFallback": "instant-final-state",
+    "measuredFrom": "src/components/sections/TwoColFeatures.jsx:188-189",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "company and corporate presets: when a row's top crosses the viewport bottom, its text (from x -3rem) and image (from x +5rem; mirrored on row 2) fade in from opacity 0 / blur 5px to rest in 750ms power3.out after a 500ms delay, once. enterprise preset: no motion.",
+    "alsoMeasuredFrom": [
+      "src/components/sections/TwoColFeatures.jsx:192-195",
+      "src/components/sections/TwoColFeatures.jsx:178-178"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:132-132",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "layout"
+      ],
+      "changes": "mob:w-full; mob:flex-col; mob:items-start",
+      "tailwind": [
+        "mob:w-full mob:flex-col mob:items-start"
+      ],
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:133-133",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mob:mb-[1rem]",
+      "tailwind": [
+        "mob:mb-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:137-137",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[3.5rem] -> tab:text-[3rem] -> mob:text-[2.5rem] -> xs:text-[2rem]",
+      "tailwind": [
+        "tab:text-[3rem] mob:text-[2.5rem] xs:text-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:149-149",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:154-154",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "mob:aspect-[3/2]",
+      "tailwind": [
+        "mob:aspect-[3/2]"
+      ],
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:167-167",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[3rem] -> mob:py-[2rem]",
+      "tailwind": [
+        "mob:py-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:209-209",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-col; tab:items-start; tab:gap-[1rem] -> mob:gap-[1.5rem]; items-center -> mob:items-center",
+      "tailwind": [
+        "tab:flex-col tab:items-start tab:gap-[1rem] mob:items-center mob:gap-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:210-210",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pr-[3rem] -> tab:pr-[2.5rem] -> mob:pr-[1.5rem]",
+      "tailwind": [
+        "tab:pr-[2.5rem] mob:pr-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:212-212",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "tab:flex-col-reverse; tab:items-start; tab:gap-[1rem] -> mob:gap-[1.5rem]; items-center -> mob:items-center",
+      "tailwind": [
+        "tab:flex-col-reverse tab:items-start tab:gap-[1rem] mob:items-center mob:gap-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:230-230",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pl-[3rem] -> tab:pl-[2.5rem] -> mob:pl-[1.5rem]",
+      "tailwind": [
+        "tab:pl-[2.5rem] mob:pl-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/TwoColFeatures.jsx:235-235",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media",
+    "primitive.inline-quote-card"
+  ],
+  "measuredFrom": "src/components/sections/TwoColFeatures.jsx:178-247",
+  "iaSectionId": "product.two-col-features",
+  "evidenceNotes": [
+    "/company and /lms/enterprise pass their own `rows` (near-copies of the preset with small wording changes); /lms/corporate-lms uses the preset copy as-is. /company passes no preset, so it falls back to 'company'.",
+    "Each row has a `blocks` order array; only corporate row 1 differs (['text','quote','title'], heading after the quote card). Treated as a layout knob, not modelled.",
+    "imageClassNames (per-row image aspect overrides) are layout knobs. CorporateLms wraps the section in an overflow-x-clip div because the reveal's x offsets would otherwise widen the page."
+  ],
+  "observedOn": [
+    "/company",
+    "/lms/corporate-lms",
+    "/lms/enterprise"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.centred-quote",
+      "proof.results-stats",
+      "proof.stats-countup"
+    ],
+    "recommendedBefore": [
+      "product.integrations-visual",
+      "product.split-autotabs",
+      "proof.results-proof"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.person",
+    "placeholder.neutral",
+    "product.screenshot"
+  ]
+}

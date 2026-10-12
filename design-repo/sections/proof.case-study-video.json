@@ -1,0 +1,362 @@
+{
+  "id": "proof.case-study-video",
+  "kind": "section",
+  "name": "Case study video card",
+  "purpose": "Proves a feature works with one named customer story told as a video card plus two supporting proof cards.",
+  "category": "proof",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/CaseStudyVideo.jsx",
+  "description": "A dark rounded video card (min 60vh inner, 50vh tab, 40vh <=479) with the customer logo top-left, a large spacer, the H2 story headline bottom-left and a 4rem round play button bottom-right, over a background video still faded out by a radial mask. Below it two stat/quote cards sit side by side (one column <=479), each with a 24px heading (48px <=991, 40px <=767) and a grey paragraph. Used once, on /lms/mentoring-software.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 19,
+        "measuredLongestRealInstance": "15 words in the clone's own placeholder copy"
+      },
+      "logo": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "logo.customer",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "logo.customer",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ]
+      },
+      "still": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "photo.brand",
+          "product.video",
+          "stock.photo",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "photo.brand",
+              "product.video",
+              "stock.photo",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "Background video still behind the radial mask."
+      },
+      "stats": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "heading": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 8,
+              "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+            },
+            "body": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 33,
+              "measuredLongestRealInstance": "26 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "heading",
+            "body"
+          ]
+        },
+        "maxItems": 2,
+        "note": "Second card is conventionally a customer quote with the speaker as its heading."
+      }
+    },
+    "required": [
+      "heading",
+      "logo",
+      "still",
+      "stats"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/CaseStudyVideo.jsx:26-68",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; the play button is a static link with no hover state (as on the original)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[5rem] -> tab:py-[4rem] -> mob:py-[3rem]",
+      "tailwind": [
+        "tab:py-[4rem] mob:py-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/CaseStudyVideo.jsx:31-31",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "gap-x-[5rem] -> mob:gap-x-[2rem]; xs:flex-col",
+      "tailwind": [
+        "mob:gap-x-[2rem] xs:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/CaseStudyVideo.jsx:34-34",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "ultra",
+      "query": "min-width: 1920px",
+      "breakpoints": [
+        "tab",
+        "xs",
+        "ultra"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "min-h-[60vh] -> tab:min-h-[50vh] -> xs:min-h-[40vh] -> ultra:min-h-[40vh]",
+      "tailwind": [
+        "tab:min-h-[50vh] xs:min-h-[40vh] ultra:min-h-[40vh]"
+      ],
+      "measuredFrom": "src/components/sections/CaseStudyVideo.jsx:35-35",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-[5rem] -> tab:w-[6rem] -> xs:w-[4rem]",
+      "tailwind": [
+        "tab:w-[6rem] xs:w-[4rem]"
+      ],
+      "measuredFrom": "src/components/sections/CaseStudyVideo.jsx:36-36",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[12rem] -> tab:pt-[8rem] -> mob:pt-[4.5rem]",
+      "tailwind": [
+        "tab:pt-[8rem] mob:pt-[4.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/CaseStudyVideo.jsx:37-37",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mob:mb-[8px]",
+      "tailwind": [
+        "mob:mb-[8px]"
+      ],
+      "measuredFrom": "src/components/sections/CaseStudyVideo.jsx:42-42",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "other"
+      ],
+      "changes": "tab:inset-0",
+      "tailwind": [
+        "tab:inset-0"
+      ],
+      "measuredFrom": "src/components/sections/CaseStudyVideo.jsx:46-46",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-2 -> xs:grid-cols-1",
+      "tailwind": [
+        "xs:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/CaseStudyVideo.jsx:52-52",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-[2rem] -> tab:gap-[5rem]; p-[1rem] -> mob:p-[1.5rem]",
+      "tailwind": [
+        "tab:gap-[5rem] mob:p-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/CaseStudyVideo.jsx:54-54",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.5rem] -> tab:text-[3rem] -> mob:text-[2.5rem]",
+      "tailwind": [
+        "tab:text-[3rem] mob:text-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/CaseStudyVideo.jsx:56-56",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/CaseStudyVideo.jsx:57-57",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media",
+    "primitive.logo-placeholder",
+    "primitive.play-button"
+  ],
+  "measuredFrom": "src/components/sections/CaseStudyVideo.jsx:26-68",
+  "iaSectionId": "proof.case-study-video",
+  "evidenceNotes": [
+    "The page overrides only `stats`; the heading is the component default. The component defaults use a longer 26-word quote and a 24-word first body, which set the body budget.",
+    "videoHref is a link target (not modelled); the play button stays a static placeholder link."
+  ],
+  "observedOn": [
+    "/lms/mentoring-software"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.split-tabs"
+    ],
+    "recommendedBefore": [
+      "story.brand-video"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "photo.brand",
+    "placeholder.neutral",
+    "product.video",
+    "stock.photo"
+  ]
+}

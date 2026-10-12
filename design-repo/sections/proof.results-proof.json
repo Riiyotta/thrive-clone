@@ -1,0 +1,563 @@
+{
+  "id": "proof.results-proof",
+  "kind": "section",
+  "name": "Results proof grid with quote",
+  "purpose": "Backs the company's claims with three logo-attributed outcome stats and a short customer quote, then converts.",
+  "category": "proof",
+  "designSystem": "marketing",
+  "implementedBy": "src/pages/company/ProofResults.jsx",
+  "description": "Page-local block: centred serif H2 with one italic word and a grey lead, then a 4-column grid (2 cols <=991, 1 col <=479) of three dark stat cards (customer logo, big stat, grey outcome line with an italic phrase) plus a translucent quote card (logo, 6rem-padded quote, small round avatar with name/role). It ends either with a green CTA card (text + dark button, /company) or a centred primary button row (/whats-included). Unlike the homepage Results block it carries the quote card and the CTA.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "linkPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 0,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          },
+          "boldPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          }
+        },
+        "required": [
+          "text",
+          "linkPhrases",
+          "boldPhrases"
+        ],
+        "x-richText": true,
+        "note": "The emphasised phrase renders as italic <em>, not bold."
+      },
+      "lead": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 15,
+            "measuredLongestRealInstance": "12 words in the clone's own placeholder copy"
+          },
+          "linkPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          }
+        },
+        "required": [
+          "text",
+          "linkPhrases"
+        ],
+        "x-richText": true
+      },
+      "cards": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "logo": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "logo.customer",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "logo.customer",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ]
+            },
+            "stat": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 2,
+              "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+            },
+            "text": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 19,
+                  "measuredLongestRealInstance": "15 words in the clone's own placeholder copy"
+                },
+                "linkPhrases": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 0,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 18
+                  },
+                  "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                },
+                "boldPhrases": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 1,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 18
+                  },
+                  "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                }
+              },
+              "required": [
+                "text",
+                "linkPhrases",
+                "boldPhrases"
+              ],
+              "x-richText": true,
+              "note": "One italic (<em>) phrase, modelled as boldPhrases."
+            }
+          },
+          "required": [
+            "logo",
+            "stat",
+            "text"
+          ]
+        },
+        "maxItems": 3
+      },
+      "quote": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "logo": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "logo.customer",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "logo.customer",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ]
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 34,
+            "note": "Includes quotation marks.",
+            "measuredLongestRealInstance": "27 words in the clone's own placeholder copy"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "avatar": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "photo.person",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "photo.person",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ]
+          }
+        },
+        "required": [
+          "logo",
+          "text",
+          "name",
+          "role",
+          "avatar"
+        ]
+      },
+      "cta": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": [
+              "card",
+              "button"
+            ],
+            "note": "card = green CTA card with text + dark button (/company); button = centred primary button (/whats-included)."
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 9,
+            "note": "Only for kind 'card'.",
+            "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "kind",
+          "label"
+        ]
+      }
+    },
+    "required": [
+      "heading",
+      "lead",
+      "cards",
+      "quote"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/pages/company/ProofResults.jsx:9-83",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; buttons and links have primitive hover transitions only."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pb-[8rem] -> mob:pb-[4rem]",
+      "tailwind": [
+        "mob:pb-[4rem]"
+      ],
+      "measuredFrom": "src/pages/company/ProofResults.jsx:18-18",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/pages/company/ProofResults.jsx:29-29",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-4 -> tab:grid-cols-2 -> xs:grid-cols-1",
+      "tailwind": [
+        "tab:grid-cols-2 xs:grid-cols-1"
+      ],
+      "measuredFrom": "src/pages/company/ProofResults.jsx:32-32",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-[3.7rem] -> mob:gap-[3rem]; mob:p-[1.5rem]",
+      "tailwind": [
+        "mob:gap-[3rem] mob:p-[1.5rem]"
+      ],
+      "measuredFrom": "src/pages/company/ProofResults.jsx:36-36",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[3rem] -> mob:h-[2rem]",
+      "tailwind": [
+        "mob:h-[2rem]"
+      ],
+      "measuredFrom": "src/pages/company/ProofResults.jsx:38-38",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-stat -> mob:text-stat-48",
+      "tailwind": [
+        "mob:text-stat-48"
+      ],
+      "measuredFrom": "src/pages/company/ProofResults.jsx:40-40",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/pages/company/ProofResults.jsx:41-41",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[3rem] -> mob:h-[2rem]",
+      "tailwind": [
+        "mob:h-[2rem]"
+      ],
+      "measuredFrom": "src/pages/company/ProofResults.jsx:47-47",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/pages/company/ProofResults.jsx:48-48",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "grid-cols-[1fr_auto] -> mob:grid-cols-1; mob:items-start; mob:gap-[1.5rem]",
+      "tailwind": [
+        "mob:grid-cols-1 mob:items-start mob:gap-[1.5rem]"
+      ],
+      "measuredFrom": "src/pages/company/ProofResults.jsx:61-61",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.25rem] -> mob:text-[1.125rem]",
+      "tailwind": [
+        "mob:text-[1.125rem]"
+      ],
+      "measuredFrom": "src/pages/company/ProofResults.jsx:62-62",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "spacing"
+      ],
+      "changes": "mob:w-full; mob:py-[0.5rem]",
+      "tailwind": [
+        "mob:w-full mob:py-[0.5rem]"
+      ],
+      "measuredFrom": "src/pages/company/ProofResults.jsx:64-64",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.logo-placeholder",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/pages/company/ProofResults.jsx:9-83",
+  "iaSectionId": "proof.results-proof",
+  "evidenceNotes": [
+    "Page-local component imported by CompanyPage.jsx and WhatsIncludedPage.jsx (both in src/pages/company/), not a shared section file.",
+    "Per-card logoClass (logo width) and the wrapper/padding class props are layout knobs and are not modelled."
+  ],
+  "observedOn": [
+    "/company",
+    "/whats-included"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.layout03-tabs",
+      "product.two-col-features"
+    ],
+    "recommendedBefore": [
+      "proof.reviews-slider",
+      "story.company-news"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "photo.person",
+    "placeholder.neutral"
+  ]
+}

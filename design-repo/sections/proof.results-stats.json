@@ -7,101 +7,253 @@
   "designSystem": "marketing",
   "implementedBy": "src/components/Results.jsx",
   "content": {
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-      "heading": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 12,
-        "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
-      },
-      "cards": {
-        "type": "array",
-        "minItems": 4,
-        "maxItems": 4,
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "logo": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 12,
+            "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+          },
+          "cards": {
+            "type": "array",
+            "minItems": 4,
+            "maxItems": 4,
+            "items": {
               "type": "object",
               "additionalProperties": false,
-              "x-allowedRoles": [
-                "logo.customer",
-                "placeholder.neutral"
-              ],
               "properties": {
-                "assetRole": {
-                  "enum": [
+                "logo": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
                     "logo.customer",
                     "placeholder.neutral"
-                  ]
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "logo.customer",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 4,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10,
+                      "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "48px tall, max 50% wide, left-aligned."
                 },
-                "placeholderLabel": {
+                "stat": {
                   "type": "string",
                   "minLength": 1,
-                  "maxWords": 4,
-                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                  "maxWords": 1,
+                  "note": "64/64 semibold, e.g. '2.1x'.",
+                  "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
                 },
-                "alt": {
+                "brand": {
                   "type": "string",
                   "minLength": 1,
-                  "maxWords": 10,
+                  "maxWords": 3,
+                  "note": "White underlined link inside the card copy. Must be a placeholder company name.",
                   "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
                 },
-                "assetRef": {
+                "rest": {
                   "type": "string",
-                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
-                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                  "minLength": 1,
+                  "maxWords": 20,
+                  "note": "Grey continuation after the brand link.",
+                  "measuredLongestRealInstance": "17 words in the clone's own placeholder copy"
                 }
               },
               "required": [
-                "assetRole"
-              ],
-              "note": "48px tall, max 50% wide, left-aligned."
+                "logo",
+                "stat",
+                "brand",
+                "rest"
+              ]
             },
-            "stat": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 1,
-              "note": "64/64 semibold, e.g. '2.1x'.",
-              "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
-            },
-            "brand": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 3,
-              "note": "White underlined link inside the card copy. Must be a placeholder company name.",
-              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
-            },
-            "rest": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 20,
-              "note": "Grey continuation after the brand link.",
-              "measuredLongestRealInstance": "17 words in the clone's own placeholder copy"
-            }
-          },
-          "required": [
-            "logo",
-            "stat",
-            "brand",
-            "rest"
-          ]
+            "note": "A 4-column grid (2 at <=991, 1 at <=479)."
+          }
         },
-        "note": "A 4-column grid (2 at <=991, 1 at <=479)."
+        "required": [
+          "heading",
+          "cards"
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "subpage"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 9,
+            "note": "Centred H2 (serif; /lms/professional-services restyles it as a 24px sans line).",
+            "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+          },
+          "headingEmphasis": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "Phrase inside heading wrapped in <em> (italic serif); usually the last words, mid-heading on /lms/demo-platform ('possible'). Must occur in heading.",
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "subtitle": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 39,
+                "measuredLongestRealInstance": "31 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases"
+            ],
+            "x-richText": true,
+            "note": "Grey centred 18px paragraph under the H2; present on all six current subpages, with one inline link on /lms/small-business, /lms/corporate-lms and /lms/professional-services."
+          },
+          "cards": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 9,
+                  "note": "Top-left text: a plain ink label on /lms/professional-services square cards, a green one-word tag above the logo on /lms/demo-platform.",
+                  "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+                },
+                "logo": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "logo.customer",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "logo.customer",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "Small customer logo top-left; every subpage renders the neutral uppercase 'Logo' text placeholder (LogoPlaceholder with no src). Absent on /lms/professional-services."
+                },
+                "stat": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 3,
+                  "note": "Big semibold number, e.g. '92%' or '7 days'.",
+                  "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                },
+                "brand": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 3,
+                  "note": "Underlined placeholder company link leading the line ('Customer one'...). Absent on /lms/demo-platform and /lms/professional-services.",
+                  "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                },
+                "rest": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 28,
+                  "note": "Grey line after the brand link (or alone). Absent on /lms/professional-services.",
+                  "measuredLongestRealInstance": "22 words in the clone's own placeholder copy"
+                }
+              },
+              "required": [
+                "stat"
+              ]
+            },
+            "maxItems": 5,
+            "note": "3 on /lms/professional-services, 5 on /lms/demo-platform, 4 elsewhere."
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 12,
+            "note": "Centred primary button under the cards; only /lms/corporate-lms and /lms/demo-platform show one (cta={null} elsewhere).",
+            "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "cards"
+        ],
+        "note": "testimonial={null} on all six subpage usages, so no testimonial field exists in this branch. Grid, card, header, subtitle and CTA spacing classes are contract-owned."
       }
-    },
-    "required": [
-      "heading",
-      "cards"
     ]
   },
   "constraints": {
-    "onePerPage": true,
     "maxPerPage": 1,
-    "notWrappedInPaddingGlobal": true
+    "notWrappedInPaddingGlobal": true,
+    "maxPerPageByVariant": {
+      "default": 1,
+      "subpage": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
   },
   "motion": {
     "allowedPatterns": [
@@ -110,36 +262,31 @@
     "reducedMotionFallback": "none",
     "measuredFrom": "src/components/Results.jsx:4-4",
     "sourceImplementsReducedMotion": false,
-    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "alsoMeasuredFrom": [
+      "src/components/Results.jsx:4-4"
+    ]
   },
   "responsive": [
-    {
-      "breakpoint": "all",
-      "query": "every width",
-      "changes": "Not wrapped in .padding-global: a bare container-medium, so at 390 the cards run edge to edge.",
-      "tailwind": [
-        "data-section=\"results\" className=\"container-medium mb-[32px]\""
-      ],
-      "measuredFrom": "src/components/Results.jsx:16-16"
-    },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "Grid 4 -> 2 columns.",
       "tailwind": [
-        "grid grid-cols-4 gap-[16px] tab:grid-cols-2 xs:grid-cols-1"
+        "grid grid-cols-4 tab:grid-cols-2 xs:grid-cols-1"
       ],
-      "measuredFrom": "src/components/Results.jsx:21-21"
+      "measuredFrom": "src/components/Results.jsx:36-36",
+      "reCited": "re-cited; 1 of 5 classes no longer exist in current source and were dropped"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "Card gap 3.7rem -> 5rem; mob padding 24; xs gap 48.",
       "tailwind": [
-        "gap-[3.7rem]",
-        "tab:gap-[5rem] mob:p-[24px] xs:gap-[48px]"
+        "gap-[3.7rem] tab:gap-[5rem] mob:p-[1.5rem] xs:gap-[3rem]"
       ],
-      "measuredFrom": "src/components/Results.jsx:25-25"
+      "measuredFrom": "src/components/Results.jsx:71-71",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
@@ -148,16 +295,18 @@
       "tailwind": [
         "text-stat font-semibold text-ink tab:text-stat-48 mob:text-stat-40 xs:text-stat-48"
       ],
-      "measuredFrom": "src/components/Results.jsx:29-29"
+      "measuredFrom": "src/components/Results.jsx:79-79",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Card logo 48 -> 32px tall.",
       "tailwind": [
-        "mob:h-[32px]"
+        "mob:h-[2rem]"
       ],
-      "measuredFrom": "src/components/Results.jsx:27-27"
+      "measuredFrom": "src/components/Results.jsx:76-76",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "xs",
@@ -166,7 +315,8 @@
       "tailwind": [
         "xs:grid-cols-1"
       ],
-      "measuredFrom": "src/components/Results.jsx:21-21"
+      "measuredFrom": "src/components/Results.jsx:36-36",
+      "reCited": "re-cited against current source"
     }
   ],
   "assetRoles": [
@@ -181,17 +331,44 @@
   ],
   "compatibility": {
     "recommendedAfter": [
-      "product.capability-slider"
+      "hero.center-legacy",
+      "product.autotabs-group",
+      "product.capability-slider",
+      "product.feature-bento",
+      "product.layout03-tabs",
+      "proof.logo-row",
+      "proof.testimonial-quote"
     ],
     "recommendedBefore": [
-      "proof.testimonial"
+      "conversion.faq",
+      "product.two-col-features",
+      "proof.centred-quote",
+      "proof.testimonial",
+      "story.header-image-legacy"
     ],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
-    "/"
+    "/",
+    "/lms",
+    "/lms/corporate-lms",
+    "/lms/demo-platform",
+    "/lms/enterprise",
+    "/lms/professional-services",
+    "/lms/small-business"
   ],
   "measuredFrom": "src/components/Results.jsx:16-35",
   "iaSectionId": "proof.results-stats",
-  "specMeasuredFrom": "CLONE_SPEC.md:323-344"
+  "specMeasuredFrom": "CLONE_SPEC.md:323-344",
+  "subpageUsage": "Same Results component as the homepage, configured by props (no explicit `variant` prop). On every subpage the testimonial block is switched off (testimonial={null}); the centred H2 may carry an italic emphasis phrase and is followed by a grey centred subtitle (with at most one inline link); cards drop the homepage's required logo + brand pairing: each card may show a top-left text label (/lms/professional-services, /lms/demo-platform), a neutral logo placeholder, or both, then the big stat and an optional grey line led by an optional underlined brand link; the centred CTA button is optional. Grid columns are per page: 4 / 2 / 1 (default), 3 square cards that overflow-scroll on phones (/lms/professional-services), or 5 auto columns (/lms/demo-platform). Used on /lms, /lms/small-business, /lms/corporate-lms, /lms/enterprise, /lms/professional-services and /lms/demo-platform.",
+  "evidenceNotes": [
+    "Checked: testimonial={null} on all six subpage usages (Lms.jsx, SmallBusiness.jsx, CorporateLms.jsx, Enterprise.jsx, ProfessionalServices.jsx, DemoPlatform.jsx). Only the homepage renders the testimonial.",
+    "On subpages the card's top-left slot is passed through the `label` prop as JSX: a bare <LogoPlaceholder/> (/lms, /lms/small-business, /lms/corporate-lms, /lms/enterprise), a green tag + LogoPlaceholder (/lms/demo-platform) or a text string (/lms/professional-services). The contract splits this into label (text) and logo (media).",
+    "/lms renders a local FinalQuote block (centred quote + author + demo button) right after Results inside the same wrapper; it is page JSX, not part of Results.",
+    "pages-manifest.json maps results->Results on /case-studies/lms, /company (twice) and /whats-included, but none of those page files render Results: /company uses src/pages/company/StatsResults.jsx + ProofResults.jsx, /whats-included uses ProofResults.jsx, and /case-studies/lms has a page-local results grid in CaseStudiesLms.jsx.",
+    "Longest real instances: subtitle 31 words (/lms/professional-services), rest 22 words (/lms/small-business card 4), CTA 9 words (/lms/corporate-lms)."
+  ],
+  "variants": [
+    "subpage"
+  ]
 }

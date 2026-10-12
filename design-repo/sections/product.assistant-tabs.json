@@ -7,145 +7,488 @@
   "designSystem": "marketing",
   "implementedBy": "src/components/KikiTabs.jsx",
   "content": {
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-      "headingLine1": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 6,
-        "note": "H2 first line; a <br> follows.",
-        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
-      },
-      "headingLine2": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 3,
-        "note": "Second line, before the italic word.",
-        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
-      },
-      "headingEmphasis": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 1,
-        "note": "Last word, wrapped in <em> (Instrument Serif italic).",
-        "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
-      },
-      "assistantName": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 1,
-        "note": "Placeholder assistant name. The original product's AI brand name is banned (ORIGINAL_COPY_AND_MARKS_FORBIDDEN).",
-        "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
-      },
-      "introLines": {
-        "type": "array",
-        "minItems": 1,
-        "maxItems": 2,
-        "items": {
-          "type": "string",
-          "minLength": 1,
-          "maxWords": 16,
-          "measuredLongestRealInstance": "15 words in the clone's own placeholder copy"
-        },
-        "note": "Grey 18.4/25.76, 640 wide; lines separated by <br>."
-      },
-      "ctaLabel": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 4,
-        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
-      },
-      "tabs": {
-        "type": "array",
-        "minItems": 2,
-        "maxItems": 5,
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "tab": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "headingLine1": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "H2 first line; a <br> follows.",
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "headingLine2": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "Second line, before the italic word.",
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "headingEmphasis": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 1,
+            "note": "Last word, wrapped in <em> (Instrument Serif italic).",
+            "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+          },
+          "assistantName": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 1,
+            "note": "Placeholder assistant name. The original product's AI brand name is banned (ORIGINAL_COPY_AND_MARKS_FORBIDDEN).",
+            "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+          },
+          "introLines": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "items": {
               "type": "string",
               "minLength": 1,
-              "maxWords": 1,
-              "note": "One-word tab button, 214x76 at 1440.",
-              "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+              "maxWords": 16,
+              "measuredLongestRealInstance": "15 words in the clone's own placeholder copy"
             },
-            "highlight": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 6,
-              "note": "White inline-block lead.",
-              "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
-            },
-            "subdued": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 34,
-              "note": "Grey continuation, letter-spacing -0.4px; 3 lines at 1440.",
-              "measuredLongestRealInstance": "30 words in the clone's own placeholder copy"
-            },
-            "video": {
+            "note": "Grey 18.4/25.76, 640 wide; lines separated by <br>."
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "tabs": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 5,
+            "items": {
               "type": "object",
               "additionalProperties": false,
-              "x-allowedRoles": [
-                "product.video",
-                "placeholder.neutral"
-              ],
               "properties": {
-                "assetRole": {
-                  "enum": [
+                "tab": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 1,
+                  "note": "One-word tab button, 214x76 at 1440.",
+                  "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                },
+                "highlight": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "White inline-block lead.",
+                  "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+                },
+                "subdued": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 34,
+                  "note": "Grey continuation, letter-spacing -0.4px; 3 lines at 1440.",
+                  "measuredLongestRealInstance": "30 words in the clone's own placeholder copy"
+                },
+                "video": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
                     "product.video",
+                    "stock.photo",
                     "placeholder.neutral"
-                  ]
-                },
-                "placeholderLabel": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxWords": 4,
-                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
-                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
-                },
-                "alt": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxWords": 10
-                },
-                "assetRef": {
-                  "type": "string",
-                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
-                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "product.video",
+                        "stock.photo",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 4,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                      "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "1:1 slot, 45% wide, bottom-right, z -1. Clone renders a neutral placeholder; the original's product videos are must-not-reuse."
                 }
               },
               "required": [
-                "assetRole"
-              ],
-              "note": "1:1 slot, 45% wide, bottom-right, z -1. Clone renders a neutral placeholder; the original's product videos are must-not-reuse."
-            }
-          },
-          "required": [
-            "tab",
-            "highlight",
-            "subdued",
-            "video"
-          ]
+                "tab",
+                "highlight",
+                "subdued",
+                "video"
+              ]
+            },
+            "note": "Five tab buttons fill the 1120 container."
+          }
         },
-        "note": "Five tab buttons fill the 1120 container."
+        "required": [
+          "headingLine1",
+          "headingLine2",
+          "headingEmphasis",
+          "assistantName",
+          "introLines",
+          "ctaLabel",
+          "tabs"
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "image-slides"
+          },
+          "header": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "eyebrow": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 5,
+                "note": "Eyebrow chip label (purple #9335fe chip on /lms/small-business).",
+                "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+              },
+              "heading": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 13,
+                "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+              },
+              "headingEmphasis": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 2,
+                "note": "Trailing word(s) of heading wrapped in <em> (italic serif); must occur at the end of heading.",
+                "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+              },
+              "intro": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 62,
+                    "measuredLongestRealInstance": "49 words in the clone's own placeholder copy"
+                  },
+                  "linkPhrases": {
+                    "type": "array",
+                    "minItems": 0,
+                    "maxItems": 1,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 18
+                    },
+                    "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                  },
+                  "boldPhrases": {
+                    "type": "array",
+                    "minItems": 0,
+                    "maxItems": 1,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 18
+                    },
+                    "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                  }
+                },
+                "required": [
+                  "text",
+                  "linkPhrases",
+                  "boldPhrases"
+                ],
+                "x-richText": true,
+                "note": "Grey 18.4/25.76 paragraph; /lms/small-business has one inline link ('older platforms')."
+              },
+              "ctaLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 5,
+                "note": "Primary button under the heading (feature routes only).",
+                "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+              }
+            },
+            "required": [
+              "heading"
+            ],
+            "note": "Page-specific header node above the tabs; omitted on /lms (header={null}). Small-business: eyebrow + H2 (left, 36rem) and intro (right, 28rem), no button. Feature routes: H2 (24px, 28rem column) + primary button, no eyebrow/intro."
+          },
+          "tabs": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "tab": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 4,
+                  "note": "Tab button label.",
+                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                },
+                "highlight": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 13,
+                  "note": "White lead-in sentence. When present, copy renders as the inline grey (#888, 18.4px) continuation; when absent, copy renders as a plain ink 18px paragraph (feature routes, the `text` slide prop).",
+                  "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+                },
+                "copy": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 62,
+                  "note": "Slide paragraph (subdued continuation or plain text, see highlight).",
+                  "measuredLongestRealInstance": "49 words in the clone's own placeholder copy"
+                },
+                "ctaLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 4,
+                  "note": "Primary button at the right of the copy row.",
+                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                },
+                "visual": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "product.screenshot",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "product.screenshot",
+                        "stock.photo",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "Product UI screenshot under the copy; labelled neutral placeholder ('Product UI 16:9' on /lms and /lms/small-business, 'Product UI 2914:2610' on feature routes)."
+                }
+              },
+              "required": [
+                "tab",
+                "copy",
+                "ctaLabel",
+                "visual"
+              ]
+            },
+            "maxItems": 3,
+            "note": "3 tabs on /lms, /lms/small-business and most feature routes; 2 on /lms/features/chat and /lms/features/lms-security."
+          }
+        },
+        "required": [
+          "variant",
+          "tabs"
+        ],
+        "note": "media=\"image\". /lms: header={null}, HUB_TABS (highlight + subdued + cta). /lms/small-business: FEATURES_HEADER + HUB_TABS (highlight + subdued + cta). /lms/features/*: <ExploreHeader/> (FeatureDetail.jsx) + d.explore slides using `text` + 'Learn more' cta. Image aspects, slide insets and padding are contract-owned."
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "video-slides"
+          },
+          "header": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "heading": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 9,
+                "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+              },
+              "intro": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxWords": 39,
+                    "measuredLongestRealInstance": "31 words in the clone's own placeholder copy"
+                  },
+                  "linkPhrases": {
+                    "type": "array",
+                    "minItems": 0,
+                    "maxItems": 0,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 18
+                    },
+                    "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                  },
+                  "boldPhrases": {
+                    "type": "array",
+                    "minItems": 0,
+                    "maxItems": 1,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 18
+                    },
+                    "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+                  }
+                },
+                "required": [
+                  "text",
+                  "linkPhrases",
+                  "boldPhrases"
+                ],
+                "x-richText": true,
+                "note": "The last sentence is wrapped in <em className=\"font-bold italic\">."
+              },
+              "ctaLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 7,
+                "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+              }
+            },
+            "required": [
+              "heading",
+              "intro",
+              "ctaLabel"
+            ],
+            "note": "Centred header (max 60rem): H2, grey intro (50rem) ending in a bold-italic sentence, primary button."
+          },
+          "tabs": {
+            "type": "array",
+            "minItems": 5,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "tab": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 2,
+                  "note": "One-word role name.",
+                  "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                },
+                "highlight": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 7,
+                  "note": "Ink lead-in, inline with the subdued copy.",
+                  "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+                },
+                "subdued": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 45,
+                  "note": "Grey continuation (letter-spacing -0.4px); same paragraph on all five /lms slides.",
+                  "measuredLongestRealInstance": "36 words in the clone's own placeholder copy"
+                },
+                "video": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "product.video",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "product.video",
+                        "stock.photo",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "1:1 video slot, 45% wide bottom-right (square at <=479 on /lms); neutral placeholder 'Product video 1:1'."
+                }
+              },
+              "required": [
+                "tab",
+                "highlight",
+                "subdued",
+                "video"
+              ]
+            },
+            "maxItems": 5
+          }
+        },
+        "required": [
+          "variant",
+          "header",
+          "tabs"
+        ],
+        "note": "media=\"video\" (default) on /lms second instance: header={NOVA_HEADER}, NOVA_TABS, inlineCopy (highlight and subdued flow inline)."
       }
-    },
-    "required": [
-      "headingLine1",
-      "headingLine2",
-      "headingEmphasis",
-      "assistantName",
-      "introLines",
-      "ctaLabel",
-      "tabs"
     ]
   },
   "constraints": {
-    "onePerPage": true,
-    "maxPerPage": 1
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "default": 1,
+      "image-slides": 1,
+      "video-slides": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
   },
   "motion": {
     "allowedPatterns": [
@@ -154,7 +497,10 @@
     "reducedMotionFallback": "instant-slide-change",
     "measuredFrom": "src/components/KikiTabs.jsx:44-44",
     "sourceImplementsReducedMotion": false,
-    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "alsoMeasuredFrom": [
+      "src/components/KikiTabs.jsx:161-199"
+    ]
   },
   "responsive": [
     {
@@ -162,9 +508,10 @@
       "query": "every width",
       "changes": "Header margin-top 64 at EVERY width (no override; the spec's 56 at <=767 is wrong -- audit shows 64 at 390).",
       "tailwind": [
-        "mt-[64px] w-[640px] max-w-full"
+        "mt-[4rem] w-[40rem] max-w-full"
       ],
-      "measuredFrom": "src/components/KikiTabs.jsx:53-53"
+      "measuredFrom": "src/components/KikiTabs.jsx:43-43",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
@@ -173,7 +520,8 @@
       "tailwind": [
         "max-w-[65%] tab:max-w-full"
       ],
-      "measuredFrom": "src/components/KikiTabs.jsx:116-116"
+      "measuredFrom": "src/components/KikiTabs.jsx:70-70",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "mob",
@@ -182,43 +530,48 @@
       "tailwind": [
         "mob:overflow-auto xs:flex-wrap"
       ],
-      "measuredFrom": "src/components/KikiTabs.jsx:81-81"
+      "measuredFrom": "src/components/KikiTabs.jsx:177-177",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Tab buttons 56px tall, 200px wide, 16/22.4.",
       "tailwind": [
-        "mob:h-[3.5rem] mob:w-[200px] mob:flex-none mob:text-kikitab-xs"
+        "mob:h-[3.5rem] mob:w-[12.5rem] mob:flex-none mob:text-kikitab-xs"
       ],
-      "measuredFrom": "src/components/KikiTabs.jsx:90-90"
+      "measuredFrom": "src/components/KikiTabs.jsx:186-186",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Slide padding 24 / 24 / 72 / 24.",
       "tailwind": [
-        "mob:p-[24px] mob:pb-[72px]"
+        "mob:p-[1.5rem] mob:pb-[4.5rem]"
       ],
-      "measuredFrom": "src/components/KikiTabs.jsx:113-113"
+      "measuredFrom": "src/components/KikiTabs.jsx:68-68",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Slide inner becomes start-aligned column, gap 24.",
       "tailwind": [
-        "mob:justify-start mob:gap-[24px]"
+        "mob:justify-start mob:gap-[1.5rem]"
       ],
-      "measuredFrom": "src/components/KikiTabs.jsx:115-115"
+      "measuredFrom": "src/components/KikiTabs.jsx:69-69",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "xs",
       "query": "max-width: 479px",
       "changes": "Tab bar wraps; buttons flex 1, min 150px (3 rows: 2+2+1).",
       "tailwind": [
-        "xs:min-w-[150px] xs:flex-1"
+        "xs:min-w-[9.375rem] xs:flex-1"
       ],
-      "measuredFrom": "src/components/KikiTabs.jsx:90-90"
+      "measuredFrom": "src/components/KikiTabs.jsx:186-186",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "xs",
@@ -227,21 +580,25 @@
       "tailwind": [
         "xs:min-h-[35rem]"
       ],
-      "measuredFrom": "src/components/KikiTabs.jsx:113-113"
+      "measuredFrom": "src/components/KikiTabs.jsx:68-68",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "xs",
       "query": "max-width: 479px",
       "changes": "Video slot becomes static, full width, 352px tall.",
       "tailwind": [
-        "xs:static xs:aspect-auto xs:h-[352px] xs:w-full"
+        "xs:aspect-auto xs:h-[22rem]"
       ],
-      "measuredFrom": "src/components/KikiTabs.jsx:126-126"
+      "measuredFrom": "src/components/KikiTabs.jsx:142-142",
+      "reCited": "re-cited; 2 of 4 classes no longer exist in current source and were dropped"
     }
   ],
   "assetRoles": [
+    "placeholder.neutral",
+    "product.screenshot",
     "product.video",
-    "placeholder.neutral"
+    "stock.photo"
   ],
   "composes": [
     "primitive.heading-h2",
@@ -251,17 +608,56 @@
   ],
   "compatibility": {
     "recommendedAfter": [
-      "product.feature-tabs"
+      "conversion.faq",
+      "product.feature-tabs",
+      "product.platform-intro",
+      "product.wow-bento",
+      "proof.testimonial-quote"
     ],
     "recommendedBefore": [
-      "product.capability-slider"
+      "conversion.demo-cta",
+      "product.capability-slider",
+      "product.layout03-tabs",
+      "proof.testimonial-quote"
     ],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
-    "/"
+    "/",
+    "/lms",
+    "/lms/features/ai-content-creator",
+    "/lms/features/chat",
+    "/lms/features/communication",
+    "/lms/features/employee-assessment-software",
+    "/lms/features/employee-experience",
+    "/lms/features/employee-performance-management-software",
+    "/lms/features/learning-pathways",
+    "/lms/features/lms-admin",
+    "/lms/features/lms-analytics",
+    "/lms/features/lms-gamification",
+    "/lms/features/lms-homepage",
+    "/lms/features/lms-rewards",
+    "/lms/features/lms-security",
+    "/lms/features/mcp",
+    "/lms/features/mobile-lms",
+    "/lms/features/skills",
+    "/lms/features/spaces",
+    "/lms/small-business"
   ],
   "measuredFrom": "src/components/KikiTabs.jsx:41-140",
   "iaSectionId": "product.assistant-tabs",
-  "specMeasuredFrom": "CLONE_SPEC.md:252-290"
+  "specMeasuredFrom": "CLONE_SPEC.md:252-290",
+  "subpageUsage": "Same KikiTabs component as the homepage; subpages switch its `media` prop and pass their own `header` node (or null) and tabs. 'image-slides' (media=\"image\"): a row of 2-3 tab buttons over a looping one-up slider of 40rem image slides (copy + primary button in a header row, product screenshot below); used on /lms (first instance, header null), /lms/small-business (eyebrow + split heading/intro header) and the 15 non-empty /lms/features/* routes (explore header: H2 + 'See every feature' button, slides with plain text + 'Learn more'). 'video-slides' (media=\"video\", default): five tab buttons over 32.5rem slides with inline white/grey copy and a 1:1 video slot bottom-right; used once on /lms under a centred Nova header. The header JSX lives in each page file; it is modelled here as an optional header object. Tabs wrap/scroll at <=767 and the slide copy/button row stacks at <=479 (<=767 on feature routes).",
+  "evidenceNotes": [
+    "KikiTabs has no `variant` prop; the variant values here map to its real `media` prop: 'image-slides' = media=\"image\", 'video-slides' = media=\"video\" (default).",
+    "/lms renders KikiTabs twice (one per variant), so maxPerPage is 1 per variant and 2 for the component overall on /lms.",
+    "Feature routes /lms/features/employee-experience and /lms/features/communication (d.empty) do not render KikiTabs; FeatureDetail.jsx renders a local ExploreEmpty block (header + two 'No items found.' bars) instead.",
+    "The small-business header heading's italic word ('apart') and the Nova header's bold-italic sentence are JSX in the page files (Eyebrow + <em>), modelled as headingEmphasis / intro.boldPhrases.",
+    "pages-manifest.json maps kiki-autotabs->KikiTabs on /lms/corporate-lms, /lms/enterprise (twice) and /whats-included, but CorporateLms.jsx, Enterprise.jsx and WhatsIncludedPage.jsx do not render KikiTabs (they use other components). KikiTabs' own JSDoc also mentions corporate-lms/enterprise as users.",
+    "Longest real instances: image copy 49 words (/lms/small-business slide 3), header intro 49 words (/lms/small-business), feature explore text 26 words, header heading 10 words (feature ExploreHeader)."
+  ],
+  "variants": [
+    "image-slides",
+    "video-slides"
+  ]
 }

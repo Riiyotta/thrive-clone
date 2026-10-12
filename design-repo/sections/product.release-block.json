@@ -1,0 +1,528 @@
+{
+  "id": "product.release-block",
+  "kind": "section",
+  "name": "Release-note feature block",
+  "purpose": "Announces one headline capability of a release with a short pitch, a visual and a grid of the specific improvements it brings.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/SpringGrid.jsx",
+  "description": "Repeated release-note block on /lms/spring-release (6 instances, alternating light #fafefe and page-black themes): a centred header (optional green 'New' pill, H2 with one italic word, body copy, optional button), an optional visual (a 150px looping-video strip under the header, or a product screenshot placed above or below the grid), a 4-column grid of feature items (bold title + text, optionally a customer credit with a 44px avatar; 2 cols <=991, stacked <=479 or <=767 for the wide grid), and an optional big 32px customer quote with a 3rem avatar. Spacers are 4rem / 3rem <=991 / 2rem <=767.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "theme": {
+        "enum": [
+          "light",
+          "dark"
+        ],
+        "note": "light = #fafefe band with dark text; dark = page background."
+      },
+      "eyebrow": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 2,
+        "note": "Green pill above the heading.",
+        "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+      },
+      "heading": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "linkPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 0,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          },
+          "boldPhrases": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 18
+            },
+            "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+          }
+        },
+        "required": [
+          "text",
+          "linkPhrases",
+          "boldPhrases"
+        ],
+        "x-richText": true,
+        "note": "The emphasised word renders as italic <em>, not bold."
+      },
+      "body": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 43,
+        "measuredLongestRealInstance": "34 words in the clone's own placeholder copy"
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      },
+      "media": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "kind": {
+            "enum": [
+              "strip",
+              "image"
+            ],
+            "note": "strip = full-width 150px looping video band under the header; image = product screenshot (placement around the grid is a layout choice)."
+          },
+          "visual": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "product.video",
+              "product.screenshot",
+              "stock.photo",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "product.video",
+                  "product.screenshot",
+                  "stock.photo",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ]
+          }
+        },
+        "required": [
+          "kind",
+          "visual"
+        ]
+      },
+      "items": {
+        "type": "array",
+        "minItems": 4,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 8,
+              "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+            },
+            "body": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 39,
+              "measuredLongestRealInstance": "31 words in the clone's own placeholder copy"
+            },
+            "quote": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 3,
+                  "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                },
+                "role": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 3,
+                  "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                },
+                "avatar": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "photo.person",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "photo.person",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ]
+                }
+              },
+              "required": [
+                "name",
+                "role",
+                "avatar"
+              ],
+              "note": "Turns the item into a customer-quote item (body holds the quote)."
+            }
+          },
+          "required": [
+            "title",
+            "body"
+          ]
+        },
+        "maxItems": 4
+      },
+      "quote": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 72,
+            "note": "Includes quotation marks.",
+            "measuredLongestRealInstance": "57 words in the clone's own placeholder copy"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "avatar": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "photo.person",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "photo.person",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ]
+          }
+        },
+        "required": [
+          "text",
+          "name",
+          "role",
+          "avatar"
+        ]
+      }
+    },
+    "required": [
+      "theme",
+      "heading",
+      "body",
+      "items"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/SpringGrid.jsx:97-169",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; the button has primitive hover transitions only. The 'Looping video' strip is a static placeholder."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mob:p-[1.5rem]; xs:pb-0",
+      "tailwind": [
+        "mob:p-[1.5rem] xs:pb-0"
+      ],
+      "measuredFrom": "src/components/sections/SpringGrid.jsx:23-23",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[2rem] -> tab:text-[1.75rem] -> mob:text-[1.5rem]",
+      "tailwind": [
+        "tab:text-[1.75rem] mob:text-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/SpringGrid.jsx:25-25",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "wide",
+      "query": "min-width: 1440px",
+      "breakpoints": [
+        "wide"
+      ],
+      "kinds": [
+        "other"
+      ],
+      "changes": "wide:rounded-avatar",
+      "tailwind": [
+        "wide:rounded-avatar"
+      ],
+      "measuredFrom": "src/components/sections/SpringGrid.jsx:28-28",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/SpringGrid.jsx:31-31",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "mob:text-small",
+      "tailwind": [
+        "mob:text-small"
+      ],
+      "measuredFrom": "src/components/sections/SpringGrid.jsx:32-32",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-4 -> tab:grid-cols-2",
+      "tailwind": [
+        "tab:grid-cols-2"
+      ],
+      "measuredFrom": "src/components/sections/SpringGrid.jsx:43-43",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:grid-cols-1; xs:flex; xs:flex-col",
+      "tailwind": [
+        "mob:grid-cols-1 xs:flex xs:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/SpringGrid.jsx:44-44",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[4rem] -> tab:pt-[3rem] -> mob:pt-[2rem]",
+      "tailwind": [
+        "tab:pt-[3rem] mob:pt-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/SpringGrid.jsx:69-69",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[4.5rem] -> tab:py-[3.5rem] -> mob:py-[2.5rem]; mob:gap-[1rem]; px-[2.5rem] -> xs:px-[1rem]",
+      "tailwind": [
+        "tab:py-[3.5rem] mob:gap-[1rem] mob:py-[2.5rem] xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/SpringGrid.jsx:142-142",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "spacing",
+        "typography"
+      ],
+      "changes": "px-[0.75rem] -> tab:px-[0.625rem]; py-[0.325rem] -> tab:py-[0.425rem]; text-[#1ee9b6] -> tab:text-[0.725rem]",
+      "tailwind": [
+        "tab:px-[0.625rem] tab:py-[0.425rem] tab:text-[0.725rem]"
+      ],
+      "measuredFrom": "src/components/sections/SpringGrid.jsx:146-146",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/SpringGrid.jsx:151-151",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.placeholder-media",
+    "primitive.eyebrow-pill"
+  ],
+  "measuredFrom": "src/components/sections/SpringGrid.jsx:97-169",
+  "iaSectionId": "product.release-block",
+  "evidenceNotes": [
+    "Heading is passed as a 3-part array [before, italic, after]; 'Nova connect' passes an empty italic part (['Nova ', '', 'connect']), so it has no emphasis.",
+    "Six instances on one page: the first is rendered explicitly with a quote, the other five via BLOCKS.map with quote={null}.",
+    "Layout knobs not modelled: inset, wide (3-col grid style), media width/aspect/placement/rounded/center/mb, endSpacer, header/body/grid class overrides.",
+    "The section is named spring-grid in code (data-section=\"spring-grid\"); this contract calls it product.release-block."
+  ],
+  "observedOn": [
+    "/lms/spring-release"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.logo-row"
+    ],
+    "recommendedBefore": [
+      "product.wow-bento"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.person",
+    "placeholder.neutral",
+    "product.screenshot",
+    "product.video",
+    "stock.photo"
+  ]
+}

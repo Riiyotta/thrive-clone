@@ -1,0 +1,385 @@
+{
+  "id": "product.solution-tabs",
+  "kind": "section",
+  "name": "Sector solution tabs (legacy content theme)",
+  "purpose": "Sells sector-specific content bundles: a header pitch and CTA, then a pick-your-sector list that previews each bundle with an image.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/SolutionTabs.jsx",
+  "description": "Legacy content (yellow, hairline-framed) block used on /content. Header row: eyebrow chip, large serif H2 and a yellow pill button on the left, grey multi-paragraph copy bottom-aligned on the right. Below, a 5-column frame: a 2/5 vertical tab list (rows share the height; the active row shows its summary on a dotted texture) and a 3/5 image pane with a dark bottom fade and an outlined 'Learn more' button. <=767 the header stacks; <=479 the tabs become an accordion of serif heading rows each opening to its text and image.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "eyebrow": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "note": "eyebrow chip",
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      },
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "serif 4rem H2",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "buttonLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "yellow pill button under the heading",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "paragraphs": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 30,
+          "note": "one paragraph (rendered separated by a blank line)",
+          "measuredLongestRealInstance": "24 words in the clone's own placeholder copy"
+        },
+        "maxItems": 3,
+        "note": "grey copy at the right of the header"
+      },
+      "tabs": {
+        "type": "array",
+        "minItems": 4,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "note": "sector name (tab row / accordion heading)",
+              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 32,
+              "note": "summary shown on the active row",
+              "measuredLongestRealInstance": "25 words in the clone's own placeholder copy"
+            },
+            "media": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "photo.brand",
+                "stock.photo",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "photo.brand",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ],
+              "note": "sector image in the pane (Placeholder \"<title> image\")"
+            }
+          },
+          "required": [
+            "title",
+            "text",
+            "media"
+          ]
+        },
+        "maxItems": 7
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "note": "outlined button over the pane image",
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "eyebrow",
+      "heading",
+      "buttonLabel",
+      "paragraphs",
+      "tabs",
+      "ctaLabel"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "tabs.crossFade",
+      "accordion.legacyHeight"
+    ],
+    "reducedMotionFallback": "instant-toggle",
+    "measuredFrom": "src/components/sections/SolutionTabs.jsx:98-120",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "Desktop/tablet: clicking a tab row cross-fades the image pane (.fade-pane opacity/visibility .3s ease) and the rows resize (transition all .2s). <=479 accordion: body grid-rows 0fr->1fr over 400ms ease with the #232011 open background (liveDetails, as on /content), closing in 100ms. Buttons have a .3s border-radius transition and colour hovers.",
+    "alsoMeasuredFrom": [
+      "src/components/sections/SolutionTabs.jsx:153-153"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "typography",
+        "layout"
+      ],
+      "changes": "px-[1.25rem] -> tab:px-[1rem]; py-[0.75rem] -> tab:py-[0.5rem]; text-[1.125rem] -> tab:text-[1rem]; xs:block; xs:self-stretch",
+      "tailwind": [
+        "tab:px-[1rem] tab:py-[0.5rem] tab:text-[1rem] xs:block xs:self-stretch"
+      ],
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:30-30",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[4rem] -> tab:pt-[3rem] -> mob:pt-[2rem]",
+      "tailwind": [
+        "tab:pt-[3rem] mob:pt-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:52-52",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "px-[2.5rem] -> tab:px-[1.5rem] -> mob:px-[1.25rem]; grid-cols-2 -> mob:grid-cols-1; gap-[3rem] -> mob:gap-[2rem] -> xs:gap-[1.5rem]",
+      "tailwind": [
+        "tab:px-[1.5rem] mob:grid-cols-1 mob:gap-[2rem] mob:px-[1.25rem] xs:gap-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:53-53",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "typography"
+      ],
+      "changes": "px-[0.75rem] -> tab:px-[0.625rem]; py-[0.325rem] -> tab:py-[0.425rem]; text-[0.875rem] -> tab:text-[0.725rem]; mb-[0.75rem] -> xs:mb-[0.25rem]; xs:leading-none",
+      "tailwind": [
+        "tab:px-[0.625rem] tab:py-[0.425rem] tab:text-[0.725rem] xs:mb-[0.25rem] xs:leading-none"
+      ],
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:56-56",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "layout",
+        "spacing"
+      ],
+      "changes": "xs:w-full; xs:flex-col; xs:items-stretch; gap-[1.5rem] -> xs:gap-[1rem]",
+      "tailwind": [
+        "xs:w-full xs:flex-col xs:items-stretch xs:gap-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:61-61",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:67-67",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[4rem] -> tab:pt-[3rem] -> mob:pt-[2rem]",
+      "tailwind": [
+        "tab:pt-[3rem] mob:pt-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:81-81",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:hidden",
+      "tailwind": [
+        "xs:hidden"
+      ],
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:85-85",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "tab:gap-[0.5rem]; tab:px-[1.5rem] -> mob:px-[1.5rem]; tab:py-[1rem]",
+      "tailwind": [
+        "tab:gap-[0.5rem] tab:px-[1.5rem] tab:py-[1rem] mob:px-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:101-101",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.25rem] -> mob:text-[1rem]",
+      "tailwind": [
+        "mob:text-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:103-103",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "spacing",
+        "typography"
+      ],
+      "changes": "px-[1.25rem] -> tab:px-[1rem]; py-[0.75rem] -> tab:py-[0.5rem]; text-[1.125rem] -> tab:text-[1rem]",
+      "tailwind": [
+        "tab:px-[1rem] tab:py-[0.5rem] tab:text-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:127-127",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:block",
+      "tailwind": [
+        "xs:block"
+      ],
+      "measuredFrom": "src/components/sections/SolutionTabs.jsx:137-137",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/SolutionTabs.jsx:32-173",
+  "iaSectionId": "product.solution-tabs",
+  "evidenceNotes": [
+    "The content colour theme is hard-coded (THEME const: yellow brand #eee96d), not a prop, so no theme field is modelled.",
+    "The `text` prop is one string split on blank lines; modelled as a paragraphs array."
+  ],
+  "observedOn": [
+    "/content"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.sector-tabs"
+    ],
+    "recommendedBefore": [
+      "product.grid-cards-legacy"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.brand",
+    "placeholder.neutral",
+    "stock.photo"
+  ]
+}

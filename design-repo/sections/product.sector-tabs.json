@@ -1,0 +1,491 @@
+{
+  "id": "product.sector-tabs",
+  "kind": "section",
+  "name": "Sector / topic pill tabs (legacy)",
+  "purpose": "Lets visitors pick their industry or topic from a row of pills and see a matching preview (one hero image, or a row of course cards).",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/Sectors.jsx",
+  "description": "Legacy-theme block with a `variant` prop producing two different shapes. 'industries' (/lms/solutions, theme green, rendered with id=\"industries\" as the sticky-tabs 5th anchor target): centred serif H2 + grey paragraph, a wrapping row of pill tabs, then one full-width image pane with a bottom gradient, the selected tab name as a large serif label and a theme button. 'topics' (/content, theme yellow): side-hairline frame, eyebrow + H2, a row of 8px/0-radius tag tabs, then a row of 5 topic cards (portrait image + serif title; hover shows a frame and pattern) and an 'All Topics' button. <=767 cards wrap to 3-up, <=479 2-up and tab pills grow to fill rows.",
+  "content": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "industries"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "legacy colour theme (default green)"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "note": "serif H2",
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 29,
+            "note": "grey paragraph",
+            "measuredLongestRealInstance": "23 words in the clone's own placeholder copy"
+          },
+          "tabs": {
+            "type": "array",
+            "minItems": 5,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "note": "industry pill label",
+              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+            },
+            "maxItems": 10
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "theme button over the image",
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "paneMedia": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "photo.brand",
+              "stock.photo",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "photo.brand",
+                  "stock.photo",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "full-width sector image (Placeholder \"<tab> image\"), swapped per tab"
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "body",
+          "tabs",
+          "ctaLabel",
+          "paneMedia"
+        ],
+        "note": "/lms/solutions"
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "topics"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "legacy colour theme (default yellow)"
+          },
+          "eyebrow": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "legacy eyebrow chip",
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "note": "serif H2",
+            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+          },
+          "tabs": {
+            "type": "array",
+            "minItems": 5,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "note": "topic tag label",
+              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+            },
+            "maxItems": 10
+          },
+          "cards": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 4,
+                  "note": "serif card title",
+                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                },
+                "media": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "photo.brand",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "photo.brand",
+                        "stock.photo",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "portrait course image (Placeholder \"<tab> N\")"
+                }
+              },
+              "required": [
+                "title",
+                "media"
+              ]
+            },
+            "maxItems": 6
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "centred theme button under the cards",
+            "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "variant",
+          "eyebrow",
+          "heading",
+          "tabs",
+          "cards",
+          "ctaLabel"
+        ],
+        "note": "/content"
+      }
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "industries": 1,
+      "topics": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "tabs.fadeOutIn"
+    ],
+    "reducedMotionFallback": "instant-toggle",
+    "measuredFrom": "src/components/sections/Sectors.jsx:44-92",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "Webflow tabs: click a pill, the pane fades out 100ms, swaps, then fades in 300ms (ease). Topic cards: hover hides the dark overlay and shows a 1px frame + pattern (instant)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "spacing",
+        "layout"
+      ],
+      "changes": "max-w-[60rem] -> tab:max-w-full; tab:px-[2rem] -> mob:px-[1rem]; mob:w-auto; xs:items-center; xs:justify-start",
+      "tailwind": [
+        "tab:max-w-full tab:px-[2rem] mob:w-auto mob:px-[1rem] xs:items-center xs:justify-start"
+      ],
+      "measuredFrom": "src/components/sections/Sectors.jsx:62-62",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "typography",
+        "layout",
+        "spacing"
+      ],
+      "changes": "mob:text-[1rem] -> xs:text-[0.875rem]; flex -> xs:flex-[1.5_1_auto]; xs:justify-center; xs:p-[0.5rem]; xs:leading-[1.4]",
+      "tailwind": [
+        "mob:text-[1rem] xs:flex-[1.5_1_auto] xs:justify-center xs:p-[0.5rem] xs:text-[0.875rem] xs:leading-[1.4]"
+      ],
+      "measuredFrom": "src/components/sections/Sectors.jsx:75-75",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing",
+        "typography"
+      ],
+      "changes": "flex -> xs:flex-[1.5_1_auto]; xs:justify-center; xs:p-[0.5rem]; text-[1rem] -> xs:text-[0.875rem]",
+      "tailwind": [
+        "xs:flex-[1.5_1_auto] xs:justify-center xs:p-[0.5rem] xs:text-[0.875rem]"
+      ],
+      "measuredFrom": "src/components/sections/Sectors.jsx:78-78",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[7rem] -> tab:py-[6rem] -> mob:py-[4rem]",
+      "tailwind": [
+        "tab:py-[6rem] mob:py-[4rem]"
+      ],
+      "measuredFrom": "src/components/sections/Sectors.jsx:100-100",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> mob:px-[1.25rem]",
+      "tailwind": [
+        "mob:px-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/Sectors.jsx:102-102",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/Sectors.jsx:107-107",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mt-[2.5rem] -> mob:mt-[1.25rem]",
+      "tailwind": [
+        "mob:mt-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/Sectors.jsx:110-110",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-h2 -> mob:text-h2-mob -> xs:text-h2-xs; leading-[1.4] -> mob:leading-[1.4] -> xs:leading-[1.4]",
+      "tailwind": [
+        "mob:text-h2-mob mob:leading-[1.4] xs:text-h2-xs xs:leading-[1.4]"
+      ],
+      "measuredFrom": "src/components/sections/Sectors.jsx:117-117",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[6rem] -> tab:pt-[5rem] -> mob:pt-[3.5rem]",
+      "tailwind": [
+        "tab:pt-[5rem] mob:pt-[3.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/Sectors.jsx:138-138",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pb-[2.5rem] -> mob:pb-[1.25rem]",
+      "tailwind": [
+        "mob:pb-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/Sectors.jsx:149-149",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "tab:gap-[8px]; mob:flex-wrap; mob:gap-x-[8px] -> xs:gap-x-[16px]; mob:gap-y-[1rem]",
+      "tailwind": [
+        "tab:gap-[8px] mob:flex-wrap mob:gap-x-[8px] mob:gap-y-[1rem] xs:gap-x-[16px]"
+      ],
+      "measuredFrom": "src/components/sections/Sectors.jsx:150-150",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-[20%] -> mob:w-[30%] -> xs:w-[45%]",
+      "tailwind": [
+        "mob:w-[30%] xs:w-[45%]"
+      ],
+      "measuredFrom": "src/components/sections/Sectors.jsx:155-155",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/Sectors.jsx:54-182",
+  "iaSectionId": "product.sector-tabs",
+  "evidenceNotes": [
+    "Theme comes from the per-variant default (industries green, topics yellow); neither page passes theme explicitly.",
+    "Cards are the same 5 titles for every tab (only the image labels change per tab)."
+  ],
+  "observedOn": [
+    "/content",
+    "/lms/solutions"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "hero.content-overview",
+      "proof.testimonial-quote"
+    ],
+    "recommendedBefore": [
+      "product.solution-tabs",
+      "proof.case-study-carousel"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.brand",
+    "placeholder.neutral",
+    "stock.photo"
+  ],
+  "variants": [
+    "industries",
+    "topics"
+  ]
+}

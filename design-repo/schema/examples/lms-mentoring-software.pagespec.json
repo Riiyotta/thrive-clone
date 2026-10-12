@@ -1,0 +1,655 @@
+{
+  "pageSpecVersion": "1.0.0",
+  "route": "/lms/mentoring-software",
+  "template": "lms-mentoring-software",
+  "designSystem": "marketing",
+  "theme": "nimbus-dark",
+  "nodes": [
+    {
+      "section": "shell.nav",
+      "content": {
+        "menus": [
+          {
+            "label": "Platform",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Solutions",
+                "items": [
+                  {
+                    "title": "Learning home",
+                    "desc": "One place for all learning"
+                  },
+                  {
+                    "title": "Skill journeys",
+                    "desc": "Guided paths that build skills"
+                  },
+                  {
+                    "title": "Peer mentoring",
+                    "desc": "Match people who can help"
+                  },
+                  {
+                    "title": "Team spaces",
+                    "desc": "Communities around topics"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "More",
+                "items": [
+                  {
+                    "title": "Integrations",
+                    "desc": "Connect the tools you use"
+                  },
+                  {
+                    "title": "Security",
+                    "desc": "How we keep data safe"
+                  },
+                  {
+                    "title": "Analytics",
+                    "desc": "See what moves the needle"
+                  },
+                  {
+                    "title": "What's new",
+                    "desc": "Fresh features this season"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Features",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Experience",
+                "items": [
+                  {
+                    "title": "Home feed"
+                  },
+                  {
+                    "title": "Search"
+                  },
+                  {
+                    "title": "Mobile app"
+                  },
+                  {
+                    "title": "Notifications"
+                  },
+                  {
+                    "title": "Profiles"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Learning",
+                "items": [
+                  {
+                    "title": "Courses"
+                  },
+                  {
+                    "title": "Pathways"
+                  },
+                  {
+                    "title": "Assessments"
+                  },
+                  {
+                    "title": "Events"
+                  },
+                  {
+                    "title": "Certificates"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Admin",
+                "items": [
+                  {
+                    "title": "Reporting"
+                  },
+                  {
+                    "title": "Automations"
+                  },
+                  {
+                    "title": "User groups"
+                  },
+                  {
+                    "title": "Branding"
+                  },
+                  {
+                    "title": "Permissions"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Content",
+            "columns": [
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Course library",
+                    "desc": "Ready-made courses"
+                  },
+                  {
+                    "title": "Authoring",
+                    "desc": "Build your own in minutes"
+                  },
+                  {
+                    "title": "Compliance packs",
+                    "desc": "Required training, sorted"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Content partners",
+                    "desc": "Bring in third-party catalogs"
+                  },
+                  {
+                    "title": "Custom content",
+                    "desc": "Made-to-order by our studio"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Case Studies",
+            "columns": [
+              {
+                "kind": "customers",
+                "headerLink": "Platform",
+                "customers": [
+                  {
+                    "name": "Customer one",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer two",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer three",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer four",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer five",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "customers",
+                "headerLink": "Content",
+                "customers": [
+                  {
+                    "name": "Customer six",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer seven",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer eight",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer nine",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer ten",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Learn",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "About",
+                "items": [
+                  {
+                    "title": "Our story",
+                    "desc": "Why we started Nimbus"
+                  },
+                  {
+                    "title": "What you get",
+                    "desc": "Everything in every plan"
+                  },
+                  {
+                    "title": "Careers",
+                    "desc": "Come work with us"
+                  },
+                  {
+                    "title": "Contact",
+                    "desc": "Get in touch with sales"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Resources",
+                "items": [
+                  {
+                    "title": "Events",
+                    "desc": "Live and recorded talks"
+                  },
+                  {
+                    "title": "Blog",
+                    "desc": "Ideas on workplace learning"
+                  },
+                  {
+                    "title": "Guides",
+                    "desc": "Practical how-to playbooks"
+                  },
+                  {
+                    "title": "Glossary",
+                    "desc": "Terms every team uses"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "aiLinkLabel": "Ask why teams choose Nimbus",
+        "ctaLabel": "Book a demo→"
+      },
+      "motion": {
+        "pattern": "nav.hoverMenus",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "hover",
+        "durationMs": 250,
+        "easing": "outQuart"
+      }
+    },
+    {
+      "section": "hero.mentoring-software",
+      "content": {
+        "image": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Mentoring hero image"
+        },
+        "avatars": {
+          "assetRole": "placeholder.neutral"
+        },
+        "trustLine": "Chosen by 5 million people in over 60 countries",
+        "headingLine1": "Mentoring software",
+        "headingLine2": "that grows people",
+        "introLead": "When AI can answer anything, a real conversation counts.",
+        "intro": "Nimbus mentoring software pairs mentors and mentees, tracks their progress and turns peer learning into results the business can see. Use it on its own or as part of your platform.",
+        "primaryLabel": "Watch the video",
+        "secondaryLabel": "Book a demo →",
+        "logosLead": "Building a mentoring culture at",
+        "logos": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Logo",
+          "slotCount": 6
+        }
+      },
+      "motion": {
+        "pattern": "hero.loadReveal",
+        "reducedMotionFallback": "instant-final-state"
+      }
+    },
+    {
+      "section": "product.autotabs-group",
+      "content": {
+        "variant": "mentoring",
+        "heading": "Mentor matching tools built around genuine human connection",
+        "paragraph": "Bring mentoring to life with matching, guidance and reporting.",
+        "tabs": [
+          {
+            "tab": "Smart mentor matching",
+            "title": "Pair the right mentors with the right people.",
+            "text": "Nimbus looks at skills, goals and interests to suggest strong matches, so every pairing starts with real common ground. It takes seconds to set up for you.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Product screenshot"
+            }
+          },
+          {
+            "tab": "Guided programmes",
+            "title": "Give every pairing a clear path.",
+            "text": "Ready-made programmes, prompts and check-ins keep mentors and mentees moving forward, week after week.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Product screenshot"
+            }
+          },
+          {
+            "tab": "Reporting",
+            "title": "See the impact of mentoring.",
+            "text": "Track sessions, goals and feedback in one place and show leaders how mentoring lifts skills and retention.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Product screenshot"
+            }
+          }
+        ],
+        "quote": {
+          "quote": "“Mentoring opens a whole new way of learning for our people. Nimbus made it easy to launch, match and track programmes across every region, and our mentors now feel supported instead of stretched, which has made a real difference to how our teams grow together.”",
+          "name": "Jordan Ellis",
+          "role": "Head of Academy and Operations,",
+          "org": "Northwind Group"
+        }
+      },
+      "motion": {
+        "pattern": "carousel.dragLoop",
+        "reducedMotionFallback": "instant-slide-change"
+      }
+    },
+    {
+      "section": "product.split-tabs",
+      "content": {
+        "variant": "reversed",
+        "heading": {
+          "text": "Unlock the power of peer-to-peer growth with Nimbus",
+          "linkPhrases": [],
+          "boldPhrases": []
+        },
+        "intro": "Your people already have the answers, so help them share what they know.",
+        "buttonLabel": "Book a demo",
+        "tabs": [
+          {
+            "tab": "Sales coaching",
+            "text": "In sales, nothing beats learning from someone who has closed the deal. Pair new reps with top performers and share what works.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Mentoring visual"
+            }
+          },
+          {
+            "tab": "Leadership mentoring",
+            "text": "Help new managers learn from experienced leaders through guided conversations, shared goals and regular check-ins.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Mentoring visual"
+            }
+          },
+          {
+            "tab": "New starter onboarding",
+            "text": "Give every new starter a buddy who knows the ropes, so the first weeks feel welcoming, clear and connected.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Mentoring visual"
+            }
+          },
+          {
+            "tab": "High performer coaching",
+            "text": "Support people exploring new roles with mentors who have walked the same path and can open doors.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Mentoring visual"
+            }
+          },
+          {
+            "tab": "Inclusion mentoring",
+            "text": "Let experts across the business share their know-how with colleagues who want to grow the same skills.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Mentoring visual"
+            }
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "tabs.crossFade",
+        "reducedMotionFallback": "instant-toggle"
+      }
+    },
+    {
+      "section": "proof.case-study-video",
+      "content": {
+        "heading": "The Rising Talent Trust guides thousands of young people into their first careers with Nimbus",
+        "logo": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Logo"
+        },
+        "still": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Video still"
+        },
+        "stats": [
+          {
+            "heading": "Why the right match matters most",
+            "body": "Nimbus pairs mentors and mentees on goals, skills and availability, so each pairing starts on the right foot straightaway."
+          },
+          {
+            "heading": "Jordan Ellis, Mentoring Programme Lead",
+            "body": "“Matching is the most important part of any mentoring scheme. Get it right from the start and people stay engaged, trust builds and results follow.”"
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "story.brand-video",
+      "content": {
+        "variant": "subpage",
+        "heading": "Nothing beats a warm hello",
+        "headingEmphasis": "hello",
+        "body": "See how mentoring relationships grow inside Nimbus, one chat at a time.",
+        "video": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Video 16:9"
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "conversion.cta-strip",
+      "content": {
+        "variant": "spacer"
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "conversion.faq",
+      "content": {
+        "variant": "subpage",
+        "heading": "Frequently asked questions",
+        "items": [
+          {
+            "question": "What are spaces in Nimbus?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          },
+          {
+            "question": "How are spaces different from team chat?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          },
+          {
+            "question": "How do spaces compare with other social intranet tools for teams?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "accordion.faq",
+        "reducedMotionFallback": "instant-toggle"
+      }
+    },
+    {
+      "section": "conversion.demo-cta",
+      "content": {
+        "heading": "Give your team a home for real growth",
+        "headingEmphasis": "for real growth",
+        "body": "Bring your questions and we will walk you through the platform, the content and the results teams like yours see.",
+        "ctaLabel": "Let’s talk"
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "shell.footer",
+      "content": {
+        "aiPrompt": "Want another view?",
+        "aiLinks": {
+          "assetRole": "logo.aiVendor",
+          "slotCount": 4
+        },
+        "columns": [
+          {
+            "header": "Platform",
+            "headerIsLink": true,
+            "links": [
+              "Learning home",
+              "Skill journeys",
+              "Peer mentoring",
+              "Team spaces",
+              "Analytics",
+              "Integrations"
+            ],
+            "buttonLabel": "See it in action →"
+          },
+          {
+            "header": "Content",
+            "headerIsLink": true,
+            "links": [
+              "Course library",
+              "Authoring",
+              "Compliance packs",
+              "Content partners"
+            ],
+            "buttonLabel": "Browse content →"
+          },
+          {
+            "header": "Case Studies",
+            "headerIsLink": true,
+            "links": [
+              "Northwind",
+              "Brightway",
+              "Kestrel Co",
+              "Harbor Foods",
+              "All stories"
+            ]
+          },
+          {
+            "header": "Resources",
+            "headerIsLink": false,
+            "links": [
+              "Blog",
+              "Guides",
+              "Webinars",
+              "Help centre",
+              "Events",
+              "Glossary"
+            ]
+          }
+        ],
+        "ratingBadges": {
+          "assetRole": "badge.review",
+          "slotCount": 2,
+          "alt": "Rating badge"
+        },
+        "awardBadges": {
+          "assetRole": "badge.award",
+          "slotCount": 4,
+          "alt": "Award badge"
+        },
+        "complianceLine": {
+          "text": "Nimbus is independently audited, meets accessibility standards, supports teams in over forty languages and follows regional data rules in every market.",
+          "linkPhrases": [
+            "independently audited",
+            "accessibility standards",
+            "regional data rules"
+          ]
+        },
+        "copyright": "© 2026 Nimbus Learning",
+        "legalLinks": [
+          "Trust Centre",
+          "Website Cookies & Policy"
+        ],
+        "dropups": [
+          {
+            "label": "Terms and Conditions",
+            "links": [
+              "Customer terms",
+              "Acceptable use",
+              "Service levels",
+              "Support policy",
+              "Partner terms"
+            ]
+          },
+          {
+            "label": "Privacy Policy",
+            "links": [
+              "Privacy notice",
+              "Data processing",
+              "Sub-processors",
+              "Retention",
+              "Candidate privacy",
+              "Accessibility"
+            ]
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "footer.dropup",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "click",
+        "durationMs": 200,
+        "easing": "ease"
+      }
+    }
+  ]
+}

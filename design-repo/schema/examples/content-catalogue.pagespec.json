@@ -1,0 +1,674 @@
+{
+  "pageSpecVersion": "1.0.0",
+  "route": "/content/topics",
+  "template": "content-catalogue",
+  "designSystem": "marketing",
+  "theme": "nimbus-content",
+  "nodes": [
+    {
+      "section": "shell.nav",
+      "content": {
+        "menus": [
+          {
+            "label": "Platform",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Solutions",
+                "items": [
+                  {
+                    "title": "Learning home",
+                    "desc": "One place for all learning"
+                  },
+                  {
+                    "title": "Skill journeys",
+                    "desc": "Guided paths that build skills"
+                  },
+                  {
+                    "title": "Peer mentoring",
+                    "desc": "Match people who can help"
+                  },
+                  {
+                    "title": "Team spaces",
+                    "desc": "Communities around topics"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "More",
+                "items": [
+                  {
+                    "title": "Integrations",
+                    "desc": "Connect the tools you use"
+                  },
+                  {
+                    "title": "Security",
+                    "desc": "How we keep data safe"
+                  },
+                  {
+                    "title": "Analytics",
+                    "desc": "See what moves the needle"
+                  },
+                  {
+                    "title": "What's new",
+                    "desc": "Fresh features this season"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Features",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Experience",
+                "items": [
+                  {
+                    "title": "Home feed"
+                  },
+                  {
+                    "title": "Search"
+                  },
+                  {
+                    "title": "Mobile app"
+                  },
+                  {
+                    "title": "Notifications"
+                  },
+                  {
+                    "title": "Profiles"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Learning",
+                "items": [
+                  {
+                    "title": "Courses"
+                  },
+                  {
+                    "title": "Pathways"
+                  },
+                  {
+                    "title": "Assessments"
+                  },
+                  {
+                    "title": "Events"
+                  },
+                  {
+                    "title": "Certificates"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Admin",
+                "items": [
+                  {
+                    "title": "Reporting"
+                  },
+                  {
+                    "title": "Automations"
+                  },
+                  {
+                    "title": "User groups"
+                  },
+                  {
+                    "title": "Branding"
+                  },
+                  {
+                    "title": "Permissions"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Content",
+            "columns": [
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Course library",
+                    "desc": "Ready-made courses"
+                  },
+                  {
+                    "title": "Authoring",
+                    "desc": "Build your own in minutes"
+                  },
+                  {
+                    "title": "Compliance packs",
+                    "desc": "Required training, sorted"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Content partners",
+                    "desc": "Bring in third-party catalogs"
+                  },
+                  {
+                    "title": "Custom content",
+                    "desc": "Made-to-order by our studio"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Case Studies",
+            "columns": [
+              {
+                "kind": "customers",
+                "headerLink": "Platform",
+                "customers": [
+                  {
+                    "name": "Customer one",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer two",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer three",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer four",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer five",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "customers",
+                "headerLink": "Content",
+                "customers": [
+                  {
+                    "name": "Customer six",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer seven",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer eight",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer nine",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer ten",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Learn",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "About",
+                "items": [
+                  {
+                    "title": "Our story",
+                    "desc": "Why we started Nimbus"
+                  },
+                  {
+                    "title": "What you get",
+                    "desc": "Everything in every plan"
+                  },
+                  {
+                    "title": "Careers",
+                    "desc": "Come work with us"
+                  },
+                  {
+                    "title": "Contact",
+                    "desc": "Get in touch with sales"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Resources",
+                "items": [
+                  {
+                    "title": "Events",
+                    "desc": "Live and recorded talks"
+                  },
+                  {
+                    "title": "Blog",
+                    "desc": "Ideas on workplace learning"
+                  },
+                  {
+                    "title": "Guides",
+                    "desc": "Practical how-to playbooks"
+                  },
+                  {
+                    "title": "Glossary",
+                    "desc": "Terms every team uses"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "aiLinkLabel": "Ask why teams choose Nimbus",
+        "ctaLabel": "Book a demo→"
+      },
+      "motion": {
+        "pattern": "nav.hoverMenus",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "hover",
+        "durationMs": 250,
+        "easing": "outQuart"
+      }
+    },
+    {
+      "section": "hero.header-grid-card",
+      "content": {
+        "variant": "topics",
+        "eyebrow": "Core lessons",
+        "title": "Learning content to help every team thrive",
+        "text": "More than 1000 ready-made learning resources covering the skills, topics and challenges teams face every day.",
+        "buttonLabel": "See what's on",
+        "media": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Header image"
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "proof.flip-logos",
+      "content": {
+        "theme": "yellow",
+        "logos": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Logo 1",
+          "slotCount": 16
+        }
+      },
+      "motion": {
+        "pattern": "ticker.verticalLoop",
+        "reducedMotionFallback": "static-first-frame"
+      }
+    },
+    {
+      "section": "index.topics-grid",
+      "content": {
+        "variant": "topics",
+        "heading": "Discover our core learning library",
+        "items": [
+          {
+            "title": "The working world",
+            "text": "The learning team began with a simple question about what people actually needed from their working day and how short, practical resources could fit around busy shifts without adding pressure. Managers were invited to share the moments where.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Topic image 3:2"
+            }
+          },
+          {
+            "title": "Employee experience",
+            "text": "Were invited to share the moments where support mattered most, and those conversations shaped a clear plan for the first year. Every new programme launched with a small pilot group, so the team could listen closely, adjust the format and build confidence before rolling it out across every region. People responded well to bite-sized.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Topic image 3:2"
+            }
+          },
+          {
+            "title": "Leading and managing people",
+            "text": "The team could listen closely, adjust the format and build confidence before rolling it out across every region. People responded well to bite-sized videos, quick reads and guided activities that felt relevant to their own roles.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Topic image 3:2"
+            }
+          },
+          {
+            "title": "Belonging",
+            "text": "And completion rates rose steadily as a result. Leaders noticed the change in team meetings, where colleagues started sharing tips and recommending resources to each other without being asked. Clear dashboards made it easy to see which topics landed and where.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Topic image 3:2"
+            }
+          },
+          {
+            "title": "Customer care",
+            "text": "Without being asked. Clear dashboards made it easy to see which topics landed and where to focus next, so the plan stayed flexible and grounded in real feedback from the people using it every week. Over time the platform became.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Topic image 3:2"
+            }
+          },
+          {
+            "title": "Communication and influence",
+            "text": "Using it every week. Over time the platform became the natural home for onboarding, product updates and everyday questions, replacing scattered documents and long.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Topic image 3:2"
+            }
+          },
+          {
+            "title": "Mental health and wellbeing",
+            "text": "Place to learn. New starters reached confidence faster, experienced colleagues found fresh ways to grow, and the whole organisation began to treat learning as part of the job rather than something extra to fit in at the end of a long day. The next phase builds.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Topic image 3:2"
+            }
+          },
+          {
+            "title": "Safety at work",
+            "text": "Extra to fit in at the end of a long day. The next phase builds on that momentum with new pathways, more languages and a wider community of internal experts ready to share what they know with the colleagues who need it most. The learning team began with a simple question about what people actually needed from their working day and.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Topic image 3:2"
+            }
+          },
+          {
+            "title": "Cyber and information security",
+            "text": "To share what they know with the colleagues who need it most. The learning team began with a simple question about what people actually needed from their working day and how short, practical resources could fit around busy shifts without adding pressure. Managers were invited to.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Topic image 3:2"
+            }
+          },
+          {
+            "title": "Compliance",
+            "text": "Short, practical resources could fit around busy shifts without adding pressure. Managers were invited to share the moments where support mattered most, and those conversations shaped a clear plan for.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Topic image 3:2"
+            }
+          },
+          {
+            "title": "Digital skills",
+            "text": "First year. Every new programme launched with a small pilot group, so the team could listen closely, adjust the format and build confidence before rolling it out across every region. People responded well to bite-sized videos, quick reads and.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Topic image 3:2"
+            }
+          },
+          {
+            "title": "Workplace skills",
+            "text": "Responded well to bite-sized videos, quick reads and guided activities that felt relevant to their own roles, and completion rates rose steadily as a result. Leaders noticed the change in team meetings, where colleagues started sharing.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Topic image 3:2"
+            }
+          },
+          {
+            "title": "Business skills",
+            "text": "Meetings, where colleagues started sharing tips and recommending resources to each other without being asked. Clear dashboards made it easy to see which topics landed and where to focus next, so the plan stayed flexible and grounded in real feedback from.",
+            "media": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Topic image 3:2"
+            }
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "proof.reviews-slider",
+      "content": {
+        "title": "Loved by teams like yours",
+        "order": "author-first",
+        "slides": [
+          {
+            "quote": "\"Our customers rely on us being true experts in what we sell, and the product and service training we run through Nimbus has helped us grow a team of passionate product and service experts in every store.\"",
+            "name": "Jordan Ellis",
+            "role": "Learning & Development Manager",
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "image": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Customer image"
+            },
+            "avatar": {
+              "assetRole": "placeholder.neutral"
+            }
+          },
+          {
+            "quote": "\"The feedback we received has been very, very positive. Easy to navigate, the search is brilliant and far better than what we had before. This has been a real game-changer for our whole organisation.\"",
+            "name": "Sam Rivera",
+            "role": "Director, Learning & Development, Programmes and Initiatives",
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "image": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Customer image"
+            },
+            "avatar": {
+              "assetRole": "placeholder.neutral"
+            }
+          },
+          {
+            "quote": "\"People keep telling us we should have done this years ago, and that it is the best thing we have launched in a long while. The engagement numbers tell me all I need to know; it has been so well received.\"",
+            "name": "Alex Morgan",
+            "role": "Learning & Development Manager",
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "image": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Customer image"
+            },
+            "avatar": {
+              "assetRole": "placeholder.neutral"
+            }
+          }
+        ],
+        "ctaLabel": "See Nimbus in action"
+      },
+      "motion": {
+        "pattern": "carousel.autoplayLoop",
+        "reducedMotionFallback": "autoplay-off-instant-slide-change"
+      }
+    },
+    {
+      "section": "conversion.faq-legacy",
+      "content": {
+        "theme": "olive",
+        "eyebrow": "FAQ's",
+        "title": "Every answer, right here",
+        "items": [
+          {
+            "q": "Which topics does the library cover?",
+            "a": "A simple question about what people actually needed from their working day and how short, practical resources could fit around busy shifts without adding."
+          },
+          {
+            "q": "How often are new courses added to the core library?",
+            "a": "Adding pressure. Managers were invited to share the moments where support mattered most, and those conversations shaped a clear plan for the first year. Every new programme launched with a small pilot."
+          },
+          {
+            "q": "Can we tailor resources to suit our brand?",
+            "a": "Year. Every new programme launched with a small pilot group, so the team could listen closely, adjust the format and build confidence before rolling it out across every region. People responded well to bite-sized videos, quick reads and guided."
+          },
+          {
+            "q": "Do the courses work on phones as well as laptops?",
+            "a": "Rolling it out across every region. People responded well to bite-sized videos, quick reads and guided activities that felt relevant to their own roles, and completion rates rose steadily as a result. Leaders noticed the change in team meetings, where colleagues started sharing tips and recommending."
+          },
+          {
+            "q": "How can we measure the impact of content?",
+            "a": "Roles, and completion rates rose steadily as a result. Leaders noticed the change in team meetings, where colleagues started sharing tips and recommending resources to each other."
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "accordion.legacyHeight",
+        "reducedMotionFallback": "instant-toggle"
+      }
+    },
+    {
+      "section": "conversion.demo-cta",
+      "content": {
+        "heading": "Give your team a home for real growth",
+        "headingEmphasis": "for real growth",
+        "body": "Bring your questions and we will walk you through the platform, the content and the results teams like yours see.",
+        "ctaLabel": "Let’s talk"
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "shell.footer",
+      "content": {
+        "aiPrompt": "Want another view?",
+        "aiLinks": {
+          "assetRole": "logo.aiVendor",
+          "slotCount": 4
+        },
+        "columns": [
+          {
+            "header": "Platform",
+            "headerIsLink": true,
+            "links": [
+              "Learning home",
+              "Skill journeys",
+              "Peer mentoring",
+              "Team spaces",
+              "Analytics",
+              "Integrations"
+            ],
+            "buttonLabel": "See it in action →"
+          },
+          {
+            "header": "Content",
+            "headerIsLink": true,
+            "links": [
+              "Course library",
+              "Authoring",
+              "Compliance packs",
+              "Content partners"
+            ],
+            "buttonLabel": "Browse content →"
+          },
+          {
+            "header": "Case Studies",
+            "headerIsLink": true,
+            "links": [
+              "Northwind",
+              "Brightway",
+              "Kestrel Co",
+              "Harbor Foods",
+              "All stories"
+            ]
+          },
+          {
+            "header": "Resources",
+            "headerIsLink": false,
+            "links": [
+              "Blog",
+              "Guides",
+              "Webinars",
+              "Help centre",
+              "Events",
+              "Glossary"
+            ]
+          }
+        ],
+        "ratingBadges": {
+          "assetRole": "badge.review",
+          "slotCount": 2,
+          "alt": "Rating badge"
+        },
+        "awardBadges": {
+          "assetRole": "badge.award",
+          "slotCount": 4,
+          "alt": "Award badge"
+        },
+        "complianceLine": {
+          "text": "Nimbus is independently audited, meets accessibility standards, supports teams in over forty languages and follows regional data rules in every market.",
+          "linkPhrases": [
+            "independently audited",
+            "accessibility standards",
+            "regional data rules"
+          ]
+        },
+        "copyright": "© 2026 Nimbus Learning",
+        "legalLinks": [
+          "Trust Centre",
+          "Website Cookies & Policy"
+        ],
+        "dropups": [
+          {
+            "label": "Terms and Conditions",
+            "links": [
+              "Customer terms",
+              "Acceptable use",
+              "Service levels",
+              "Support policy",
+              "Partner terms"
+            ]
+          },
+          {
+            "label": "Privacy Policy",
+            "links": [
+              "Privacy notice",
+              "Data processing",
+              "Sub-processors",
+              "Retention",
+              "Candidate privacy",
+              "Accessibility"
+            ]
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "footer.dropup",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "click",
+        "durationMs": 200,
+        "easing": "ease"
+      }
+    }
+  ]
+}

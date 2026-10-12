@@ -51,8 +51,8 @@
                     "desc": "See what moves the needle"
                   },
                   {
-                    "title": "Pricing",
-                    "desc": "Plans for every team size"
+                    "title": "What's new",
+                    "desc": "Fresh features this season"
                   }
                 ]
               }
@@ -250,12 +250,12 @@
                     "desc": "Why we started Nimbus"
                   },
                   {
-                    "title": "Careers",
-                    "desc": "Come work with us"
+                    "title": "What you get",
+                    "desc": "Everything in every plan"
                   },
                   {
-                    "title": "Partners",
-                    "desc": "Grow alongside our team"
+                    "title": "Careers",
+                    "desc": "Come work with us"
                   },
                   {
                     "title": "Contact",
@@ -268,6 +268,10 @@
                 "header": "Resources",
                 "items": [
                   {
+                    "title": "Events",
+                    "desc": "Live and recorded talks"
+                  },
+                  {
                     "title": "Blog",
                     "desc": "Ideas on workplace learning"
                   },
@@ -276,12 +280,8 @@
                     "desc": "Practical how-to playbooks"
                   },
                   {
-                    "title": "Webinars",
-                    "desc": "Live and recorded talks"
-                  },
-                  {
-                    "title": "Help centre",
-                    "desc": "Answers for every user"
+                    "title": "Glossary",
+                    "desc": "Terms every team uses"
                   }
                 ]
               }

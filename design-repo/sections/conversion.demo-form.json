@@ -62,10 +62,11 @@
     ]
   },
   "constraints": {
-    "onePerPage": true,
     "maxPerPage": 1,
     "mustImmediatelyPrecede": "shell.footer",
-    "neighbourRuleId": "DEMO_FORM_PRECEDES_FOOTER"
+    "neighbourRuleId": "DEMO_FORM_PLACEMENT",
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)",
+    "mustImmediatelyFollow": "conversion.faq"
   },
   "motion": {
     "allowedPatterns": [
@@ -82,23 +83,23 @@
       "query": "max-width: 479px",
       "changes": "CTA block padding 48 -> 24.",
       "tailwind": [
-        "p-[48px] xs:p-[24px]"
+        "p-[3rem] xs:p-[1.5rem]"
       ],
-      "measuredFrom": "src/components/Footer.jsx:123-123"
+      "measuredFrom": "src/components/Footer.jsx:147-147",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "xs",
       "query": "max-width: 479px",
       "changes": "Body copy 18 -> 17.6px.",
       "tailwind": [
-        "mb-[4px] max-w-[512px] text-body text-ink xs:text-body-xs"
+        "mb-[0.25rem] max-w-[32rem] text-body text-ink xs:text-body-xs"
       ],
-      "measuredFrom": "src/components/Footer.jsx:127-127"
+      "measuredFrom": "src/components/Footer.jsx:152-152",
+      "reCited": "re-cited against current source (px classes became rem)"
     }
   ],
-  "assetRoles": [
-    "brand.wordmark"
-  ],
+  "assetRoles": [],
   "composes": [
     "primitive.wordmark",
     "primitive.heading-h2",
@@ -111,10 +112,11 @@
     "recommendedBefore": [
       "shell.footer"
     ],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
-    "/"
+    "/",
+    "/company"
   ],
   "measuredFrom": "src/components/Footer.jsx:122-130",
   "iaSectionId": "conversion.demo-form",

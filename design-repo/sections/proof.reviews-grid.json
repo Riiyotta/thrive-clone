@@ -1,0 +1,555 @@
+{
+  "id": "proof.reviews-grid",
+  "kind": "section",
+  "name": "Reviews grid with logo wall",
+  "purpose": "Answers pricing-page doubt with a wall of customer logos beside rotating reviews, then introduces the 'more than a platform' video.",
+  "category": "proof",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/ReviewsGrid.jsx",
+  "description": "Serif H3-size centred heading, then a row (stacks <=767) of a 2-column customer-logo grid card (10 logos, 3rem gaps) beside a max-56rem testimonial card holding a one-slide reviews carousel: each slide has a customer logo, a 24px quote, a 3rem avatar with name/role, and a faded brand image top-right; prev/next outline arrows sit bottom-right. On /pricing a centred video block (H2 with an italic word + 4:3 video placeholder with play button, the VideoSection component) is nested inside the same <section> after the row, passed as children.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 9,
+        "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+      },
+      "logos": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "logo.customer",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "logo.customer",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 10
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ],
+        "note": "2-column logo grid card."
+      },
+      "reviews": {
+        "type": "array",
+        "minItems": 5,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "quote": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 44,
+              "note": "Includes quotation marks.",
+              "measuredLongestRealInstance": "35 words in the clone's own placeholder copy"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 3,
+              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+            },
+            "role": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+            },
+            "logo": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "logo.customer",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "logo.customer",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ]
+            },
+            "image": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "photo.brand",
+                "stock.photo",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "photo.brand",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ]
+            },
+            "avatar": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "photo.person",
+                "placeholder.neutral"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "photo.person",
+                    "placeholder.neutral"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ]
+            }
+          },
+          "required": [
+            "quote",
+            "name",
+            "role",
+            "logo",
+            "image",
+            "avatar"
+          ]
+        },
+        "maxItems": 5
+      },
+      "video": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "heading": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 9,
+                "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+              },
+              "linkPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 0,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              },
+              "boldPhrases": {
+                "type": "array",
+                "minItems": 0,
+                "maxItems": 1,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 18
+                },
+                "note": "Each phrase must occur verbatim inside text (INLINE_PHRASES_PRESENT)."
+              }
+            },
+            "required": [
+              "text",
+              "linkPhrases",
+              "boldPhrases"
+            ],
+            "x-richText": true,
+            "note": "The emphasised phrase renders as italic <em>, not bold."
+          },
+          "video": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "product.video",
+              "stock.photo",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "product.video",
+                  "stock.photo",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ]
+          }
+        },
+        "required": [
+          "heading",
+          "video"
+        ],
+        "note": "Nested VideoSection block rendered as children inside this section on /pricing (heading only, no body or footnote)."
+      }
+    },
+    "required": [
+      "heading",
+      "logos",
+      "reviews"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "carousel.autoplayLoop"
+    ],
+    "reducedMotionFallback": "autoplay-off-instant-slide-change",
+    "measuredFrom": "src/components/sections/ReviewsGrid.jsx:45-46",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "Reviews carousel autoplays from mount every 4s, pauses on hover/drag, slides 800ms ease; active slide scales .65->1 and fades .5->1 in 600ms; arrows colour-shift 320ms. Logo grid and nested video are static.",
+    "alsoMeasuredFrom": [
+      "src/components/sections/ReviewsGrid.jsx:70-70",
+      "src/components/sections/ReviewsGrid.jsx:79-79"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[2.625rem] -> mob:h-[2rem]; w-[2.625rem] -> mob:w-[2rem]",
+      "tailwind": [
+        "mob:h-[2rem] mob:w-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:28-28",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[5rem] -> tab:py-[4rem] -> mob:py-[3rem]",
+      "tailwind": [
+        "tab:py-[4rem] mob:py-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:52-52",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[3.5rem] -> tab:text-[3rem] -> mob:text-[2.5rem] -> xs:text-[2rem]",
+      "tailwind": [
+        "tab:text-[3rem] mob:text-[2.5rem] xs:text-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:55-55",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:flex-col",
+      "tailwind": [
+        "mob:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:58-58",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "mob:w-full",
+      "tailwind": [
+        "mob:w-full"
+      ],
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:59-59",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "layout"
+      ],
+      "changes": "mob:w-full; flex-1 -> mob:flex-none",
+      "tailwind": [
+        "mob:w-full mob:flex-none"
+      ],
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:66-66",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing",
+        "spacing"
+      ],
+      "changes": "min-h-[32.5rem] -> mob:min-h-[35rem]; p-[2.5rem] -> mob:p-[1.5rem]; mob:pb-[4.5rem]",
+      "tailwind": [
+        "mob:min-h-[35rem] mob:p-[1.5rem] mob:pb-[4.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:82-82",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "mob:justify-end; mob:gap-y-[3rem]",
+      "tailwind": [
+        "mob:justify-end mob:gap-y-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:83-83",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "max-w-[72.5%] -> tab:max-w-[90%] -> mob:max-w-full",
+      "tailwind": [
+        "tab:max-w-[90%] mob:max-w-full"
+      ],
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:85-85",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "wide",
+      "query": "min-width: 1440px",
+      "breakpoints": [
+        "wide"
+      ],
+      "kinds": [
+        "other"
+      ],
+      "changes": "wide:rounded-avatar",
+      "tailwind": [
+        "wide:rounded-avatar"
+      ],
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:89-89",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:92-92",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[28rem] -> tab:h-auto; w-[42rem] -> tab:w-[27rem]; tab:aspect-[3/2]",
+      "tailwind": [
+        "tab:h-auto tab:w-[27rem] tab:aspect-[3/2]"
+      ],
+      "measuredFrom": "src/components/sections/ReviewsGrid.jsx:98-98",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-media",
+    "primitive.logo-placeholder",
+    "primitive.carousel-arrows",
+    "primitive.video-section"
+  ],
+  "measuredFrom": "src/components/sections/ReviewsGrid.jsx:41-120",
+  "iaSectionId": "proof.reviews-grid",
+  "evidenceNotes": [
+    "The default LOGOS list loads real image files from public/assets whose filenames are third-party brand marks (six of the ten grid logos: logo-volvo.png, logo-burgerking.png, logo-vodafone.png, logo-ba.png, logo-krispykreme.svg, logo-nothingbundt.png); the remaining four render the neutral placeholder. A generator should treat every slot as placeholder.neutral.",
+    "The in-slide logo and grid logos use LogoPlaceholder, whose default label text is 'Logo' (alt 'Customer logo' applies only when an image file is loaded).",
+    "The nested video is src/components/VideoSection.jsx passed as children; it lives inside the reviews <section> exactly as the original nests section_kiki-video, so it is modelled here rather than as a separate section instance."
+  ],
+  "observedOn": [
+    "/pricing"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "hero.pricing-calculator"
+    ],
+    "recommendedBefore": [
+      "conversion.content-pricing"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "photo.brand",
+    "photo.person",
+    "placeholder.neutral",
+    "product.video",
+    "stock.photo"
+  ]
+}

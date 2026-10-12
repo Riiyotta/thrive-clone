@@ -7,173 +7,361 @@
   "designSystem": "marketing",
   "implementedBy": "src/components/CaseStudyCarousel.jsx",
   "content": {
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-      "heading": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 8,
-        "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
-      },
-      "ctaLabel": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 4,
-        "note": "Dark button under the heading.",
-        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
-      },
-      "intro": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 20,
-        "note": "Grey 18.4, max 448, right of the header at desktop.",
-        "measuredLongestRealInstance": "16 words in the clone's own placeholder copy"
-      },
-      "slides": {
-        "type": "array",
-        "minItems": 3,
-        "maxItems": 5,
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "photo": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 8,
+            "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "note": "Dark button under the heading.",
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "intro": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 20,
+            "note": "Grey 18.4, max 448, right of the header at desktop.",
+            "measuredLongestRealInstance": "16 words in the clone's own placeholder copy"
+          },
+          "slides": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 5,
+            "items": {
               "type": "object",
               "additionalProperties": false,
-              "x-allowedRoles": [
-                "photo.brand",
-                "placeholder.neutral"
-              ],
               "properties": {
-                "assetRole": {
-                  "enum": [
+                "photo": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
                     "photo.brand",
+                    "stock.photo",
                     "placeholder.neutral"
-                  ]
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "photo.brand",
+                        "stock.photo",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 4,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                      "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "480px (30rem) tall, radius 16, cover."
                 },
-                "placeholderLabel": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxWords": 4,
-                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
-                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
-                },
-                "alt": {
-                  "type": "string",
-                  "minLength": 1,
-                  "maxWords": 10
-                },
-                "assetRef": {
-                  "type": "string",
-                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
-                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
-                }
-              },
-              "required": [
-                "assetRole"
-              ],
-              "note": "480px (30rem) tall, radius 16, cover."
-            },
-            "logo": {
-              "type": "object",
-              "additionalProperties": false,
-              "x-allowedRoles": [
-                "logo.customer",
-                "placeholder.neutral"
-              ],
-              "properties": {
-                "assetRole": {
-                  "enum": [
+                "logo": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
                     "logo.customer",
                     "placeholder.neutral"
-                  ]
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "logo.customer",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 4,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10,
+                      "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "Overlay brand mark, 48px tall, top-left, padding 32."
                 },
-                "placeholderLabel": {
+                "text": {
                   "type": "string",
                   "minLength": 1,
-                  "maxWords": 4,
-                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                  "maxWords": 16,
+                  "note": "line-clamp-2, white 18.4/25.76.",
+                  "measuredLongestRealInstance": "16 words in the clone's own placeholder copy"
                 },
-                "alt": {
+                "ctaLabel": {
                   "type": "string",
                   "minLength": 1,
-                  "maxWords": 10,
+                  "maxWords": 3,
                   "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
                 },
-                "assetRef": {
-                  "type": "string",
-                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
-                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                "stats": {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 1,
+                        "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                      },
+                      "label": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 8,
+                        "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "label"
+                    ]
+                  }
                 }
               },
               "required": [
-                "assetRole"
-              ],
-              "note": "Overlay brand mark, 48px tall, top-left, padding 32."
+                "photo",
+                "logo",
+                "text",
+                "ctaLabel",
+                "stats"
+              ]
             },
-            "text": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 16,
-              "note": "line-clamp-2, white 18.4/25.76.",
-              "measuredLongestRealInstance": "16 words in the clone's own placeholder copy"
-            },
-            "ctaLabel": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 3,
-              "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
-            },
-            "stats": {
-              "type": "array",
-              "minItems": 2,
-              "maxItems": 2,
-              "items": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                  "value": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxWords": 1,
-                    "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
-                  },
-                  "label": {
-                    "type": "string",
-                    "minLength": 1,
-                    "maxWords": 8,
-                    "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
-                  }
-                },
-                "required": [
-                  "value",
-                  "label"
-                ]
-              }
-            }
-          },
-          "required": [
-            "photo",
-            "logo",
-            "text",
-            "ctaLabel",
-            "stats"
-          ]
+            "note": "5 measured; centredSlides + loop needs at least 3."
+          }
         },
-        "note": "5 measured; centredSlides + loop needs at least 3."
+        "required": [
+          "heading",
+          "ctaLabel",
+          "intro",
+          "slides"
+        ]
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "subpage"
+          },
+          "eyebrow": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 3,
+            "note": "Green-chip eyebrow above the H2 ('Results' on /lms/features and /company).",
+            "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "note": "H2, 36rem column.",
+            "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+          },
+          "ctaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 5,
+            "note": "Dark button under the H2; omitted where cta={null} (/lms/features, /company). /lms/solutions and /contact-us keep the default 'Read customer stories'.",
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+          },
+          "intro": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 24,
+            "note": "Grey 18.4 paragraph, max 28rem, right column.",
+            "measuredLongestRealInstance": "19 words in the clone's own placeholder copy"
+          },
+          "slides": {
+            "type": "array",
+            "minItems": 5,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "photo": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "photo.brand",
+                    "stock.photo",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "photo.brand",
+                        "stock.photo",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "30rem (24rem <=767) customer brand photo; placeholder label 'Brand photo 16:9'."
+                },
+                "logo": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "logo.customer",
+                    "placeholder.neutral"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "logo.customer",
+                        "placeholder.neutral"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "Overlay customer mark top-left; neutral 'Logo' text placeholder when logo is null."
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 20,
+                  "note": "Story headline; line-clamp-2 by default, unclamped on /lms/features.",
+                  "measuredLongestRealInstance": "16 words in the clone's own placeholder copy"
+                },
+                "ctaLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 3,
+                  "note": "Dark 'Read more' button (hard-coded in the component).",
+                  "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+                },
+                "stats": {
+                  "type": "array",
+                  "minItems": 2,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "value": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 2,
+                        "measuredLongestRealInstance": "1 word in the clone's own placeholder copy"
+                      },
+                      "label": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxWords": 9,
+                        "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+                      }
+                    },
+                    "required": [
+                      "value",
+                      "label"
+                    ]
+                  },
+                  "maxItems": 2
+                }
+              },
+              "required": [
+                "photo",
+                "logo",
+                "text",
+                "ctaLabel",
+                "stats"
+              ]
+            },
+            "maxItems": 6,
+            "note": "5 default slides (homepage data) or 6 page slides on /lms/features."
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "intro",
+          "slides"
+        ],
+        "note": "Pages: Solutions.jsx, LmsFeatures.jsx, CompanyPage.jsx, WhyNimbusPage.jsx, ContactPage.jsx. spacerClassName / textClampClassName / className are contract-owned."
       }
-    },
-    "required": [
-      "heading",
-      "ctaLabel",
-      "intro",
-      "slides"
     ]
   },
   "constraints": {
-    "onePerPage": true,
-    "maxPerPage": 1
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "default": 1,
+      "subpage": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
   },
   "motion": {
     "allowedPatterns": [
@@ -182,7 +370,11 @@
     "reducedMotionFallback": "autoplay-off-instant-slide-change",
     "measuredFrom": "src/components/CaseStudyCarousel.jsx:20-22",
     "sourceImplementsReducedMotion": false,
-    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "alsoMeasuredFrom": [
+      "src/components/CaseStudyCarousel.jsx:101-102",
+      "src/components/CaseStudyCarousel.jsx:46-48"
+    ]
   },
   "responsive": [
     {
@@ -190,55 +382,60 @@
       "query": "max-width: 991px",
       "changes": "Section padding 80 -> 0.",
       "tailwind": [
-        "py-[80px] tab:p-0"
+        "py-[5rem] tab:p-0"
       ],
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:33-33"
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:30-30",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "Header row becomes a column, gap 24.",
       "tailwind": [
-        "flex flex-row items-end justify-between tab:flex-col tab:items-start tab:gap-[24px]"
+        "flex flex-row items-end justify-between tab:flex-col tab:items-start tab:gap-[1.5rem]"
       ],
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:36-36"
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:62-62",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "Slides 666px -> 95cqw.",
       "tailwind": [
-        "[--w:666px] tab:[--w:95cqw]"
+        "tab:[--w:95cqw]"
       ],
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:54-54"
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:83-83",
+      "reCited": "re-cited; 1 of 2 classes no longer exist in current source and were dropped"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "Header spacer 80 -> 64 (48 at <=767).",
       "tailwind": [
-        "h-[80px] tab:h-[64px] mob:h-[48px]"
+        "h-[5rem] tab:h-[4rem] mob:h-[3rem]"
       ],
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:48-48"
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:37-37",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Photo 30rem -> 24rem.",
       "tailwind": [
-        "h-[30rem]",
-        "mob:h-[24rem]"
+        "h-[30rem] mob:h-[24rem]"
       ],
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:76-76"
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:105-105",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Logo overlay padding 24; logo 1.5rem tall.",
       "tailwind": [
-        "absolute inset-0 p-[32px] mob:p-[24px]"
+        "absolute inset-0 p-[2rem] mob:p-[1.5rem]"
       ],
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:78-78"
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:107-107",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "mob",
@@ -247,7 +444,8 @@
       "tailwind": [
         "mob:h-[1.5rem]"
       ],
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:79-79"
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:108-108",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "xs",
@@ -256,25 +454,28 @@
       "tailwind": [
         "xs:flex xs:flex-col xs:items-start xs:gap-0"
       ],
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:85-85"
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:114-114",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "xs",
       "query": "max-width: 479px",
       "changes": "Stats stack in a column.",
       "tailwind": [
-        "flex gap-[16px] xs:flex-col"
+        "flex gap-[1rem] xs:flex-col"
       ],
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:91-91"
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:120-120",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "xs",
       "query": "max-width: 479px",
       "changes": "Stat blocks justify start, gap 16.",
       "tailwind": [
-        "xs:justify-start xs:gap-[16px]"
+        "xs:justify-start xs:gap-[1rem]"
       ],
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:95-95"
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:124-124",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "xs",
@@ -283,13 +484,15 @@
       "tailwind": [
         "xs:text-xlarge-mob"
       ],
-      "measuredFrom": "src/components/CaseStudyCarousel.jsx:97-97"
+      "measuredFrom": "src/components/CaseStudyCarousel.jsx:126-126",
+      "reCited": "re-cited against current source"
     }
   ],
   "assetRoles": [
-    "photo.brand",
     "logo.customer",
-    "placeholder.neutral"
+    "photo.brand",
+    "placeholder.neutral",
+    "stock.photo"
   ],
   "composes": [
     "primitive.heading-h2",
@@ -301,17 +504,39 @@
   ],
   "compatibility": {
     "recommendedAfter": [
+      "conversion.contact-form",
+      "conversion.cta-strip",
+      "conversion.why-cta",
+      "product.sector-tabs",
+      "story.company-news",
       "story.scroll-quote"
     ],
     "recommendedBefore": [
+      "conversion.faq",
+      "hero.layout2-media",
       "story.brand-video"
     ],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
-    "/"
+    "/",
+    "/company",
+    "/company/why-nimbus",
+    "/contact-us",
+    "/lms/features",
+    "/lms/solutions"
   ],
   "measuredFrom": "src/components/CaseStudyCarousel.jsx:18-127",
   "iaSectionId": "proof.case-study-carousel",
-  "specMeasuredFrom": "CLONE_SPEC.md:378-414"
+  "specMeasuredFrom": "CLONE_SPEC.md:378-414",
+  "subpageUsage": "Same CaseStudyCarousel component as the homepage, configured by props (no explicit `variant` prop). Subpage differences: an optional green-chip eyebrow above the H2 (/lms/features, /company), the dark header button is optional (cta={null} on /lms/features and /company, a custom label on /company/why-nimbus, the default label elsewhere), a page-specific intro, and either the five default homepage slides (/lms/solutions, /company, /company/why-nimbus, /contact-us) or page-given slides (six on /lms/features, where the slide text is unclamped and the header-to-slider spacer is 2rem). Layout matches the homepage: header row (H2 column left, intro right; stacked <=991), then a centred loop track of 41.625rem cards (95cqw <=991) with the centre card scaled 1.1 and neighbours at 20% opacity, pagination with progress bullets and a pause button.",
+  "evidenceNotes": [
+    "/lms/solutions, /company/why-nimbus, /contact-us and /company (HIGHLIGHT_SLIDES is exported as undefined from src/pages/company/shared.js) all fall back to the component's HOME_SLIDES, which point at /assets/case-*.avif photos and /assets/case-*-logo files (the original site's reference imagery). Only /lms/features passes its own slides with image/logo null (neutral placeholders).",
+    "cta: /lms/solutions and /contact-us do not pass cta, so they keep the default 'Read customer stories'; /company/why-nimbus passes 'Read the customer stories'; /lms/features and /company pass null.",
+    "pages-manifest.json agrees: highlight-slider->CaseStudyCarousel on /lms/solutions, /lms/features, /company, /company/why-nimbus and /contact-us, matching the code.",
+    "Longest real instances: heading 8 words (/company), intro 19 words (/lms/features), slide text 16 words (default homepage slide 4; 15 on /lms/features)."
+  ],
+  "variants": [
+    "subpage"
+  ]
 }

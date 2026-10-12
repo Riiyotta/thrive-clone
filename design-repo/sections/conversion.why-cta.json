@@ -1,0 +1,105 @@
+{
+  "id": "conversion.why-cta",
+  "kind": "section",
+  "name": "Why-Nimbus closing CTA",
+  "purpose": "Turn the reader of the company 'why us' story into a demo request with one centred heading and button.",
+  "category": "conversion",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/WhyBlock.jsx",
+  "description": "A bare centred block (72rem max, margin 4rem top / 6rem bottom) holding a serif H2 and, 1rem below, a single primary button. No background or card. Side padding 1.5rem <=767 and 1rem <=479, where the button stretches to full width.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 13,
+        "note": "Centred H2 (heading-h2 scale).",
+        "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+      },
+      "buttonLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "Primary button label (component prop button.label).",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "heading",
+      "buttonLabel"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/WhyBlock.jsx:12-12",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; only the shared Button hover (primitive behaviour)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "mob:px-[1.5rem] -> xs:px-[1rem]",
+      "tailwind": [
+        "mob:px-[1.5rem] xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/WhyBlock.jsx:9-9",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:flex-col",
+      "tailwind": [
+        "xs:flex-col"
+      ],
+      "measuredFrom": "src/components/sections/WhyBlock.jsx:11-11",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button"
+  ],
+  "measuredFrom": "src/components/sections/WhyBlock.jsx:7-16",
+  "iaSectionId": "conversion.why-cta",
+  "evidenceNotes": [
+    "WhyNimbusPage.jsx overrides the heading ('Time to find out what Nimbus can do for you'); the default ('Ready to find out what Nimbus can do today?') is unused. The button keeps its default label 'Book a demo'.",
+    "The component's data-section is 'why-block'; the section id here is conversion.why-cta."
+  ],
+  "observedOn": [
+    "/company/why-nimbus"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.wow-bento"
+    ],
+    "recommendedBefore": [
+      "proof.case-study-carousel"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": []
+}

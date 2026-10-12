@@ -1,0 +1,389 @@
+{
+  "id": "proof.testimonial-quote",
+  "kind": "section",
+  "name": "Large centred testimonial quote",
+  "purpose": "Breaks up product storytelling with a single big customer endorsement, optionally handing off to a demo CTA.",
+  "category": "proof",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/TestimonialQuote.jsx",
+  "description": "One component with a `variant` prop: a 32px (28 tab / 24 mob) medium-weight quote in a 60rem column, above a stacked author block (avatar, name, grey role + linked or bold org). Variants only change spacing, alignment and avatar size: platform (/lms 1st, /lms/features, /lms/solutions with a centred button row below), platform-lg (/lms 2nd, 5rem top + 4rem bottom margin), section (/lms 3rd, 5rem/3rem section padding, button rendered inside the author block), mid-market (/lms/corporate-lms, bare left-aligned quote, 2rem top margin), enterprise (/lms/enterprise, centred quote with 2rem left pad, 1rem top margin), kiki (/nova, 6rem/5rem/3.5rem top pad, 3rem avatar). Avatar is a 5rem (3rem kiki) square with the site's 6px TL/BR tag corners below 1440 and fully round at >=1440.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "variant": {
+        "enum": [
+          "platform",
+          "platform-lg",
+          "section",
+          "mid-market",
+          "enterprise",
+          "kiki"
+        ],
+        "note": "Spacing/alignment variant; same content shape for all."
+      },
+      "preset": {
+        "enum": [
+          "platform",
+          "platform-features",
+          "platform-solutions",
+          "platform-lg",
+          "section",
+          "mid-market",
+          "enterprise",
+          "kiki"
+        ],
+        "note": "Default-copy key in PRESETS (defaults to the variant); explicit fields override it. autotabs presets belong to the autotabs group block."
+      },
+      "quote": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 59,
+        "note": "Full quote including its opening/closing quotation marks.",
+        "measuredLongestRealInstance": "47 words in the clone's own placeholder copy"
+      },
+      "name": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 3,
+        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+      },
+      "role": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 13,
+        "note": "Job title; when org is set it usually ends with a comma or 'at'.",
+        "measuredLongestRealInstance": "10 words in the clone's own placeholder copy"
+      },
+      "org": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 4,
+        "note": "Organisation, rendered as an inline link (or bold for the platform-lg preset) after the role.",
+        "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+      },
+      "avatar": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "photo.person",
+          "placeholder.neutral"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "photo.person",
+              "placeholder.neutral"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ]
+      },
+      "ctaLabel": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 5,
+        "note": "Primary button label. Rendered only for platform / platform-lg (centred row below the quote) and section (inside the author block).",
+        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "variant",
+      "quote",
+      "name",
+      "role",
+      "avatar"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "enterprise": 1,
+      "kiki": 1,
+      "mid-market": 1,
+      "platform": 1,
+      "platform-lg": 1,
+      "section": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/TestimonialQuote.jsx:138-242",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; the org link and button have primitive hover transitions only."
+  },
+  "responsive": [
+    {
+      "breakpoint": "wide",
+      "query": "min-width: 1440px",
+      "breakpoints": [
+        "wide"
+      ],
+      "kinds": [
+        "other"
+      ],
+      "changes": "rounded-none -> wide:rounded-[100px]",
+      "tailwind": [
+        "wide:rounded-[100px]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialQuote.jsx:85-85",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[3rem] -> xs:h-[2.5rem]; w-[3rem] -> xs:w-[2.5rem]; min-w-[3rem] -> xs:min-w-[2.5rem]",
+      "tailwind": [
+        "xs:h-[2.5rem] xs:w-[2.5rem] xs:min-w-[2.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialQuote.jsx:97-97",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "xs:text-body-xs",
+      "tailwind": [
+        "xs:text-body-xs"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialQuote.jsx:103-103",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "mob:text-small",
+      "tailwind": [
+        "mob:text-small"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialQuote.jsx:104-104",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-[1.5rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialQuote.jsx:126-126",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[2rem] -> tab:text-[1.75rem] -> mob:text-[1.5rem]",
+      "tailwind": [
+        "tab:text-[1.75rem] mob:text-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialQuote.jsx:143-143",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[4rem] -> tab:pt-[3rem] -> mob:pt-[2rem]",
+      "tailwind": [
+        "tab:pt-[3rem] mob:pt-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialQuote.jsx:190-190",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[4rem] -> tab:pt-[3rem] -> mob:pt-[2rem]",
+      "tailwind": [
+        "tab:pt-[3rem] mob:pt-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialQuote.jsx:191-191",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[6rem] -> tab:pt-[5rem] -> mob:pt-[3.5rem]",
+      "tailwind": [
+        "tab:pt-[5rem] mob:pt-[3.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialQuote.jsx:204-204",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[5rem] -> mob:py-[3rem]",
+      "tailwind": [
+        "mob:py-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialQuote.jsx:215-215",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[5rem] -> tab:pt-[3rem] -> mob:pt-[2rem]",
+      "tailwind": [
+        "tab:pt-[3rem] mob:pt-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialQuote.jsx:229-229",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "gap-[1.5rem] -> xs:gap-[2rem]",
+      "tailwind": [
+        "xs:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/TestimonialQuote.jsx:233-233",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/TestimonialQuote.jsx:138-242",
+  "iaSectionId": "proof.testimonial-quote",
+  "evidenceNotes": [
+    "The component also has 'autotabs' and 'autotabs-enterprise' variants, but those are rendered only inside AutotabsGroup.jsx (closing quote of that block), not placed directly by pages; they are left out of this contract's variant enum.",
+    "/lms places three instances (platform, platform-lg, section); each variant appears at most once per page, so maxPerPage 3 counts the section as a whole.",
+    "The platform-lg preset renders org in <strong>; all others render it as an inline link (orgStyle is a styling knob, not modelled).",
+    "/lms/features passes preset 'platform-features' with its own 40-word quote; that preset sets orgBreak (two <br> after the org)."
+  ],
+  "observedOn": [
+    "/lms",
+    "/lms/corporate-lms",
+    "/lms/enterprise",
+    "/lms/features",
+    "/lms/solutions",
+    "/nova"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "conversion.cta-strip",
+      "product.assistant-tabs",
+      "product.feature-tabs",
+      "product.integrations-visual",
+      "product.layout03-tabs",
+      "product.sticky-tabs"
+    ],
+    "recommendedBefore": [
+      "conversion.cta-strip",
+      "product.assistant-tabs",
+      "product.autotabs-group",
+      "product.feature-bento",
+      "product.sector-tabs",
+      "product.split-tabs",
+      "proof.results-stats"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.person",
+    "placeholder.neutral"
+  ],
+  "variants": [
+    "platform",
+    "platform-lg",
+    "section",
+    "mid-market",
+    "enterprise",
+    "kiki"
+  ]
+}

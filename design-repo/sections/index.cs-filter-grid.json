@@ -1,0 +1,393 @@
+{
+  "id": "index.cs-filter-grid",
+  "kind": "section",
+  "name": "Platform case study filter grid",
+  "purpose": "Lets a visitor narrow the platform case studies by industry, use case and company size and pick a story from the matching cards.",
+  "category": "index",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/CsFilterGrid.jsx",
+  "description": "Dark-theme block: left-aligned H2, then a filter bar (\"All\" reset + three click-open checkbox dropdowns with two-column option lists; OR within a dropdown, AND across them; the button shows the ticked values) above a 3-column grid (2 at 991 and below, 1 at 767 and below) of rounded case-study cards with a customer logo and a two-line headline. Shows an empty-state line when no card matches. On /case-studies/lms the bar stays in flow (stickyBar false).",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 14,
+        "measuredLongestRealInstance": "11 words in the clone's own placeholder copy"
+      },
+      "filters": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 4,
+              "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+            },
+            "options": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 5,
+                "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+              },
+              "maxItems": 24
+            }
+          },
+          "required": [
+            "label",
+            "options"
+          ]
+        },
+        "maxItems": 3
+      },
+      "items": {
+        "type": "array",
+        "minItems": 3,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "logo": {
+              "type": "object",
+              "additionalProperties": false,
+              "x-allowedRoles": [
+                "placeholder.neutral",
+                "logo.customer"
+              ],
+              "properties": {
+                "assetRole": {
+                  "enum": [
+                    "placeholder.neutral",
+                    "logo.customer"
+                  ]
+                },
+                "placeholderLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 6,
+                  "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                },
+                "alt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 10
+                },
+                "assetRef": {
+                  "type": "string",
+                  "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                  "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                }
+              },
+              "required": [
+                "assetRole"
+              ]
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 15,
+              "measuredLongestRealInstance": "12 words in the clone's own placeholder copy"
+            },
+            "industry": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "note": "Must be one of the Industries filter options.",
+              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+            },
+            "useCases": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 4,
+                "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+              },
+              "maxItems": 2,
+              "note": "Values from the Use Case filter options."
+            },
+            "employees": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 4,
+              "note": "One of the Number of employees options.",
+              "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "logo",
+            "text",
+            "industry",
+            "useCases",
+            "employees"
+          ]
+        },
+        "maxItems": 49,
+        "note": "The live CMS list showed 49 cards."
+      },
+      "emptyText": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 9,
+        "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "heading",
+      "filters",
+      "items",
+      "emptyText"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/CsFilterGrid.jsx:73-179",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; dropdowns open/close instantly on click (outside click closes); hover transitions on cards (.2s background), options (.3s colour) and the All control (.26s)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-[24rem] -> xs:w-[18rem]",
+      "tailwind": [
+        "xs:w-[18rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsFilterGrid.jsx:15-15",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-[24rem] -> xs:w-[18rem]",
+      "tailwind": [
+        "xs:w-[18rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsFilterGrid.jsx:16-16",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "w-[14rem] -> xs:w-[18rem]",
+      "tailwind": [
+        "xs:w-[18rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsFilterGrid.jsx:17-17",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "xs:w-full",
+      "tailwind": [
+        "xs:w-full"
+      ],
+      "measuredFrom": "src/components/sections/CsFilterGrid.jsx:51-51",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:relative",
+      "tailwind": [
+        "xs:relative"
+      ],
+      "measuredFrom": "src/components/sections/CsFilterGrid.jsx:66-66",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pl-[0.5rem] -> xs:pl-[0.25rem]",
+      "tailwind": [
+        "xs:pl-[0.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsFilterGrid.jsx:73-73",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[5rem] -> tab:py-[4rem] -> mob:py-[3rem]",
+      "tailwind": [
+        "tab:py-[4rem] mob:py-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsFilterGrid.jsx:133-133",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "pt-[5rem] -> tab:pt-[4rem] -> mob:pt-[3rem]",
+      "tailwind": [
+        "tab:pt-[4rem] mob:pt-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsFilterGrid.jsx:140-140",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "xs:flex-col; xs:items-start",
+      "tailwind": [
+        "xs:flex-col xs:items-start"
+      ],
+      "measuredFrom": "src/components/sections/CsFilterGrid.jsx:146-146",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "sizing"
+      ],
+      "changes": "px-[1rem] -> tab:px-[1.5rem] -> xs:px-[0.5rem]; mob:min-h-[5rem] -> xs:min-h-[1rem]; py-[0.75rem] -> mob:py-[1.5rem] -> xs:py-0; xs:w-full",
+      "tailwind": [
+        "tab:px-[1.5rem] mob:min-h-[5rem] mob:py-[1.5rem] xs:min-h-[1rem] xs:w-full xs:px-[0.5rem] xs:py-0"
+      ],
+      "measuredFrom": "src/components/sections/CsFilterGrid.jsx:148-148",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-3 -> tab:grid-cols-2 -> mob:grid-cols-1",
+      "tailwind": [
+        "tab:grid-cols-2 mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/CsFilterGrid.jsx:174-174",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "max-w-[10rem] -> mob:max-w-[8rem]",
+      "tailwind": [
+        "mob:max-w-[8rem]"
+      ],
+      "measuredFrom": "src/components/sections/CsFilterGrid.jsx:184-184",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.logo-placeholder",
+    "primitive.heading-h2"
+  ],
+  "measuredFrom": "src/components/sections/CsFilterGrid.jsx:89-204",
+  "iaSectionId": "index.cs-filter-grid",
+  "evidenceNotes": [
+    "The \"All\" reset label is hardcoded (not modelled). The page passes only heading, stickyBar and allClassName; filters and the 49 cards are the component defaults (item `useCase` prop renamed `useCases` here; the code field key is `useCase`, an array).",
+    "Sample truncates each filter to 3 options and the grid to 3 cards (real: 17 / 24 / 7 options, 49 cards).",
+    "pages-manifest.json lists the following \"results\" section on /case-studies/lms as reusing the shared Results component; the page actually renders a page-local CaseStudyResults block."
+  ],
+  "observedOn": [
+    "/case-studies/lms"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "hero.wow-content"
+    ],
+    "recommendedBefore": [
+      "proof.case-results"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "logo.customer",
+    "placeholder.neutral"
+  ]
+}

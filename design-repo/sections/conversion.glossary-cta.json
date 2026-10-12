@@ -1,0 +1,278 @@
+{
+  "id": "conversion.glossary-cta",
+  "kind": "section",
+  "name": "Glossary demo CTA card",
+  "purpose": "Convert glossary readers into demo or free-content visitors with a dark branded card closing the glossary page.",
+  "category": "conversion",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/GlossaryCta.jsx",
+  "description": "Oldest-system block (fixed 16px root) on /resources/lms-glossary: an 80rem container holding a #1b1b1b rounded (10px) card. Centred stack of the Nimbus wordmark, a 2.5rem (1.875rem <=767) H2, one line of white 1.25rem copy and two small green pill-less buttons side by side (stacked <=767), then a wide 1300:582 product image filling the card bottom. The card rises and fades in once when it enters the viewport.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 6,
+        "note": "Card H2.",
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      },
+      "text": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 18,
+        "note": "One line at desktop, two at 768.",
+        "measuredLongestRealInstance": "14 words in the clone's own placeholder copy"
+      },
+      "buttons": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 5,
+              "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+            }
+          },
+          "required": [
+            "label"
+          ]
+        },
+        "maxItems": 2,
+        "note": "Two small green buttons (hover -> white)."
+      },
+      "image": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "product.screenshot",
+          "stock.photo"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "product.screenshot",
+              "stock.photo"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          }
+        },
+        "required": [
+          "assetRole"
+        ],
+        "note": "Product image under the copy (1300:582)."
+      }
+    },
+    "required": [
+      "heading",
+      "text",
+      "buttons",
+      "image"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "scroll.revealOnce"
+    ],
+    "reducedMotionFallback": "instant-final-state",
+    "measuredFrom": "src/components/sections/GlossaryCta.jsx:22-22",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "When the card's top reaches the viewport bottom it fades in and rises from y 100px to 0 (1000ms power3.out, 300ms delay), once. Buttons switch background green -> white on hover (default transition duration, ease).",
+    "alsoMeasuredFrom": [
+      "src/components/sections/GlossaryCta.jsx:40-40"
+    ]
+  },
+  "responsive": [
+    {
+      "breakpoint": "wide",
+      "query": "min-width: 1440px",
+      "breakpoints": [
+        "wide",
+        "tab"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> wide:px-[7.5rem] -> tab:px-[1.25rem]; tab:gap-[1.25rem]",
+      "tailwind": [
+        "wide:px-[7.5rem] tab:gap-[1.25rem] tab:px-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/GlossaryCta.jsx:27-27",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "xs:mx-0; xs:self-center",
+      "tailwind": [
+        "xs:mx-0 xs:self-center"
+      ],
+      "measuredFrom": "src/components/sections/GlossaryCta.jsx:28-28",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> tab:px-[1.875rem] -> mob:px-[1.25rem] -> xs:px-[1rem]; py-[3.75rem] -> tab:py-[2.5rem] -> mob:py-[1.875rem]",
+      "tailwind": [
+        "tab:px-[1.875rem] tab:py-[2.5rem] mob:px-[1.25rem] mob:py-[1.875rem] xs:px-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/GlossaryCta.jsx:29-29",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab"
+      ],
+      "kinds": [
+        "sizing",
+        "typography"
+      ],
+      "changes": "h-[36px] -> tab:h-[24px]; text-[1.5rem] -> tab:text-[1rem]",
+      "tailwind": [
+        "tab:h-[24px] tab:text-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/GlossaryCta.jsx:30-30",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "leading-[3.125rem] -> tab:leading-[1.3]; text-[2.5rem] -> mob:text-[1.875rem]",
+      "tailwind": [
+        "tab:leading-[1.3] mob:text-[1.875rem]"
+      ],
+      "measuredFrom": "src/components/sections/GlossaryCta.jsx:32-32",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "leading-[1.5] -> tab:leading-[1.3]; text-[1.25rem] -> mob:text-[1rem]",
+      "tailwind": [
+        "tab:leading-[1.3] mob:text-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/GlossaryCta.jsx:33-33",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "mob:flex-col; gap-[1.25rem] -> mob:gap-[0.625rem]",
+      "tailwind": [
+        "mob:flex-col mob:gap-[0.625rem]"
+      ],
+      "measuredFrom": "src/components/sections/GlossaryCta.jsx:35-35",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "px-[2.5rem] -> tab:px-[1.25rem] -> mob:px-[0.9375rem]; mt-[1.25rem] -> mob:mt-[0.625rem]",
+      "tailwind": [
+        "tab:px-[1.25rem] mob:mt-[0.625rem] mob:px-[0.9375rem]"
+      ],
+      "measuredFrom": "src/components/sections/GlossaryCta.jsx:47-47",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.wordmark",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/GlossaryCta.jsx:9-53",
+  "iaSectionId": "conversion.glossary-cta",
+  "evidenceNotes": [
+    "GlossaryPage.jsx overrides only `text`; heading, buttons and image placeholder are component defaults.",
+    "The file comment says '1000ms outQuart'; the code uses GSAP ease 'power3.out' (GSAP's quartic out)."
+  ],
+  "observedOn": [
+    "/resources/lms-glossary"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "index.glossary"
+    ],
+    "recommendedBefore": [
+      "conversion.demo-cta"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ]
+}

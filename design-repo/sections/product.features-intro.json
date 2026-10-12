@@ -1,0 +1,71 @@
+{
+  "id": "product.features-intro",
+  "kind": "section",
+  "name": "Features intro header",
+  "purpose": "Frames the feature catalogue that follows with a left-aligned heading and one-paragraph overview.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/FeaturesIntro.jsx",
+  "description": "Left-aligned header only: H2 (max 42rem), a 1rem spacer and a grey paragraph (max 36rem) inside container-large > container-medium. No media, no CTA. Only on /lms/features, directly above the anchor intro + sticky tabs.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 10,
+        "note": "H2",
+        "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+      },
+      "intro": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 34,
+        "note": "grey paragraph",
+        "measuredLongestRealInstance": "27 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "heading",
+      "intro"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/FeaturesIntro.jsx:9-30",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; static text."
+  },
+  "responsive": [],
+  "composes": [
+    "primitive.heading-h2"
+  ],
+  "measuredFrom": "src/components/sections/FeaturesIntro.jsx:9-30",
+  "iaSectionId": "product.features-intro",
+  "evidenceNotes": [
+    "The page renders <FeaturesIntro /> with defaults."
+  ],
+  "responsiveNote": "No breakpoint-specific classes or media rules in the component: the block reflows only through its max-width containers.",
+  "observedOn": [
+    "/lms/features"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.logo-row"
+    ],
+    "recommendedBefore": [
+      "product.anchor-intro"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": []
+}

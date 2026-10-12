@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Adversarial suite for the Nimbus (thrive clone) PageSpec contract.
 
-  CONTROLS -- the bundled example and a control SYNTHESISED generically from each
-  real template's own node list (there is one: 'home') must produce ZERO errors.
+  CONTROLS -- every bundled example, a control SYNTHESISED generically from each
+  real template's own slot list (one per template; a new template is covered with
+  zero new code), and one per recorded per-route sequence must produce ZERO errors.
   A validator that rejects everything is as broken as one that rejects nothing.
 
   MUTATIONS -- for every rule the repo claims to enforce, a deliberately broken
@@ -36,7 +37,7 @@ SEVERITY = {r["id"]: r["severity"] for r in REG["graph"]["rules"]}
 # generic control synthesis
 # --------------------------------------------------------------------------
 
-def synth(schema, key=None):
+def synth(schema, key=None, variant=None):
     if not isinstance(schema, dict):
         return None
     if "x-allowedRoles" in schema:
@@ -49,13 +50,20 @@ def synth(schema, key=None):
     if "const" in schema:
         return schema["const"]
     if "enum" in schema:
+        if key == "variant" and variant in schema["enum"]:
+            return variant
         return schema["enum"][0]
     if "oneOf" in schema:
-        return synth(schema["oneOf"][0], key)
+        for b in schema["oneOf"]:
+            v = b.get("properties", {}).get("variant")
+            vals = [None] if v is None else ([v["const"]] if "const" in v else v.get("enum", []))
+            if (variant in (None, "default") and None in vals) or variant in vals:
+                return synth(b, key, variant)
+        return synth(schema["oneOf"][0], key, variant)
     kind = schema.get("type")
     if kind == "object":
         props = schema.get("properties", {})
-        return {n: synth(props[n], n) for n in schema.get("required", []) if n in props}
+        return {n: synth(props[n], n, variant) for n in schema.get("required", []) if n in props}
     if kind == "array":
         lo = schema.get("minItems", 0)
         if key in ("linkPhrases", "boldPhrases"):
@@ -75,15 +83,48 @@ def synth_motion(sid):
     return {"pattern": m["allowedPatterns"][0], "reducedMotionFallback": m["reducedMotionFallback"]}
 
 
-def synth_node(sid):
-    return {"section": sid, "content": synth(SECTIONS[sid]["content"]), "motion": synth_motion(sid)}
+def synth_node(sid, variant=None):
+    return {"section": sid, "content": synth(SECTIONS[sid]["content"], None, variant), "motion": synth_motion(sid)}
 
 
-def synth_control(tid):
+def synth_control(tid, route=None):
+    """A minimal valid PageSpec synthesised GENERICALLY from the template's own slot list
+    (first choice of every choice slot, first allowed variant, optional slots omitted) --
+    or, given a route with a recorded per-route sequence, exactly that realization."""
     tpl = TEMPLATES[tid]
-    nodes = [synth_node(slot["section"]) for slot in tpl["nodes"] if slot.get("required", True)]
-    return {"pageSpecVersion": "1.0.0", "route": tpl["routes"][0], "template": tid,
-            "designSystem": tpl["designSystem"], "theme": "nimbus-dark", "nodes": nodes}
+    seq = (tpl.get("routeSequences") or {}).get(route) if route else None
+    nodes = []
+    for slot in tpl["nodes"]:
+        choices = [slot] + slot.get("alternatives", [])
+        if seq is not None:
+            pick = next((c for c in choices if c["section"] in seq), None)
+            if pick is None:
+                continue
+        else:
+            if not slot.get("required", True):
+                continue
+            pick = choices[0]
+        nodes.append(synth_node(pick["section"], (pick.get("variants") or [None])[0]))
+    return {"pageSpecVersion": "1.0.0", "route": route or tpl["routes"][0], "template": tid,
+            "designSystem": tpl["designSystem"], "theme": tpl["theme"], "nodes": nodes}
+
+
+def control_specs():
+    out = [("synthesised control: " + t, synth_control(t)) for t in sorted(TEMPLATES)]
+    for t in sorted(TEMPLATES):
+        for r in sorted(TEMPLATES[t].get("routeSequences") or {}):
+            out.append(("route-sequence control: %s %s" % (t, r), synth_control(t, r)))
+    return out
+
+
+def load_examples():
+    out = []
+    exdir = os.path.join(REPO, "schema", "examples")
+    if os.path.isdir(exdir):
+        for n in sorted(os.listdir(exdir)):
+            with open(os.path.join(exdir, n), encoding="utf-8") as h:
+                out.append((n, json.load(h)))
+    return out
 
 
 def run(spec):
@@ -132,7 +173,7 @@ def mutations():
     add("missing reducedMotionFallback", "SCHEMA", lambda s: node(s, "conversion.faq")["motion"].pop("reducedMotionFallback"))
     add("invented motion field smuggled in", "SCHEMA", lambda s: node(s, "conversion.faq")["motion"].update(inventedAnimation="parallax"))
     add("invented stagger field on motion", "SCHEMA", lambda s: node(s, "hero.split-visual")["motion"].update(staggerMs=80))
-    add("unmeasured motion duration (750ms exists nowhere)", "SCHEMA", lambda s: node(s, "conversion.faq")["motion"].update(durationMs=750))
+    add("unmeasured motion duration (777ms exists nowhere)", "SCHEMA", lambda s: node(s, "conversion.faq")["motion"].update(durationMs=777))
     add("unmeasured easing curve", "SCHEMA", lambda s: node(s, "conversion.faq")["motion"].update(easing="ease.bounce"))
     add("invented scroll fade-in pattern", "SCHEMA", lambda s: node(s, "proof.logo-row")["motion"].update(pattern="scroll.fadeIn"))
     add("extra top-level property", "SCHEMA", lambda s: s.update(customField="anything"))
@@ -165,13 +206,13 @@ def mutations():
         lambda s: move(s, "story.scroll-quote", idx(s, "story.zoom-statement")))
     add("footer moved to the front", "NAV_FIRST", lambda s: move(s, "shell.footer", 0))
     add("nav moved to the end", "FOOTER_LAST", lambda s: move(s, "shell.nav", len(s["nodes"])))
-    add("hero no longer directly after nav", "HERO_FOLLOWS_NAV",
+    add("hero no longer directly after nav", "HERO_OPENS_PAGE",
         lambda s: move(s, "proof.logo-row", 1))
     add("testimonial detached from the stats", "TESTIMONIAL_FOLLOWS_STATS",
         lambda s: move(s, "proof.testimonial", idx(s, "proof.results-stats")))
-    add("FAQ detached from the demo form", "FAQ_PRECEDES_DEMO_FORM",
+    add("FAQ detached from the demo form", "DEMO_FORM_PLACEMENT",
         lambda s: move(s, "conversion.faq", idx(s, "story.brand-video")))
-    add("demo form detached from the footer", "DEMO_FORM_PRECEDES_FOOTER",
+    add("demo form detached from the footer", "DEMO_FORM_PLACEMENT",
         lambda s: move(s, "conversion.demo-form", idx(s, "conversion.faq")))
     add("second hero on one page", "ONE_HERO_PER_PAGE",
         lambda s: s["nodes"].insert(2, copy.deepcopy(node(s, "hero.split-visual"))))
@@ -219,7 +260,89 @@ def mutations():
         lambda s: C(s, "proof.results-stats")["cards"][0].update(brand="Burger King"))
     add("review-site name in copy", "ORIGINAL_COPY_AND_MARKS_FORBIDDEN",
         lambda s: C(s, "hero.split-visual").update(socialProof="Rated 4.8 on G2 by learners"))
+
+    # ---- multi-template structure (synthesised from each template's own slots) ----
+    def addt(label, expect, tid, fn, route=None):
+        spec = synth_control(tid, route)
+        fn(spec)
+        out.append((label, expect, spec))
+
+    def nd(spec, sid, k=0):
+        return [n for n in spec["nodes"] if n["section"] == sid][k]
+
+    addt("subpage spec declaring the home template's variant (hero default on feature-detail)", "SCHEMA_OR_TEMPLATE_VARIANT_MATCH",
+         "feature-detail", lambda s: s["nodes"].__setitem__(1, synth_node("hero.split-visual", None)))
+    addt("wrong variant in a pinned slot (wowcontent 'why' on small-business)", "TEMPLATE_VARIANT_MATCH",
+         "lms-small-business", lambda s: s["nodes"].__setitem__(1, synth_node("hero.wow-content", "why")))
+    addt("theme mismatch (content-catalogue on the black theme)", "THEME_MATCHES_TEMPLATE",
+         "content-catalogue", lambda s: s.update(theme="nimbus-dark"))
+    addt("content theme smuggled onto the homepage template", "THEME_MATCHES_TEMPLATE",
+         "home", lambda s: s.update(theme="nimbus-content"))
+    addt("choice slot filled twice (topics grid AND sector split list)", "TEMPLATE_NODE_SEQUENCE_MATCH",
+         "content-catalogue", lambda s: s["nodes"].insert(4, synth_node("story.grid-split-legacy", "suites")))
+    addt("choice slot left empty (no FAQ and no FAQ empty state)", "TEMPLATE_NODE_SEQUENCE_MATCH",
+         "feature-detail", lambda s: s["nodes"].remove(nd(s, "conversion.faq")))
+    addt("FAQ empty state used where the template has no such choice", "TEMPLATE_NODE_SEQUENCE_MATCH",
+         "pricing", lambda s: s["nodes"].__setitem__(4, synth_node("conversion.faq-empty")))
+    addt("removed mandatory section (case-study article)", "TEMPLATE_NODE_SEQUENCE_MATCH",
+         "case-study-content", lambda s: s["nodes"].remove(nd(s, "article.cs-content-article")))
+    addt("home demo form on a subpage instead of the demo CTA", "TEMPLATE_NODE_SEQUENCE_MATCH",
+         "guides", lambda s: s["nodes"].__setitem__(-2, synth_node("conversion.demo-form")))
+    addt("two footer CTA blocks", "FOOTER_CTA_EXACTLY_ONE",
+         "guides", lambda s: s["nodes"].insert(-2, synth_node("conversion.demo-cta")))
+    addt("seventh release block (6 is the most on any real page)", "NO_DUPLICATE_SINGLETON",
+         "lms-spring-release", lambda s: [s["nodes"].insert(3, synth_node("product.release-block")) for _ in range(6)])
+    addt("fifth wow2col+marquee pair's marquee duplicated (marquee 'plain' cap 4)", "NO_DUPLICATE_SINGLETON",
+         "mentoring", lambda s: s["nodes"].insert(10, synth_node("story.marquee", "plain")))
+    addt("second NON-exempt hero (platform hero on the pricing page)", "ONE_HERO_PER_PAGE",
+         "pricing", lambda s: s["nodes"].insert(2, synth_node("hero.platform")))
+    addt("page opening with a non-hero on a hero template", "HERO_OPENS_PAGE",
+         "lms-integrations", lambda s: s["nodes"].insert(1, s["nodes"].pop(2)))
+    addt("overlapping logos hero detached from its wowcontent spacer", "OVERLAP_HERO_FOLLOWS_SPACER",
+         "lms-corporate", lambda s: s["nodes"].insert(4, s["nodes"].pop(2)))
+    addt("hero added to a NO_HERO template (guides)", "TEMPLATE_NODE_SEQUENCE_MATCH",
+         "guides", lambda s: s["nodes"].insert(1, synth_node("hero.platform")))
+    addt("stock assetRef on a protected role", "STOCK_REF_ONLY_FOR_STOCK_ROLE_OR_FORBIDDEN",
+         "lms", lambda s: _first_media(s, "product.screenshot").update(assetRole="product.screenshot", assetRef="stock/1.jpg"))
+    addt("stock.photo on a person field (avatar)", "SCHEMA",
+         "lms-small-business", lambda s: _first_media(s, "photo.person", require_role=True).update(assetRole="stock.photo"))
+    addt("static form made live (demo hero form)", "SCHEMA",
+         "lms-demo-platform", lambda s: _first_form(s).update(live=True))
+    addt("form endpoint smuggled into the contact form", "SCHEMA",
+         "contact-us", lambda s: _first_form(s).update(action="https://forms.example.com"))
     return out
+
+
+def _media_dicts(v):
+    if isinstance(v, dict):
+        if "assetRole" in v:
+            yield v
+        for x in v.values():
+            yield from _media_dicts(x)
+    elif isinstance(v, list):
+        for x in v:
+            yield from _media_dicts(x)
+
+
+def _first_media(spec, role, require_role=False):
+    """the first media object in the spec whose field allows `role` (looked up through the allowlist paths)."""
+    import re as _re
+    for node in spec["nodes"]:
+        settable = REG["allowlist"]["sections"].get(node["section"], {}).get("settableProperties", {})
+        for path, d in sv._dicts(node.get("content"), "c"):
+            if "assetRole" in d:
+                field = _re.sub(r"\[\d+\]", "[]", path.split(".", 1)[1]) if "." in path else ""
+                if role in (settable.get(field, {}).get("assetRoles") or []):
+                    return d
+    raise AssertionError("no media field allowing %s in %s" % (role, spec["template"]))
+
+
+def _first_form(spec):
+    for node in spec["nodes"]:
+        for _p, d in sv._dicts(node.get("content"), "c"):
+            if d.get("live") is False:
+                return d
+    raise AssertionError("no static form in %s" % spec["template"])
 
 
 # --------------------------------------------------------------------------
@@ -232,7 +355,7 @@ def registry_mutations():
              ("badge.review", "may-generate-new"), ("badge.award", "must-not-reuse"),
              ("photo.person", "must-not-reuse"), ("photo.event", "may-generate-new"),
              ("photo.brand", "must-not-fabricate"), ("product.screenshot", "may-generate-new"),
-             ("product.video", "may-generate-new")]
+             ("product.video", "may-generate-new"), ("stock.photo", "must-not-reuse")]
     for role, value in swaps:
         reg = copy.deepcopy(REG["assets"])
         assert value in reg["generationPolicyEnum"] and value != reg["roles"][role]["generationPolicy"]
@@ -249,10 +372,11 @@ def registry_mutations():
 def main():
     failures = []
     print("=" * 78)
-    print("CONTROLS -- the real template and the bundled example must pass clean")
+    print("CONTROLS -- every bundled example, one synthesised control per template and per recorded route sequence")
     print("=" * 78)
     controls = [("bundled example (/)", load_example())]
-    controls += [("synthesised control: " + t, synth_control(t)) for t in sorted(TEMPLATES)]
+    controls += [("family example: " + n, sp) for n, sp in load_examples()]
+    controls += control_specs()
     for label, spec in controls:
         schema_errors, errors, warnings = run(spec)
         ok = not schema_errors and not errors
@@ -278,7 +402,15 @@ def main():
         schema_errors, errors, warnings = run(spec)
         error_rules = {r for r, _ in errors}
         warn_rules = {r for r, _ in warnings}
-        if expect == "SCHEMA":
+        if expect == "SCHEMA_OR_TEMPLATE_VARIANT_MATCH":
+            caught = bool(schema_errors) or "TEMPLATE_VARIANT_MATCH" in error_rules
+            how = "schema" if schema_errors else ("TEMPLATE_VARIANT_MATCH" if caught else "-")
+            verdict = "rejected"
+        elif expect == "STOCK_REF_ONLY_FOR_STOCK_ROLE_OR_FORBIDDEN":
+            caught = bool(schema_errors) or bool({"STOCK_REF_ONLY_FOR_STOCK_ROLE", "ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE"} & error_rules)
+            how = ("schema + " if schema_errors else "") + ",".join(sorted(error_rules & {"STOCK_REF_ONLY_FOR_STOCK_ROLE", "ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE"}))
+            verdict = "rejected"
+        elif expect == "SCHEMA":
             caught = bool(schema_errors)
             how = "schema" if caught else ("only semantic %s" % sorted(error_rules) if error_rules else "-")
             verdict = "rejected"

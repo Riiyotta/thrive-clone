@@ -1,0 +1,1038 @@
+{
+  "pageSpecVersion": "1.0.0",
+  "route": "/lms/features",
+  "template": "lms-features",
+  "designSystem": "marketing",
+  "theme": "nimbus-dark",
+  "nodes": [
+    {
+      "section": "shell.nav",
+      "content": {
+        "menus": [
+          {
+            "label": "Platform",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Solutions",
+                "items": [
+                  {
+                    "title": "Learning home",
+                    "desc": "One place for all learning"
+                  },
+                  {
+                    "title": "Skill journeys",
+                    "desc": "Guided paths that build skills"
+                  },
+                  {
+                    "title": "Peer mentoring",
+                    "desc": "Match people who can help"
+                  },
+                  {
+                    "title": "Team spaces",
+                    "desc": "Communities around topics"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "More",
+                "items": [
+                  {
+                    "title": "Integrations",
+                    "desc": "Connect the tools you use"
+                  },
+                  {
+                    "title": "Security",
+                    "desc": "How we keep data safe"
+                  },
+                  {
+                    "title": "Analytics",
+                    "desc": "See what moves the needle"
+                  },
+                  {
+                    "title": "What's new",
+                    "desc": "Fresh features this season"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Features",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Experience",
+                "items": [
+                  {
+                    "title": "Home feed"
+                  },
+                  {
+                    "title": "Search"
+                  },
+                  {
+                    "title": "Mobile app"
+                  },
+                  {
+                    "title": "Notifications"
+                  },
+                  {
+                    "title": "Profiles"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Learning",
+                "items": [
+                  {
+                    "title": "Courses"
+                  },
+                  {
+                    "title": "Pathways"
+                  },
+                  {
+                    "title": "Assessments"
+                  },
+                  {
+                    "title": "Events"
+                  },
+                  {
+                    "title": "Certificates"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Admin",
+                "items": [
+                  {
+                    "title": "Reporting"
+                  },
+                  {
+                    "title": "Automations"
+                  },
+                  {
+                    "title": "User groups"
+                  },
+                  {
+                    "title": "Branding"
+                  },
+                  {
+                    "title": "Permissions"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Content",
+            "columns": [
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Course library",
+                    "desc": "Ready-made courses"
+                  },
+                  {
+                    "title": "Authoring",
+                    "desc": "Build your own in minutes"
+                  },
+                  {
+                    "title": "Compliance packs",
+                    "desc": "Required training, sorted"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Content partners",
+                    "desc": "Bring in third-party catalogs"
+                  },
+                  {
+                    "title": "Custom content",
+                    "desc": "Made-to-order by our studio"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Case Studies",
+            "columns": [
+              {
+                "kind": "customers",
+                "headerLink": "Platform",
+                "customers": [
+                  {
+                    "name": "Customer one",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer two",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer three",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer four",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer five",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "customers",
+                "headerLink": "Content",
+                "customers": [
+                  {
+                    "name": "Customer six",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer seven",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer eight",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer nine",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Customer ten",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Learn",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "About",
+                "items": [
+                  {
+                    "title": "Our story",
+                    "desc": "Why we started Nimbus"
+                  },
+                  {
+                    "title": "What you get",
+                    "desc": "Everything in every plan"
+                  },
+                  {
+                    "title": "Careers",
+                    "desc": "Come work with us"
+                  },
+                  {
+                    "title": "Contact",
+                    "desc": "Get in touch with sales"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Resources",
+                "items": [
+                  {
+                    "title": "Events",
+                    "desc": "Live and recorded talks"
+                  },
+                  {
+                    "title": "Blog",
+                    "desc": "Ideas on workplace learning"
+                  },
+                  {
+                    "title": "Guides",
+                    "desc": "Practical how-to playbooks"
+                  },
+                  {
+                    "title": "Glossary",
+                    "desc": "Terms every team uses"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "aiLinkLabel": "Ask why teams choose Nimbus",
+        "ctaLabel": "Book a demo→"
+      },
+      "motion": {
+        "pattern": "nav.hoverMenus",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "hover",
+        "durationMs": 250,
+        "easing": "outQuart"
+      }
+    },
+    {
+      "section": "hero.wow-content",
+      "content": {
+        "variant": "features",
+        "title": "Platform features that improve learning and work",
+        "paragraph": "Nimbus platform features cover learning, AI, skills, mentoring, communications, analytics and integrations, with Nova built in.",
+        "buttons": [
+          {
+            "label": "Book a demo",
+            "style": "primary"
+          },
+          {
+            "label": "See our latest releases",
+            "style": "dark-small"
+          }
+        ],
+        "visual": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Platform overview"
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "proof.logo-row",
+      "content": {
+        "variant": "subpage",
+        "heading": "Used every day at",
+        "headingPlacement": "inside",
+        "logos": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Logo",
+          "slotCount": 6
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "product.features-intro",
+      "content": {
+        "heading": "Learning platform features for every kind of team",
+        "intro": "Explore the tools for building courses, growing people, working with AI, tracking results and scaling safely, so your teams grow faster and your business can show it."
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "product.anchor-intro",
+      "content": {
+        "variant": "features",
+        "heading": "Explore every platform feature"
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "product.sticky-tabs",
+      "content": {
+        "variant": "features",
+        "navLabels": [
+          "Grow your people",
+          "Build learning",
+          "Connect and engage",
+          "Prove impact",
+          "Use AI",
+          "Scale safely"
+        ],
+        "panels": [
+          {
+            "eyebrow": "Grow your people",
+            "title": "Learning platform features for growing people",
+            "body": {
+              "text": "Give every employee a personal home for learning, with pathways, skills and goals that adapt as they grow, as teams at Customer one and Customer two found when they moved their whole workforce onto Nimbus.",
+              "linkPhrases": [
+                "Customer one and Customer two"
+              ]
+            },
+            "tabs": [
+              {
+                "tab": "Home",
+                "text": "A home space that brings the right learning, news and tools together in one place. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Home product shot"
+                }
+              },
+              {
+                "tab": "Pathways",
+                "text": "A pathways space that brings the right learning, news and tools together in one place. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Pathways product shot"
+                }
+              },
+              {
+                "tab": "Skills",
+                "text": "A skills space that brings the right learning, news and tools together in one place. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Skills product shot"
+                }
+              },
+              {
+                "tab": "Goals",
+                "text": "A goals space that brings the right learning, news and tools together in one place. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Goals product shot"
+                }
+              },
+              {
+                "tab": "Mentoring",
+                "text": "A mentoring space that brings the right learning, news and tools together in one place. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Mentoring product shot"
+                }
+              }
+            ]
+          },
+          {
+            "eyebrow": "Build learning",
+            "title": "The key features of a modern content studio",
+            "body": {
+              "text": "Build pathways, campaigns and courses in minutes with simple drag-and-drop tools, just like Customer three did when they rebuilt their whole induction programme.",
+              "linkPhrases": [
+                "Customer three"
+              ]
+            },
+            "tabs": [
+              {
+                "tab": "Studio",
+                "text": "A studio space that brings the right learning, news and tools together in one place, so every person always knows where to start. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Studio product shot"
+                }
+              },
+              {
+                "tab": "Campaigns",
+                "text": "A campaigns space that brings the right learning, news and tools together in one place, so every person always knows where to start. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Campaigns product shot"
+                }
+              },
+              {
+                "tab": "Library",
+                "text": "A library space that brings the right learning, news and tools together in one place, so every person always knows where to start. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Library product shot"
+                }
+              },
+              {
+                "tab": "Assessments",
+                "text": "An assessments space that brings the right learning, news and tools together in one place, so every person always knows where to start. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Assessments product shot"
+                }
+              },
+              {
+                "tab": "Events",
+                "text": "An events space that brings the right learning, news and tools together in one place, so every person always knows where to start. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Events product shot"
+                }
+              }
+            ]
+          },
+          {
+            "eyebrow": "Connect and engage",
+            "title": "Platform tools that keep people talking together",
+            "body": {
+              "text": "Chat, notifications, rewards and spaces keep teams at Customer four connected, informed and learning together every single day, wherever they happen to work.",
+              "linkPhrases": [
+                "Customer four"
+              ]
+            },
+            "tabs": [
+              {
+                "tab": "Messages",
+                "text": "A messages space that brings the right learning, news and tools together in one place. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Messages product shot"
+                }
+              },
+              {
+                "tab": "Spaces",
+                "text": "A spaces space that brings the right learning, news and tools together in one place. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Spaces product shot"
+                }
+              },
+              {
+                "tab": "Rewards",
+                "text": "A rewards space that brings the right learning, news and tools together in one place. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Rewards product shot"
+                }
+              },
+              {
+                "tab": "Alerts",
+                "text": "An alerts space that brings the right learning, news and tools together in one place. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Alerts product shot"
+                }
+              },
+              {
+                "tab": "Feeds",
+                "text": "A feeds space that brings the right learning, news and tools together in one place. It is quick to set up.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Feeds product shot"
+                }
+              }
+            ]
+          },
+          {
+            "eyebrow": "Prove impact",
+            "title": "Platform analytics and reporting for every leader",
+            "body": {
+              "text": "Track completions, assessments and skills growth in real time with clear, shareable dashboards, just as Customer five now does across every one of its sites, regions and teams.",
+              "linkPhrases": [
+                "Customer five"
+              ]
+            },
+            "tabs": [
+              {
+                "tab": "Dashboards",
+                "text": "A dashboards space that brings the right learning, news and tools together in one place, so every person always knows where to start.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Dashboards product shot"
+                }
+              },
+              {
+                "tab": "Reports",
+                "text": "A reports space that brings the right learning, news and tools together in one place, so every person always knows where to start.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Reports product shot"
+                }
+              },
+              {
+                "tab": "Skills",
+                "text": "A skills space that brings the right learning, news and tools together in one place, so every person always knows where to start.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Skills product shot"
+                }
+              },
+              {
+                "tab": "Exports",
+                "text": "An exports space that brings the right learning, news and tools together in one place, so every person always knows where to start.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Exports product shot"
+                }
+              }
+            ]
+          },
+          {
+            "eyebrow": "Use AI",
+            "title": "AI features that save every team real time",
+            "body": {
+              "text": "Nova drafts courses, answers everyday questions and surfaces useful insight in seconds, just as Customer six saw within weeks of switching it on for every team across the business.",
+              "linkPhrases": [
+                "Customer six"
+              ]
+            },
+            "tabs": [
+              {
+                "tab": "Nova",
+                "text": "A nova space that brings the right learning, news and tools together in one place, so every person always knows where to start.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Nova product shot"
+                }
+              },
+              {
+                "tab": "Studio AI",
+                "text": "A studio ai space that brings the right learning, news and tools together in one place, so every person always knows where to start.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Studio AI product shot"
+                }
+              },
+              {
+                "tab": "Insights",
+                "text": "An insights space that brings the right learning, news and tools together in one place, so every person always knows where to start.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Insights product shot"
+                }
+              },
+              {
+                "tab": "Search",
+                "text": "A search space that brings the right learning, news and tools together in one place, so every person always knows where to start.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Search product shot"
+                }
+              }
+            ]
+          },
+          {
+            "eyebrow": "Scale safely",
+            "title": "Security and admin built for scale",
+            "body": {
+              "text": "Single sign-on, flexible roles and full audit trails keep every record safe and every admin in control, just as Customer seven relied on for a fast and smooth global rollout.",
+              "linkPhrases": [
+                "Customer seven"
+              ]
+            },
+            "tabs": [
+              {
+                "tab": "Security",
+                "text": "A security space that brings the right learning, news and tools together in one calm place, so every person on every team always knows where to start and what to do next.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Security product shot"
+                }
+              },
+              {
+                "tab": "Admin",
+                "text": "An admin space that brings the right learning, news and tools together in one calm place, so every person on every team always knows where to start and what to do next.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Admin product shot"
+                }
+              },
+              {
+                "tab": "Roles",
+                "text": "A roles space that brings the right learning, news and tools together in one calm place, so every person on every team always knows where to start and what to do next.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Roles product shot"
+                }
+              },
+              {
+                "tab": "Mobile",
+                "text": "A mobile space that brings the right learning, news and tools together in one calm place, so every person on every team always knows where to start and what to do next.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Mobile product shot"
+                }
+              },
+              {
+                "tab": "Audit",
+                "text": "An audit space that brings the right learning, news and tools together in one calm place, so every person on every team always knows where to start and what to do next.",
+                "media": {
+                  "assetRole": "placeholder.neutral",
+                  "placeholderLabel": "Audit product shot"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "sticky.anchorTabs",
+        "reducedMotionFallback": "instant-slide-change"
+      }
+    },
+    {
+      "section": "product.integrations-visual",
+      "content": {
+        "variant": "features",
+        "heading": "Plug it all into Nimbus",
+        "body": "Nimbus connects to 65+ HR, chat, content and security tools, so learning fits neatly into the systems your teams already use. Sync people data, send reminders where work happens and keep records in step.",
+        "ctaLabel": "Explore our integrations →",
+        "media": {
+          "assetRole": "placeholder.neutral",
+          "placeholderLabel": "Integrations strip 1440×410"
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "proof.testimonial-quote",
+      "content": {
+        "variant": "platform",
+        "quote": "\"We needed a platform that feels engaging, looks great and matches how all our people behave in their lives outside work — that real sense of streaming, user-made and AI-made content.\"",
+        "name": "Jordan Ellis",
+        "role": "Head of Learning & Development,",
+        "org": "Northwind",
+        "avatar": {
+          "assetRole": "placeholder.neutral"
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "conversion.cta-strip",
+      "content": {
+        "variant": "button",
+        "label": "Explore every feature"
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "proof.case-study-carousel",
+      "content": {
+        "variant": "subpage",
+        "eyebrow": "Results",
+        "heading": "Real learning results",
+        "intro": "More than five hundred organisations use Nimbus to build skills, share knowledge and keep their people learning every week.",
+        "slides": [
+          {
+            "photo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Brand photo 16:9"
+            },
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "text": "Customer one adds new revenue by training its partners on one platform",
+            "ctaLabel": "Read more",
+            "stats": [
+              {
+                "value": "100%",
+                "label": "Adoption within four months"
+              },
+              {
+                "value": "21K",
+                "label": "Course views"
+              }
+            ]
+          },
+          {
+            "photo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Brand photo 16:9"
+            },
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "text": "Customer two speeds up onboarding for every new hire",
+            "ctaLabel": "Read more",
+            "stats": [
+              {
+                "value": "120,000",
+                "label": "Course views since launch"
+              },
+              {
+                "value": "80%",
+                "label": "Monthly active user reach"
+              }
+            ]
+          },
+          {
+            "photo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Brand photo 16:9"
+            },
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "text": "Customer three uses Nimbus to move its training online",
+            "ctaLabel": "Read more",
+            "stats": [
+              {
+                "value": "4",
+                "label": "Languages live on the platform"
+              },
+              {
+                "value": "78%",
+                "label": "Adoption within the first six weeks"
+              }
+            ]
+          },
+          {
+            "photo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Brand photo 16:9"
+            },
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "text": "Driving growth and performance at Customer four",
+            "ctaLabel": "Read more",
+            "stats": [
+              {
+                "value": "75%",
+                "label": "Customer growth in the very first year"
+              },
+              {
+                "value": "500k+",
+                "label": "Platform views in three months"
+              }
+            ]
+          },
+          {
+            "photo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Brand photo 16:9"
+            },
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "text": "Building a global learning culture at Customer five",
+            "ctaLabel": "Read more",
+            "stats": [
+              {
+                "value": "50%",
+                "label": "Lift in employee engagement"
+              },
+              {
+                "value": "90%",
+                "label": "Training completion rate"
+              }
+            ]
+          },
+          {
+            "photo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Brand photo 16:9"
+            },
+            "logo": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Logo"
+            },
+            "text": "Customer six gives its learning team the tools to grow skills across every single location",
+            "ctaLabel": "Read more",
+            "stats": [
+              {
+                "value": "70%",
+                "label": "Engagement lifted across sites"
+              },
+              {
+                "value": "50%",
+                "label": "Onboarding time reduced"
+              }
+            ]
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "carousel.centeredAutoplay",
+        "reducedMotionFallback": "autoplay-off-instant-slide-change"
+      }
+    },
+    {
+      "section": "conversion.faq",
+      "content": {
+        "variant": "subpage",
+        "heading": "Frequently asked questions",
+        "items": [
+          {
+            "question": "What are spaces in Nimbus?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          },
+          {
+            "question": "How are spaces different from team chat?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          },
+          {
+            "question": "How do spaces compare with other social intranet tools for teams?",
+            "answer": {
+              "text": "Yes. It is part of every Nimbus plan, and admins can switch it on for the whole organisation or for selected teams from one settings panel in a few minutes.",
+              "linkPhrases": [],
+              "boldPhrases": []
+            }
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "accordion.faq",
+        "reducedMotionFallback": "instant-toggle"
+      }
+    },
+    {
+      "section": "conversion.demo-cta",
+      "content": {
+        "heading": "Give your team a home for real growth",
+        "headingEmphasis": "for real growth",
+        "body": "Bring your questions and we will walk you through the platform, the content and the results teams like yours see.",
+        "ctaLabel": "Let’s talk"
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "shell.footer",
+      "content": {
+        "aiPrompt": "Want another view?",
+        "aiLinks": {
+          "assetRole": "logo.aiVendor",
+          "slotCount": 4
+        },
+        "columns": [
+          {
+            "header": "Platform",
+            "headerIsLink": true,
+            "links": [
+              "Learning home",
+              "Skill journeys",
+              "Peer mentoring",
+              "Team spaces",
+              "Analytics",
+              "Integrations"
+            ],
+            "buttonLabel": "See it in action →"
+          },
+          {
+            "header": "Content",
+            "headerIsLink": true,
+            "links": [
+              "Course library",
+              "Authoring",
+              "Compliance packs",
+              "Content partners"
+            ],
+            "buttonLabel": "Browse content →"
+          },
+          {
+            "header": "Case Studies",
+            "headerIsLink": true,
+            "links": [
+              "Northwind",
+              "Brightway",
+              "Kestrel Co",
+              "Harbor Foods",
+              "All stories"
+            ]
+          },
+          {
+            "header": "Resources",
+            "headerIsLink": false,
+            "links": [
+              "Blog",
+              "Guides",
+              "Webinars",
+              "Help centre",
+              "Events",
+              "Glossary"
+            ]
+          }
+        ],
+        "ratingBadges": {
+          "assetRole": "badge.review",
+          "slotCount": 2,
+          "alt": "Rating badge"
+        },
+        "awardBadges": {
+          "assetRole": "badge.award",
+          "slotCount": 4,
+          "alt": "Award badge"
+        },
+        "complianceLine": {
+          "text": "Nimbus is independently audited, meets accessibility standards, supports teams in over forty languages and follows regional data rules in every market.",
+          "linkPhrases": [
+            "independently audited",
+            "accessibility standards",
+            "regional data rules"
+          ]
+        },
+        "copyright": "© 2026 Nimbus Learning",
+        "legalLinks": [
+          "Trust Centre",
+          "Website Cookies & Policy"
+        ],
+        "dropups": [
+          {
+            "label": "Terms and Conditions",
+            "links": [
+              "Customer terms",
+              "Acceptable use",
+              "Service levels",
+              "Support policy",
+              "Partner terms"
+            ]
+          },
+          {
+            "label": "Privacy Policy",
+            "links": [
+              "Privacy notice",
+              "Data processing",
+              "Sub-processors",
+              "Retention",
+              "Candidate privacy",
+              "Accessibility"
+            ]
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "footer.dropup",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "click",
+        "durationMs": 200,
+        "easing": "ease"
+      }
+    }
+  ]
+}

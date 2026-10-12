@@ -1,0 +1,286 @@
+{
+  "id": "conversion.contact-form",
+  "kind": "section",
+  "name": "Contact / requirements form",
+  "purpose": "Collect a sales enquiry or tender from a prospect comparing platforms, with reassurance copy and review badges beside a (static) form.",
+  "category": "conversion",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/ContactForm.jsx",
+  "description": "Legacy green-theme bordered block in container-large (/contact-us): a 40% / 60% grid (one column <=767, gap 2rem). Left: 1.75rem H3, two grey paragraphs separated by a blank line, and a row of three review badges. Right: a static HubSpot-footprint form (fixed 300x1020px, white Helvetica labels): intro line, four text inputs, an employee-count select, a file input, a requirements textarea, an empty captcha-sized box and a Submit button. Submit is prevented; nothing is sent.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 9,
+        "note": "Left-column H3.",
+        "measuredLongestRealInstance": "7 words in the clone's own placeholder copy"
+      },
+      "paragraphs": {
+        "type": "array",
+        "minItems": 2,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 28,
+          "measuredLongestRealInstance": "22 words in the clone's own placeholder copy"
+        },
+        "maxItems": 2,
+        "note": "Two grey paragraphs in one <p>, separated by a double <br>."
+      },
+      "badges": {
+        "type": "object",
+        "additionalProperties": false,
+        "x-allowedRoles": [
+          "placeholder.neutral",
+          "badge.review"
+        ],
+        "properties": {
+          "assetRole": {
+            "enum": [
+              "placeholder.neutral",
+              "badge.review"
+            ]
+          },
+          "placeholderLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 6,
+            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+          },
+          "alt": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10
+          },
+          "assetRef": {
+            "type": "string",
+            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+          },
+          "slotCount": {
+            "type": "integer",
+            "minimum": 3,
+            "maximum": 3
+          }
+        },
+        "required": [
+          "assetRole",
+          "slotCount"
+        ],
+        "note": "Review-site badges (images in the clone)."
+      },
+      "form": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "live": {
+            "const": false
+          },
+          "intro": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 15,
+            "note": "Line at the top of the form (component prop `intro`).",
+            "measuredLongestRealInstance": "12 words in the clone's own placeholder copy"
+          },
+          "fieldLabels": {
+            "type": "array",
+            "minItems": 7,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxWords": 6,
+              "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+            },
+            "maxItems": 7,
+            "note": "Hard-coded in the component: four inputs, select, attachments, textarea."
+          },
+          "submitLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 2,
+            "note": "Hard-coded 'Submit'.",
+            "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
+          }
+        },
+        "required": [
+          "live",
+          "intro",
+          "fieldLabels",
+          "submitLabel"
+        ],
+        "note": "Static form in the embed's measured footprint; onSubmit only prevents default."
+      }
+    },
+    "required": [
+      "heading",
+      "paragraphs",
+      "badges",
+      "form"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/ContactForm.jsx:59-103",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; the Submit button only changes background on hover (instant) and inputs change border colour on focus."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "grid-cols-[40%_1fr] -> mob:grid-cols-1; mob:gap-[2rem]",
+      "tailwind": [
+        "mob:grid-cols-1 mob:gap-[2rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContactForm.jsx:26-26",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "p-[2.5rem] -> tab:p-[2rem] -> mob:p-[1.5rem] -> xs:p-[1rem]",
+      "tailwind": [
+        "tab:p-[2rem] mob:p-[1.5rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContactForm.jsx:28-28",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.75rem] -> xs:text-[1.5rem]",
+      "tailwind": [
+        "xs:text-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContactForm.jsx:31-31",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "layout",
+        "spacing"
+      ],
+      "changes": "xs:justify-center; xs:gap-y-[1rem]",
+      "tailwind": [
+        "xs:justify-center xs:gap-y-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContactForm.jsx:47-47",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing"
+      ],
+      "changes": "h-[4.3rem] -> xs:h-[3rem]",
+      "tailwind": [
+        "xs:h-[3rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContactForm.jsx:49-49",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "py-[2.5rem] -> mob:py-[1.25rem]",
+      "tailwind": [
+        "mob:py-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/ContactForm.jsx:57-57",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "spacing",
+        "layout"
+      ],
+      "changes": "mx-[0.5rem] -> mob:mx-0; mob:block",
+      "tailwind": [
+        "mob:mx-0 mob:block"
+      ],
+      "measuredFrom": "src/components/sections/ContactForm.jsx:58-58",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.placeholder-form",
+    "primitive.badge-row"
+  ],
+  "measuredFrom": "src/components/sections/ContactForm.jsx:12-118",
+  "iaSectionId": "conversion.contact-form",
+  "evidenceNotes": [
+    "ContactPage.jsx overrides heading and paragraphs; the form intro and badges are component defaults.",
+    "Badges are real <img> files (/assets/badge-capterra.svg, badge-g2.svg, badge-software-advice.svg, alt 'Review badge'), not <Placeholder>; the sample uses placeholderLabel 'Review badge' (the alt text).",
+    "Field labels, the select options, the textarea placeholder and the Submit label are hard-coded in the component, not props.",
+    "The 258x62 bordered box above Submit is an empty stand-in for the original's captcha (aria-hidden)."
+  ],
+  "observedOn": [
+    "/contact-us"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.logo-row"
+    ],
+    "recommendedBefore": [
+      "proof.case-study-carousel"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "badge.review",
+    "placeholder.neutral"
+  ]
+}

@@ -7,174 +7,276 @@
   "designSystem": "marketing",
   "implementedBy": "src/components/Hero.jsx",
   "content": {
-    "type": "object",
-    "additionalProperties": false,
-    "properties": {
-      "socialProof": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 10,
-        "note": "One line of 14px grey text beside the avatar strip; wraps to 2 lines at 390.",
-        "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
-      },
-      "avatarStrip": {
+    "oneOf": [
+      {
         "type": "object",
         "additionalProperties": false,
-        "x-allowedRoles": [
-          "placeholder.neutral"
-        ],
         "properties": {
-          "assetRole": {
-            "enum": [
+          "socialProof": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "note": "One line of 14px grey text beside the avatar strip; wraps to 2 lines at 390.",
+            "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+          },
+          "avatarStrip": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "stock.photo",
               "placeholder.neutral"
-            ]
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "stock.photo",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 4,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
+                "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "Three overlapping 32px circles. The clone draws neutral CSS circles; the original's headshot strip is a real-person photo and is banned."
           },
-          "placeholderLabel": {
+          "heading": {
             "type": "string",
             "minLength": 1,
-            "maxWords": 4,
-            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop).",
-            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+            "maxWords": 11,
+            "note": "H1, Instrument Serif 72/82.8; 3 lines at 1440, 4 lines at 390 (672 wide column).",
+            "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
           },
-          "alt": {
+          "subtitle": {
             "type": "string",
             "minLength": 1,
-            "maxWords": 10
+            "maxWords": 12,
+            "note": "20/28 white, max-width 576, one line at 1440.",
+            "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
           },
-          "assetRef": {
-            "type": "string",
-            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
-            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
-          }
-        },
-        "required": [
-          "assetRole"
-        ],
-        "note": "Three overlapping 32px circles. The clone draws neutral CSS circles; the original's headshot strip is a real-person photo and is banned."
-      },
-      "heading": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 11,
-        "note": "H1, Instrument Serif 72/82.8; 3 lines at 1440, 4 lines at 390 (672 wide column).",
-        "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
-      },
-      "subtitle": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 12,
-        "note": "20/28 white, max-width 576, one line at 1440.",
-        "measuredLongestRealInstance": "9 words in the clone's own placeholder copy"
-      },
-      "reviewBadges": {
-        "type": "object",
-        "additionalProperties": false,
-        "x-allowedRoles": [
-          "badge.review",
-          "placeholder.neutral"
-        ],
-        "properties": {
-          "assetRole": {
-            "enum": [
+          "reviewBadges": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
               "badge.review",
               "placeholder.neutral"
-            ]
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "badge.review",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 4,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10,
+                "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              },
+              "slotCount": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 3
+              }
+            },
+            "required": [
+              "assetRole",
+              "slotCount"
+            ],
+            "note": "Up to three 104x64 badge slots. Rating/review badges are must-not-fabricate."
           },
-          "placeholderLabel": {
+          "primaryCtaLabel": {
             "type": "string",
             "minLength": 1,
-            "maxWords": 4,
-            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+            "maxWords": 5,
+            "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
           },
-          "alt": {
+          "secondaryCtaLabel": {
             "type": "string",
             "minLength": 1,
-            "maxWords": 10,
+            "maxWords": 3,
             "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
           },
-          "assetRef": {
-            "type": "string",
-            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
-            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
-          },
-          "slotCount": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 3
+          "visual": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "product.screenshot",
+              "stock.photo",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "product.screenshot",
+                  "stock.photo",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 4,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10,
+                "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "80% of a right column that bleeds -30vw past the viewport; aspect 1440/1090; not animated."
           }
         },
         "required": [
-          "assetRole",
-          "slotCount"
-        ],
-        "note": "Up to three 104x64 badge slots. Rating/review badges are must-not-fabricate."
+          "socialProof",
+          "avatarStrip",
+          "heading",
+          "subtitle",
+          "reviewBadges",
+          "primaryCtaLabel",
+          "secondaryCtaLabel",
+          "visual"
+        ]
       },
-      "primaryCtaLabel": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 5,
-        "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
-      },
-      "secondaryCtaLabel": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 3,
-        "measuredLongestRealInstance": "2 words in the clone's own placeholder copy"
-      },
-      "visual": {
+      {
         "type": "object",
         "additionalProperties": false,
-        "x-allowedRoles": [
-          "product.screenshot",
-          "placeholder.neutral"
-        ],
         "properties": {
-          "assetRole": {
-            "enum": [
-              "product.screenshot",
-              "placeholder.neutral"
-            ]
+          "variant": {
+            "const": "feature-detail"
           },
-          "placeholderLabel": {
+          "eyebrow": {
             "type": "string",
             "minLength": 1,
             "maxWords": 4,
-            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
-          },
-          "alt": {
-            "type": "string",
-            "minLength": 1,
-            "maxWords": 10,
+            "note": "One-to-three-word feature name beside the green chip (Eyebrow.jsx, 18/25.2 grey).",
             "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
           },
-          "assetRef": {
+          "heading": {
             "type": "string",
-            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
-            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+            "minLength": 1,
+            "maxWords": 17,
+            "note": "H1, Instrument Serif 72/82.8 (64 tab, mob size at <=767), 42rem column.",
+            "measuredLongestRealInstance": "13 words in the clone's own placeholder copy"
+          },
+          "subtitle": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 45,
+            "note": "Grey 20/28 paragraph, max-width 36rem; feature-detail subtitles run 2-5 lines (much longer than the homepage's one line).",
+            "measuredLongestRealInstance": "36 words in the clone's own placeholder copy"
+          },
+          "primaryCtaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 7,
+            "note": "Primary (green) button; identical on every feature route.",
+            "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+          },
+          "secondaryCtaLabel": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 4,
+            "note": "Secondary dark 44px button; identical on every feature route.",
+            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+          },
+          "visual": {
+            "type": "object",
+            "additionalProperties": false,
+            "x-allowedRoles": [
+              "product.screenshot",
+              "stock.photo",
+              "placeholder.neutral"
+            ],
+            "properties": {
+              "assetRole": {
+                "enum": [
+                  "product.screenshot",
+                  "stock.photo",
+                  "placeholder.neutral"
+                ]
+              },
+              "placeholderLabel": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 6,
+                "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+              },
+              "alt": {
+                "type": "string",
+                "minLength": 1,
+                "maxWords": 10
+              },
+              "assetRef": {
+                "type": "string",
+                "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+              }
+            },
+            "required": [
+              "assetRole"
+            ],
+            "note": "Bleeding right-column product UI shot; the clone renders a labelled neutral placeholder 'Product UI <w>:<h>' (aspect is contract-owned, per route 1440/1289 default, 1440/1285, 1440/724, 1440/756)."
           }
         },
         "required": [
-          "assetRole"
+          "variant",
+          "eyebrow",
+          "heading",
+          "subtitle",
+          "primaryCtaLabel",
+          "secondaryCtaLabel",
+          "visual"
         ],
-        "note": "80% of a right column that bleeds -30vw past the viewport; aspect 1440/1090; not animated."
+        "note": "FeatureDetail.jsx: <Hero eyebrow={d.eyebrow} title={d.title} subtitle={d.subtitle} subtitleTone=\"grey\" showBadges={false} secondaryVariant=\"dark\" imageSrc={null} .../>. No avatar strip, no social-proof line, no review badges."
       }
-    },
-    "required": [
-      "socialProof",
-      "avatarStrip",
-      "heading",
-      "subtitle",
-      "reviewBadges",
-      "primaryCtaLabel",
-      "secondaryCtaLabel",
-      "visual"
     ]
   },
   "constraints": {
-    "onePerPage": true,
     "maxPerPage": 1,
-    "mustImmediatelyFollow": "shell.nav",
-    "neighbourRuleId": "HERO_FOLLOWS_NAV"
+    "maxPerPageByVariant": {
+      "default": 1,
+      "feature-detail": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
   },
   "motion": {
     "allowedPatterns": [
@@ -183,7 +285,11 @@
     "reducedMotionFallback": "instant-final-state",
     "measuredFrom": "src/components/Hero.jsx:9-16",
     "sourceImplementsReducedMotion": false,
-    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source."
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "alsoMeasuredFrom": [
+      "src/components/Hero.jsx:12-63",
+      "src/components/Hero.jsx:81-81"
+    ]
   },
   "responsive": [
     {
@@ -191,28 +297,30 @@
       "query": "max-width: 991px",
       "changes": "Section top padding 80 -> 64.",
       "tailwind": [
-        "pb-[32px] pt-[80px] tab:pt-[64px] mob:pt-[48px]"
+        "pb-[2rem] pt-[5rem] tab:pt-[4rem] mob:pt-[3rem]"
       ],
-      "measuredFrom": "src/components/Hero.jsx:37-37"
+      "measuredFrom": "src/components/Hero.jsx:76-76",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "H1 72 -> 64px.",
       "tailwind": [
-        "tab:text-h1-tab",
-        "mob:text-h1-mob"
+        "tab:text-h1-tab mob:text-h1-mob"
       ],
-      "measuredFrom": "src/components/Hero.jsx:56-56"
+      "measuredFrom": "src/components/Hero.jsx:101-101",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "tab",
       "query": "max-width: 991px",
       "changes": "Button block top spacing 32 -> 24 (20 at <=767).",
       "tailwind": [
-        "pt-[32px] tab:pt-[24px] mob:pt-[20px]"
+        "pt-[2rem] tab:pt-[1.5rem] mob:pt-[1.25rem]"
       ],
-      "measuredFrom": "src/components/Hero.jsx:76-76"
+      "measuredFrom": "src/components/Hero.jsx:126-126",
+      "reCited": "re-cited against current source (px classes became rem)"
     },
     {
       "breakpoint": "mob",
@@ -221,17 +329,18 @@
       "tailwind": [
         "mob:flex-col mob:items-start"
       ],
-      "measuredFrom": "src/components/Hero.jsx:38-38"
+      "measuredFrom": "src/components/Hero.jsx:77-77",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
       "changes": "Right column stops bleeding (margin-right 0); visual 100% wide.",
       "tailwind": [
-        "mr-[-30vw]",
-        "mob:mr-0"
+        "mr-[-30vw] mob:mr-0"
       ],
-      "measuredFrom": "src/components/Hero.jsx:89-89"
+      "measuredFrom": "src/components/Hero.jsx:141-141",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "mob",
@@ -240,7 +349,8 @@
       "tailwind": [
         "w-[80%] ultra:w-[75%] mob:w-full"
       ],
-      "measuredFrom": "src/components/Hero.jsx:93-93"
+      "measuredFrom": "src/components/Hero.jsx:146-146",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "xs",
@@ -249,7 +359,8 @@
       "tailwind": [
         "xs:text-medium-xs"
       ],
-      "measuredFrom": "src/components/Hero.jsx:61-61"
+      "measuredFrom": "src/components/Hero.jsx:108-108",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "xs",
@@ -258,7 +369,8 @@
       "tailwind": [
         "xs:h-[3rem] xs:w-[5rem]"
       ],
-      "measuredFrom": "src/components/Hero.jsx:71-71"
+      "measuredFrom": "src/components/Hero.jsx:120-120",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "xs",
@@ -267,7 +379,8 @@
       "tailwind": [
         "xs:flex-col xs:items-stretch"
       ],
-      "measuredFrom": "src/components/Hero.jsx:77-77"
+      "measuredFrom": "src/components/Hero.jsx:127-127",
+      "reCited": "re-cited against current source"
     },
     {
       "breakpoint": "ultra",
@@ -276,13 +389,15 @@
       "tailwind": [
         "ultra:w-[75%]"
       ],
-      "measuredFrom": "src/components/Hero.jsx:93-93"
+      "measuredFrom": "src/components/Hero.jsx:146-146",
+      "reCited": "re-cited against current source"
     }
   ],
   "assetRoles": [
-    "placeholder.neutral",
     "badge.review",
-    "product.screenshot"
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
   ],
   "composes": [
     "primitive.button",
@@ -295,12 +410,39 @@
     "recommendedBefore": [
       "proof.logo-row"
     ],
-    "note": "Derived from the single real node sequence (templates/templates.json -> home)."
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "observedOn": [
-    "/"
+    "/",
+    "/lms/features/ai-content-creator",
+    "/lms/features/chat",
+    "/lms/features/communication",
+    "/lms/features/employee-assessment-software",
+    "/lms/features/employee-experience",
+    "/lms/features/employee-performance-management-software",
+    "/lms/features/learning-pathways",
+    "/lms/features/lms-admin",
+    "/lms/features/lms-analytics",
+    "/lms/features/lms-gamification",
+    "/lms/features/lms-homepage",
+    "/lms/features/lms-rewards",
+    "/lms/features/lms-security",
+    "/lms/features/mcp",
+    "/lms/features/mobile-lms",
+    "/lms/features/skills",
+    "/lms/features/spaces"
   ],
   "measuredFrom": "src/components/Hero.jsx:18-102",
   "iaSectionId": "hero.split-visual",
-  "specMeasuredFrom": "CLONE_SPEC.md:158-193"
+  "specMeasuredFrom": "CLONE_SPEC.md:158-193",
+  "subpageUsage": "Same Hero component as the homepage, switched into its feature-detail (.hero-wowh) branch by props rather than an explicit `variant` prop: `eyebrow` set (green-chip Eyebrow replaces the avatar strip + social-proof line), `showBadges={false}` (no review-badge row; the buttons follow the subtitle's 20px bottom margin), `subtitleTone=\"grey\"`, `secondaryVariant=\"dark\"` (44px dark button) and a labelled product-UI placeholder at a per-route aspect (default 1440/1289). Used by all 17 /lms/features/* routes via src/pages/features/FeatureDetail.jsx with per-route copy from featureDetailData.js; the CTA labels are constant across routes. Layout per breakpoint is identical to the homepage branch (two columns with the visual bleeding -30vw past the right edge; stacks at <=767; buttons stack full width at <=479).",
+  "evidenceNotes": [
+    "There is no `variant` prop on Hero; the feature-detail branch is selected by passing `eyebrow` (truthy) plus showBadges={false}. The merge's `variant: \"feature-detail\"` const is a contract-level discriminator only.",
+    "Hero.jsx still exposes `eyebrowChipClassName` but FeatureDetail.jsx never passes it, so every feature route uses the default bg-green-hover chip.",
+    "Only two Hero usages exist in src/pages (Home.jsx and FeatureDetail.jsx); no other subpage uses this component.",
+    "Longest real instances computed over all 17 FEATURE_DETAIL entries: eyebrow 3 ('AI Course Creator'), title 13 (/lms/features/mcp), subtitle 36 (/lms/features/lms-admin)."
+  ],
+  "variants": [
+    "feature-detail"
+  ]
 }

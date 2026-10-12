@@ -1,0 +1,484 @@
+{
+  "id": "product.feature-rows-legacy",
+  "kind": "section",
+  "name": "Legacy alternating feature rows",
+  "purpose": "Explain a service or programme step by step as alternating text-and-image rows inside a legacy hairline frame.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/FeatureTwoColLegacy.jsx",
+  "description": "A bordered stack of 2-column rows (`.section_feature_2-col`): text cell + 3:2 image cell alternating sides, hairline between rows; <=767 rows stack with the text cell first. One component with `variant`: 'impact' (/lms/impact; centred legacy H2 header, rows on a 16px gap, text = H3 28px + paragraph vertically centred), 'service' (/content/service; no header, no top hairline, gapless stretched cells with long paragraphs) and 'services' (/lms/professional-services; no header, 16px gap, text = H4-size 32px title + paragraph + legacy CTA).",
+  "content": {
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "impact"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "Legacy colour theme (legacyVars); default pink."
+          },
+          "heading": {
+            "type": "string",
+            "minLength": 1,
+            "maxWords": 10,
+            "note": "centred legacy H2 header (max 60rem)",
+            "measuredLongestRealInstance": "8 words in the clone's own placeholder copy"
+          },
+          "rows": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 5,
+                  "note": "H3 28px/1.1",
+                  "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                },
+                "body": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 54,
+                  "note": "ink paragraph",
+                  "measuredLongestRealInstance": "43 words in the clone's own placeholder copy"
+                },
+                "media": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "placeholder.neutral",
+                    "product.screenshot",
+                    "photo.brand",
+                    "stock.photo"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "placeholder.neutral",
+                        "product.screenshot",
+                        "photo.brand",
+                        "stock.photo"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "3:2 feature image (Placeholder 'Feature image 3:2'); alternates side per row"
+                }
+              },
+              "required": [
+                "title",
+                "body",
+                "media"
+              ]
+            },
+            "maxItems": 4,
+            "note": "alternating text | image rows (image left on even rows); text first <=767"
+          }
+        },
+        "required": [
+          "variant",
+          "heading",
+          "rows"
+        ],
+        "note": "/lms/impact (pink); header from defaults, rows from the page"
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "service"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "Legacy colour theme (legacyVars); default yellow."
+          },
+          "rows": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 8,
+                  "note": "H3 28px/1.1",
+                  "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
+                },
+                "body": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 137,
+                  "note": "ink paragraph",
+                  "measuredLongestRealInstance": "109 words in the clone's own placeholder copy"
+                },
+                "media": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "placeholder.neutral",
+                    "product.screenshot",
+                    "photo.brand",
+                    "stock.photo"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "placeholder.neutral",
+                        "product.screenshot",
+                        "photo.brand",
+                        "stock.photo"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "3:2 feature image (Placeholder 'Feature image 3:2'); alternates side per row"
+                }
+              },
+              "required": [
+                "title",
+                "body",
+                "media"
+              ]
+            },
+            "maxItems": 4,
+            "note": "alternating text | image rows (image left on even rows); text first <=767"
+          }
+        },
+        "required": [
+          "variant",
+          "rows"
+        ],
+        "note": "/content/service (yellow); rows from the page"
+      },
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "variant": {
+            "const": "services"
+          },
+          "theme": {
+            "enum": [
+              "green",
+              "yellow",
+              "pink"
+            ],
+            "note": "Legacy colour theme (legacyVars); default green."
+          },
+          "rows": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 5,
+                  "note": "32px title (text-xlarge)",
+                  "measuredLongestRealInstance": "4 words in the clone's own placeholder copy"
+                },
+                "body": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 65,
+                  "note": "ink paragraph",
+                  "measuredLongestRealInstance": "52 words in the clone's own placeholder copy"
+                },
+                "media": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "x-allowedRoles": [
+                    "placeholder.neutral",
+                    "product.screenshot",
+                    "photo.brand",
+                    "stock.photo"
+                  ],
+                  "properties": {
+                    "assetRole": {
+                      "enum": [
+                        "placeholder.neutral",
+                        "product.screenshot",
+                        "photo.brand",
+                        "stock.photo"
+                      ]
+                    },
+                    "placeholderLabel": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 6,
+                      "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
+                    },
+                    "alt": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxWords": 10
+                    },
+                    "assetRef": {
+                      "type": "string",
+                      "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
+                      "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
+                    }
+                  },
+                  "required": [
+                    "assetRole"
+                  ],
+                  "note": "3:2 feature image (Placeholder 'Feature image 3:2'); alternates side per row"
+                },
+                "ctaLabel": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxWords": 4,
+                  "note": "legacy button under the paragraph",
+                  "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
+                }
+              },
+              "required": [
+                "title",
+                "body",
+                "media"
+              ]
+            },
+            "maxItems": 4,
+            "note": "alternating text | image rows (image left on even rows); text first <=767"
+          }
+        },
+        "required": [
+          "variant",
+          "rows"
+        ],
+        "note": "/lms/professional-services (green); all copy from defaults"
+      }
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "impact": 1,
+      "service": 1,
+      "services": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/GlobalHeaderLegacy.jsx:83-83",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion. Only the 'services' rows' LegacyButton hovers (instant colour swap, 300ms ease-in-out border-radius transition)."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "mob:text-xlarge-mob",
+      "tailwind": [
+        "mob:text-xlarge-mob"
+      ],
+      "measuredFrom": "src/components/sections/FeatureTwoColLegacy.jsx:46-46",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "xs",
+      "query": "max-width: 479px",
+      "breakpoints": [
+        "xs"
+      ],
+      "kinds": [
+        "sizing",
+        "layout",
+        "spacing"
+      ],
+      "changes": "xs:w-full; xs:flex-col; xs:items-stretch; gap-[1.5rem] -> xs:gap-[1rem]",
+      "tailwind": [
+        "xs:w-full xs:flex-col xs:items-stretch xs:gap-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/FeatureTwoColLegacy.jsx:51-51",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "text-[1.75rem] -> mob:text-[1.5rem]",
+      "tailwind": [
+        "mob:text-[1.5rem]"
+      ],
+      "measuredFrom": "src/components/sections/FeatureTwoColLegacy.jsx:62-62",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "p-[2.5rem] -> tab:p-[1.5rem] -> mob:p-[1.25rem]",
+      "tailwind": [
+        "tab:p-[1.5rem] mob:p-[1.25rem]"
+      ],
+      "measuredFrom": "src/components/sections/FeatureTwoColLegacy.jsx:91-91",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "tab",
+      "query": "max-width: 991px",
+      "breakpoints": [
+        "tab",
+        "mob",
+        "xs"
+      ],
+      "kinds": [
+        "spacing"
+      ],
+      "changes": "p-[2.5rem] -> tab:p-[2rem] -> mob:p-[1.5rem] -> xs:p-[1rem]",
+      "tailwind": [
+        "tab:p-[2rem] mob:p-[1.5rem] xs:p-[1rem]"
+      ],
+      "measuredFrom": "src/components/sections/FeatureTwoColLegacy.jsx:92-92",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "mob:order-first",
+      "tailwind": [
+        "mob:order-first"
+      ],
+      "measuredFrom": "src/components/sections/FeatureTwoColLegacy.jsx:108-108",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    },
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "layout"
+      ],
+      "changes": "grid-cols-2 -> mob:grid-cols-1",
+      "tailwind": [
+        "mob:grid-cols-1"
+      ],
+      "measuredFrom": "src/components/sections/FeatureTwoColLegacy.jsx:117-117",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [
+    "primitive.button",
+    "primitive.placeholder-media"
+  ],
+  "measuredFrom": "src/components/sections/FeatureTwoColLegacy.jsx:69-130",
+  "iaSectionId": "product.feature-rows-legacy",
+  "evidenceNotes": [
+    "pages-manifest.json / CLONE_SPEC_PAGES.md call this block `feature-2col-legacy` (data-section=\"feature-2col-legacy\"); the assigned design-repo id is product.feature-rows-legacy.",
+    "The component accepts a `header` prop for every variant, but only the impact default sets one; service/services render no header on real routes.",
+    "Pages override rows on /lms/impact (middle body 43 words vs default 39) and /content/service (second body 109 words vs default 105)."
+  ],
+  "observedOn": [
+    "/content/service",
+    "/lms/impact",
+    "/lms/professional-services"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "proof.flip-logos",
+      "story.grid-split-legacy"
+    ],
+    "recommendedBefore": [
+      "product.card-slider-legacy",
+      "product.grid-cards-legacy"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [
+    "photo.brand",
+    "placeholder.neutral",
+    "product.screenshot",
+    "stock.photo"
+  ],
+  "variants": [
+    "impact",
+    "service",
+    "services"
+  ]
+}

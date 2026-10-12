@@ -1,0 +1,95 @@
+{
+  "id": "product.anchor-intro",
+  "kind": "section",
+  "name": "Anchor-nav intro line",
+  "purpose": "Introduces the sticky anchor tabs below it with a single centred prompt line.",
+  "category": "product",
+  "designSystem": "marketing",
+  "implementedBy": "src/components/sections/AnchorNav.jsx",
+  "description": "A single centred 2rem/1.4 H2 (1.5rem at <=767), no paragraph or media. `variant` changes only placement: 'solutions' (/lms/solutions) renders a bare full-width H2 with 1rem top margin; 'features' (/lms/features) wraps it in padding-global > container-medium with 4rem top margin. Always rendered immediately before the sticky-tabs block.",
+  "content": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "variant": {
+        "enum": [
+          "solutions",
+          "features"
+        ],
+        "note": "placement only; same content shape"
+      },
+      "heading": {
+        "type": "string",
+        "minLength": 1,
+        "maxWords": 7,
+        "note": "one centred line",
+        "measuredLongestRealInstance": "5 words in the clone's own placeholder copy"
+      }
+    },
+    "required": [
+      "variant",
+      "heading"
+    ]
+  },
+  "constraints": {
+    "maxPerPage": 1,
+    "maxPerPageByVariant": {
+      "features": 1,
+      "solutions": 1
+    },
+    "maxPerPageDerivation": "derived: the most times this (section, variant) occurs on any real template (templates/templates.json)"
+  },
+  "motion": {
+    "allowedPatterns": [
+      "none"
+    ],
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/AnchorNav.jsx:6-23",
+    "sourceImplementsReducedMotion": false,
+    "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
+    "note": "No section motion; static heading."
+  },
+  "responsive": [
+    {
+      "breakpoint": "mob",
+      "query": "max-width: 767px",
+      "breakpoints": [
+        "mob"
+      ],
+      "kinds": [
+        "typography"
+      ],
+      "changes": "mob:text-xlarge-mob",
+      "tailwind": [
+        "mob:text-xlarge-mob"
+      ],
+      "measuredFrom": "src/components/sections/AnchorNav.jsx:10-10",
+      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
+    }
+  ],
+  "composes": [],
+  "measuredFrom": "src/components/sections/AnchorNav.jsx:6-23",
+  "iaSectionId": "product.anchor-intro",
+  "evidenceNotes": [
+    "Both pages use the component default heading per variant. The section is a sibling of StickyTabs (not inside it), so no structural mustImmediatelyFollow is declared; on both pages it directly precedes product.sticky-tabs."
+  ],
+  "observedOn": [
+    "/lms/features",
+    "/lms/solutions"
+  ],
+  "compatibility": {
+    "recommendedAfter": [
+      "product.features-intro",
+      "proof.logo-row"
+    ],
+    "recommendedBefore": [
+      "product.sticky-tabs"
+    ],
+    "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
+  },
+  "assetRoles": [],
+  "variants": [
+    "solutions",
+    "features"
+  ]
+}
