@@ -4,6 +4,17 @@
   "name": "Legacy global page header",
   "purpose": "Open a legacy-themed utility or index page with a simple H1 and one supporting paragraph (no CTA).",
   "category": "hero",
+  "source": {
+    "id": "GlobalHeaderLegacy.section[data-section=global-header-legacy]",
+    "tag": "section",
+    "file": "src/components/sections/GlobalHeaderLegacy.jsx",
+    "lines": "133-163"
+  },
+  "semantic": {
+    "id": "hero.global-header-legacy",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/GlobalHeaderLegacy.jsx",
   "description": "Top + side hairline frame (no bottom border) with legacy header padding. One component with `variant`: 'eyebrow' (/contact-us; centred eyebrow tag, H1 3.8rem/1.1, grey paragraph) and 'logo' (/case-studies/content; centred content-brand logo, H1 3.8rem/1.15, grey paragraph that keeps the original's 12rem left offset). No buttons. The file also exports the shared legacy theme primitives (legacyVars, LegacyButton, LegacyEyebrow).",
@@ -72,13 +83,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "stock.photo",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -287,6 +302,8 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "stock.photo"
   ],

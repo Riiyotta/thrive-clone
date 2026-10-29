@@ -4,6 +4,17 @@
   "name": "Formats list grid",
   "purpose": "Show the range of formats or deliverables on offer as a scannable two-column list beside a heading and short explanation.",
   "category": "product",
+  "source": {
+    "id": "LearnGrid.section[data-section=learn-grid]",
+    "tag": "section",
+    "file": "src/components/sections/LearnGrid.jsx",
+    "lines": "24-60"
+  },
+  "semantic": {
+    "id": "product.learn-grid",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/LearnGrid.jsx",
   "description": "A legacy green hairline component (`.section_learn`, no right border) on a 0.75fr / 1fr grid: left = serif 4rem/1.1 H2 + 16px paragraph; right = 2-column list of items, each a green-outlined icon box (plus glyph) + 20px/500 white label, hairline left/bottom rules (last row unruled). Stacks to one column <=767 (list keeps 2 columns). No variants; theme is fixed green.",

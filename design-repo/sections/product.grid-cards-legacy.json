@@ -4,6 +4,17 @@
   "name": "Legacy hairline card grid",
   "purpose": "List a set of services, roles, results or awards as equal hairline cells under a legacy section header, so the reader can scan the offer at a glance.",
   "category": "product",
+  "source": {
+    "id": "GridCardsLegacy.section[data-section=grid-cards-legacy]",
+    "tag": "section",
+    "file": "src/components/sections/GridCardsLegacy.jsx",
+    "lines": "222-254"
+  },
+  "semantic": {
+    "id": "product.grid-cards-legacy",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/GridCardsLegacy.jsx",
   "description": "A legacy-theme section: a header block (split H2 | para, centred H2, left H2, or centred eyebrow + H2 + para + legacy CTA) over one or more rows of hairline `.grid_card` cells (border top/bottom/left, 2/3/4 cols; every row collapses to 1 col <=767, stat row becomes a 2x2 grid <=479). One component with `variant` presets whose card kind differs: 'services-extra' (/lms/professional-services; split header + 3 + 2 text cards), 'people' (/lms/impact; centred H2 + 3 + 2 text cards), 'stats' (/lms/impact; left H2 + 4 stat cards: label, serif brand-colour figure, caption), 'awards' (/lms/impact; centred eyebrow + H2 + a row of 4 award-badge cells) and 'content' (/content; centred eyebrow + H2 + para + CTA, then 2 + 3 image cards: title, 3:2 image, copy).",
@@ -267,13 +278,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "badge.award"
+              "badge.award",
+              "badge.placeholder",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "badge.award"
+                  "badge.award",
+                  "badge.placeholder",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -383,14 +398,20 @@
                         "x-allowedRoles": [
                           "placeholder.neutral",
                           "product.screenshot",
-                          "stock.photo"
+                          "stock.photo",
+                          "screenshot.placeholder",
+                          "illustration.generated",
+                          "asset.userSupplied"
                         ],
                         "properties": {
                           "assetRole": {
                             "enum": [
                               "placeholder.neutral",
                               "product.screenshot",
-                              "stock.photo"
+                              "stock.photo",
+                              "screenshot.placeholder",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ]
                           },
                           "placeholderLabel": {
@@ -709,9 +730,13 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
     "badge.award",
+    "badge.placeholder",
+    "illustration.generated",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "variants": [

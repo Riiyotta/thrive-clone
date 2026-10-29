@@ -1,0 +1,72 @@
+{
+  "version": "1.0.0",
+  "description": "Rules for using design tokens in this design-repo. Category names are the real keys of tokens/llm/token-catalog.json `categories`; slot names are the real keys of the PageSpec `tokens` object (closed in schema/pagespec.schema.json). extraction/verify_all.py (token-policy check) resolves every category, slot, allowed path and theme scope against the catalog, and schema/semantic_validate.py enforces them on every PageSpec (TOKEN_* rules in compatibility/graph.json). Hand-authored; every allowed path is a real catalog token.",
+  "catalog": "tokens/llm/token-catalog.json",
+  "allowedUsage": {
+    "referenceSyntax": "A PageSpec names a token by its bare catalog path, e.g. semantic.surface.page, fontSize.h2, layout.sectionPadding.large. Token files reference each other by path ('ref', component tokens). Nothing else in a PageSpec can carry a colour, a length, a font or an easing.",
+    "where": "Only in the PageSpec `tokens` object (page-level slots below). Section-internal styling (button variants, card radii, per-section paddings, motion timing) is owned by the section/component contracts; a node carries no style or token override (the schema has no field for one, and the adversarial suite proves a smuggled `tokens` field on a node is rejected).",
+    "motion": "Motion is chosen per node through motion.pattern (closed enum = the motion.pattern.* catalog tokens) plus its reducedMotionFallback (motion.reducedMotionFallback.*). Durations and easings are optional and must be values measured for that pattern (MOTION_VALUES_MATCH_PATTERN)."
+  },
+  "rawValueRestrictions": {
+    "$comment": "Keys are catalog categories. Every category is forbidden as a raw value in a PageSpec: in token slots (TOKEN_RAW_COLOR / TOKEN_ARBITRARY_SPACING / TOKEN_UNSUPPORTED_FONT / TOKEN_UNKNOWN) and, for colours and lengths, in any content string (TOKEN_RAW_COLOR / TOKEN_ARBITRARY_SPACING).",
+    "color": "forbidden: no hex (#rgb / #rrggbb / #rrggbbaa), rgb()/rgba(), hsl()/hsla() or CSS colour keyword; name a color.* or semantic.* token",
+    "semanticColor": "forbidden: surfaces, text, accents, borders and icons are semantic.* tokens a theme resolves",
+    "fontFamily": "forbidden: no family name or stack (Inter, Helvetica, 'Instrument Serif', serif ...); name fontFamily.sans or fontFamily.serif",
+    "fontWeight": "forbidden: weights are fontWeight.* tokens and are owned by the contracts",
+    "typography": "forbidden: no loose font-size / line-height (px, rem, em, pt, %); name a fontSize.* token",
+    "spacing": "forbidden: no px / rem / em / vh / vw / % / calc() length; name a space.* or layout.* token",
+    "radius": "forbidden: name a radius.* token",
+    "breakpoint": "forbidden: breakpoints are breakpoint.* tokens owned by the contracts' responsive entries",
+    "layout": "forbidden: container widths and section paddings are layout.* tokens",
+    "component": "forbidden: component tokens are owned by the component contracts",
+    "motion": "forbidden: no raw duration, delay or cubic-bezier(); patterns and fallbacks are motion.* tokens"
+  },
+  "forbiddenRawValuePatterns": {
+    "$comment": "The exact patterns schema/semantic_validate.py applies (pinned there as RAW_COLOR_RE / RAW_LENGTH_RE / FONT_NAME_RE as well).",
+    "color": "#[0-9a-fA-F]{3,8}\\b | (rgb|rgba|hsl|hsla)\\s*\\( | the CSS colour keywords white, black, red, green, blue, yellow, transparent, currentColor (token slots only)",
+    "length": "-?\\d+(\\.\\d+)?(px|rem|em|vh|vw|vmin|vmax|pt|%) | calc\\(",
+    "font": "any value of a font slot that is not a fontFamily.* catalog path"
+  },
+  "pageSpecTokenSlots": {
+    "$comment": "The closed set of page-level token slots. `allow` lists the only catalog paths a slot accepts; `kind` is the catalog category the slot expects; themeResolved slots accept only semantic tokens the declared theme resolves; themeScope restricts a foundation colour to the themes whose pages really use it.",
+    "surface": {"kind": "semanticColor", "required": true, "themeResolved": true, "allow": ["semantic.surface.page", "semantic.surface.card", "semantic.surface.raised"], "purpose": "Page / band background."},
+    "text": {"kind": "semanticColor", "required": true, "themeResolved": true, "contrastAgainst": "surface", "allow": ["semantic.text.primary", "semantic.text.secondary"], "purpose": "Body text colour; must reach minTextContrast against the surface slot in the declared theme."},
+    "accent": {"kind": "color", "required": false, "allow": ["semantic.accent.chip", "semantic.accent.primaryHover", "color.content-yellow", "color.brand-blue"], "purpose": "Accent (active chip, primary hover, the content theme's yellow brand, the mentoring brand button)."},
+    "border": {"kind": "semanticColor", "required": false, "themeResolved": true, "allow": ["semantic.border.divider"], "purpose": "Divider / tab-row rule colour."},
+    "fontHeading": {"kind": "fontFamily", "required": true, "allow": ["fontFamily.serif"], "purpose": "H1 / H2 family (Instrument Serif 400)."},
+    "fontBody": {"kind": "fontFamily", "required": true, "allow": ["fontFamily.sans"], "purpose": "Body / UI family (Inter, opsz 24)."},
+    "headingScale": {"kind": "typography", "required": true, "allow": ["fontSize.h1", "fontSize.h2"], "purpose": "Desktop size of the page's leading heading; the contracts step it down per breakpoint."},
+    "bodyScale": {"kind": "typography", "required": true, "allow": ["fontSize.body", "fontSize.para", "fontSize.medium"], "purpose": "Body copy size."},
+    "sectionPadding": {"kind": "layout", "required": true, "allow": ["layout.sectionPadding.small", "layout.sectionPadding.medium", "layout.sectionPadding.large"], "purpose": "Vertical rhythm of content sections; a token, never a measured length."},
+    "container": {"kind": "layout", "required": true, "allow": ["layout.containerMedium", "layout.containerLarge"], "purpose": "Content max-width."},
+    "gap": {"kind": "spacing", "required": false, "allow": ["space.8", "space.12", "space.16", "space.20", "space.24", "space.32", "space.48", "space.64", "space.80"], "purpose": "Default gap between stacked blocks inside a section."},
+    "buttonRadius": {"kind": "radius", "required": true, "allow": ["radius.pill"], "purpose": "Corner radius of every button (pill)."},
+    "cardRadius": {"kind": "radius", "required": false, "allow": ["radius.card", "radius.panel", "radius.media"], "purpose": "Corner radius of cards, panels and media."}
+  },
+  "themeRules": {
+    "$comment": "Allowed theme/token combinations. Pinned in schema/semantic_validate.py (PINNED_TOKEN_RULES) as well as here; verify_all compares the two.",
+    "themes": ["nimbus-dark", "nimbus-content"],
+    "themeMustExist": "spec.theme must be a theme of the catalog (tokens/themes/*.json) and must equal the template's theme (THEME_MATCHES_TEMPLATE).",
+    "themeResolved": "A themeResolved slot may only name a semantic token that the declared theme resolves (catalog themes.<theme>.semanticTokens).",
+    "themeScope": {
+      "color.content-yellow": {"themes": ["nimbus-content"], "evidence": "src/components/sections/ContentHero.jsx:11-11 (content-theme brand colour) + src/components/Layout.jsx:25-28 (content-theme routes)"},
+      "color.brand-blue": {"themes": ["nimbus-dark"], "evidence": "src/components/shared/Button.jsx:16-16 (brand button, used on /mentoring, a nimbus-dark template)"}
+    },
+    "minTextContrast": 4.5,
+    "contrast": "The text slot, resolved through the declared theme, must reach minTextContrast (WCAG 2.x relative-luminance ratio) against the surface slot."
+  },
+  "fallbackRules": {
+    "$comment": "What a generator does when the token it wants is missing or not allowed.",
+    "unknownToken": "Never invent a path. Use the slot's first `allow` entry (the measured default) and keep the content.",
+    "rawValueWanted": "Never write the raw value. Pick the nearest allowed token of the same category; if none fits, leave the optional slot out (required slots always have an allowed default).",
+    "fontUnavailable": "Fonts are fontFamily.serif / fontFamily.sans only. The stacks already fall back (Georgia / Arial, then generic); never substitute another family in the PageSpec.",
+    "themeMismatch": "If a token is outside the declared theme (themeScope) use the theme-neutral semantic token of that slot (e.g. semantic.accent.chip instead of color.content-yellow on nimbus-dark).",
+    "reducedMotion": "Every node carries motion.reducedMotionFallback; the fallbacks are motion.reducedMotionFallback.* tokens.",
+    "notApproved": "A token in notGenerationApproved must not be used; take the slot default instead."
+  },
+  "notGenerationApproved": ["fontFamily.source-serif"],
+  "notGenerationApprovedReason": {
+    "fontFamily.source-serif": "Declared in tailwind.config.js:63 and loaded by index.html, but no src/ class applies it (grep font-source-serif in src/ finds nothing): it never renders, so a generator must not build on it. verify_all re-checks this against the source when present."
+  },
+  "overrides": "A PageSpec carries no per-instance style or token override: page-level choices go through the closed `tokens` slots above; everything inside a section stays owned by the section/component contracts."
+}

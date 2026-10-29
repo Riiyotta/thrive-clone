@@ -1,6 +1,7 @@
 {
   "id": "component.feature-slide",
   "kind": "component",
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "name": "Assistant feature slide",
   "composes": [

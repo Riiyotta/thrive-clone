@@ -4,6 +4,17 @@
   "name": "Past webinars grid",
   "purpose": "Archives past webinars so a visitor can find and watch a recording.",
   "category": "index",
+  "source": {
+    "id": "EventsFilter.section[data-section=events-filter]",
+    "tag": "section",
+    "file": "src/components/sections/EventsFilter.jsx",
+    "lines": "37-101"
+  },
+  "semantic": {
+    "id": "index.events-past",
+    "category": "index"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/EventsFilter.jsx",
   "description": "Hairline-bordered block on the legacy \"green\" theme: centred serif 4rem H2, then a 2-column grid (1 at 479) of fixed-aspect cells (auto height at 991 and below), each with an optional green month-year label, a big day number, a title and a \"Watch now ›\" link. On hover a photo layer with a 75% black overlay fades in behind the cell. An optional year-pill filter exists (showFilter) but no page enables it.",
@@ -50,14 +61,18 @@
               "x-allowedRoles": [
                 "placeholder.neutral",
                 "photo.event",
-                "stock.photo"
+                "stock.photo",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "placeholder.neutral",
                     "photo.event",
-                    "stock.photo"
+                    "stock.photo",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -244,6 +259,8 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "photo.event",
     "placeholder.neutral",
     "stock.photo"

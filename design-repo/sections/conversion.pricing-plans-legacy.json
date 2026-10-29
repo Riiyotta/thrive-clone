@@ -4,6 +4,17 @@
   "name": "Legacy two-plan pricing",
   "purpose": "Show the price of a paid service in two tiers and list what every plan includes, so the reader can pick a tier.",
   "category": "conversion",
+  "source": {
+    "id": "PricingProLegacy.section[data-section=pricing-pro-legacy]",
+    "tag": "section",
+    "file": "src/components/sections/PricingProLegacy.jsx",
+    "lines": "49-80"
+  },
+  "semantic": {
+    "id": "conversion.pricing-plans-legacy",
+    "category": "conversion"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/PricingProLegacy.jsx",
   "description": "Legacy purple-hairline (#570039) block: centred serif 4rem H2 header over a shrink-to-fit 2-plan grid (second plan tinted #3b041d); each plan = name, serif 3rem price, period, then a count label (+ optional note) with a large count at the bottom-right. Below, a centred 36rem feature list: grey lead line + rows with top/left hairlines. Plans stack to one column <=479. No variants or theme prop.",

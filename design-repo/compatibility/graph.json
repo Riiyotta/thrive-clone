@@ -1,6 +1,6 @@
 {
   "$comment": "Rhythm/position/motion/asset rules JSON Schema cannot express. Every rule names the function that enforces it; extraction/verify_all.py::check_graph_validator_agreement asserts each named function exists and that every derived set still equals what templates.json says.",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "severities": {
     "error": "hard failure",
     "warn": "non-fatal notice"
@@ -32,8 +32,10 @@
       "value": {
         "article.cs-content-article": "article",
         "article.cs-platform-body": "article",
+        "article.cs-platform-header": "article",
         "conversion.contact-form": "conversion",
         "conversion.content-pricing": "conversion",
+        "conversion.cs-platform-cta": "conversion",
         "conversion.cta-strip": "conversion",
         "conversion.demo-cta": "conversion",
         "conversion.demo-form": "conversion",
@@ -161,7 +163,9 @@
         ],
         "case-study-platform": [
           "shell.nav",
+          "article.cs-platform-header",
           "article.cs-platform-body",
+          "conversion.cs-platform-cta",
           "product.capability-slider",
           "conversion.demo-cta",
           "shell.footer"
@@ -726,6 +730,10 @@
         [
           "conversion.glossary-cta",
           "conversion.demo-cta"
+        ],
+        [
+          "article.cs-platform-header",
+          "article.cs-platform-body"
         ]
       ],
       "derivation": "same-category adjacencies that occur in some real realization of a template (optional slots in/out, choices resolved)"
@@ -1074,6 +1082,12 @@
         },
         "story.wow-2col": {
           "default": 4
+        },
+        "article.cs-platform-header": {
+          "default": 1
+        },
+        "conversion.cs-platform-cta": {
+          "default": 1
         }
       },
       "derivation": "most occurrences of each (section, variant) on any real template"
@@ -1374,6 +1388,10 @@
         [
           "conversion.glossary-cta",
           "conversion.demo-cta"
+        ],
+        [
+          "article.cs-platform-header",
+          "article.cs-platform-body"
         ]
       ]
     },
@@ -1454,9 +1472,135 @@
       "severity": "error",
       "rule": "Every text field respects its maxWords budget, per instance.",
       "enforcedBy": "semantic_validate.py::check_max_words"
+    },
+    {
+      "id": "TOKEN_UNKNOWN",
+      "severity": "error",
+      "rule": "Every PageSpec `tokens` value is a real path of tokens/llm/token-catalog.json and every slot is a slot of tokens/llm/token-policy.json.",
+      "enforcedBy": "semantic_validate.py::check_tokens"
+    },
+    {
+      "id": "TOKEN_RAW_COLOR",
+      "severity": "error",
+      "rule": "No raw colour (hex, rgb()/rgba(), hsl()/hsla(), CSS colour keyword) in a token slot or in any node content string; colours are color.* / semantic.* tokens.",
+      "enforcedBy": "semantic_validate.py::check_tokens"
+    },
+    {
+      "id": "TOKEN_ARBITRARY_SPACING",
+      "severity": "error",
+      "rule": "No raw length (px, rem, em, vh, vw, pt, %, calc()) in a token slot, and no CSS length in any node content string; spacing is a space.* / layout.* token.",
+      "enforcedBy": "semantic_validate.py::check_tokens"
+    },
+    {
+      "id": "TOKEN_UNSUPPORTED_FONT",
+      "severity": "error",
+      "rule": "Font slots accept only fontFamily.* catalog tokens (fontFamily.serif for headings, fontFamily.sans for body); a family name or stack is rejected.",
+      "enforcedBy": "semantic_validate.py::check_tokens"
+    },
+    {
+      "id": "TOKEN_SLOT_MISMATCH",
+      "severity": "error",
+      "rule": "A real token must also be one the slot allows (token-policy pageSpecTokenSlots.<slot>.allow).",
+      "enforcedBy": "semantic_validate.py::check_tokens"
+    },
+    {
+      "id": "TOKEN_NOT_APPROVED",
+      "severity": "error",
+      "rule": "Tokens listed in token-policy notGenerationApproved (declared but never rendered by the clone) are not usable.",
+      "enforcedBy": "semantic_validate.py::check_tokens"
+    },
+    {
+      "id": "TOKEN_THEME_COMBINATION",
+      "severity": "error",
+      "rule": "Allowed theme/token combinations: the theme is a catalog theme; a themeResolved slot names a semantic token the theme resolves; themeScope tokens are used only in their themes (color.content-yellow: nimbus-content; color.brand-blue: nimbus-dark); text reaches 4.5:1 contrast on the surface in the declared theme.",
+      "enforcedBy": "semantic_validate.py::check_tokens"
+    },
+    {
+      "id": "GENERATION_MODE_BRAND",
+      "severity": "error",
+      "rule": "mode=generation: no source brand (Nimbus, Nova, Thrive, Kiki, source hosts) anywhere in the page, the route or brand.name, and no brand.wordmark asset role.",
+      "enforcedBy": "semantic_validate.py::check_generation_mode"
+    },
+    {
+      "id": "GENERATION_MODE_ASSET",
+      "severity": "error",
+      "rule": "mode=generation: only generation-safe asset roles (assets/asset-roles.json availability, pinned in code); no clone stock set (assetRef stock/...), no source asset file name.",
+      "enforcedBy": "semantic_validate.py::check_generation_mode"
+    },
+    {
+      "id": "GENERATION_MODE_PERSON",
+      "severity": "error",
+      "rule": "mode=generation: no source person name (the clone's named testimonial people) and no photo.person role; use person.fictional.",
+      "enforcedBy": "semantic_validate.py::check_generation_mode"
+    },
+    {
+      "id": "GENERATION_MODE_CUSTOMER",
+      "severity": "error",
+      "rule": "mode=generation: no real or clone customer/company name and no logo.customer role; use logo.placeholderCompany.",
+      "enforcedBy": "semantic_validate.py::check_generation_mode"
+    },
+    {
+      "id": "GENERATION_MODE_SCREENSHOT",
+      "severity": "error",
+      "rule": "mode=generation: no product.screenshot / product.video role; use screenshot.placeholder.",
+      "enforcedBy": "semantic_validate.py::check_generation_mode"
+    },
+    {
+      "id": "GENERATION_MODE_COPY",
+      "severity": "error",
+      "rule": "mode=generation: no 5-token run shared with the source copy (hashed shingles of src/ copy, CLONE_SPEC quotes and the clone examples).",
+      "enforcedBy": "semantic_validate.py::check_generation_mode"
+    },
+    {
+      "id": "GENERATION_MODE_CLAIM",
+      "severity": "error",
+      "rule": "mode=generation: no source statistic, price or figure (stat:/value:/price: values of src/).",
+      "enforcedBy": "semantic_validate.py::check_generation_mode"
+    },
+    {
+      "id": "GENERATION_MODE_URL",
+      "severity": "error",
+      "rule": "mode=generation: no source host, and every host or e-mail domain in the page is on a reserved .example / .invalid domain.",
+      "enforcedBy": "semantic_validate.py::check_generation_mode"
+    },
+    {
+      "id": "GENERATION_MODE_EMBED",
+      "severity": "error",
+      "rule": "mode=generation: no source embed (video embed URL or id, form portalId / formId).",
+      "enforcedBy": "semantic_validate.py::check_generation_mode"
+    },
+    {
+      "id": "GENERATION_MODE_CTA",
+      "severity": "error",
+      "rule": "mode=generation: no source CTA label that carries the source brand (e.g. 'See Nimbus in action').",
+      "enforcedBy": "semantic_validate.py::check_generation_mode"
+    },
+    {
+      "id": "PINNED_AVAILABILITY",
+      "severity": "error",
+      "rule": "Every asset role holds the availability pinned in code (semantic_validate.PINNED_AVAILABILITY == verify_all.PINNED_AVAILABILITY); non-safe roles list generation-safe substitutes; the allowlist copy agrees. A registry edit alone fails every PageSpec validation.",
+      "enforcedBy": "semantic_validate.py::check_registry_pins"
+    },
+    {
+      "id": "RETRIEVAL_ELIGIBILITY_PINNED",
+      "severity": "error",
+      "rule": "retrievalEligible on every section/component contract and allowlist entry equals the pin (runtime/utility UI false with a 30+ char reason, everything else true); a generation-mode page never composes an ineligible section.",
+      "enforcedBy": "semantic_validate.py::check_registry_pins + semantic_validate.py::check_retrieval_nodes"
+    },
+    {
+      "id": "SECTION_TAXONOMY_PINNED",
+      "severity": "error",
+      "rule": "Every section contract carries a closed source {id, tag, file, lines} (provenance) and semantic {id, category} (taxonomy) with semantic.id == contract id, semantic.category == id prefix, source.id != semantic id.",
+      "enforcedBy": "semantic_validate.py::check_registry_pins"
+    },
+    {
+      "id": "WRAPPER_HEIGHT_GATE",
+      "severity": "error",
+      "rule": "Measured at 1440px: HERO > 1800px warns, > 3000px fails; one in-flow non-SHELL section > 50% of its page warns, > 60% fails (pages with >= 3 in-flow sections); missing measurement fails; whitelist entries need a reviewer, a 30+ char justification and a cap.",
+      "enforcedBy": "verify_all.py::check_wrapper_gate (extraction/wrapper_gate.py)"
     }
   ],
-  "ruleCount": 28,
+  "ruleCount": 49,
   "retiredRules": {
     "HERO_FOLLOWS_NAV": "replaced by HERO_OPENS_PAGE (generalised to every template with a hero)",
     "FAQ_PRECEDES_DEMO_FORM": "merged into DEMO_FORM_PLACEMENT; the constraint moved from conversion.faq (which now precedes the demo CTA or other blocks on subpages) to conversion.demo-form",

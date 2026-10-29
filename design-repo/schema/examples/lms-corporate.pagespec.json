@@ -1,9 +1,24 @@
 {
-  "pageSpecVersion": "1.0.0",
+  "pageSpecVersion": "2.0.0",
+  "mode": "clone",
   "route": "/lms/corporate-lms",
   "template": "lms-corporate",
   "designSystem": "marketing",
   "theme": "nimbus-dark",
+  "tokens": {
+    "surface": "semantic.surface.page",
+    "text": "semantic.text.primary",
+    "accent": "semantic.accent.chip",
+    "border": "semantic.border.divider",
+    "fontHeading": "fontFamily.serif",
+    "fontBody": "fontFamily.sans",
+    "headingScale": "fontSize.h1",
+    "bodyScale": "fontSize.body",
+    "sectionPadding": "layout.sectionPadding.large",
+    "container": "layout.containerLarge",
+    "buttonRadius": "radius.pill",
+    "cardRadius": "radius.card"
+  },
   "nodes": [
     {
       "section": "shell.nav",

@@ -4,6 +4,17 @@
   "name": "Named testimonial + demo CTA",
   "purpose": "One large pull quote with author, then a demo CTA. Shares the results container (rendered by the same component).",
   "category": "proof",
+  "source": {
+    "id": "Results.div@96",
+    "tag": "div",
+    "file": "src/components/Results.jsx",
+    "lines": "96-117"
+  },
+  "semantic": {
+    "id": "proof.testimonial",
+    "category": "proof"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/Results.jsx",
   "content": {
@@ -46,13 +57,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "photo.person",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -157,6 +172,8 @@
     }
   ],
   "assetRoles": [
+    "asset.userSupplied",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral"
   ],
@@ -177,7 +194,7 @@
   "observedOn": [
     "/"
   ],
-  "measuredFrom": "src/components/Results.jsx:38-56",
+  "measuredFrom": "src/components/Results.jsx:96-117",
   "iaSectionId": "proof.testimonial",
   "specMeasuredFrom": "CLONE_SPEC.md:334-340"
 }

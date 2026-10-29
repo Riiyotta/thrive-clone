@@ -10,7 +10,7 @@
    project. These were measured against the live original after the build and
    corrected the recon spec in several places. They are cited as `audit:<file>`
    in the ledger and degrade to a warning when absent.
-3. **The IA**: `ia.json` at the project root (33 templates, 58 routes, 94 sections).
+3. **The IA**: `ia.json` at the project root (33 templates, 58 routes, 96 sections).
    Template ids/orders/routes and section ids, categories and `implementedBy` here are aligned to it.
    `verify_all.py::check_ia_alignment` re-checks this.
 4. **`CLONE_SPEC.md`**: the recon spec, measured on the live original. It is a

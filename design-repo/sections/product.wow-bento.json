@@ -4,6 +4,17 @@
   "name": "Wow bento card grid",
   "purpose": "Lays out a set of concrete use-cases, release items or inclusions as image-led cards under a heading, often with a supporting customer quote.",
   "category": "product",
+  "source": {
+    "id": "WowBento.section[data-section=wowbento]",
+    "tag": "section",
+    "file": "src/components/sections/WowBento.jsx",
+    "lines": "179-181"
+  },
+  "semantic": {
+    "id": "product.wow-bento",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/WowBento.jsx",
   "description": "One component with a `variant` prop whose variants have genuinely different shapes. cards (/lms/small-business, 1st): split header (H2 left, small italic side quote right), a 1.5fr/1fr row (rect + square media) then three squares, each with a caption whose lead-in is white, and a centred demo button. cards-cta (/lms/small-business, 2nd): serif H3 + paragraph beside a side quote, then two rect 'Team photo' cards with a serif H4, text and a small dark button each. release (/lms/spring-release): H2 | paragraph + green pill button, then three rows of two feature cards (one per row is 150% wide). included (/mentoring): centred H2 and three feature cards with a 20px title and text. why (/company/why-nimbus): H2 + paragraph + dark button beside a quote card, two square photos (event, team) with a caption, an awards line with four award shields, and a closing large quote. All stack at <=991/767.",
@@ -57,13 +68,17 @@
                 "additionalProperties": false,
                 "x-allowedRoles": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ],
                 "properties": {
                   "assetRole": {
                     "enum": [
                       "photo.person",
-                      "placeholder.neutral"
+                      "placeholder.neutral",
+                      "person.fictional",
+                      "asset.userSupplied"
                     ]
                   },
                   "placeholderLabel": {
@@ -109,14 +124,20 @@
                   "x-allowedRoles": [
                     "product.screenshot",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "product.screenshot",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -266,13 +287,17 @@
                 "additionalProperties": false,
                 "x-allowedRoles": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ],
                 "properties": {
                   "assetRole": {
                     "enum": [
                       "photo.person",
-                      "placeholder.neutral"
+                      "placeholder.neutral",
+                      "person.fictional",
+                      "asset.userSupplied"
                     ]
                   },
                   "placeholderLabel": {
@@ -317,13 +342,17 @@
                   "additionalProperties": false,
                   "x-allowedRoles": [
                     "photo.person",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "person.fictional",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "photo.person",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "person.fictional",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -449,14 +478,20 @@
                     "x-allowedRoles": [
                       "product.screenshot",
                       "stock.photo",
-                      "placeholder.neutral"
+                      "placeholder.neutral",
+                      "screenshot.placeholder",
+                      "illustration.generated",
+                      "asset.userSupplied"
                     ],
                     "properties": {
                       "assetRole": {
                         "enum": [
                           "product.screenshot",
                           "stock.photo",
-                          "placeholder.neutral"
+                          "placeholder.neutral",
+                          "screenshot.placeholder",
+                          "illustration.generated",
+                          "asset.userSupplied"
                         ]
                       },
                       "placeholderLabel": {
@@ -539,14 +574,20 @@
                   "x-allowedRoles": [
                     "product.screenshot",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "product.screenshot",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -659,13 +700,17 @@
                 "additionalProperties": false,
                 "x-allowedRoles": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ],
                 "properties": {
                   "assetRole": {
                     "enum": [
                       "photo.person",
-                      "placeholder.neutral"
+                      "placeholder.neutral",
+                      "person.fictional",
+                      "asset.userSupplied"
                     ]
                   },
                   "placeholderLabel": {
@@ -704,14 +749,18 @@
             "x-allowedRoles": [
               "photo.event",
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "photo.event",
                   "stock.photo",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -740,13 +789,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "photo.person",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -787,13 +840,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "badge.award",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "badge.placeholder",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "badge.award",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "badge.placeholder",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -857,13 +914,17 @@
                 "additionalProperties": false,
                 "x-allowedRoles": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ],
                 "properties": {
                   "assetRole": {
                     "enum": [
                       "photo.person",
-                      "placeholder.neutral"
+                      "placeholder.neutral",
+                      "person.fictional",
+                      "asset.userSupplied"
                     ]
                   },
                   "placeholderLabel": {
@@ -1186,11 +1247,16 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
     "badge.award",
+    "badge.placeholder",
+    "illustration.generated",
+    "person.fictional",
     "photo.event",
     "photo.person",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "variants": [

@@ -4,6 +4,17 @@
   "name": "Results stat cards",
   "purpose": "Quantified customer outcomes in four scannable cards.",
   "category": "proof",
+  "source": {
+    "id": "Results.div@61",
+    "tag": "div",
+    "file": "src/components/Results.jsx",
+    "lines": "61-94"
+  },
+  "semantic": {
+    "id": "proof.results-stats",
+    "category": "proof"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/Results.jsx",
   "content": {
@@ -31,13 +42,17 @@
                   "additionalProperties": false,
                   "x-allowedRoles": [
                     "logo.customer",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "logo.customer",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -169,13 +184,17 @@
                   "additionalProperties": false,
                   "x-allowedRoles": [
                     "logo.customer",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "logo.customer",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -320,7 +339,9 @@
     }
   ],
   "assetRoles": [
+    "asset.userSupplied",
     "logo.customer",
+    "logo.placeholderCompany",
     "placeholder.neutral"
   ],
   "composes": [
@@ -357,7 +378,7 @@
     "/lms/professional-services",
     "/lms/small-business"
   ],
-  "measuredFrom": "src/components/Results.jsx:16-35",
+  "measuredFrom": "src/components/Results.jsx:61-94",
   "iaSectionId": "proof.results-stats",
   "specMeasuredFrom": "CLONE_SPEC.md:323-344",
   "subpageUsage": "Same Results component as the homepage, configured by props (no explicit `variant` prop). On every subpage the testimonial block is switched off (testimonial={null}); the centred H2 may carry an italic emphasis phrase and is followed by a grey centred subtitle (with at most one inline link); cards drop the homepage's required logo + brand pairing: each card may show a top-left text label (/lms/professional-services, /lms/demo-platform), a neutral logo placeholder, or both, then the big stat and an optional grey line led by an optional underlined brand link; the centred CTA button is optional. Grid columns are per page: 4 / 2 / 1 (default), 3 square cards that overflow-scroll on phones (/lms/professional-services), or 5 auto columns (/lms/demo-platform). Used on /lms, /lms/small-business, /lms/corporate-lms, /lms/enterprise, /lms/professional-services and /lms/demo-platform.",

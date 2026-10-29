@@ -4,6 +4,17 @@
   "name": "Case study article (content)",
   "purpose": "Carries the long-form narrative of a content-library customer story, with a TOC, share links and a demo prompt alongside, and closes on the customer quote.",
   "category": "article",
+  "source": {
+    "id": "CsContentArticle.section[data-section=cs-content-article]",
+    "tag": "section",
+    "file": "src/components/sections/CsContentArticle.jsx",
+    "lines": "195-270"
+  },
+  "semantic": {
+    "id": "article.cs-content-article",
+    "category": "article"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/CsContentArticle.jsx",
   "description": "Hairline-bordered two-column block on the legacy content (\"yellow\") theme. Left 30%: sticky sidebar with an \"In this article\" TOC (on the real pages every H2, section titles and sub-headings, is listed via tocFromHeadings), a Share row with three icon buttons and a dotted-texture CTA card with a yellow pill button. Right 70%: rich-text sections (title H2, then a sequence of paragraphs with **bold**/[[link]] spans, sub-heading H2s, spacer/empty paragraphs, centred or full-width figures and yellow-ruled blockquotes), followed by a dotted-texture quote card (quote, avatar, name, role). At 767 and below the sidebar moves under the article and the TOC is hidden.",
@@ -147,14 +158,18 @@
                         "x-allowedRoles": [
                           "placeholder.neutral",
                           "photo.brand",
-                          "stock.photo"
+                          "stock.photo",
+                          "illustration.generated",
+                          "asset.userSupplied"
                         ],
                         "properties": {
                           "assetRole": {
                             "enum": [
                               "placeholder.neutral",
                               "photo.brand",
-                              "stock.photo"
+                              "stock.photo",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ]
                           },
                           "placeholderLabel": {
@@ -236,13 +251,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "photo.person"
+                  "photo.person",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -532,6 +551,9 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
+    "person.fictional",
     "photo.brand",
     "photo.person",
     "placeholder.neutral",

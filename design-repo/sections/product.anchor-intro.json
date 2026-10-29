@@ -4,6 +4,17 @@
   "name": "Anchor-nav intro line",
   "purpose": "Introduces the sticky anchor tabs below it with a single centred prompt line.",
   "category": "product",
+  "source": {
+    "id": "AnchorNav.div@19",
+    "tag": "div",
+    "file": "src/components/sections/AnchorNav.jsx",
+    "lines": "19-21"
+  },
+  "semantic": {
+    "id": "product.anchor-intro",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/AnchorNav.jsx",
   "description": "A single centred 2rem/1.4 H2 (1.5rem at <=767), no paragraph or media. `variant` changes only placement: 'solutions' (/lms/solutions) renders a bare full-width H2 with 1rem top margin; 'features' (/lms/features) wraps it in padding-global > container-medium with 4rem top margin. Always rendered immediately before the sticky-tabs block.",

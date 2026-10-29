@@ -4,6 +4,17 @@
   "name": "Sector solution tabs (legacy content theme)",
   "purpose": "Sells sector-specific content bundles: a header pitch and CTA, then a pick-your-sector list that previews each bundle with an image.",
   "category": "product",
+  "source": {
+    "id": "SolutionTabs.section[data-section=solution-tabs]",
+    "tag": "section",
+    "file": "src/components/sections/SolutionTabs.jsx",
+    "lines": "48-171"
+  },
+  "semantic": {
+    "id": "product.solution-tabs",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/SolutionTabs.jsx",
   "description": "Legacy content (yellow, hairline-framed) block used on /content. Header row: eyebrow chip, large serif H2 and a yellow pill button on the left, grey multi-paragraph copy bottom-aligned on the right. Below, a 5-column frame: a 2/5 vertical tab list (rows share the height; the active row shows its summary on a dotted texture) and a 3/5 image pane with a dark bottom fade and an outlined 'Learn more' button. <=767 the header stacks; <=479 the tabs become an accordion of serif heading rows each opening to its text and image.",
@@ -72,14 +83,18 @@
               "x-allowedRoles": [
                 "photo.brand",
                 "stock.photo",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "photo.brand",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -378,6 +393,8 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "photo.brand",
     "placeholder.neutral",
     "stock.photo"

@@ -19,6 +19,8 @@ import os
 import re
 import sys
 
+sys.dont_write_bytecode = True
+
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, "schema"))
 
@@ -42,6 +44,10 @@ def load_registry():
         "assets": _load("assets", "asset-roles.json"),
         "motion": _load("tokens", "00-foundation", "motion.json"),
         "allowlist": _load("tokens", "llm", "component-allowlist.json"),
+        "catalog": _load("tokens", "llm", "token-catalog.json"),
+        "tokenPolicy": _load("tokens", "llm", "token-policy.json"),
+        "identity": _load("schema", "source-identity.json"),
+        "components": {n[:-5]: _load("components", n) for n in sorted(os.listdir(os.path.join(REPO, "components"))) if n.endswith(".json")},
     }
 
 
@@ -497,7 +503,308 @@ def check_max_words(spec, reg):
     return out
 
 
+# --------------------------------------------------------------------------
+# 3.0.0: registry pins (availability, retrieval eligibility, section taxonomy)
+# --------------------------------------------------------------------------
+
+# Pinned IN CODE, independently of assets/asset-roles.json (extraction/verify_all.py holds the same table and
+# compares). Editing the registry alone cannot loosen a role: every PageSpec validation fails.
+PINNED_AVAILABILITY = {
+    "brand.wordmark": "clone-only",
+    "placeholder.neutral": "generation-safe",
+    "logo.customer": "blocked-for-generation",
+    "logo.aiVendor": "blocked-for-generation",
+    "badge.review": "blocked-for-generation",
+    "badge.award": "blocked-for-generation",
+    "photo.person": "blocked-for-generation",
+    "photo.event": "blocked-for-generation",
+    "photo.brand": "blocked-for-generation",
+    "product.screenshot": "blocked-for-generation",
+    "product.video": "blocked-for-generation",
+    "stock.photo": "clone-only",
+    "asset.userSupplied": "generation-safe",
+    "illustration.generated": "generation-safe",
+    "screenshot.placeholder": "generation-safe",
+    "person.fictional": "generation-safe",
+    "logo.placeholderCompany": "generation-safe",
+    "badge.placeholder": "generation-safe",
+    "brand.placeholderMark": "generation-safe",
+    "url.placeholder": "generation-safe",
+    "copy.original": "generation-safe",
+}
+AVAILABILITY_ENUM = ("clone-only", "generation-safe", "blocked-for-generation")
+
+# R8: contracts that are runtime / utility UI and must not be retrieved as content (every other contract: True).
+RETRIEVAL_PINNED = {
+    "conversion.faq-empty": False,
+    "product.explore-empty": False,
+    "mobile-menu-panel": False,
+    "nav-dropdown-panel": False,
+    "footer-dropup": False,
+}
+RUNTIME_UI_RE = re.compile(r"cookie|consent|modal|dialog|drawer|popup|dropup|overlay|preloader|toast|menu-panel|dropdown-panel|-empty$")
+MIN_RETRIEVAL_REASON = 30
+SECTION_CATEGORY_ENUM = ("shell", "hero", "proof", "product", "story", "conversion", "index", "article")
+
+
+def registry_pin_problems(reg):
+    """PINNED_AVAILABILITY + RETRIEVAL_ELIGIBILITY_PINNED + SECTION_TAXONOMY_PINNED, as (rule, message)."""
+    out = []
+    roles = reg["assets"]["roles"]
+    for role, want in PINNED_AVAILABILITY.items():
+        got = roles.get(role, {}).get("availability")
+        if got != want:
+            out.append(("PINNED_AVAILABILITY", "asset role %s must be availability %r but asset-roles.json says %r" % (role, want, got)))
+    for role, spec in roles.items():
+        if role not in PINNED_AVAILABILITY:
+            out.append(("PINNED_AVAILABILITY", "asset role %s has no pinned availability (add it to PINNED_AVAILABILITY in both validators after review)" % role))
+        if spec.get("availability") not in AVAILABILITY_ENUM:
+            out.append(("PINNED_AVAILABILITY", "asset role %s availability %r is outside the closed enum" % (role, spec.get("availability"))))
+        if spec.get("availability") != "generation-safe":
+            subs = spec.get("generationSafeSubstitutes") or []
+            if not subs or any(PINNED_AVAILABILITY.get(s) != "generation-safe" for s in subs):
+                out.append(("PINNED_AVAILABILITY", "asset role %s needs generationSafeSubstitutes that are all generation-safe (has %s)" % (role, subs)))
+        if spec.get("availability") == "generation-safe" and spec.get("generationPolicy") in ("must-not-reuse", "must-not-fabricate", "must-reuse-exact"):
+            out.append(("PINNED_AVAILABILITY", "asset role %s is generation-safe but its generationPolicy is %r" % (role, spec.get("generationPolicy"))))
+    allow_roles = reg["allowlist"].get("assetRoles", {})
+    for role, spec in roles.items():
+        if allow_roles.get(role, {}).get("availability") != spec.get("availability"):
+            out.append(("PINNED_AVAILABILITY", "allowlist copy of %s availability %r != registry %r" % (role, allow_roles.get(role, {}).get("availability"), spec.get("availability"))))
+    contracts = [("sections", k, v) for k, v in reg["sections"].items()] + [("components", k, v) for k, v in reg["components"].items()]
+    for kind, cid, c in contracts:
+        want = RETRIEVAL_PINNED.get(cid, True)
+        got = c.get("retrievalEligible")
+        if got is not want:
+            out.append(("RETRIEVAL_ELIGIBILITY_PINNED", "%s/%s: retrievalEligible is %r but pinned %r" % (kind, cid, got, want)))
+        if RUNTIME_UI_RE.search(cid) and RETRIEVAL_PINNED.get(cid) is not False:
+            out.append(("RETRIEVAL_ELIGIBILITY_PINNED", "%s/%s looks like runtime/utility UI and must be pinned retrievalEligible false" % (kind, cid)))
+        if got is False and len(c.get("retrievalReason") or "") < MIN_RETRIEVAL_REASON:
+            out.append(("RETRIEVAL_ELIGIBILITY_PINNED", "%s/%s: retrievalEligible false needs a retrievalReason of %d+ characters" % (kind, cid, MIN_RETRIEVAL_REASON)))
+        entry = reg["allowlist"].get(kind, {}).get(cid, {})
+        if entry.get("retrievalEligible") is not want:
+            out.append(("RETRIEVAL_ELIGIBILITY_PINNED", "allowlist %s/%s retrievalEligible %r != pinned %r" % (kind, cid, entry.get("retrievalEligible"), want)))
+    for sid, c in reg["sections"].items():
+        sem, src = c.get("semantic") or {}, c.get("source") or {}
+        if sem.get("id") != sid or sem.get("category") != sid.split(".")[0] or sem.get("category") not in SECTION_CATEGORY_ENUM:
+            out.append(("SECTION_TAXONOMY_PINNED", "%s: semantic %r must be {id: contract id, category: id prefix}" % (sid, sem)))
+        if not src.get("id") or src.get("id") == sid:
+            out.append(("SECTION_TAXONOMY_PINNED", "%s: source.id %r must name the DOM/component source, not the semantic id" % (sid, src.get("id"))))
+    return out
+
+
+def check_registry_pins(spec, reg):
+    """PINNED_AVAILABILITY + RETRIEVAL_ELIGIBILITY_PINNED + SECTION_TAXONOMY_PINNED (registry-level; fail every spec)."""
+    return [("error", r, m) for r, m in registry_pin_problems(reg)]
+
+
+def check_retrieval_nodes(spec, reg):
+    """RETRIEVAL_ELIGIBILITY_PINNED at node level: a generation-mode page never composes an ineligible section."""
+    out = []
+    if spec.get("mode") != "generation":
+        return out
+    for i, n in enumerate(spec.get("nodes", [])):
+        if RETRIEVAL_PINNED.get(n.get("section")) is False:
+            out.append(("error", "RETRIEVAL_ELIGIBILITY_PINNED", "node %d: %s is runtime/utility UI (retrievalEligible false) and cannot be composed into a generation-mode page" % (i, n.get("section"))))
+    return out
+
+
+# --------------------------------------------------------------------------
+# 3.0.0: token rules (TOKEN_*)
+# --------------------------------------------------------------------------
+
+PINNED_TOKEN_RULES = {
+    "themes": ["nimbus-dark", "nimbus-content"],
+    "themeScope": {"color.content-yellow": ["nimbus-content"], "color.brand-blue": ["nimbus-dark"]},
+    "minTextContrast": 4.5,
+}
+RAW_COLOR_RE = re.compile(r"#[0-9a-fA-F]{3,8}\b|\b(?:rgb|rgba|hsl|hsla)\s*\(", re.I)
+COLOR_WORDS = {"white", "black", "red", "green", "blue", "yellow", "transparent", "currentcolor"}
+RAW_LENGTH_RE = re.compile(r"(?<![A-Za-z0-9_.])-?\d+(?:\.\d+)?(?:px|rem|em|vh|vw|vmin|vmax|pt)\b|\bcalc\s*\(", re.I)
+RAW_LENGTH_SLOT_RE = re.compile(r"^-?\d+(?:\.\d+)?(?:px|rem|em|vh|vw|vmin|vmax|pt|%)?$|calc\s*\(", re.I)
+TOKEN_PATH_RE = re.compile(r"^[a-zA-Z][a-zA-Z0-9-]*(?:\.[a-zA-Z0-9][a-zA-Z0-9-]*)+$")
+
+
+def _lum(hexstr):
+    h = hexstr.lstrip("#")
+    if len(h) == 3:
+        h = "".join(c * 2 for c in h)
+    rgb = [int(h[i:i + 2], 16) / 255.0 for i in (0, 2, 4)]
+    lin = [c / 12.92 if c <= 0.03928 else ((c + 0.055) / 1.055) ** 2.4 for c in rgb]
+    return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2]
+
+
+def contrast_ratio(a, b):
+    la, lb = _lum(a), _lum(b)
+    hi, lo = max(la, lb), min(la, lb)
+    return (hi + 0.05) / (lo + 0.05)
+
+
+def classify_token(slot_name, slot, value, reg):
+    cat = reg["catalog"]["tokens"]
+    pol = reg["tokenPolicy"]
+    v = value if isinstance(value, str) else ""
+    if RAW_COLOR_RE.search(v) or v.strip().lower() in COLOR_WORDS:
+        return "TOKEN_RAW_COLOR", "tokens.%s: raw colour %r; name a token (%s)" % (slot_name, value, ", ".join(slot["allow"]))
+    if RAW_LENGTH_SLOT_RE.search(v.strip()) or RAW_LENGTH_RE.search(v):
+        return "TOKEN_ARBITRARY_SPACING", "tokens.%s: arbitrary length %r; name a token (%s)" % (slot_name, value, ", ".join(slot["allow"]))
+    if slot["kind"] == "fontFamily" and (v not in cat or cat[v]["category"] != "fontFamily"):
+        return "TOKEN_UNSUPPORTED_FONT", "tokens.%s: unsupported font %r; fonts are tokens (%s)" % (slot_name, value, ", ".join(slot["allow"]))
+    if not TOKEN_PATH_RE.match(v) or v not in cat:
+        return "TOKEN_UNKNOWN", "tokens.%s: %r is not a token of tokens/llm/token-catalog.json" % (slot_name, value)
+    if v in pol.get("notGenerationApproved", []):
+        return "TOKEN_NOT_APPROVED", "tokens.%s: %r is notGenerationApproved (%s)" % (slot_name, v, pol["notGenerationApprovedReason"].get(v, "")[:80])
+    if v not in slot["allow"]:
+        return "TOKEN_SLOT_MISMATCH", "tokens.%s: %r (%s) is not accepted by this slot (allowed: %s)" % (slot_name, v, cat[v]["category"], ", ".join(slot["allow"]))
+    return None
+
+
+def check_tokens(spec, reg):
+    """TOKEN_UNKNOWN / TOKEN_RAW_COLOR / TOKEN_ARBITRARY_SPACING / TOKEN_UNSUPPORTED_FONT / TOKEN_SLOT_MISMATCH /
+    TOKEN_NOT_APPROVED / TOKEN_THEME_COMBINATION: every page-level token is a real, approved catalog path for its
+    slot and valid in the declared theme; no node content string carries a raw colour or CSS length."""
+    out = []
+    slots = {k: v for k, v in reg["tokenPolicy"]["pageSpecTokenSlots"].items() if not k.startswith("$")}
+    themes = reg["catalog"]["themes"]
+    theme = spec.get("theme")
+    toks = spec.get("tokens") if isinstance(spec.get("tokens"), dict) else {}
+    ok = {}
+    for name, value in toks.items():
+        slot = slots.get(name)
+        if slot is None:
+            out.append(("error", "TOKEN_UNKNOWN", "tokens.%s is not a slot of tokens/llm/token-policy.json" % name))
+            continue
+        bad = classify_token(name, slot, value, reg)
+        if bad:
+            out.append(("error",) + bad)
+        else:
+            ok[name] = value
+    if theme not in themes or theme not in PINNED_TOKEN_RULES["themes"]:
+        out.append(("error", "TOKEN_THEME_COMBINATION", "theme %r is not a theme of the token catalog %s" % (theme, sorted(themes))))
+        return out
+    resolved = themes[theme]["resolves"]
+    for name, value in ok.items():
+        slot = slots[name]
+        if slot.get("themeResolved") and value not in themes[theme]["semanticTokens"]:
+            out.append(("error", "TOKEN_THEME_COMBINATION", "tokens.%s: %r is not resolved by theme %r" % (name, value, theme)))
+        scope = PINNED_TOKEN_RULES["themeScope"].get(value)
+        if scope is not None and theme not in scope:
+            out.append(("error", "TOKEN_THEME_COMBINATION", "tokens.%s: %r is only valid in theme(s) %s, not %r" % (name, value, scope, theme)))
+    for name, slot in slots.items():
+        against = slot.get("contrastAgainst")
+        if against and name in ok and against in ok:
+            a = resolved.get(ok[name], {}).get("value")
+            b = resolved.get(ok[against], {}).get("value")
+            if a and b and a.startswith("#") and b.startswith("#"):
+                r = contrast_ratio(a, b)
+                if r < PINNED_TOKEN_RULES["minTextContrast"]:
+                    out.append(("error", "TOKEN_THEME_COMBINATION", "tokens.%s %r (%s) on tokens.%s %r (%s) has contrast %.2f < %s in theme %r"
+                                % (name, ok[name], a, against, ok[against], b, r, PINNED_TOKEN_RULES["minTextContrast"], theme)))
+    for path, text in _strings(spec.get("nodes", []), "nodes"):
+        if path.endswith((".pattern", ".reducedMotionFallback", ".section", ".assetRole", ".variant")):
+            continue
+        if RAW_COLOR_RE.search(text):
+            out.append(("error", "TOKEN_RAW_COLOR", "%s: raw colour value in content %r" % (path, text[:60])))
+        if RAW_LENGTH_RE.search(text):
+            out.append(("error", "TOKEN_ARBITRARY_SPACING", "%s: raw CSS length in content %r" % (path, text[:60])))
+    return out
+
+
+# --------------------------------------------------------------------------
+# 3.0.0: generation mode (GENERATION_MODE_*)
+# --------------------------------------------------------------------------
+
+ROLE_RULE = {
+    "brand.wordmark": "GENERATION_MODE_BRAND",
+    "logo.customer": "GENERATION_MODE_CUSTOMER",
+    "photo.person": "GENERATION_MODE_PERSON",
+    "product.screenshot": "GENERATION_MODE_SCREENSHOT",
+    "product.video": "GENERATION_MODE_SCREENSHOT",
+}
+TERM_RULE = {"BRAND": "GENERATION_MODE_BRAND", "CUSTOMER": "GENERATION_MODE_CUSTOMER", "PERSON": "GENERATION_MODE_PERSON",
+             "URL": "GENERATION_MODE_URL", "EMBED": "GENERATION_MODE_EMBED", "CTA": "GENERATION_MODE_CTA"}
+RESERVED_TLDS = ("example", "invalid")
+HOST_RE = re.compile(r"(?:https?://)?((?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:com|net|org|io|co|ai|app|dev|uk|us|eu|de|fr|tv|me|info|biz|cloud|tech|learning|example|invalid))\b")
+EMAIL_RE = re.compile(r"[a-z0-9._+-]+@((?:[a-z0-9-]+\.)+[a-z]{2,})")
+NON_TEXT_KEYS = (".pattern", ".reducedMotionFallback", ".section", ".assetRole", ".variant", ".markRole")
+
+
+def _spec_strings(spec):
+    for key in ("route",):
+        if isinstance(spec.get(key), str):
+            yield "$." + key, spec[key]
+    if isinstance(spec.get("brand"), dict) and isinstance(spec["brand"].get("name"), str):
+        yield "$.brand.name", spec["brand"]["name"]
+    for path, text in _strings(spec.get("nodes", []), "nodes"):
+        if not path.endswith(NON_TEXT_KEYS):
+            yield path, text
+
+
+def check_generation_mode(spec, reg):
+    """GENERATION_MODE_BRAND / _ASSET / _PERSON / _CUSTOMER / _SCREENSHOT / _COPY / _CLAIM / _URL / _EMBED / _CTA.
+    In mode=generation nothing may identify or reproduce the source: no source term, figure, host, embed id,
+    asset file name or 5-token copy shingle, and only generation-safe asset roles."""
+    import textnorm as tn
+    out = []
+    if spec.get("mode") != "generation":
+        return out
+    roles = reg["assets"]["roles"]
+    ident = reg["identity"]
+    for i, node in enumerate(spec.get("nodes", [])):
+        for path, d in _dicts(node.get("content"), "node[%d]" % i):
+            role = d.get("assetRole")
+            if role is None:
+                continue
+            av = PINNED_AVAILABILITY.get(role)
+            if av != "generation-safe":
+                rule = ROLE_RULE.get(role, "GENERATION_MODE_ASSET")
+                out.append(("error", rule, "%s: asset role %s is %s; a generation-mode page uses a generation-safe substitute (%s)"
+                            % (path, role, av, ", ".join(roles.get(role, {}).get("generationSafeSubstitutes", [])))))
+            ref = str(d.get("assetRef", ""))
+            if ref.startswith("stock/"):
+                out.append(("error", "GENERATION_MODE_ASSET", "%s: assetRef %r reuses the clone's licensed stock set" % (path, ref)))
+    terms = [(t["category"], t["term"], t["tokens"]) for t in ident["terms"]]
+    files = [(t["term"].lower(), t["term"]) for t in ident["assetFiles"]]
+    claims = [(re.sub(r"\s+", " ", tn.normalize(c["figure"])).strip(), c["figure"]) for c in ident["claims"]]
+    hashes = set(ident["copy"]["hashes"])
+    for path, text in _spec_strings(spec):
+        toks = tn.tokens(text)
+        norm = tn.normalize(text)
+        flagged = set()
+        for cat, term, tt in terms:
+            if tn.contains_term(toks, tt):
+                rule = TERM_RULE[cat]
+                if (rule, term) not in flagged:
+                    flagged.add((rule, term))
+                    out.append(("error", rule, "%s: %r contains the source %s %r" % (path, text[:60], cat.lower(), term)))
+        for low, name in files:
+            if low in norm:
+                out.append(("error", "GENERATION_MODE_ASSET", "%s: names the source asset file %r" % (path, name)))
+        flat = re.sub(r"\s+", " ", norm)
+        for fig, raw in claims:
+            for m in re.finditer(re.escape(fig), flat):
+                before = flat[m.start() - 1] if m.start() > 0 else ""
+                after = flat[m.end()] if m.end() < len(flat) else ""
+                if not re.match(r"[0-9a-z.,$]", before) and not re.match(r"[0-9a-z%]", after):
+                    out.append(("error", "GENERATION_MODE_CLAIM", "%s: %r repeats the source claim/figure %r" % (path, text[:60], raw)))
+                    break
+        for rx in (HOST_RE, EMAIL_RE):
+            for m in rx.finditer(norm):
+                host = m.group(1)
+                if host.rsplit(".", 1)[-1] not in RESERVED_TLDS:
+                    out.append(("error", "GENERATION_MODE_URL", "%s: host %r is not on a reserved .example / .invalid domain" % (path, host)))
+        if len(toks) >= tn.SHINGLE:
+            shared = [k for k in range(len(toks) - tn.SHINGLE + 1) if tn.shingle_hash(toks[k:k + tn.SHINGLE]) in hashes]
+            if shared:
+                k = shared[0]
+                out.append(("error", "GENERATION_MODE_COPY", "%s: shares the 5-word run %r with the source copy" % (path, " ".join(toks[k:k + tn.SHINGLE]))))
+    return out
+
+
 CHECKS = [
+    check_registry_pins,
+    check_tokens,
+    check_generation_mode,
+    check_retrieval_nodes,
     check_template_sequence,
     check_chrome_position,
     check_pinned_neighbours,

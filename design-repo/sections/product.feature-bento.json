@@ -4,6 +4,17 @@
   "name": "Feature bento grid",
   "purpose": "Covers the supporting platform strengths (integrations, security, global support, services) in a compact bento of image cards with links.",
   "category": "product",
+  "source": {
+    "id": "FeatureBento.section[data-section=feature-bento]",
+    "tag": "section",
+    "file": "src/components/sections/FeatureBento.jsx",
+    "lines": "90-116"
+  },
+  "semantic": {
+    "id": "product.feature-bento",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/FeatureBento.jsx",
   "description": "Split header (H2 left, grey paragraph with one inline link right, bottom-aligned), then a 3-column bento of 4 cards ordered large (spans 2), small, small, large. Each card is a dark rounded panel with an image layer under a 50% wash and bottom fade, copy pinned to the bottom: a white lead phrase run into grey body text (the services card lists inline links), then an arrow text-link. <=991 2 columns (large spans 2); <=767 1 column with 1.5rem gaps. Only on /lms.",
@@ -111,7 +122,10 @@
                 "product.screenshot",
                 "photo.brand",
                 "stock.photo",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "screenshot.placeholder",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
@@ -119,7 +133,10 @@
                     "product.screenshot",
                     "photo.brand",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -307,9 +324,12 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "photo.brand",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

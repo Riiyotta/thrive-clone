@@ -32,9 +32,21 @@
       "scope": "Listed on 5 routes: Case study detail (content).",
       "implementedBy": "src/components/sections/CsContentArticle.jsx"
     },
+    "article.cs-platform-header": {
+      "category": "ARTICLE",
+      "description": "Article header of the case-study-platform template (the page opens here; it carries the H1, so the template has no separate hero): customer logo top-left, serif 3.8rem H1 bottom-left over a radial-masked hero image (min-height 60vh), a static play-video ring icon on the right, then a 4-column row of info cards (1 column at tablet and below): two stat cards, a challenge-tag card and an integrations-chip card, the last stat card carrying a 'See how' anchor link.",
+      "scope": "Listed on 5 routes: Case study detail (platform).",
+      "implementedBy": "src/components/sections/CsPlatformBody.jsx"
+    },
     "article.cs-platform-body": {
       "category": "ARTICLE",
-      "description": "One long section that is the whole case-study-platform template body: an opening block (customer logo top-left, serif H1 bottom-left over a radial-masked hero image, play-video ring icon on the right), a row of 4 info cards (4 columns, 1 column at tablet and below: two stat cards, a challenge-tag card and an integrations-chip card, the last stat card carrying a \"See how\" anchor link), then a two-column body with a sticky left TOC (section titles + Testimonial entry, scroll-spy highlight, sidebar demo card; the sidebar is hidden at 479 and below) beside the article (H2 + rich paragraphs per section, optional inline image), a testimonial card, a serif video heading with a video placeholder and caption, and finally a centred serif CTA heading with a button. Because it carries the page H1, the template has no separate hero section.",
+      "description": "Article body of the case-study-platform template: a two-column layout with a sticky left TOC (section titles + Testimonial entry, scroll-spy highlight, sidebar demo card; the sidebar is hidden at 479 and below) beside the article (H2 + rich paragraphs per chapter, optional inline image), a testimonial card, and a serif video heading with a video placeholder and caption. The page's header (logo, H1, info cards) and closing CTA are separate sections (article.cs-platform-header, conversion.cs-platform-cta).",
+      "scope": "Listed on 5 routes: Case study detail (platform).",
+      "implementedBy": "src/components/sections/CsPlatformBody.jsx"
+    },
+    "conversion.cs-platform-cta": {
+      "category": "CONVERSION",
+      "description": "Closing call to action of the case-study-platform template: a centred serif H2 (text-h2, mob h2-mob, xs h2-xs) whose characters scrub from near-black to white on scroll, then one primary button that rises in (buttons stack at 479 and below).",
       "scope": "Listed on 5 routes: Case study detail (platform).",
       "implementedBy": "src/components/sections/CsPlatformBody.jsx"
     },
@@ -681,7 +693,9 @@
       "implementedBy": "src/pages/content/CaseStudyPlatform.jsx > CaseStudyPlatform",
       "sections": [
         "shell.nav",
+        "article.cs-platform-header",
         "article.cs-platform-body",
+        "conversion.cs-platform-cta",
         "product.capability-slider",
         "conversion.demo-cta",
         "shell.footer"

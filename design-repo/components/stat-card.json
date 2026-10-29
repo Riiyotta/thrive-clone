@@ -1,6 +1,7 @@
 {
   "id": "component.stat-card",
   "kind": "component",
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "name": "Results stat card",
   "composes": [

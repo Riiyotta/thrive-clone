@@ -1,6 +1,7 @@
 {
   "id": "component.badge-row",
   "kind": "component",
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "name": "Rating + award badge row",
   "composes": [

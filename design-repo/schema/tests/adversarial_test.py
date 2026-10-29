@@ -31,6 +31,8 @@ REG = sv.load_registry()
 SECTIONS = REG["sections"]
 TEMPLATES = REG["templates"]["templates"]
 SEVERITY = {r["id"]: r["severity"] for r in REG["graph"]["rules"]}
+with open(os.path.join(REPO, "schema", "pagespec.schema.json"), encoding="utf-8") as _h:
+    PAGESPEC_VERSION = json.load(_h)["properties"]["pageSpecVersion"]["const"]
 
 
 # --------------------------------------------------------------------------
@@ -105,8 +107,14 @@ def synth_control(tid, route=None):
                 continue
             pick = choices[0]
         nodes.append(synth_node(pick["section"], (pick.get("variants") or [None])[0]))
-    return {"pageSpecVersion": "1.0.0", "route": route or tpl["routes"][0], "template": tid,
-            "designSystem": tpl["designSystem"], "theme": tpl["theme"], "nodes": nodes}
+    return {"pageSpecVersion": PAGESPEC_VERSION, "mode": "clone", "route": route or tpl["routes"][0], "template": tid,
+            "designSystem": tpl["designSystem"], "theme": tpl["theme"], "tokens": default_tokens(), "nodes": nodes}
+
+
+def default_tokens():
+    """the first allowed token of every REQUIRED slot (tokens/llm/token-policy.json) -- generic, no per-template code."""
+    slots = REG["tokenPolicy"]["pageSpecTokenSlots"]
+    return {k: v["allow"][0] for k, v in slots.items() if not k.startswith("$") and v["required"]}
 
 
 def control_specs():
@@ -310,7 +318,87 @@ def mutations():
          "lms-demo-platform", lambda s: _first_form(s).update(live=True))
     addt("form endpoint smuggled into the contact form", "SCHEMA",
          "contact-us", lambda s: _first_form(s).update(action="https://forms.example.com"))
+
+    # ---- tokens (TOKEN_*; tokens/llm/token-policy.json) ----
+    T = lambda s: s["tokens"]
+    add("unknown token path", "TOKEN_UNKNOWN", lambda s: T(s).update(surface="semantic.surface.marble"))
+    add("token path from no catalog at all", "TOKEN_UNKNOWN", lambda s: T(s).update(sectionPadding="layout.sectionPadding.huge"))
+    add("raw hex colour in a token slot", "TOKEN_RAW_COLOR", lambda s: T(s).update(surface="#000000"))
+    add("raw rgb() colour in a token slot", "TOKEN_RAW_COLOR", lambda s: T(s).update(text="rgb(245, 246, 255)"))
+    add("CSS colour keyword in a token slot", "TOKEN_RAW_COLOR", lambda s: T(s).update(accent="white"))
+    add("raw hex colour hidden in node content", "TOKEN_RAW_COLOR", lambda s: C(s, "hero.split-visual").update(heading="Learning in #1de9b6 green"))
+    add("arbitrary px spacing in a token slot", "TOKEN_ARBITRARY_SPACING", lambda s: T(s).update(sectionPadding="96px"))
+    add("arbitrary rem gap in a token slot", "TOKEN_ARBITRARY_SPACING", lambda s: T(s).update(gap="1.5rem"))
+    add("calc() length in a token slot", "TOKEN_ARBITRARY_SPACING", lambda s: T(s).update(container="calc(100% - 2rem)"))
+    add("raw CSS length hidden in node content", "TOKEN_ARBITRARY_SPACING", lambda s: C(s, "hero.split-visual").update(heading="Padding of 24px everywhere"))
+    add("unsupported font family name", "TOKEN_UNSUPPORTED_FONT", lambda s: T(s).update(fontBody="Helvetica"))
+    add("unsupported font stack", "TOKEN_UNSUPPORTED_FONT", lambda s: T(s).update(fontHeading="'Playfair Display', serif"))
+    add("non-font token in a font slot", "TOKEN_UNSUPPORTED_FONT", lambda s: T(s).update(fontHeading="fontSize.h1"))
+    add("declared-but-never-rendered font (notGenerationApproved)", "TOKEN_NOT_APPROVED", lambda s: T(s).update(fontHeading="fontFamily.source-serif"))
+    add("real token in the wrong slot (text colour as surface)", "TOKEN_SLOT_MISMATCH", lambda s: T(s).update(surface="semantic.text.primary"))
+    add("real token not allowed in the slot (radius.card for buttons)", "TOKEN_SLOT_MISMATCH", lambda s: T(s).update(buttonRadius="radius.card"))
+    add("content-theme yellow on the dark theme", "TOKEN_THEME_COMBINATION", lambda s: T(s).update(accent="color.content-yellow"))
+    addt("mentoring brand blue on the content theme", "TOKEN_THEME_COMBINATION", "content-catalogue", lambda s: s["tokens"].update(accent="color.brand-blue"))
+    add("tokens object missing", "SCHEMA", lambda s: s.pop("tokens"))
+    add("required token slot missing", "SCHEMA", lambda s: T(s).pop("fontBody"))
+    add("invented token slot", "SCHEMA", lambda s: T(s).update(shadow="elevation.card"))
+
+    # ---- mode (R1) ----
+    add("mode missing", "SCHEMA", lambda s: s.pop("mode"))
+    add("mode outside the closed enum", "SCHEMA", lambda s: s.update(mode="reference"))
+    add("generation mode without a brand object", "SCHEMA", lambda s: s.update(mode="generation"))
+    add("old pageSpecVersion", "SCHEMA", lambda s: s.update(pageSpecVersion="1.0.0"))
+
+    # ---- generation mode (R2): every mutation starts from a CLEAN generation example ----
+    def addg(label, expect, fam, fn):
+        spec = load_generation(fam)
+        fn(spec)
+        out.append((label, expect, spec))
+
+    def G(spec, sid, k=0):
+        return [n for n in spec["nodes"] if n["section"] == sid][k]["content"]
+
+    clone_home = load_example()
+    real_copy = C(clone_home, "hero.split-visual")["subtitle"]
+    addg("source brand in the hero heading", "GENERATION_MODE_BRAND", "home", lambda s: G(s, "hero.split-visual").update(heading="Grow with Nimbus"))
+    addg("source brand with a zero-width joiner", "GENERATION_MODE_BRAND", "home", lambda s: G(s, "hero.split-visual").update(heading="Grow with Nim\u200bbus"))
+    addg("source brand upper-cased", "GENERATION_MODE_BRAND", "home", lambda s: G(s, "hero.split-visual").update(heading="GROW WITH NIMBUS"))
+    addg("original-site brand as the page brand", "GENERATION_MODE_BRAND", "home", lambda s: s["brand"].update(name="Thrive"))
+    addg("source assistant name", "GENERATION_MODE_BRAND", "home", lambda s: G(s, "hero.split-visual").update(heading="Ask Nova anything"))
+    addg("source brand in the route", "GENERATION_MODE_BRAND", "company", lambda s: s.update(route="/company/why-nimbus"))
+    addg("source domain in copy", "GENERATION_MODE_BRAND", "home", lambda s: G(s, "hero.split-visual").update(heading="Visit www.thrivelearning.com today"))
+    addg("non-reserved host in copy", "GENERATION_MODE_URL", "home", lambda s: G(s, "hero.split-visual").update(heading="Visit lumora.com today"))
+    addg("non-reserved e-mail domain", "GENERATION_MODE_URL", "home", lambda s: G(s, "hero.split-visual").update(heading="Write to hello@lumora.io"))
+    addg("CDN host of the original", "GENERATION_MODE_URL", "home", lambda s: G(s, "hero.split-visual").update(heading="Assets on cdn.prod.website-files.com"))
+    addg("clone fictional customer name", "GENERATION_MODE_CUSTOMER", "home", lambda s: G(s, "proof.testimonial")["author"].update(company="Northwind"))
+    addg("real customer name (from the original's case-study slugs)", "GENERATION_MODE_CUSTOMER", "article", lambda s: G(s, "article.cs-platform-header").update(title="How Burger King trains crews"))
+    addg("customer logo role", "GENERATION_MODE_CUSTOMER", "home", lambda s: G(s, "proof.logo-row")["logos"].update(assetRole="logo.customer"))
+    addg("source testimonial person", "GENERATION_MODE_PERSON", "home", lambda s: G(s, "proof.testimonial")["author"].update(name="Jordan Ellis"))
+    addg("real person photo role", "GENERATION_MODE_PERSON", "home", lambda s: G(s, "proof.testimonial")["author"]["avatar"].update(assetRole="photo.person"))
+    addg("product screenshot role", "GENERATION_MODE_SCREENSHOT", "home", lambda s: G(s, "hero.split-visual")["visual"].update(assetRole="product.screenshot"))
+    addg("product video role", "GENERATION_MODE_SCREENSHOT", "home", lambda s: G(s, "story.brand-video")["video"].update(assetRole="product.video"))
+    addg("clone-only stock photo role", "GENERATION_MODE_ASSET", "product-landing", lambda s: _first_media(s, "stock.photo", require_role=True).update(assetRole="stock.photo"))
+    addg("clone stock file as assetRef", "GENERATION_MODE_ASSET", "product-landing", lambda s: _first_media(s, "illustration.generated", require_role=True).update(assetRef="stock/1.jpg"))
+    addg("review badge role", "GENERATION_MODE_ASSET", "home", lambda s: G(s, "hero.split-visual")["reviewBadges"].update(assetRole="badge.review"))
+    addg("source asset file named in alt text", "GENERATION_MODE_ASSET", "home", lambda s: G(s, "hero.split-visual")["visual"].update(alt="logo-volvo.png on white"))
+    addg("verbatim source copy", "GENERATION_MODE_COPY", "home", lambda s: G(s, "hero.split-visual").update(subtitle=real_copy))
+    addg("source copy with curly quotes, dashes and capitals", "GENERATION_MODE_COPY", "home",
+         lambda s: G(s, "hero.split-visual").update(subtitle=real_copy.upper().replace("'", "\u2019").replace(" - ", " \u2014 ")))
+    addg("five-word source run inside original copy", "GENERATION_MODE_COPY", "home",
+         lambda s: G(s, "hero.split-visual").update(subtitle="Fresh words then " + " ".join(real_copy.split()[:6]) + " and more"))
+    addg("source price", "GENERATION_MODE_CLAIM", "conversion", lambda s: G(s, "hero.pricing-calculator").update(heading="Plans from $18,500 a year"))
+    addg("source statistic sentence", "GENERATION_MODE_CLAIM", "home", lambda s: G(s, "proof.results-stats")["cards"][0].update(stat="94%"))
+    addg("source video embed id", "GENERATION_MODE_EMBED", "home", lambda s: G(s, "story.brand-video")["video"].update(alt="watch 27Z_YlmgGAY"))
+    addg("source form portal id", "GENERATION_MODE_EMBED", "home", lambda s: G(s, "hero.split-visual").update(heading="Form 4722527 ready"))
+    addg("source brand CTA", "GENERATION_MODE_CTA", "home", lambda s: G(s, "hero.split-visual").update(heading="See Nimbus in action"))
+    addg("runtime-only section composed into a generation page", "RETRIEVAL_ELIGIBILITY_PINNED", "feature-detail",
+         lambda s: s["nodes"].__setitem__(next(i for i, n in enumerate(s["nodes"]) if n["section"] == "conversion.faq"), synth_node("conversion.faq-empty")))
     return out
+
+
+def load_generation(fam):
+    with open(os.path.join(REPO, "schema", "examples", "generated-%s.pagespec.json" % fam), encoding="utf-8") as h:
+        return json.load(h)
 
 
 def _media_dicts(v):
@@ -368,6 +456,75 @@ def registry_mutations():
 
 
 # --------------------------------------------------------------------------
+# registry pin mutations (availability, retrieval eligibility, taxonomy) and wrapper-gate cases
+# --------------------------------------------------------------------------
+
+def pin_mutations():
+    out = []
+
+    def mut(label, expect, fn):
+        reg = copy.deepcopy(REG)
+        fn(reg)
+        out.append((label, expect, reg))
+
+    A = lambda reg: reg["assets"]["roles"]
+    mut("logo.customer flipped to generation-safe in the registry", "PINNED_AVAILABILITY", lambda r: A(r)["logo.customer"].update(availability="generation-safe"))
+    mut("brand.wordmark flipped to generation-safe (wordmark reuse)", "PINNED_AVAILABILITY", lambda r: A(r)["brand.wordmark"].update(availability="generation-safe"))
+    mut("stock.photo flipped to generation-safe", "PINNED_AVAILABILITY", lambda r: A(r)["stock.photo"].update(availability="generation-safe"))
+    mut("photo.person availability outside the enum", "PINNED_AVAILABILITY", lambda r: A(r)["photo.person"].update(availability="reference-only"))
+    mut("substitute list emptied on a blocked role", "PINNED_AVAILABILITY", lambda r: A(r)["product.screenshot"].update(generationSafeSubstitutes=[]))
+    mut("substitute pointing at a blocked role", "PINNED_AVAILABILITY", lambda r: A(r)["photo.event"].update(generationSafeSubstitutes=["photo.brand"]))
+    mut("new unpinned role added to the registry", "PINNED_AVAILABILITY", lambda r: A(r).update({"logo.partner": dict(A(r)["logo.customer"])}))
+    mut("allowlist copy of availability drifted", "PINNED_AVAILABILITY", lambda r: r["allowlist"]["assetRoles"]["logo.customer"].update(availability="generation-safe"))
+    mut("contract + allowlist flipped together (faq-empty eligible)", "RETRIEVAL_ELIGIBILITY_PINNED",
+        lambda r: (r["sections"]["conversion.faq-empty"].update(retrievalEligible=True), r["allowlist"]["sections"]["conversion.faq-empty"].update(retrievalEligible=True)))
+    mut("allowlist flipped alone (mobile menu drawer eligible)", "RETRIEVAL_ELIGIBILITY_PINNED", lambda r: r["allowlist"]["components"]["mobile-menu-panel"].update(retrievalEligible=True))
+    mut("content section marked ineligible", "RETRIEVAL_ELIGIBILITY_PINNED",
+        lambda r: r["sections"]["hero.platform"].update(retrievalEligible=False, retrievalReason="marked as utility UI by mistake in a registry edit"))
+    mut("ineligible contract with a too-short reason", "RETRIEVAL_ELIGIBILITY_PINNED", lambda r: r["components"]["footer-dropup"].update(retrievalReason="popup"))
+    mut("semantic category rewritten (proof -> product)", "SECTION_TAXONOMY_PINNED", lambda r: r["sections"]["proof.logo-row"]["semantic"].update(category="product"))
+    mut("source id collapsed onto the semantic id", "SECTION_TAXONOMY_PINNED", lambda r: r["sections"]["hero.platform"]["source"].update(id="hero.platform"))
+    return out
+
+
+import importlib.util as _ilu  # noqa: E402
+_spec = _ilu.spec_from_file_location("wrapper_gate", os.path.join(REPO, "extraction", "wrapper_gate.py"))
+WG = _ilu.module_from_spec(_spec)
+_spec.loader.exec_module(WG)
+
+
+def gate_base():
+    with open(os.path.join(REPO, "extraction", "measured-values.json"), encoding="utf-8") as h:
+        heights = json.load(h)["sectionHeights"]
+    with open(os.path.join(REPO, "extraction", "wrapper-whitelist.json"), encoding="utf-8") as h:
+        wl = json.load(h)
+    return heights, wl
+
+
+def gate_cases():
+    out = []
+
+    def case(label, want, fn):
+        h, w = copy.deepcopy(gate_base())
+        fn(h, w)
+        out.append((label, want, h, w))
+
+    def unit(h, tid, sid):
+        return next(u for u in h["templates"][tid]["units"] if sid in u["sections"])
+
+    case("CONTROL: real measurements + reviewed whitelist", "control", lambda h, w: None)
+    case("HERO 1900px (warn only)", "warn", lambda h, w: unit(h, "home", "hero.split-visual").update(heightPx=1900))
+    case("HERO 3100px", "HERO hero.split-visual", lambda h, w: (unit(h, "home", "hero.split-visual").update(heightPx=3100), h["templates"]["home"].update(pageHeightPx=40000)))
+    case("one section holding 70% of its page", "holds", lambda h, w: (unit(h, "pricing", "proof.reviews-grid").update(heightPx=60000), h["templates"]["pricing"].update(pageHeightPx=80000)))
+    case("whitelist entry without a justification", "justification", lambda h, w: w["entries"][0].update(justification="ok"))
+    case("agent reviewer not marked as attestation", "agent reviewer", lambda h, w: w["entries"][0].update(reviewedBy="Claude agent"))
+    case("whitelisted section grew past its cap", "exceeds maxHeightPx", lambda h, w: w["entries"][0].update(maxHeightPx=100))
+    case("stale whitelist entry (no gate error to excuse)", "stale", lambda h, w: w["entries"].append(dict(w["entries"][0], template="home", section="hero.split-visual")))
+    case("missing measurement for a template", "no section-height measurement", lambda h, w: h["templates"].pop("guides"))
+    case("missing measurement for a required node", "has no measurement", lambda h, w: h["templates"]["home"].update(units=[u for u in h["templates"]["home"]["units"] if "proof.logo-row" not in u["sections"]]))
+    case("measured at the wrong viewport", "viewport", lambda h, w: h.update(viewport={"width": 1280, "height": 800}))
+    return out
+
 
 def main():
     failures = []
@@ -377,6 +534,16 @@ def main():
     controls = [("bundled example (/)", load_example())]
     controls += [("family example: " + n, sp) for n, sp in load_examples()]
     controls += control_specs()
+    c1 = load_example()
+    C(c1, "hero.split-visual").update(heading="Grow with Nimbus and Nova")
+    C(c1, "proof.testimonial")["author"].update(name="Jordan Ellis", company="Northwind")
+    controls.append(("clone-mode control: real clone brand / person / customer", c1))
+    c2 = load_generation("home")
+    [n for n in c2["nodes"] if n["section"] == "hero.split-visual"][0]["content"].update(heading="Write to hello@lumora.example")
+    controls.append(("generation control: reserved .example host", c2))
+    c3 = load_generation("conversion")
+    c3["tokens"].update(accent="semantic.accent.primaryHover", gap="space.24", cardRadius="radius.panel")
+    controls.append(("token control: optional slots with allowed tokens", c3))
     for label, spec in controls:
         schema_errors, errors, warnings = run(spec)
         ok = not schema_errors and not errors
@@ -444,7 +611,41 @@ def main():
 
     print()
     print("=" * 78)
-    print("controls: %d | mutations: %d | registry mutations: %d | failures: %d"
+    print("REGISTRY PIN MUTATIONS -- availability / retrieval eligibility / taxonomy (registry_pin_problems)")
+    print("=" * 78)
+    base_pins = sv.registry_pin_problems(REG)
+    print("  %-62s %s" % ("CONTROL: unmutated registry", "PASS" if not base_pins else "FAIL %s" % base_pins[:1]))
+    if base_pins:
+        failures.append("control: registry pins")
+    pins = pin_mutations()
+    for label, expect, reg in pins:
+        got = {r for r, _ in sv.registry_pin_problems(reg)}
+        caught = expect in got
+        print("  %-62s %s" % (label[:62], "rejected [%s]" % expect if caught else "NOT CAUGHT %s" % sorted(got)))
+        if not caught:
+            failures.append("pin mutation not caught: " + label)
+
+    print()
+    print("=" * 78)
+    print("WRAPPER GATE CASES -- extraction/wrapper_gate.py evaluate() (R9)")
+    print("=" * 78)
+    gates = gate_cases()
+    for label, want, heights, wl in gates:
+        errs, warns = WG.evaluate(heights, wl, TEMPLATES)
+        if want == "control":
+            ok = not errs
+        elif want == "warn":
+            ok = not errs and bool(warns) and len(warns) > len(WG.evaluate(*gate_base(), TEMPLATES)[1])
+        else:
+            ok = any(want in e for e in errs)
+        print("  %-62s %s" % (label[:62], ("PASS" if want == "control" else "caught") if ok else "NOT CAUGHT %s" % errs[:1]))
+        if not ok:
+            failures.append("gate case: " + label)
+    regs = regs + pins + gates
+
+    print()
+    print("=" * 78)
+    print("controls: %d | mutations: %d | registry/pin/gate mutations: %d | failures: %d"
           % (len(controls) + 1, len(muts), len(regs), len(failures)))
     if failures:
         print("RESULT: FAIL")

@@ -4,6 +4,17 @@
   "name": "Contact / requirements form",
   "purpose": "Collect a sales enquiry or tender from a prospect comparing platforms, with reassurance copy and review badges beside a (static) form.",
   "category": "conversion",
+  "source": {
+    "id": "ContactForm.section[data-section=contact-form]",
+    "tag": "section",
+    "file": "src/components/sections/ContactForm.jsx",
+    "lines": "22-116"
+  },
+  "semantic": {
+    "id": "conversion.contact-form",
+    "category": "conversion"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/ContactForm.jsx",
   "description": "Legacy green-theme bordered block in container-large (/contact-us): a 40% / 60% grid (one column <=767, gap 2rem). Left: 1.75rem H3, two grey paragraphs separated by a blank line, and a row of three review badges. Right: a static HubSpot-footprint form (fixed 300x1020px, white Helvetica labels): intro line, four text inputs, an employee-count select, a file input, a requirements textarea, an empty captcha-sized box and a Submit button. Submit is prevented; nothing is sent.",
@@ -35,13 +46,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "badge.review"
+          "badge.review",
+          "badge.placeholder",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "badge.review"
+              "badge.review",
+              "badge.placeholder",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -280,6 +295,8 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "badge.placeholder",
     "badge.review",
     "placeholder.neutral"
   ]

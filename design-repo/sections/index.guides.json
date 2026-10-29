@@ -4,6 +4,17 @@
   "name": "Guides index",
   "purpose": "Opens the guides page and offers every downloadable guide: a headline with an email sign-up, one featured guide and a grid of the rest.",
   "category": "index",
+  "source": {
+    "id": "GuidesIndex.div[data-section=guides-index]",
+    "tag": "div",
+    "file": "src/components/sections/GuidesIndex.jsx",
+    "lines": "78-133"
+  },
+  "semantic": {
+    "id": "index.guides",
+    "category": "index"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/GuidesIndex.jsx",
   "description": "Oldest-system block (fixed 16px root) carrying the page H1: centred serif H1, one line of intro and a static email sign-up row; then a featured guide card (#1b1b1b, 550px tall, title + text + Download button on the left half, guide cover on the right, under a 65% black blurred layer); then a 3-column grid (2 at 767, 1 at 479) of guides, each a cover image, 1.875rem title, short text and a Download button.",
@@ -78,14 +89,20 @@
             "x-allowedRoles": [
               "placeholder.neutral",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
                   "product.screenshot",
-                  "stock.photo"
+                  "stock.photo",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -142,14 +159,20 @@
               "x-allowedRoles": [
                 "placeholder.neutral",
                 "product.screenshot",
-                "stock.photo"
+                "stock.photo",
+                "screenshot.placeholder",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "placeholder.neutral",
                     "product.screenshot",
-                    "stock.photo"
+                    "stock.photo",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -439,8 +462,11 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

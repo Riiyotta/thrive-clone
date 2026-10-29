@@ -4,6 +4,17 @@
   "name": "Split-layout tabs with fading media pane",
   "purpose": "Shows how one product serves several teams or use cases: pick a team on one side, see its visual and a short pitch with a demo CTA.",
   "category": "product",
+  "source": {
+    "id": "SplitTabs.section[data-section=split-tabs]",
+    "tag": "section",
+    "file": "src/components/sections/SplitTabs.jsx",
+    "lines": "90-177"
+  },
+  "semantic": {
+    "id": "product.split-tabs",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/SplitTabs.jsx",
   "description": "Centred header (H2 + grey intro), then a 37rem-tall split: a 40% column of large text tabs (inactive dimmed, current white with the green tab-chip and 2rem indent, hairline rule under each) above a per-tab paragraph + button, and a 55% media pane on the opposite side that cross-fades per tab. `variant` (same content shape): 'base' (/nova; tabs left, 16:9 video pane right, 1-line H2 with italic phrase, 16px intro) and 'reversed' (/lms/mentoring-software; pane left, tabs right, image pane, 2-line H2, 18px intro, blue 'brand' buttons). <=767 stacks: tabs become a horizontally scrolling row, pane 60dvh, copy below.",
@@ -101,7 +112,10 @@
                 "product.video",
                 "product.screenshot",
                 "stock.photo",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "screenshot.placeholder",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
@@ -109,7 +123,10 @@
                     "product.video",
                     "product.screenshot",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -404,9 +421,12 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.screenshot",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "variants": [

@@ -1,6 +1,7 @@
 {
   "id": "component.footer-link-column",
   "kind": "component",
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "name": "Footer link column",
   "composes": [

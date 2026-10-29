@@ -2,7 +2,7 @@
 
 Source: Local clone of https://www.thrivelearning.com/ -- '/' (src/pages/Home.jsx) + the 57 routes in src/routes.js
 Status: **measured-from-codebase** · production approved: **false**
-58 routes · 33 templates · 94 unique sections
+58 routes · 33 templates · 96 unique sections
 
 > Generated from `ia.json` by `build.mjs`. Edit the JSON, not this file.
 
@@ -80,7 +80,9 @@ component library or stays local to its page.
 | `product.capability-slider` | PRODUCT | 2 | 6 | `src/components/EnterpriseSlider.jsx` | Listed on 6 routes: Marketing homepage; Case study detail (platform). |
 | `proof.flip-logos` | PROOF | 4 | 5 | `src/components/sections/FlipLogos.jsx` | Listed on 5 routes: Content catalogue (topics / sector suites); Impact (legacy layout, pink theme); Content service (legacy layout); Custom content. |
 | `article.cs-content-article` | ARTICLE | 1 | 5 | `src/components/sections/CsContentArticle.jsx` | Listed on 5 routes: Case study detail (content). |
+| `article.cs-platform-header` | ARTICLE | 1 | 5 | `src/components/sections/CsPlatformBody.jsx` | Listed on 5 routes: Case study detail (platform). |
 | `article.cs-platform-body` | ARTICLE | 1 | 5 | `src/components/sections/CsPlatformBody.jsx` | Listed on 5 routes: Case study detail (platform). |
+| `conversion.cs-platform-cta` | CONVERSION | 1 | 5 | `src/components/sections/CsPlatformBody.jsx` | Listed on 5 routes: Case study detail (platform). |
 | `index.cs-content-related` | INDEX | 1 | 5 | `src/components/sections/CsContentRelated.jsx` | Listed on 5 routes: Case study detail (content). |
 | `proof.cs-content-stats` | PROOF | 1 | 5 | `src/components/sections/CsContentStats.jsx` | Listed on 5 routes: Case study detail (content). |
 | `product.autotabs-group` | PRODUCT | 4 | 4 | `src/components/sections/AutotabsGroup.jsx` | Listed on 4 routes: Platform overview; Segment landing: enterprise; AI agent product page; Mentoring software product page. |
@@ -156,7 +158,7 @@ component library or stays local to its page.
 
 **41 shared sections** appear in more than one template and belong in a component library.
 
-**53 single-use sections** appear in exactly one template. Building these
+**55 single-use sections** appear in exactly one template. Building these
 as "reusable" components up front would be speculative — keep them page-local
 until a second caller actually appears.
 
@@ -211,10 +213,12 @@ until a second caller actually appears.
 | # | category | section | |
 |---:|---|---|---|
 | 1 | SHELL | `shell.nav` | shared ×33 |
-| 2 | ARTICLE | `article.cs-platform-body` | page-local |
-| 3 | PRODUCT | `product.capability-slider` | shared ×2 |
-| 4 | CONVERSION | `conversion.demo-cta` | shared ×31 |
-| 5 | SHELL | `shell.footer` | shared ×33 |
+| 2 | ARTICLE | `article.cs-platform-header` | page-local |
+| 3 | ARTICLE | `article.cs-platform-body` | page-local |
+| 4 | CONVERSION | `conversion.cs-platform-cta` | page-local |
+| 5 | PRODUCT | `product.capability-slider` | shared ×2 |
+| 6 | CONVERSION | `conversion.demo-cta` | shared ×31 |
+| 7 | SHELL | `shell.footer` | shared ×33 |
 
 ### Case study detail (content) — `template.case-study-content`
 
@@ -1021,6 +1025,10 @@ _Editorial blocks: statements, scroll quote, videos, marquees, split image/text 
 
 _Blocks whose job is to capture a demo/contact request, answer pre-sale objections or show pricing._
 
+**`conversion.cs-platform-cta`** — Closing call to action of the case-study-platform template: a centred serif H2 (text-h2, mob h2-mob, xs h2-xs) whose characters scrub from near-black to white on scroll, then one primary button that rises in (buttons stack at 479 and below).
+
+· Listed on 5 routes: Case study detail (platform). · appears on 5 routes · implemented by `src/components/sections/CsPlatformBody.jsx`
+
 **`conversion.contact-form`** — Legacy green-theme bordered block in container-large (/contact-us): a 40% / 60% grid (one column <=767, gap 2rem). Left: 1.75rem H3, two grey paragraphs separated by a blank line, and a row of three review badges. Right: a static HubSpot-footprint form (fixed 300x1020px, white Helvetica labels): intro line, four text inputs, an employee-count select, a file input, a requirements textarea, an empty captcha-sized box and a Submit button. Submit is prevented; nothing is sent.
 
 · Listed on 1 route: Contact. · appears on 1 routes · implemented by `src/components/sections/ContactForm.jsx`
@@ -1125,6 +1133,10 @@ _Long-form detail bodies (case-study articles)._
 
 · Listed on 5 routes: Case study detail (content). · appears on 5 routes · implemented by `src/components/sections/CsContentArticle.jsx`
 
-**`article.cs-platform-body`** — One long section that is the whole case-study-platform template body: an opening block (customer logo top-left, serif H1 bottom-left over a radial-masked hero image, play-video ring icon on the right), a row of 4 info cards (4 columns, 1 column at tablet and below: two stat cards, a challenge-tag card and an integrations-chip card, the last stat card carrying a "See how" anchor link), then a two-column body with a sticky left TOC (section titles + Testimonial entry, scroll-spy highlight, sidebar demo card; the sidebar is hidden at 479 and below) beside the article (H2 + rich paragraphs per section, optional inline image), a testimonial card, a serif video heading with a video placeholder and caption, and finally a centred serif CTA heading with a button. Because it carries the page H1, the template has no separate hero section.
+**`article.cs-platform-header`** — Article header of the case-study-platform template (the page opens here; it carries the H1, so the template has no separate hero): customer logo top-left, serif 3.8rem H1 bottom-left over a radial-masked hero image (min-height 60vh), a static play-video ring icon on the right, then a 4-column row of info cards (1 column at tablet and below): two stat cards, a challenge-tag card and an integrations-chip card, the last stat card carrying a 'See how' anchor link.
+
+· Listed on 5 routes: Case study detail (platform). · appears on 5 routes · implemented by `src/components/sections/CsPlatformBody.jsx`
+
+**`article.cs-platform-body`** — Article body of the case-study-platform template: a two-column layout with a sticky left TOC (section titles + Testimonial entry, scroll-spy highlight, sidebar demo card; the sidebar is hidden at 479 and below) beside the article (H2 + rich paragraphs per chapter, optional inline image), a testimonial card, and a serif video heading with a video placeholder and caption. The page's header (logo, H1, info cards) and closing CTA are separate sections (article.cs-platform-header, conversion.cs-platform-cta).
 
 · Listed on 5 routes: Case study detail (platform). · appears on 5 routes · implemented by `src/components/sections/CsPlatformBody.jsx`

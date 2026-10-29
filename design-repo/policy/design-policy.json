@@ -1,0 +1,48 @@
+{
+  "policyId": "n0-saas-design-constraints-common",
+  "policyVersion": "0.1.0",
+  "commonIrVersion": "0.5",
+  "enforcementMode": "hard-and-soft",
+  "title": "Binding of the Nimbus (Thrive clone) design-repo to the N0 common SaaS design-constraint policy",
+  "classification": {
+    "productCategory": "saas",
+    "productDomain": "learning-and-development-platform (LMS / L&D software)",
+    "marketModel": "B2B subscription software sold sales-led to organisations: annual plans, per-learner pricing brackets, demo booking, segment pages by company size, integrations and admin/reporting features",
+    "isSaaS": true,
+    "surfaces": ["marketing-site", "product-feature-pages", "pricing", "demo-booking", "case-studies", "resources-index", "company"],
+    "audiences": ["L&D and HR leaders", "people-technology and IT buyers", "small, mid-market and enterprise organisations"],
+    "decision": "B2B SaaS. The clone sells a learning platform to organisations: per-learner pricing brackets and annual plans, a demo-booking flow instead of self-serve sign-up, landing pages per company size (small business, corporate, enterprise), an integrations directory and admin/analytics/dashboard features. Testimonials come from job titles such as 'Global Head of Learning'. These are exactly the constructs the common SaaS policy assumes.",
+    "evidence": [
+      {"cite": "src/routes.js:7-16", "fact": "routes /lms/small-business, /lms/corporate-lms, /lms/enterprise, /lms/integrations, /lms/demo-platform and /pricing: segment pages by company size, integrations directory, demo booking, pricing"},
+      {"cite": "src/components/sections/PricingHero.jsx:290-293", "fact": "pricing calculator: 'Number of learners' bracket select (per-learner B2B pricing)"},
+      {"cite": "src/components/sections/PricingProLegacy.jsx:33-34", "fact": "plans 'Standard' $18,500 and 'Standard+' $23,500 'Per year' (annual subscription tiers)"},
+      {"cite": "src/components/Nav.jsx:393-394", "fact": "global nav CTA 'Book a demo' linking to /lms/demo-platform (sales-led acquisition, no self-serve sign-up)"},
+      {"cite": "src/pages/features/featureDetailData.js:71-80", "fact": "admin panel (users, permissions, enrolments at any scale) and dashboards/reporting features"},
+      {"cite": "src/components/sections/DemoHero.jsx:38-38", "fact": "testimonial from a 'Global Head of Learning' (organisational buyer)"}
+    ],
+    "originalSiteNote": "The original (thrivelearning.com, a real company; the saved page's title reads 'Learning and Development Platform | L&D Software | Thrive') is an L&D SaaS vendor; the clone replaces its brand with the placeholder Nimbus.",
+    "consideredAlternative": "consumer-app / marketplace: rejected. Nothing in the clone sells to individual consumers or matches two sides of a marketplace; every surface addresses organisations buying software seats."
+  },
+  "generationRules": [
+    "Pages are drawn only from the 33 templates (7 families) and 96 section contracts of this design-repo; nothing the source lacks (self-serve checkout, app-store download, consumer sign-up, changelog) may be invented.",
+    "Pricing pages keep the real structure (learner-bracket calculator, plan cards, one primary demo CTA); in mode=generation every price, bracket and figure is original (GENERATION_MODE_CLAIM).",
+    "Demo and contact forms stay static placeholders with no endpoint (DEMO_FORM_STAYS_STATIC).",
+    "mode=generation pages carry no source brand (Nimbus, Nova, Thrive, Kiki), domain, CTA, copy, people, customers, screenshots, embeds or proprietary assets (GENERATION_MODE_* rules; assets/asset-roles.json availability, pinned in code).",
+    "PageSpecs use approved token paths only (tokens/llm/token-policy.json, TOKEN_* rules)."
+  ],
+  "enforcedBy": [
+    "schema/pagespec.schema.json",
+    "schema/semantic_validate.py",
+    "schema/source-identity.json",
+    "assets/asset-roles.json",
+    "tokens/llm/token-policy.json",
+    "compatibility/graph.json",
+    "policy/design-policy.json"
+  ],
+  "contentHashRule": "registry.manifest.json designPolicy.contentHash = 'sha256:' + sha256 over, for each enforcedBy path in this order, the UTF-8 path, a newline, the file bytes and a newline -- with policy/design-policy.json itself hashed as written (it contains no hash). extraction/verify_all.py (design-policy) recomputes it.",
+  "approval": {
+    "policyDecision": "defined-pending-architecture-review",
+    "architectureDecisionRecorded": false,
+    "note": "The SaaS classification was made by an agent from the evidence above (agent attestation, not a human sign-off). A human architecture owner must ratify the binding."
+  }
+}

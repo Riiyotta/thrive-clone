@@ -4,6 +4,17 @@
   "name": "Blog index header, featured post and subscribe callout",
   "purpose": "Open the blog index with its H1, spotlight the latest post and capture newsletter interest (static form) above the filterable list.",
   "category": "index",
+  "source": {
+    "id": "BlogFeatured.section[data-section=blog-featured]",
+    "tag": "section",
+    "file": "src/components/sections/BlogFeatured.jsx",
+    "lines": "72-114"
+  },
+  "semantic": {
+    "id": "index.blog-featured",
+    "category": "index"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/BlogFeatured.jsx",
   "description": "Legacy 'green' styling inside side hairlines (/resources/blog-and-news): (1) page header row with eyebrow tag, serif 3.8rem H1 and 20px lead; (2) a featured-post link card, 0.8fr image | 1fr content (H2-sized title, grey excerpt, 'Written by' avatar + author, date and read-time tags), one column <=767 and meta row reversed <=479; (3) a #001811 subscribe callout with a heading, sub line and a static email field + button (no submission). The SubscribeCallout part is also exported and reused by EventsUpcoming.",
@@ -73,7 +84,10 @@
               "placeholder.neutral",
               "photo.brand",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "illustration.generated",
+              "screenshot.placeholder",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
@@ -81,7 +95,10 @@
                   "placeholder.neutral",
                   "photo.brand",
                   "product.screenshot",
-                  "stock.photo"
+                  "stock.photo",
+                  "illustration.generated",
+                  "screenshot.placeholder",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -111,13 +128,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "photo.person"
+                  "photo.person",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -458,10 +479,14 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
+    "person.fictional",
     "photo.brand",
     "photo.person",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

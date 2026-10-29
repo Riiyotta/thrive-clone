@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "note": "Reviewed exceptions to extraction/wrapper_gate.py. Each entry excuses exactly one (template, section) gate error; the gate still warns on it, fails if the entry no longer matches an error (stale) or if the measured height exceeds maxHeightPx (over cap). reviewedBy names who reviewed it; an agent review is an agent attestation, never a human sign-off.",
+  "entries": [
+    {
+      "template": "events-webinars",
+      "section": "index.events-past",
+      "maxHeightPx": 15000,
+      "measuredHeightPx": 13777,
+      "reviewedBy": "Claude (design-repo extraction agent) -- agent attestation, not a human sign-off",
+      "justification": "index.events-past is the past-events archive: one filterable grid of 52 repeated event cards (src/components/sections/EventsFilter.jsx:20 DEFAULT_ITEMS length 52). It is an index listing, not a whole-page wrapper or an article; its height scales with the number of archived events, so it legitimately holds most of /resources/events-webinars (79% at 1440px). Splitting it would cut one listing into arbitrary chunks."
+    },
+    {
+      "template": "blog-and-news",
+      "section": "index.blog-filter",
+      "maxHeightPx": 6500,
+      "measuredHeightPx": 5209,
+      "reviewedBy": "Claude (design-repo extraction agent) -- agent attestation, not a human sign-off",
+      "justification": "index.blog-filter is the filterable blog/news post grid (src/components/sections/BlogFilter.jsx): an index of repeated post cards, not a whole-page wrapper or an article body. It holds 65% of /resources/blog-and-news at 1440px because the listing is long; its height tracks the number of posts."
+    },
+    {
+      "template": "lms-glossary",
+      "section": "index.glossary",
+      "maxHeightPx": 6000,
+      "measuredHeightPx": 4915,
+      "reviewedBy": "Claude (design-repo extraction agent) -- agent attestation, not a human sign-off",
+      "justification": "index.glossary is the A-Z glossary term index (src/components/sections/GlossaryIndex.jsx): one listing of repeated term rows grouped by letter, not a whole-page wrapper or a prose article. It holds 68% of /resources/lms-glossary at 1440px because the term list is long."
+    }
+  ]
+}

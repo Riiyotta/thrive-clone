@@ -4,6 +4,17 @@
   "name": "AI assistant intro + drag/tab feature carousel",
   "purpose": "Introduce the built-in AI assistant (placeholder name 'Nova') and let visitors flip through its jobs via tabs or drag.",
   "category": "product",
+  "source": {
+    "id": "KikiTabs.section[data-section=kiki]",
+    "tag": "section",
+    "file": "src/components/KikiTabs.jsx",
+    "lines": "166-225"
+  },
+  "semantic": {
+    "id": "product.assistant-tabs",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/KikiTabs.jsx",
   "content": {
@@ -93,14 +104,20 @@
                   "x-allowedRoles": [
                     "product.video",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "product.video",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -273,14 +290,20 @@
                   "x-allowedRoles": [
                     "product.screenshot",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "product.screenshot",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -429,14 +452,20 @@
                   "x-allowedRoles": [
                     "product.video",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "product.video",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -595,9 +624,12 @@
     }
   ],
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.screenshot",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "composes": [
@@ -644,7 +676,7 @@
     "/lms/features/spaces",
     "/lms/small-business"
   ],
-  "measuredFrom": "src/components/KikiTabs.jsx:41-140",
+  "measuredFrom": "src/components/KikiTabs.jsx:166-225",
   "iaSectionId": "product.assistant-tabs",
   "specMeasuredFrom": "CLONE_SPEC.md:252-290",
   "subpageUsage": "Same KikiTabs component as the homepage; subpages switch its `media` prop and pass their own `header` node (or null) and tabs. 'image-slides' (media=\"image\"): a row of 2-3 tab buttons over a looping one-up slider of 40rem image slides (copy + primary button in a header row, product screenshot below); used on /lms (first instance, header null), /lms/small-business (eyebrow + split heading/intro header) and the 15 non-empty /lms/features/* routes (explore header: H2 + 'See every feature' button, slides with plain text + 'Learn more'). 'video-slides' (media=\"video\", default): five tab buttons over 32.5rem slides with inline white/grey copy and a 1:1 video slot bottom-right; used once on /lms under a centred Nova header. The header JSX lives in each page file; it is modelled here as an optional header object. Tabs wrap/scroll at <=767 and the slide copy/button row stacks at <=479 (<=767 on feature routes).",

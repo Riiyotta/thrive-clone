@@ -4,6 +4,17 @@
   "name": "Platform case study filter grid",
   "purpose": "Lets a visitor narrow the platform case studies by industry, use case and company size and pick a story from the matching cards.",
   "category": "index",
+  "source": {
+    "id": "CsFilterGrid.section[data-section=cs-filter-grid]",
+    "tag": "section",
+    "file": "src/components/sections/CsFilterGrid.jsx",
+    "lines": "131-202"
+  },
+  "semantic": {
+    "id": "index.cs-filter-grid",
+    "category": "index"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/CsFilterGrid.jsx",
   "description": "Dark-theme block: left-aligned H2, then a filter bar (\"All\" reset + three click-open checkbox dropdowns with two-column option lists; OR within a dropdown, AND across them; the button shows the ticked values) above a 3-column grid (2 at 991 and below, 1 at 767 and below) of rounded case-study cards with a customer logo and a two-line headline. Shows an empty-state line when no card matches. On /case-studies/lms the bar stays in flow (stickyBar false).",
@@ -61,13 +72,17 @@
               "additionalProperties": false,
               "x-allowedRoles": [
                 "placeholder.neutral",
-                "logo.customer"
+                "logo.customer",
+                "logo.placeholderCompany",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "placeholder.neutral",
-                    "logo.customer"
+                    "logo.customer",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -387,7 +402,9 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
     "logo.customer",
+    "logo.placeholderCompany",
     "placeholder.neutral"
   ]
 }

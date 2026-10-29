@@ -4,6 +4,17 @@
   "name": "Company news",
   "purpose": "Shows the company is active and growing by surfacing one featured news story and a short list of recent headlines.",
   "category": "story",
+  "source": {
+    "id": "CompanyNews.section[data-section=company-news]",
+    "tag": "section",
+    "file": "src/components/sections/CompanyNews.jsx",
+    "lines": "36-98"
+  },
+  "semantic": {
+    "id": "story.company-news",
+    "category": "story"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/CompanyNews.jsx",
   "description": "Left-aligned header (green-chip eyebrow, H2, one-line lead), then a 0.6fr / 1fr grid (one column <=767): a featured news card (3:2 image, serif title, grey summary, faded date + read-time meta) beside a rounded list of four headline rows separated by hairlines. Card and rows are links whose background lightens on hover. Used once, on /company.",
@@ -40,7 +51,10 @@
               "photo.brand",
               "photo.event",
               "photo.person",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "illustration.generated",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
@@ -48,7 +62,10 @@
                   "photo.brand",
                   "photo.event",
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "illustration.generated",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -308,6 +325,9 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
+    "person.fictional",
     "photo.brand",
     "photo.event",
     "photo.person",

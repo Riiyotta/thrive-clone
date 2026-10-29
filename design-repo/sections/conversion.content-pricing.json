@@ -4,6 +4,17 @@
   "name": "Content library pricing block",
   "purpose": "Sell the content library add-on: explain what is included and let the visitor estimate a price for the packs they want before booking a demo.",
   "category": "conversion",
+  "source": {
+    "id": "ContentPricing.section[data-section=content-pricing]",
+    "tag": "section",
+    "file": "src/components/sections/ContentPricing.jsx",
+    "lines": "119-202"
+  },
+  "semantic": {
+    "id": "conversion.content-pricing",
+    "category": "conversion"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/ContentPricing.jsx",
   "description": "Two-column grid (1.25fr / 1fr, gap 6rem; one column <=767). Left: yellow-chip eyebrow, H1 at h2 scale, grey intro and three independently toggling accordion cards (question + optional bold lead + answer). Right: a surface-2 content plan card with eyebrow, lead line, a static learners select, a question, two custom checkbox tiles (core library / sector packs), a computed placeholder price with a currency select, a primary CTA, and a yellow-tick feature list; under the card an outlined box runs a vertical testimonial ticker (logo, italic quote, avatar, name, role). Nothing submits: the checkboxes and selects only recompute the on-page placeholder price.",
@@ -156,13 +167,17 @@
               "additionalProperties": false,
               "x-allowedRoles": [
                 "placeholder.neutral",
-                "logo.customer"
+                "logo.customer",
+                "logo.placeholderCompany",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "placeholder.neutral",
-                    "logo.customer"
+                    "logo.customer",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -211,13 +226,17 @@
               "additionalProperties": false,
               "x-allowedRoles": [
                 "placeholder.neutral",
-                "photo.person"
+                "photo.person",
+                "person.fictional",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "placeholder.neutral",
-                    "photo.person"
+                    "photo.person",
+                    "person.fictional",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -468,7 +487,10 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
     "logo.customer",
+    "logo.placeholderCompany",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral"
   ]

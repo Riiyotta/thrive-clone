@@ -4,6 +4,17 @@
   "name": "Catalogue hero card (copy | media)",
   "purpose": "Open a content-catalogue page with an eyebrow, H1, short pitch and tour CTA beside a large image or video.",
   "category": "hero",
+  "source": {
+    "id": "HeaderGridCard.section[data-section=header-grid-card]",
+    "tag": "section",
+    "file": "src/components/sections/HeaderGridCard.jsx",
+    "lines": "32-67"
+  },
+  "semantic": {
+    "id": "hero.header-grid-card",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/HeaderGridCard.jsx",
   "description": "Legacy content ('yellow') theme, two hairline-framed grid cells (one column <=767): left card with a dark eyebrow pill, serif 3rem/1.1 H1 (2rem <=479), grey paragraph and a yellow pill button; right cell is media. One component with `variant`: 'topics' (/content/topics) shows a 923:600 header image (3:2 <=991); 'suites' (/content/sector-suites) shows a 500px background-video slot. Content shape is identical.",
@@ -50,7 +61,10 @@
           "placeholder.neutral",
           "product.screenshot",
           "product.video",
-          "stock.photo"
+          "stock.photo",
+          "screenshot.placeholder",
+          "illustration.generated",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
@@ -58,7 +72,10 @@
               "placeholder.neutral",
               "product.screenshot",
               "product.video",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -272,9 +289,12 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.screenshot",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "variants": [

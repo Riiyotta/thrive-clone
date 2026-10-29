@@ -4,6 +4,17 @@
   "name": "Two alternating feature rows",
   "purpose": "Makes two big differentiating claims, each argued in a paragraph and backed by a customer quote beside a large image.",
   "category": "product",
+  "source": {
+    "id": "TwoColFeatures.section[data-section=two-col-features]",
+    "tag": "section",
+    "file": "src/components/sections/TwoColFeatures.jsx",
+    "lines": "204-245"
+  },
+  "semantic": {
+    "id": "product.two-col-features",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/TwoColFeatures.jsx",
   "description": "Two alternating rows inside container-medium/large: row 1 text left + square image right, row 2 image left + text right (stacking below 991, image first on row 2). Each text column holds a serif H3-size heading (56/48/40/32px), an 18px grey paragraph (can contain inline links and paragraph breaks) and a translucent quote card (italic quote, 2.5rem avatar, bold name, role with optional linked org). `preset` selects default copy and spacing per route: company (/company), corporate (/lms/corporate-lms, row 1 puts the heading after the quote), enterprise (/lms/enterprise, no reveal motion).",
@@ -108,13 +119,17 @@
               "additionalProperties": false,
               "x-allowedRoles": [
                 "photo.person",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "person.fictional",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "photo.person",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "person.fictional",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -144,14 +159,20 @@
               "x-allowedRoles": [
                 "photo.person",
                 "product.screenshot",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "person.fictional",
+                "screenshot.placeholder",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "photo.person",
                     "product.screenshot",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "person.fictional",
+                    "screenshot.placeholder",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -431,8 +452,11 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral",
-    "product.screenshot"
+    "product.screenshot",
+    "screenshot.placeholder"
   ]
 }

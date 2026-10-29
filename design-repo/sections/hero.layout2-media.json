@@ -4,6 +4,17 @@
   "name": "Full-bleed media card header",
   "purpose": "Open (or, on /company, punctuate) a page with a cinematic full-bleed image/video card carrying the heading and CTA bottom-left.",
   "category": "hero",
+  "source": {
+    "id": "Layout2Hero.section[data-section=layout2-hero]",
+    "tag": "section",
+    "file": "src/components/sections/Layout2Hero.jsx",
+    "lines": "128-144"
+  },
+  "semantic": {
+    "id": "hero.layout2-media",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/Layout2Hero.jsx",
   "description": "A rounded media card (min-h 42rem, p 2.5rem; 30rem / 1.5rem <=767) with media behind a transparent-to-black gradient and bottom-aligned content, framed by legacy hairlines. One component with `variant`: 'impact' (/lms/impact; logo + H1 + para, CTA right, top border), 'service' (/content/service; logo + H1 + para + CTA below), 'case-study' (/case-studies-contents/customer-6..10; customer logo + H1 max 47rem + decorative play button), 'company' (/company, mid-page before the FAQ; no hairlines, eyebrow chip + H2 + para + primary Button) and 'events' (/resources/events-webinars; H1 + CTA over a background-video slot).",
@@ -31,7 +42,10 @@
               "placeholder.neutral",
               "photo.brand",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "illustration.generated",
+              "screenshot.placeholder",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
@@ -39,7 +53,10 @@
                   "placeholder.neutral",
                   "photo.brand",
                   "product.screenshot",
-                  "stock.photo"
+                  "stock.photo",
+                  "illustration.generated",
+                  "screenshot.placeholder",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -69,13 +86,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "stock.photo",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -153,7 +174,10 @@
               "placeholder.neutral",
               "photo.brand",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "illustration.generated",
+              "screenshot.placeholder",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
@@ -161,7 +185,10 @@
                   "placeholder.neutral",
                   "photo.brand",
                   "product.screenshot",
-                  "stock.photo"
+                  "stock.photo",
+                  "illustration.generated",
+                  "screenshot.placeholder",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -191,13 +218,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "stock.photo",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -274,7 +305,10 @@
               "placeholder.neutral",
               "photo.brand",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "illustration.generated",
+              "screenshot.placeholder",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
@@ -282,7 +316,10 @@
                   "placeholder.neutral",
                   "photo.brand",
                   "product.screenshot",
-                  "stock.photo"
+                  "stock.photo",
+                  "illustration.generated",
+                  "screenshot.placeholder",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -312,13 +349,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "logo.customer"
+              "logo.customer",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "logo.customer"
+                  "logo.customer",
+                  "logo.placeholderCompany",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -381,7 +422,10 @@
               "placeholder.neutral",
               "photo.brand",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "illustration.generated",
+              "screenshot.placeholder",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
@@ -389,7 +433,10 @@
                   "placeholder.neutral",
                   "photo.brand",
                   "product.screenshot",
-                  "stock.photo"
+                  "stock.photo",
+                  "illustration.generated",
+                  "screenshot.placeholder",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -474,7 +521,10 @@
               "placeholder.neutral",
               "product.video",
               "photo.event",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
@@ -482,7 +532,10 @@
                   "placeholder.neutral",
                   "product.video",
                   "photo.event",
-                  "stock.photo"
+                  "stock.photo",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -775,12 +828,16 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "logo.customer",
+    "logo.placeholderCompany",
     "photo.brand",
     "photo.event",
     "placeholder.neutral",
     "product.screenshot",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "variants": [

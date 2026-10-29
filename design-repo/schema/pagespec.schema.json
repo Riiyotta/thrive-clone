@@ -2,15 +2,17 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://design-repo.local/thrive-clone/pagespec.schema.json",
   "title": "Nimbus (thrive clone) PageSpec",
-  "description": "The machine contract for a generated page. Closed template enum (33 templates), closed section enum (94 sections), closed assetRole enum, closed motion object, additionalProperties:false everywhere. Structural rules JSON Schema cannot express live in compatibility/graph.json and are enforced by schema/semantic_validate.py -- a PageSpec is valid only if it passes BOTH.",
+  "description": "The machine contract for a generated page. Closed template enum (33 templates), closed section enum (94 sections), closed mode enum (clone | generation), closed token slots, closed assetRole enum, closed motion object, additionalProperties:false everywhere. Structural rules JSON Schema cannot express live in compatibility/graph.json and are enforced by schema/semantic_validate.py -- a PageSpec is valid only if it passes BOTH.",
   "type": "object",
   "additionalProperties": false,
   "required": [
     "pageSpecVersion",
+    "mode",
     "route",
     "template",
     "designSystem",
     "theme",
+    "tokens",
     "nodes"
   ],
   "x-assetRoleEnum": [
@@ -25,7 +27,16 @@
     "placeholder.neutral",
     "product.screenshot",
     "product.video",
-    "stock.photo"
+    "stock.photo",
+    "asset.userSupplied",
+    "illustration.generated",
+    "screenshot.placeholder",
+    "person.fictional",
+    "logo.placeholderCompany",
+    "badge.placeholder",
+    "brand.placeholderMark",
+    "url.placeholder",
+    "copy.original"
   ],
   "x-pinnedAssetPolicies": {
     "logo.customer": "must-not-reuse",
@@ -41,7 +52,15 @@
   },
   "properties": {
     "pageSpecVersion": {
-      "const": "1.0.0"
+      "const": "2.0.0",
+      "description": "2.0.0 adds the required mode (clone | generation), the required closed `tokens` slots and the optional `brand` object (required in generation mode)."
+    },
+    "mode": {
+      "enum": [
+        "clone",
+        "generation"
+      ],
+      "description": "clone = a faithful page of this clone (its own placeholder brand Nimbus/Nova, its copy, its licensed stock and placeholders may be reused). generation = a NEW page for another brand built from this design-repo: schema/semantic_validate.py rejects every source brand, person, customer, screenshot, copy shingle, claim, URL and embed (GENERATION_MODE_* rules) and every asset role whose availability is not generation-safe (assets/asset-roles.json)."
     },
     "route": {
       "type": "string",
@@ -97,6 +116,112 @@
         "nimbus-content"
       ],
       "description": "nimbus-dark (black body) or nimbus-content (warm near-black body of the content-theme routes); must equal the template's theme (THEME_MATCHES_TEMPLATE). No light mode exists."
+    },
+    "tokens": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Page-level design tokens, each a catalog path of tokens/llm/token-catalog.json. Closed set of slots = tokens/llm/token-policy.json pageSpecTokenSlots. Whether a value is a real, approved, slot-appropriate, theme-valid token is checked by schema/semantic_validate.py (TOKEN_* rules): raw colours, lengths and font names are rejected there.",
+      "required": [
+        "surface",
+        "text",
+        "fontHeading",
+        "fontBody",
+        "headingScale",
+        "bodyScale",
+        "sectionPadding",
+        "container",
+        "buttonRadius"
+      ],
+      "properties": {
+        "surface": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "accent": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "border": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "fontHeading": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "fontBody": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "headingScale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "bodyScale": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "sectionPadding": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "container": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "gap": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "buttonRadius": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "cardRadius": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        }
+      }
+    },
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The brand a generation-mode page is built for (required when mode = generation). Never the source brand (GENERATION_MODE_BRAND). In clone mode the chrome renders the clone's own wordmark and this object is optional.",
+      "required": [
+        "name",
+        "markRole"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxWords": 4
+        },
+        "markRole": {
+          "enum": [
+            "brand.placeholderMark",
+            "asset.userSupplied"
+          ],
+          "description": "Generation-safe brand mark roles only; the clone's wordmark (brand.wordmark) is clone-only."
+        }
+      }
     },
     "nodes": {
       "type": "array",
@@ -181,6 +306,7 @@
               "story.scroll-quote",
               "story.wow-2col",
               "story.zoom-statement",
+              "conversion.cs-platform-cta",
               "conversion.contact-form",
               "conversion.content-pricing",
               "conversion.cta-strip",
@@ -205,6 +331,7 @@
               "index.topics-grid",
               "index.webinars-upcoming",
               "article.cs-content-article",
+              "article.cs-platform-header",
               "article.cs-platform-body"
             ]
           },
@@ -365,13 +492,15 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "logo.aiVendor",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "logo.aiVendor",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -451,13 +580,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "badge.review",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "badge.placeholder",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "badge.review",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "badge.placeholder",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -493,13 +626,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "badge.award",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "badge.placeholder",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "badge.award",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "badge.placeholder",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -752,13 +889,17 @@
                                             "additionalProperties": false,
                                             "x-allowedRoles": [
                                               "logo.customer",
-                                              "placeholder.neutral"
+                                              "placeholder.neutral",
+                                              "logo.placeholderCompany",
+                                              "asset.userSupplied"
                                             ],
                                             "properties": {
                                               "assetRole": {
                                                 "enum": [
                                                   "logo.customer",
-                                                  "placeholder.neutral"
+                                                  "placeholder.neutral",
+                                                  "logo.placeholderCompany",
+                                                  "asset.userSupplied"
                                                 ]
                                               },
                                               "placeholderLabel": {
@@ -962,14 +1103,20 @@
                       "x-allowedRoles": [
                         "placeholder.neutral",
                         "product.video",
-                        "stock.photo"
+                        "stock.photo",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
                             "product.video",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -1079,13 +1226,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -1154,13 +1305,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "stock.photo",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -1280,14 +1435,20 @@
                       "x-allowedRoles": [
                         "placeholder.neutral",
                         "product.video",
-                        "stock.photo"
+                        "stock.photo",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
                             "product.video",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -1384,13 +1545,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "photo.person"
+                        "photo.person",
+                        "person.fictional",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -1438,13 +1603,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "logo.customer"
+                        "logo.customer",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "logo.customer"
+                            "logo.customer",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -1537,13 +1706,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -1574,14 +1747,20 @@
                           "x-allowedRoles": [
                             "placeholder.neutral",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
                                 "product.screenshot",
-                                "stock.photo"
+                                "stock.photo",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -1675,13 +1854,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "photo.person"
+                        "photo.person",
+                        "person.fictional",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -1784,13 +1967,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "badge.review"
+                        "badge.review",
+                        "badge.placeholder",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "badge.review"
+                            "badge.review",
+                            "badge.placeholder",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -1889,13 +2076,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "placeholder.neutral",
-                              "photo.person"
+                              "photo.person",
+                              "person.fictional",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "placeholder.neutral",
-                                  "photo.person"
+                                  "photo.person",
+                                  "person.fictional",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -2038,13 +2229,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "stock.photo",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -2164,7 +2359,10 @@
                         "placeholder.neutral",
                         "product.screenshot",
                         "product.video",
-                        "stock.photo"
+                        "stock.photo",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
@@ -2172,7 +2370,10 @@
                             "placeholder.neutral",
                             "product.screenshot",
                             "product.video",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -2269,13 +2470,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "photo.person"
+                        "photo.person",
+                        "person.fictional",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -2318,14 +2523,20 @@
                       "x-allowedRoles": [
                         "placeholder.neutral",
                         "product.screenshot",
-                        "stock.photo"
+                        "stock.photo",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -2361,13 +2572,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "logo.customer"
+                        "logo.customer",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "logo.customer"
+                            "logo.customer",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -2477,7 +2692,10 @@
                             "placeholder.neutral",
                             "photo.brand",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "illustration.generated",
+                            "screenshot.placeholder",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
@@ -2485,7 +2703,10 @@
                                 "placeholder.neutral",
                                 "photo.brand",
                                 "product.screenshot",
-                                "stock.photo"
+                                "stock.photo",
+                                "illustration.generated",
+                                "screenshot.placeholder",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -2515,13 +2736,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "stock.photo",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -2599,7 +2824,10 @@
                             "placeholder.neutral",
                             "photo.brand",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "illustration.generated",
+                            "screenshot.placeholder",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
@@ -2607,7 +2835,10 @@
                                 "placeholder.neutral",
                                 "photo.brand",
                                 "product.screenshot",
-                                "stock.photo"
+                                "stock.photo",
+                                "illustration.generated",
+                                "screenshot.placeholder",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -2637,13 +2868,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "stock.photo",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -2720,7 +2955,10 @@
                             "placeholder.neutral",
                             "photo.brand",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "illustration.generated",
+                            "screenshot.placeholder",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
@@ -2728,7 +2966,10 @@
                                 "placeholder.neutral",
                                 "photo.brand",
                                 "product.screenshot",
-                                "stock.photo"
+                                "stock.photo",
+                                "illustration.generated",
+                                "screenshot.placeholder",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -2758,13 +2999,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "logo.customer"
+                            "logo.customer",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "logo.customer"
+                                "logo.customer",
+                                "logo.placeholderCompany",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -2827,7 +3072,10 @@
                             "placeholder.neutral",
                             "photo.brand",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "illustration.generated",
+                            "screenshot.placeholder",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
@@ -2835,7 +3083,10 @@
                                 "placeholder.neutral",
                                 "photo.brand",
                                 "product.screenshot",
-                                "stock.photo"
+                                "stock.photo",
+                                "illustration.generated",
+                                "screenshot.placeholder",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -2920,7 +3171,10 @@
                             "placeholder.neutral",
                             "product.video",
                             "photo.event",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
@@ -2928,7 +3182,10 @@
                                 "placeholder.neutral",
                                 "product.video",
                                 "photo.event",
-                                "stock.photo"
+                                "stock.photo",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -3014,13 +3271,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "photo.person"
+                        "photo.person",
+                        "person.fictional",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -3099,13 +3360,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -3151,14 +3416,20 @@
                       "x-allowedRoles": [
                         "placeholder.neutral",
                         "product.screenshot",
-                        "stock.photo"
+                        "stock.photo",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -3194,13 +3465,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "logo.customer"
+                        "logo.customer",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "logo.customer"
+                            "logo.customer",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -3281,14 +3556,20 @@
                       "x-allowedRoles": [
                         "placeholder.neutral",
                         "photo.person",
-                        "product.screenshot"
+                        "product.screenshot",
+                        "person.fictional",
+                        "screenshot.placeholder",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
                             "photo.person",
-                            "product.screenshot"
+                            "product.screenshot",
+                            "person.fictional",
+                            "screenshot.placeholder",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -3318,13 +3599,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "photo.person"
+                        "photo.person",
+                        "person.fictional",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -3406,13 +3691,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "logo.customer"
+                        "logo.customer",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "logo.customer"
+                            "logo.customer",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -3537,13 +3826,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -3589,14 +3882,20 @@
                       "x-allowedRoles": [
                         "placeholder.neutral",
                         "product.screenshot",
-                        "stock.photo"
+                        "stock.photo",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -3632,13 +3931,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "logo.customer"
+                        "logo.customer",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "logo.customer"
+                            "logo.customer",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -3737,13 +4040,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "badge.review"
+                        "badge.review",
+                        "badge.placeholder",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "badge.review"
+                            "badge.review",
+                            "badge.placeholder",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -3848,13 +4155,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "placeholder.neutral",
-                              "logo.customer"
+                              "logo.customer",
+                              "logo.placeholderCompany",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "placeholder.neutral",
-                                  "logo.customer"
+                                  "logo.customer",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -3935,14 +4246,20 @@
                                 "x-allowedRoles": [
                                   "placeholder.neutral",
                                   "product.screenshot",
-                                  "stock.photo"
+                                  "stock.photo",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "placeholder.neutral",
                                       "product.screenshot",
-                                      "stock.photo"
+                                      "stock.photo",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -4049,13 +4366,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "stock.photo",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -4100,13 +4421,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "badge.review",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "badge.placeholder",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "badge.review",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "badge.placeholder",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -4156,14 +4481,20 @@
                           "x-allowedRoles": [
                             "product.screenshot",
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "product.screenshot",
                                 "stock.photo",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -4249,14 +4580,20 @@
                           "x-allowedRoles": [
                             "product.screenshot",
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "product.screenshot",
                                 "stock.photo",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -4389,13 +4726,17 @@
                               "additionalProperties": false,
                               "x-allowedRoles": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ],
                               "properties": {
                                 "assetRole": {
                                   "enum": [
                                     "placeholder.neutral",
-                                    "photo.person"
+                                    "photo.person",
+                                    "person.fictional",
+                                    "asset.userSupplied"
                                   ]
                                 },
                                 "placeholderLabel": {
@@ -4442,14 +4783,20 @@
                           "x-allowedRoles": [
                             "placeholder.neutral",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
                                 "product.screenshot",
-                                "stock.photo"
+                                "stock.photo",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -4590,13 +4937,17 @@
                               "additionalProperties": false,
                               "x-allowedRoles": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ],
                               "properties": {
                                 "assetRole": {
                                   "enum": [
                                     "placeholder.neutral",
-                                    "photo.person"
+                                    "photo.person",
+                                    "person.fictional",
+                                    "asset.userSupplied"
                                   ]
                                 },
                                 "placeholderLabel": {
@@ -4643,14 +4994,20 @@
                           "x-allowedRoles": [
                             "placeholder.neutral",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
                                 "product.screenshot",
-                                "stock.photo"
+                                "stock.photo",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -4687,13 +5044,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "logo.customer"
+                            "logo.customer",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "logo.customer"
+                                "logo.customer",
+                                "logo.placeholderCompany",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -4844,14 +5205,20 @@
                           "x-allowedRoles": [
                             "placeholder.neutral",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
                                 "product.screenshot",
-                                "stock.photo"
+                                "stock.photo",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -4940,14 +5307,20 @@
                           "x-allowedRoles": [
                             "placeholder.neutral",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
                                 "product.screenshot",
-                                "stock.photo"
+                                "stock.photo",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -4994,13 +5367,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -5072,13 +5449,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -5167,14 +5548,18 @@
                           "x-allowedRoles": [
                             "placeholder.neutral",
                             "photo.brand",
-                            "stock.photo"
+                            "stock.photo",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
                                 "photo.brand",
-                                "stock.photo"
+                                "stock.photo",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -5223,13 +5608,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -5310,13 +5699,17 @@
                               "additionalProperties": false,
                               "x-allowedRoles": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ],
                               "properties": {
                                 "assetRole": {
                                   "enum": [
                                     "placeholder.neutral",
-                                    "photo.person"
+                                    "photo.person",
+                                    "person.fictional",
+                                    "asset.userSupplied"
                                   ]
                                 },
                                 "placeholderLabel": {
@@ -5356,13 +5749,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "badge.review"
+                            "badge.review",
+                            "badge.placeholder",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "badge.review"
+                                "badge.review",
+                                "badge.placeholder",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -5405,14 +5802,20 @@
                           "x-allowedRoles": [
                             "placeholder.neutral",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
                                 "product.screenshot",
-                                "stock.photo"
+                                "stock.photo",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -5550,13 +5953,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "logo.customer",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "logo.placeholderCompany",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "logo.customer",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -5694,14 +6101,18 @@
                                 "x-allowedRoles": [
                                   "photo.brand",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "photo.brand",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -5732,13 +6143,17 @@
                                 "additionalProperties": false,
                                 "x-allowedRoles": [
                                   "logo.customer",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "logo.customer",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "logo.placeholderCompany",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -5871,14 +6286,18 @@
                                 "x-allowedRoles": [
                                   "photo.brand",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "photo.brand",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -5908,13 +6327,17 @@
                                 "additionalProperties": false,
                                 "x-allowedRoles": [
                                   "logo.customer",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "logo.customer",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "logo.placeholderCompany",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -6046,13 +6469,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "logo.customer",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "logo.customer",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -6083,7 +6510,10 @@
                         "photo.brand",
                         "product.video",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "illustration.generated",
+                        "screenshot.placeholder",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
@@ -6091,7 +6521,10 @@
                             "photo.brand",
                             "product.video",
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "illustration.generated",
+                            "screenshot.placeholder",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -6216,13 +6649,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "photo.person",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "person.fictional",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "photo.person",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -6417,13 +6854,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "logo.customer",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "logo.customer",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -6506,13 +6947,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "logo.customer",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "logo.customer",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "logo.placeholderCompany",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -6576,13 +7021,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "logo.customer",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "logo.customer",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "logo.placeholderCompany",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -6735,13 +7184,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "logo.customer",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "logo.placeholderCompany",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "logo.customer",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -6830,13 +7283,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "logo.customer",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "logo.customer",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "logo.placeholderCompany",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -6884,13 +7341,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "photo.person",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -7014,13 +7475,17 @@
                                 "additionalProperties": false,
                                 "x-allowedRoles": [
                                   "logo.customer",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "logo.customer",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "logo.placeholderCompany",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -7152,13 +7617,17 @@
                                 "additionalProperties": false,
                                 "x-allowedRoles": [
                                   "logo.customer",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "logo.customer",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "logo.placeholderCompany",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -7272,13 +7741,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "logo.customer",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "logo.customer",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -7340,13 +7813,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "logo.customer",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "logo.placeholderCompany",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "logo.customer",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -7376,14 +7853,18 @@
                             "x-allowedRoles": [
                               "photo.brand",
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "photo.brand",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -7412,13 +7893,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "photo.person",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "person.fictional",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "photo.person",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "person.fictional",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -7505,14 +7990,20 @@
                           "x-allowedRoles": [
                             "product.video",
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "product.video",
                                 "stock.photo",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -7627,13 +8118,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "logo.customer",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "logo.placeholderCompany",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "logo.customer",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -7663,14 +8158,18 @@
                             "x-allowedRoles": [
                               "photo.brand",
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "photo.brand",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -7699,13 +8198,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "photo.person",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "person.fictional",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "photo.person",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "person.fictional",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -7951,13 +8454,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "photo.person",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -8056,13 +8563,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "logo.customer",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "logo.customer",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -8110,13 +8621,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "photo.person",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "person.fictional",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "photo.person",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -8145,13 +8660,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -8274,13 +8793,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "photo.person",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "person.fictional",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "photo.person",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -8449,14 +8972,20 @@
                             "x-allowedRoles": [
                               "product.video",
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "screenshot.placeholder",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "product.video",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -8613,14 +9142,20 @@
                                 "x-allowedRoles": [
                                   "product.video",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "product.video",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -8793,14 +9328,20 @@
                                 "x-allowedRoles": [
                                   "product.screenshot",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "product.screenshot",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -8949,14 +9490,20 @@
                                 "x-allowedRoles": [
                                   "product.video",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "product.video",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -9086,14 +9633,20 @@
                                 "x-allowedRoles": [
                                   "product.screenshot",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "product.screenshot",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -9164,13 +9717,17 @@
                               "additionalProperties": false,
                               "x-allowedRoles": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ],
                               "properties": {
                                 "assetRole": {
                                   "enum": [
                                     "photo.person",
-                                    "placeholder.neutral"
+                                    "placeholder.neutral",
+                                    "person.fictional",
+                                    "asset.userSupplied"
                                   ]
                                 },
                                 "placeholderLabel": {
@@ -9291,14 +9848,20 @@
                                 "x-allowedRoles": [
                                   "product.screenshot",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "product.screenshot",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -9369,13 +9932,17 @@
                               "additionalProperties": false,
                               "x-allowedRoles": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ],
                               "properties": {
                                 "assetRole": {
                                   "enum": [
                                     "photo.person",
-                                    "placeholder.neutral"
+                                    "placeholder.neutral",
+                                    "person.fictional",
+                                    "asset.userSupplied"
                                   ]
                                 },
                                 "placeholderLabel": {
@@ -9474,14 +10041,20 @@
                                 "x-allowedRoles": [
                                   "product.screenshot",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "product.screenshot",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -9552,13 +10125,17 @@
                               "additionalProperties": false,
                               "x-allowedRoles": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ],
                               "properties": {
                                 "assetRole": {
                                   "enum": [
                                     "photo.person",
-                                    "placeholder.neutral"
+                                    "placeholder.neutral",
+                                    "person.fictional",
+                                    "asset.userSupplied"
                                   ]
                                 },
                                 "placeholderLabel": {
@@ -9665,7 +10242,10 @@
                                   "product.screenshot",
                                   "photo.event",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
@@ -9673,7 +10253,10 @@
                                       "product.screenshot",
                                       "photo.event",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -9753,13 +10336,17 @@
                                 "additionalProperties": false,
                                 "x-allowedRoles": [
                                   "logo.customer",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "logo.customer",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "logo.placeholderCompany",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -10622,7 +11209,10 @@
                               "product.screenshot",
                               "photo.brand",
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "screenshot.placeholder",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
@@ -10630,7 +11220,10 @@
                                   "product.screenshot",
                                   "photo.brand",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -10753,7 +11346,10 @@
                                   "placeholder.neutral",
                                   "product.screenshot",
                                   "photo.brand",
-                                  "stock.photo"
+                                  "stock.photo",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
@@ -10761,7 +11357,10 @@
                                       "placeholder.neutral",
                                       "product.screenshot",
                                       "photo.brand",
-                                      "stock.photo"
+                                      "stock.photo",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -10847,7 +11446,10 @@
                                   "placeholder.neutral",
                                   "product.screenshot",
                                   "photo.brand",
-                                  "stock.photo"
+                                  "stock.photo",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
@@ -10855,7 +11457,10 @@
                                       "placeholder.neutral",
                                       "product.screenshot",
                                       "photo.brand",
-                                      "stock.photo"
+                                      "stock.photo",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -10940,7 +11545,10 @@
                                   "placeholder.neutral",
                                   "product.screenshot",
                                   "photo.brand",
-                                  "stock.photo"
+                                  "stock.photo",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
@@ -10948,7 +11556,10 @@
                                       "placeholder.neutral",
                                       "product.screenshot",
                                       "photo.brand",
-                                      "stock.photo"
+                                      "stock.photo",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -11111,14 +11722,20 @@
                                 "x-allowedRoles": [
                                   "product.screenshot",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "product.screenshot",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -11224,14 +11841,20 @@
                                 "x-allowedRoles": [
                                   "product.screenshot",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "product.screenshot",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -11618,13 +12241,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "badge.award"
+                            "badge.award",
+                            "badge.placeholder",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "badge.award"
+                                "badge.award",
+                                "badge.placeholder",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -11734,14 +12361,20 @@
                                       "x-allowedRoles": [
                                         "placeholder.neutral",
                                         "product.screenshot",
-                                        "stock.photo"
+                                        "stock.photo",
+                                        "screenshot.placeholder",
+                                        "illustration.generated",
+                                        "asset.userSupplied"
                                       ],
                                       "properties": {
                                         "assetRole": {
                                           "enum": [
                                             "placeholder.neutral",
                                             "product.screenshot",
-                                            "stock.photo"
+                                            "stock.photo",
+                                            "screenshot.placeholder",
+                                            "illustration.generated",
+                                            "asset.userSupplied"
                                           ]
                                         },
                                         "placeholderLabel": {
@@ -11877,13 +12510,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "photo.person",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -11943,14 +12580,20 @@
                             "x-allowedRoles": [
                               "product.screenshot",
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "screenshot.placeholder",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "product.screenshot",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -12067,14 +12710,20 @@
                       "x-allowedRoles": [
                         "product.screenshot",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "product.screenshot",
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -12229,14 +12878,20 @@
                             "x-allowedRoles": [
                               "product.screenshot",
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "screenshot.placeholder",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "product.screenshot",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -12277,7 +12932,10 @@
                         "product.screenshot",
                         "product.video",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
@@ -12285,7 +12943,10 @@
                             "product.screenshot",
                             "product.video",
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -12571,7 +13232,10 @@
                             "product.video",
                             "product.screenshot",
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
@@ -12579,7 +13243,10 @@
                                 "product.video",
                                 "product.screenshot",
                                 "stock.photo",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -12649,13 +13316,17 @@
                                 "additionalProperties": false,
                                 "x-allowedRoles": [
                                   "photo.person",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "person.fictional",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "photo.person",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "person.fictional",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -12723,13 +13394,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "photo.person",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -12853,14 +13528,18 @@
                           "x-allowedRoles": [
                             "photo.brand",
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "photo.brand",
                                 "stock.photo",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -12957,14 +13636,18 @@
                                 "x-allowedRoles": [
                                   "photo.brand",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "photo.brand",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -13110,14 +13793,18 @@
                             "x-allowedRoles": [
                               "photo.brand",
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "photo.brand",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -13283,13 +13970,17 @@
                               "additionalProperties": false,
                               "x-allowedRoles": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ],
                               "properties": {
                                 "assetRole": {
                                   "enum": [
                                     "photo.person",
-                                    "placeholder.neutral"
+                                    "placeholder.neutral",
+                                    "person.fictional",
+                                    "asset.userSupplied"
                                   ]
                                 },
                                 "placeholderLabel": {
@@ -13370,14 +14061,20 @@
                             "x-allowedRoles": [
                               "product.screenshot",
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "screenshot.placeholder",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "product.screenshot",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -13587,7 +14284,10 @@
                               "product.video",
                               "product.screenshot",
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "screenshot.placeholder",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
@@ -13595,7 +14295,10 @@
                                   "product.video",
                                   "product.screenshot",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -13799,14 +14502,20 @@
                                       "x-allowedRoles": [
                                         "product.screenshot",
                                         "stock.photo",
-                                        "placeholder.neutral"
+                                        "placeholder.neutral",
+                                        "screenshot.placeholder",
+                                        "illustration.generated",
+                                        "asset.userSupplied"
                                       ],
                                       "properties": {
                                         "assetRole": {
                                           "enum": [
                                             "product.screenshot",
                                             "stock.photo",
-                                            "placeholder.neutral"
+                                            "placeholder.neutral",
+                                            "screenshot.placeholder",
+                                            "illustration.generated",
+                                            "asset.userSupplied"
                                           ]
                                         },
                                         "placeholderLabel": {
@@ -13954,14 +14663,20 @@
                                       "x-allowedRoles": [
                                         "product.screenshot",
                                         "stock.photo",
-                                        "placeholder.neutral"
+                                        "placeholder.neutral",
+                                        "screenshot.placeholder",
+                                        "illustration.generated",
+                                        "asset.userSupplied"
                                       ],
                                       "properties": {
                                         "assetRole": {
                                           "enum": [
                                             "product.screenshot",
                                             "stock.photo",
-                                            "placeholder.neutral"
+                                            "placeholder.neutral",
+                                            "screenshot.placeholder",
+                                            "illustration.generated",
+                                            "asset.userSupplied"
                                           ]
                                         },
                                         "placeholderLabel": {
@@ -14116,14 +14831,20 @@
                             "x-allowedRoles": [
                               "photo.person",
                               "photo.brand",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "person.fictional",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "photo.person",
                                   "photo.brand",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "person.fictional",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -14292,13 +15013,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "photo.person",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "person.fictional",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "photo.person",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "person.fictional",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -14328,14 +15053,20 @@
                             "x-allowedRoles": [
                               "photo.person",
                               "product.screenshot",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "person.fictional",
+                              "screenshot.placeholder",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "photo.person",
                                   "product.screenshot",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "person.fictional",
+                                  "screenshot.placeholder",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -14500,14 +15231,20 @@
                             "x-allowedRoles": [
                               "product.video",
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "screenshot.placeholder",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "product.video",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -14583,13 +15320,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "photo.person",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -14657,14 +15398,20 @@
                             "x-allowedRoles": [
                               "product.screenshot",
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "screenshot.placeholder",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "product.screenshot",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -14790,13 +15537,17 @@
                                 "additionalProperties": false,
                                 "x-allowedRoles": [
                                   "logo.customer",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "logo.customer",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "logo.placeholderCompany",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -14872,13 +15623,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "photo.person",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -15012,13 +15767,17 @@
                               "additionalProperties": false,
                               "x-allowedRoles": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ],
                               "properties": {
                                 "assetRole": {
                                   "enum": [
                                     "photo.person",
-                                    "placeholder.neutral"
+                                    "placeholder.neutral",
+                                    "person.fictional",
+                                    "asset.userSupplied"
                                   ]
                                 },
                                 "placeholderLabel": {
@@ -15064,14 +15823,20 @@
                                 "x-allowedRoles": [
                                   "product.screenshot",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "product.screenshot",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -15221,13 +15986,17 @@
                               "additionalProperties": false,
                               "x-allowedRoles": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ],
                               "properties": {
                                 "assetRole": {
                                   "enum": [
                                     "photo.person",
-                                    "placeholder.neutral"
+                                    "placeholder.neutral",
+                                    "person.fictional",
+                                    "asset.userSupplied"
                                   ]
                                 },
                                 "placeholderLabel": {
@@ -15272,13 +16041,17 @@
                                 "additionalProperties": false,
                                 "x-allowedRoles": [
                                   "photo.person",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "person.fictional",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "photo.person",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "person.fictional",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -15404,14 +16177,20 @@
                                   "x-allowedRoles": [
                                     "product.screenshot",
                                     "stock.photo",
-                                    "placeholder.neutral"
+                                    "placeholder.neutral",
+                                    "screenshot.placeholder",
+                                    "illustration.generated",
+                                    "asset.userSupplied"
                                   ],
                                   "properties": {
                                     "assetRole": {
                                       "enum": [
                                         "product.screenshot",
                                         "stock.photo",
-                                        "placeholder.neutral"
+                                        "placeholder.neutral",
+                                        "screenshot.placeholder",
+                                        "illustration.generated",
+                                        "asset.userSupplied"
                                       ]
                                     },
                                     "placeholderLabel": {
@@ -15494,14 +16273,20 @@
                                 "x-allowedRoles": [
                                   "product.screenshot",
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "product.screenshot",
                                       "stock.photo",
-                                      "placeholder.neutral"
+                                      "placeholder.neutral",
+                                      "screenshot.placeholder",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -15614,13 +16399,17 @@
                               "additionalProperties": false,
                               "x-allowedRoles": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ],
                               "properties": {
                                 "assetRole": {
                                   "enum": [
                                     "photo.person",
-                                    "placeholder.neutral"
+                                    "placeholder.neutral",
+                                    "person.fictional",
+                                    "asset.userSupplied"
                                   ]
                                 },
                                 "placeholderLabel": {
@@ -15659,14 +16448,18 @@
                           "x-allowedRoles": [
                             "photo.event",
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "photo.event",
                                 "stock.photo",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -15695,13 +16488,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "photo.person",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -15742,13 +16539,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "badge.award",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "badge.placeholder",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "badge.award",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "badge.placeholder",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -15812,13 +16613,17 @@
                               "additionalProperties": false,
                               "x-allowedRoles": [
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ],
                               "properties": {
                                 "assetRole": {
                                   "enum": [
                                     "photo.person",
-                                    "placeholder.neutral"
+                                    "placeholder.neutral",
+                                    "person.fictional",
+                                    "asset.userSupplied"
                                   ]
                                 },
                                 "placeholderLabel": {
@@ -15928,14 +16733,20 @@
                           "x-allowedRoles": [
                             "product.video",
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "product.video",
                                 "stock.photo",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -16046,14 +16857,20 @@
                           "x-allowedRoles": [
                             "product.video",
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "product.video",
                                 "stock.photo",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -16149,7 +16966,10 @@
                             "photo.brand",
                             "photo.event",
                             "photo.person",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "illustration.generated",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
@@ -16157,7 +16977,10 @@
                                 "photo.brand",
                                 "photo.event",
                                 "photo.person",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "illustration.generated",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -16300,14 +17123,20 @@
                       "x-allowedRoles": [
                         "product.video",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "product.video",
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -16410,13 +17239,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -16554,14 +17387,18 @@
                           "x-allowedRoles": [
                             "placeholder.neutral",
                             "photo.brand",
-                            "stock.photo"
+                            "stock.photo",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
                                 "photo.brand",
-                                "stock.photo"
+                                "stock.photo",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -16659,14 +17496,18 @@
                                 "x-allowedRoles": [
                                   "placeholder.neutral",
                                   "photo.brand",
-                                  "stock.photo"
+                                  "stock.photo",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ],
                                 "properties": {
                                   "assetRole": {
                                     "enum": [
                                       "placeholder.neutral",
                                       "photo.brand",
-                                      "stock.photo"
+                                      "stock.photo",
+                                      "illustration.generated",
+                                      "asset.userSupplied"
                                     ]
                                   },
                                   "placeholderLabel": {
@@ -16764,13 +17605,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "badge.review"
+                        "badge.review",
+                        "badge.placeholder",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "badge.review"
+                            "badge.review",
+                            "badge.placeholder",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -16806,13 +17651,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "photo.person"
+                        "photo.person",
+                        "person.fictional",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -17147,14 +17996,20 @@
                       "x-allowedRoles": [
                         "photo.person",
                         "photo.brand",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "person.fictional",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "photo.person",
                             "photo.brand",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "person.fictional",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -17224,14 +18079,20 @@
                       "x-allowedRoles": [
                         "product.screenshot",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "product.screenshot",
                             "stock.photo",
-                            "placeholder.neutral"
+                            "placeholder.neutral",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -17339,13 +18200,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "badge.review"
+                        "badge.review",
+                        "badge.placeholder",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "badge.review"
+                            "badge.review",
+                            "badge.placeholder",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -17603,13 +18468,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "placeholder.neutral",
-                              "logo.customer"
+                              "logo.customer",
+                              "logo.placeholderCompany",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "placeholder.neutral",
-                                  "logo.customer"
+                                  "logo.customer",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -17658,13 +18527,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "placeholder.neutral",
-                              "photo.person"
+                              "photo.person",
+                              "person.fictional",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "placeholder.neutral",
-                                  "photo.person"
+                                  "photo.person",
+                                  "person.fictional",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -18403,14 +19276,20 @@
                       "x-allowedRoles": [
                         "placeholder.neutral",
                         "product.screenshot",
-                        "stock.photo"
+                        "stock.photo",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -18717,7 +19596,10 @@
                             "placeholder.neutral",
                             "photo.brand",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "illustration.generated",
+                            "screenshot.placeholder",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
@@ -18725,7 +19607,10 @@
                                 "placeholder.neutral",
                                 "photo.brand",
                                 "product.screenshot",
-                                "stock.photo"
+                                "stock.photo",
+                                "illustration.generated",
+                                "screenshot.placeholder",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -18755,13 +19640,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -18949,7 +19838,10 @@
                               "placeholder.neutral",
                               "photo.brand",
                               "product.screenshot",
-                              "stock.photo"
+                              "stock.photo",
+                              "illustration.generated",
+                              "screenshot.placeholder",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
@@ -18957,7 +19849,10 @@
                                   "placeholder.neutral",
                                   "photo.brand",
                                   "product.screenshot",
-                                  "stock.photo"
+                                  "stock.photo",
+                                  "illustration.generated",
+                                  "screenshot.placeholder",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -19045,13 +19940,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "placeholder.neutral",
-                              "logo.customer"
+                              "logo.customer",
+                              "logo.placeholderCompany",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "placeholder.neutral",
-                                  "logo.customer"
+                                  "logo.customer",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -19152,13 +20051,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "placeholder.neutral",
-                              "logo.customer"
+                              "logo.customer",
+                              "logo.placeholderCompany",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "placeholder.neutral",
-                                  "logo.customer"
+                                  "logo.customer",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -19291,13 +20194,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "placeholder.neutral",
-                              "logo.customer"
+                              "logo.customer",
+                              "logo.placeholderCompany",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "placeholder.neutral",
-                                  "logo.customer"
+                                  "logo.customer",
+                                  "logo.placeholderCompany",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -19450,14 +20357,18 @@
                             "x-allowedRoles": [
                               "placeholder.neutral",
                               "photo.event",
-                              "stock.photo"
+                              "stock.photo",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "placeholder.neutral",
                                   "photo.event",
-                                  "stock.photo"
+                                  "stock.photo",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -19857,14 +20768,20 @@
                           "x-allowedRoles": [
                             "placeholder.neutral",
                             "product.screenshot",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
                                 "product.screenshot",
-                                "stock.photo"
+                                "stock.photo",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -19921,14 +20838,20 @@
                             "x-allowedRoles": [
                               "placeholder.neutral",
                               "product.screenshot",
-                              "stock.photo"
+                              "stock.photo",
+                              "screenshot.placeholder",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "placeholder.neutral",
                                   "product.screenshot",
-                                  "stock.photo"
+                                  "stock.photo",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -20050,13 +20973,17 @@
                             "additionalProperties": false,
                             "x-allowedRoles": [
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "stock.photo",
-                                  "placeholder.neutral"
+                                  "placeholder.neutral",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -20171,14 +21098,20 @@
                             "x-allowedRoles": [
                               "placeholder.neutral",
                               "product.screenshot",
-                              "stock.photo"
+                              "stock.photo",
+                              "screenshot.placeholder",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "placeholder.neutral",
                                   "product.screenshot",
-                                  "stock.photo"
+                                  "stock.photo",
+                                  "screenshot.placeholder",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -20479,14 +21412,18 @@
                                       "x-allowedRoles": [
                                         "placeholder.neutral",
                                         "photo.brand",
-                                        "stock.photo"
+                                        "stock.photo",
+                                        "illustration.generated",
+                                        "asset.userSupplied"
                                       ],
                                       "properties": {
                                         "assetRole": {
                                           "enum": [
                                             "placeholder.neutral",
                                             "photo.brand",
-                                            "stock.photo"
+                                            "stock.photo",
+                                            "illustration.generated",
+                                            "asset.userSupplied"
                                           ]
                                         },
                                         "placeholderLabel": {
@@ -20568,13 +21505,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -20635,7 +21576,7 @@
             "if": {
               "properties": {
                 "section": {
-                  "const": "article.cs-platform-body"
+                  "const": "article.cs-platform-header"
                 }
               },
               "required": [
@@ -20653,13 +21594,17 @@
                       "additionalProperties": false,
                       "x-allowedRoles": [
                         "placeholder.neutral",
-                        "logo.customer"
+                        "logo.customer",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
-                            "logo.customer"
+                            "logo.customer",
+                            "logo.placeholderCompany",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -20697,14 +21642,18 @@
                       "x-allowedRoles": [
                         "placeholder.neutral",
                         "photo.brand",
-                        "stock.photo"
+                        "stock.photo",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ],
                       "properties": {
                         "assetRole": {
                           "enum": [
                             "placeholder.neutral",
                             "photo.brand",
-                            "stock.photo"
+                            "stock.photo",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ]
                         },
                         "placeholderLabel": {
@@ -20783,7 +21732,47 @@
                       },
                       "maxItems": 4,
                       "note": "Always 4 info cards in the real pages: stat, tags, integrations, stat (+ link)."
+                    }
+                  },
+                  "required": [
+                    "logo",
+                    "title",
+                    "heroImage",
+                    "cards"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "none"
+                      ]
                     },
+                    "reducedMotionFallback": {
+                      "const": "none"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "article.cs-platform-body"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
                     "tocLabel": {
                       "type": "string",
                       "minLength": 1,
@@ -20843,14 +21832,18 @@
                             "x-allowedRoles": [
                               "placeholder.neutral",
                               "photo.brand",
-                              "stock.photo"
+                              "stock.photo",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ],
                             "properties": {
                               "assetRole": {
                                 "enum": [
                                   "placeholder.neutral",
                                   "photo.brand",
-                                  "stock.photo"
+                                  "stock.photo",
+                                  "illustration.generated",
+                                  "asset.userSupplied"
                                 ]
                               },
                               "placeholderLabel": {
@@ -20918,13 +21911,17 @@
                           "additionalProperties": false,
                           "x-allowedRoles": [
                             "placeholder.neutral",
-                            "photo.person"
+                            "photo.person",
+                            "person.fictional",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
-                                "photo.person"
+                                "photo.person",
+                                "person.fictional",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -20995,14 +21992,20 @@
                           "x-allowedRoles": [
                             "placeholder.neutral",
                             "product.video",
-                            "stock.photo"
+                            "stock.photo",
+                            "screenshot.placeholder",
+                            "illustration.generated",
+                            "asset.userSupplied"
                           ],
                           "properties": {
                             "assetRole": {
                               "enum": [
                                 "placeholder.neutral",
                                 "product.video",
-                                "stock.photo"
+                                "stock.photo",
+                                "screenshot.placeholder",
+                                "illustration.generated",
+                                "asset.userSupplied"
                               ]
                             },
                             "placeholderLabel": {
@@ -21039,7 +22042,49 @@
                         "media",
                         "caption"
                       ]
+                    }
+                  },
+                  "required": [
+                    "tocLabel",
+                    "sections",
+                    "testimonialLabel",
+                    "testimonial",
+                    "sidebarCta",
+                    "video"
+                  ]
+                },
+                "motion": {
+                  "properties": {
+                    "pattern": {
+                      "enum": [
+                        "none"
+                      ]
                     },
+                    "reducedMotionFallback": {
+                      "const": "none"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "section": {
+                  "const": "conversion.cs-platform-cta"
+                }
+              },
+              "required": [
+                "section"
+              ]
+            },
+            "then": {
+              "properties": {
+                "content": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
                     "cta": {
                       "type": "object",
                       "additionalProperties": false,
@@ -21064,16 +22109,6 @@
                     }
                   },
                   "required": [
-                    "logo",
-                    "title",
-                    "heroImage",
-                    "cards",
-                    "tocLabel",
-                    "sections",
-                    "testimonialLabel",
-                    "testimonial",
-                    "sidebarCta",
-                    "video",
                     "cta"
                   ]
                 },
@@ -21095,5 +22130,24 @@
         ]
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "generation"
+          }
+        },
+        "required": [
+          "mode"
+        ]
+      },
+      "then": {
+        "required": [
+          "brand"
+        ]
+      }
+    }
+  ]
 }

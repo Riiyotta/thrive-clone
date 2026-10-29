@@ -4,6 +4,18 @@
   "name": "FAQ empty state",
   "purpose": "Keep the FAQ slot and its heading on feature pages whose CMS FAQ list is empty, showing a single 'no FAQs' bar instead of an accordion.",
   "category": "conversion",
+  "source": {
+    "id": "FaqEmpty.section[data-section=faq]",
+    "tag": "section",
+    "file": "src/pages/features/FeatureDetail.jsx",
+    "lines": "62-73"
+  },
+  "semantic": {
+    "id": "conversion.faq-empty",
+    "category": "conversion"
+  },
+  "retrievalEligible": false,
+  "retrievalReason": "CMS empty state ('No FAQs found.') rendered only when a feature page's FAQ list is empty; no retrievable content, never a block a generator should choose.",
   "designSystem": "marketing",
   "implementedBy": "src/pages/features/FeatureDetail.jsx > FaqEmpty",
   "description": "Page-local CMS empty state of the feature-page FAQ (data-section 'faq', data-variant 'empty'): padding 5rem / 4rem tab / 3rem mob, a centred serif H2 (60rem max) and, 4.375rem below, a single 42rem-wide surface-1 bar with the message 'No FAQs found.' in body text. No accordion, no interaction. Rendered by FeatureDetail in place of the FAQ when the route's data has `empty: true`.",

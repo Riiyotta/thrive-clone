@@ -4,6 +4,17 @@
   "name": "Demo request hero with static form",
   "purpose": "Open the demo page with the H1, the reasons to book and the (static) demo request form, backed by two customer quotes.",
   "category": "hero",
+  "source": {
+    "id": "DemoHero.section[data-section=demo-hero]",
+    "tag": "section",
+    "file": "src/components/sections/DemoHero.jsx",
+    "lines": "47-99"
+  },
+  "semantic": {
+    "id": "hero.demo-form",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/DemoHero.jsx",
   "description": "In container-large (/lms/demo-platform): avatar strip + trust line, then three 2-column grids (gap 5rem): [serif 3.8rem/1.1 H1 | serif 1.75rem form title, bottom-aligned], [grey intro with one bold phrase, 4-item bullet list and 3 review badges | static 300x358 form placeholder], [quote | quote]. At <=479 grids become one column, the form moves above the copy and the second quote is hidden.",
@@ -16,13 +27,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "photo.person"
+          "photo.person",
+          "person.fictional",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -125,13 +140,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "badge.review"
+          "badge.review",
+          "badge.placeholder",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "badge.review"
+              "badge.review",
+              "badge.placeholder",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -230,13 +249,17 @@
               "additionalProperties": false,
               "x-allowedRoles": [
                 "placeholder.neutral",
-                "photo.person"
+                "photo.person",
+                "person.fictional",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "placeholder.neutral",
-                    "photo.person"
+                    "photo.person",
+                    "person.fictional",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -524,7 +547,10 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "badge.placeholder",
     "badge.review",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral"
   ]

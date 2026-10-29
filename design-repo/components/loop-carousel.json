@@ -1,6 +1,7 @@
 {
   "id": "component.loop-carousel",
   "kind": "component",
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "name": "Swiper-like loop carousel state (useLoopCarousel)",
   "composes": [],

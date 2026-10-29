@@ -1,6 +1,7 @@
 {
   "id": "component.testimonial-block",
   "kind": "component",
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "name": "Testimonial quote + author",
   "composes": [

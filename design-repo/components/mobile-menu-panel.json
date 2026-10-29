@@ -1,6 +1,8 @@
 {
   "id": "component.mobile-menu-panel",
   "kind": "component",
+  "retrievalEligible": false,
+  "retrievalReason": "Runtime drawer: the mobile navigation panel that slides in when the menu button is tapped; navigation chrome, not page content.",
   "designSystem": "marketing",
   "name": "Mobile menu panel (<=991)",
   "composes": [

@@ -4,6 +4,17 @@
   "name": "Topic marquee rows",
   "purpose": "Conveys the breadth of a course library or programme with endlessly scrolling rows of topic pills.",
   "category": "story",
+  "source": {
+    "id": "Marquee.section[data-section=marquee]",
+    "tag": "section",
+    "file": "src/components/sections/Marquee.jsx",
+    "lines": "127-155"
+  },
+  "semantic": {
+    "id": "story.marquee",
+    "category": "story"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/Marquee.jsx",
   "description": "One component with a `variant` prop. header (/lms/small-business): centred serif H2 and a grey paragraph with one inline link, three full-width rows of white-text pills, then a primary + dark button pair. plain (/mentoring, four instances, `set` 1-4): just two rows of grey-text pills inside padding-global, each placed straight after a wow2col block. Each row is an edge-faded (0 -> 15% / 85% -> 0 mask) overflow-hidden strip whose track holds the pill list twice and scrolls with a CSS keyframe loop; rows alternate direction.",

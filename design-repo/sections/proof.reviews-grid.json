@@ -4,6 +4,17 @@
   "name": "Reviews grid with logo wall",
   "purpose": "Answers pricing-page doubt with a wall of customer logos beside rotating reviews, then introduces the 'more than a platform' video.",
   "category": "proof",
+  "source": {
+    "id": "ReviewsGrid.section[data-section=reviews-grid]",
+    "tag": "section",
+    "file": "src/components/sections/ReviewsGrid.jsx",
+    "lines": "50-118"
+  },
+  "semantic": {
+    "id": "proof.reviews-grid",
+    "category": "proof"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/ReviewsGrid.jsx",
   "description": "Serif H3-size centred heading, then a row (stacks <=767) of a 2-column customer-logo grid card (10 logos, 3rem gaps) beside a max-56rem testimonial card holding a one-slide reviews carousel: each slide has a customer logo, a 24px quote, a 3rem avatar with name/role, and a faded brand image top-right; prev/next outline arrows sit bottom-right. On /pricing a centred video block (H2 with an italic word + 4:3 video placeholder with play button, the VideoSection component) is nested inside the same <section> after the row, passed as children.",
@@ -22,13 +33,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "logo.customer",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "logo.placeholderCompany",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "logo.customer",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -90,13 +105,17 @@
               "additionalProperties": false,
               "x-allowedRoles": [
                 "logo.customer",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "logo.placeholderCompany",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "logo.customer",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -126,14 +145,18 @@
               "x-allowedRoles": [
                 "photo.brand",
                 "stock.photo",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "photo.brand",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -162,13 +185,17 @@
               "additionalProperties": false,
               "x-allowedRoles": [
                 "photo.person",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "person.fictional",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "photo.person",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "person.fictional",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -255,14 +282,20 @@
             "x-allowedRoles": [
               "product.video",
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "product.video",
                   "stock.photo",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -545,11 +578,16 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "logo.customer",
+    "logo.placeholderCompany",
+    "person.fictional",
     "photo.brand",
     "photo.person",
     "placeholder.neutral",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

@@ -4,6 +4,17 @@
   "name": "Assistant feature tabs (vertical list + fading video)",
   "purpose": "Explains three things the AI assistant does for a given audience, one at a time, with a matching visual for the selected item.",
   "category": "product",
+  "source": {
+    "id": "KikiFeatureTabs.section[data-section=kiki-feature-tabs]",
+    "tag": "section",
+    "file": "src/components/sections/KikiFeatureTabs.jsx",
+    "lines": "28-87"
+  },
+  "semantic": {
+    "id": "product.assistant-feature-tabs",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/KikiFeatureTabs.jsx",
   "description": "Header (H2 + grey intro) stacked above a vertical list of 3 items, each with an 8px left track that lights white when active; only the active item shows its body. Beside it a 40% visual column cross-fades between one 30rem-tall video per item. `reversed: true` mirrors the row (visual left, gap 5rem, list column 55%). Used twice in a row on /nova (default, then reversed). <=479 stacks: the visual column hides and the active item shows its own video under the body.",
@@ -56,14 +67,20 @@
               "x-allowedRoles": [
                 "product.video",
                 "stock.photo",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "screenshot.placeholder",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "product.video",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -279,8 +296,11 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

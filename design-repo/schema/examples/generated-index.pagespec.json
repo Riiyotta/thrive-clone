@@ -1,0 +1,543 @@
+{
+  "pageSpecVersion": "2.0.0",
+  "mode": "generation",
+  "route": "/resources/blog-and-news",
+  "template": "blog-and-news",
+  "designSystem": "marketing",
+  "theme": "nimbus-dark",
+  "tokens": {
+    "surface": "semantic.surface.page",
+    "text": "semantic.text.primary",
+    "accent": "semantic.accent.chip",
+    "border": "semantic.border.divider",
+    "fontHeading": "fontFamily.serif",
+    "fontBody": "fontFamily.sans",
+    "headingScale": "fontSize.h1",
+    "bodyScale": "fontSize.body",
+    "sectionPadding": "layout.sectionPadding.large",
+    "container": "layout.containerLarge",
+    "buttonRadius": "radius.pill",
+    "cardRadius": "radius.card"
+  },
+  "brand": {
+    "name": "Lumora",
+    "markRole": "brand.placeholderMark"
+  },
+  "nodes": [
+    {
+      "section": "shell.nav",
+      "content": {
+        "menus": [
+          {
+            "label": "Lumora",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Gives",
+                "items": [
+                  {
+                    "title": "Every crew",
+                    "desc": "A calm home for growing"
+                  },
+                  {
+                    "title": "Skills between",
+                    "desc": "Shifts. Managers sketch a pathway"
+                  },
+                  {
+                    "title": "Once and",
+                    "desc": "The workspace keeps it fresh"
+                  },
+                  {
+                    "title": "As roles",
+                    "desc": "Shift and teams"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Scale",
+                "items": [
+                  {
+                    "title": "Across",
+                    "desc": "Cities. Short lessons arrive in"
+                  },
+                  {
+                    "title": "The",
+                    "desc": "Flow of a working day"
+                  },
+                  {
+                    "title": "So",
+                    "desc": "Practice feels light rather than"
+                  },
+                  {
+                    "title": "Like homework",
+                    "desc": "Coaches pair newcomers with"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Seasoned",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Colleagues",
+                "items": [
+                  {
+                    "title": "And the"
+                  },
+                  {
+                    "title": "Quiet"
+                  },
+                  {
+                    "title": "Feed shows"
+                  },
+                  {
+                    "title": "Who"
+                  },
+                  {
+                    "title": "Could"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Help",
+                "items": [
+                  {
+                    "title": "Next"
+                  },
+                  {
+                    "title": "Every"
+                  },
+                  {
+                    "title": "Badge"
+                  },
+                  {
+                    "title": "Nudge"
+                  },
+                  {
+                    "title": "And"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Reminder",
+                "items": [
+                  {
+                    "title": "Is"
+                  },
+                  {
+                    "title": "Written"
+                  },
+                  {
+                    "title": "For humans"
+                  },
+                  {
+                    "title": "First"
+                  },
+                  {
+                    "title": "With"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Plain",
+            "columns": [
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Words and",
+                    "desc": "Honest progress"
+                  },
+                  {
+                    "title": "Bars",
+                    "desc": "Leaders see where confidence rises"
+                  },
+                  {
+                    "title": "And where",
+                    "desc": "A team might"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "items": [
+                  {
+                    "title": "Need a",
+                    "desc": "Fresh workshop before the"
+                  },
+                  {
+                    "title": "Busy season",
+                    "desc": "Starts. Rollouts take weeks"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Instead of",
+            "columns": [
+              {
+                "kind": "customers",
+                "headerLink": "Quarters",
+                "customers": [
+                  {
+                    "name": "Imani Okafor",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Tobias Lindqvist",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Priya Raman",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Mateo Quintero",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Hana Sato",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              },
+              {
+                "kind": "customers",
+                "headerLink": "Because",
+                "customers": [
+                  {
+                    "name": "Elif Demir",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Kwame Asante",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Freya Holm",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Imani Okafor",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  },
+                  {
+                    "name": "Tobias Lindqvist",
+                    "icon": {
+                      "assetRole": "placeholder.neutral"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Templates",
+            "columns": [
+              {
+                "kind": "links",
+                "header": "Sample",
+                "items": [
+                  {
+                    "title": "Journeys and",
+                    "desc": "Friendly onboarding come ready"
+                  },
+                  {
+                    "title": "To adapt. Lumora",
+                    "desc": "Plugs into the apps"
+                  },
+                  {
+                    "title": "Your",
+                    "desc": "People already open each"
+                  },
+                  {
+                    "title": "Morning",
+                    "desc": "From rota planners to chat"
+                  }
+                ]
+              },
+              {
+                "kind": "links",
+                "header": "Channels",
+                "items": [
+                  {
+                    "title": "And",
+                    "desc": "Shared drives. Admins keep"
+                  },
+                  {
+                    "title": "Control",
+                    "desc": "Of permissions, retention windows"
+                  },
+                  {
+                    "title": "And",
+                    "desc": "Audit trails without"
+                  },
+                  {
+                    "title": "Spreadsheets",
+                    "desc": "Field crews read on"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "aiLinkLabel": "Phones, office teams on wide",
+        "ctaLabel": "Screens, and everyone"
+      },
+      "motion": {
+        "pattern": "nav.hoverMenus",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "hover",
+        "durationMs": 250,
+        "easing": "outQuart"
+      }
+    },
+    {
+      "section": "index.blog-featured",
+      "content": {
+        "eyebrow": "Picks up where",
+        "title": "They paused. Bright ideas",
+        "lead": "From the floor become micro courses",
+        "post": {
+          "title": "Within an afternoon, reviewed by a teammate and published",
+          "excerpt": "With one tap. The result is a workplace where curiosity is normal, feedback is quick and growth stays visible all year long",
+          "author": "Priya Raman",
+          "date": "12 March 2027",
+          "readTime": "Lumora gives every crew",
+          "image": {
+            "assetRole": "placeholder.neutral",
+            "placeholderLabel": "A calm home"
+          },
+          "authorAvatar": {
+            "assetRole": "placeholder.neutral"
+          }
+        },
+        "subscribe": {
+          "live": false,
+          "heading": "For growing skills between shifts. Managers sketch a pathway",
+          "sub": "Once and the",
+          "fieldLabels": [
+            "Workspace keeps it fresh"
+          ],
+          "submitLabel": "As"
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "index.blog-filter",
+      "content": {
+        "filterLabel": "Roles shift and",
+        "categories": [
+          "Teams",
+          "Scale",
+          "Across",
+          "Cities",
+          "Short",
+          "Lessons",
+          "Arrive in the flow",
+          "Of",
+          "A",
+          "Working day, so",
+          "Practice feels",
+          "Light rather",
+          "Than like homework",
+          "Coaches pair newcomers",
+          "With",
+          "Seasoned",
+          "Colleagues",
+          "And"
+        ],
+        "noun": "The",
+        "posts": [
+          {
+            "title": "Quiet feed shows who could help next. Every badge",
+            "category": "Nudge",
+            "date": "4 June 2027",
+            "readTime": "And reminder is written",
+            "image": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "For humans"
+            }
+          },
+          {
+            "title": "First, with plain words and honest progress bars. Leaders see where",
+            "category": "Confidence",
+            "date": "18 September 2027",
+            "readTime": "Rises and where a",
+            "image": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Team might"
+            }
+          },
+          {
+            "title": "Need a fresh workshop before the busy season starts",
+            "category": "Rollouts",
+            "date": "12 March 2027",
+            "readTime": "Take weeks instead of",
+            "image": {
+              "assetRole": "placeholder.neutral",
+              "placeholderLabel": "Quarters because"
+            }
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "conversion.demo-cta",
+      "content": {
+        "heading": "Templates, sample journeys and friendly onboarding come ready",
+        "headingEmphasis": "To adapt. Lumora",
+        "body": "Plugs into the apps your people already open each morning, from rota planners to chat channels and shared drives. Admins",
+        "ctaLabel": "Keep control"
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "shell.footer",
+      "content": {
+        "aiPrompt": "Of permissions, retention",
+        "aiLinks": {
+          "assetRole": "placeholder.neutral",
+          "slotCount": 4
+        },
+        "columns": [
+          {
+            "header": "Windows",
+            "headerIsLink": true,
+            "links": [
+              "And audit",
+              "Trails without",
+              "Spreadsheets. Field",
+              "Crews read",
+              "On",
+              "Phones"
+            ],
+            "buttonLabel": "Office teams on wide screens"
+          },
+          {
+            "header": "And",
+            "headerIsLink": true,
+            "links": [
+              "Everyone picks",
+              "Up",
+              "Where they",
+              "Paused. Bright"
+            ],
+            "buttonLabel": "Ideas from the"
+          },
+          {
+            "header": "Floor become",
+            "headerIsLink": true,
+            "links": [
+              "Micro",
+              "Courses",
+              "Within an",
+              "Afternoon, reviewed",
+              "By a"
+            ]
+          },
+          {
+            "header": "Teammate",
+            "headerIsLink": false,
+            "links": [
+              "And",
+              "Published",
+              "With",
+              "One tap",
+              "The",
+              "Result"
+            ]
+          }
+        ],
+        "ratingBadges": {
+          "assetRole": "badge.placeholder",
+          "slotCount": 2,
+          "alt": "Is a"
+        },
+        "awardBadges": {
+          "assetRole": "badge.placeholder",
+          "slotCount": 4,
+          "alt": "Workplace where"
+        },
+        "complianceLine": {
+          "text": "Curiosity is normal, feedback is quick and growth stays visible all year long. Lumora gives every crew a calm home for",
+          "linkPhrases": [
+            "Curiosity is"
+          ]
+        },
+        "copyright": "Pathway once and the",
+        "legalLinks": [
+          "Workspace keeps",
+          "It fresh as roles"
+        ],
+        "dropups": [
+          {
+            "label": "Shift and teams",
+            "links": [
+              "Scale across",
+              "Cities. Short",
+              "Lessons arrive",
+              "In the",
+              "Flow of"
+            ]
+          },
+          {
+            "label": "A working",
+            "links": [
+              "Day, so",
+              "Practice feels",
+              "Light",
+              "Rather",
+              "Than like",
+              "Homework"
+            ]
+          }
+        ]
+      },
+      "motion": {
+        "pattern": "footer.dropup",
+        "reducedMotionFallback": "instant-toggle",
+        "trigger": "click",
+        "durationMs": 200,
+        "easing": "ease"
+      }
+    }
+  ]
+}

@@ -4,6 +4,17 @@
   "name": "Centred legacy hero",
   "purpose": "Open a legacy-themed service page with a centred H1, one-line pitch and a single CTA.",
   "category": "hero",
+  "source": {
+    "id": "HeroCenterLegacy.section[data-section=hero-center-legacy]",
+    "tag": "section",
+    "file": "src/components/sections/HeroCenterLegacy.jsx",
+    "lines": "29-75"
+  },
+  "semantic": {
+    "id": "hero.center-legacy",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/HeroCenterLegacy.jsx",
   "description": "Centred hero inside hairline frame lines in the legacy theme colours. One component with `variant`: 'services' (/lms/professional-services; full hairline box, eyebrow tag, H1 3.8rem/1.1 max 60rem, ink paragraph, theme pill button stacked over 3 overlapping avatars + proof line) and 'custom' (/content/custom-content; top + side hairlines, extra 4rem top padding, 115x38 brand logo slot, H1 3.8rem/1.15 max 41.2rem, paragraph, button). Padding steps down at 991/767/479.",
@@ -55,13 +66,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "photo.person"
+                  "photo.person",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -130,13 +145,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "stock.photo",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -319,6 +338,9 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral",
     "stock.photo"

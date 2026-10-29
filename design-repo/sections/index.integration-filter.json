@@ -4,6 +4,17 @@
   "name": "Integrations directory filter",
   "purpose": "Lets a visitor browse every available integration, narrowing by category and sorting by name.",
   "category": "index",
+  "source": {
+    "id": "IntegrationFilter.section[data-section=integration-filter]",
+    "tag": "section",
+    "file": "src/components/sections/IntegrationFilter.jsx",
+    "lines": "91-157"
+  },
+  "semantic": {
+    "id": "index.integration-filter",
+    "category": "index"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/IntegrationFilter.jsx",
   "description": "Hairline-bordered (#00251e) block: left 20% sticky \"Filter by category\" checkbox list (wrapping row at 991, 2-column grid at 479); right 80% header \"Showing N connections out of M\" with a Sort by dropdown (Name A-Z / Z-A) above a 3-column grid (2 at 991, 1 at 479) of integration cards (logo mark, arrow chip, serif name). OR filter across ticked categories. Same filter layout family as the blog filter but with name sort and logo cards.",
@@ -59,13 +70,17 @@
               "additionalProperties": false,
               "x-allowedRoles": [
                 "stock.photo",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -353,6 +368,8 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "stock.photo"
   ]

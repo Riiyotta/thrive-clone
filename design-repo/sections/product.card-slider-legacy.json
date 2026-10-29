@@ -4,6 +4,17 @@
   "name": "Card slider (legacy, paged)",
   "purpose": "Lays out a step-by-step journey or a set of service offerings as a horizontally paged row of hairline cards.",
   "category": "product",
+  "source": {
+    "id": "CardSliderLegacy.section[data-section=card-slider-legacy]",
+    "tag": "section",
+    "file": "src/components/sections/CardSliderLegacy.jsx",
+    "lines": "225-293"
+  },
+  "semantic": {
+    "id": "product.card-slider-legacy",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/CardSliderLegacy.jsx",
   "description": "Legacy hairline-framed header + Webflow-style paged slider of cards with square prev/next arrows bottom-right and round page dots bottom-left; the visible mask is 25% wide (50% <=991, 80% <=767, 95% <=479) with overflow visible, so ~4 cards show at desktop. `variant` gives three shapes: 'journey' (/lms/impact, theme pink): centred H2, 3.42:5 cards with a serif title and 1-2 eyebrow tags; 'library' (/content/service, theme yellow): 2-col header (H2 | grey para), square cards with title + grey text; 'process' (/content/custom-content, theme green): 2-col header, 3.42:5 cards with an auto-numbered 01/02 chip, brand-colour serif title and small text.",

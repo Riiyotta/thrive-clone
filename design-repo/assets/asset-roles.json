@@ -1,7 +1,7 @@
 {
   "id": "assets.roles",
-  "version": "2.0.0",
-  "note": "Closed assetRole vocabulary DERIVED FROM REAL USAGE SITES (grep of src= / Placeholder / LogoPlaceholder in src/). Every media field in schema/pagespec.schema.json is an object whose assetRole comes from this enum, restricted per field; no section exposes a bare image/src string. Subpage sections (2.0.0) reuse the same roles; the only addition is stock.photo for the licensed stock stand-ins in public/stock/.",
+  "version": "3.0.0",
+  "note": "Closed assetRole vocabulary DERIVED FROM REAL USAGE SITES (grep of src= / Placeholder / LogoPlaceholder in src/). Every media field in schema/pagespec.schema.json is an object whose assetRole comes from this enum, restricted per field; no section exposes a bare image/src string. Subpage sections (2.0.0) reuse the same roles; the only addition is stock.photo for the licensed stock stand-ins in public/stock/. 3.0.0 adds the closed availability enum (clone-only | generation-safe | blocked-for-generation), generationSafeSubstitutes and generatedModeGuidance on every role, and nine generation-safe roles (asset.userSupplied, illustration.generated, screenshot.placeholder, person.fictional, logo.placeholderCompany, badge.placeholder, brand.placeholderMark, url.placeholder, copy.original) wired into every media slot of the schema, the contracts and the allowlist.",
   "generationPolicyEnum": [
     "may-generate-new",
     "may-reuse-licensed",
@@ -77,10 +77,20 @@
       ],
       "reason": "The clone's OWN invented placeholder brand (Nimbus). Chrome-owned; the nav and footer always render the Wordmark component. A PageSpec cannot set it.",
       "usageSites": [
-        "src/components/Nav.jsx:186-186",
-        "src/components/Footer.jsx:125-125"
+        "src/components/Footer.jsx:150-150",
+        "src/components/Footer.jsx:161-161",
+        "src/components/Footer.jsx:186-186",
+        "src/components/Nav.jsx:345-345",
+        "src/components/sections/GlossaryCta.jsx:30-30"
       ],
-      "usedBySections": []
+      "usedBySections": [],
+      "usageSiteCount": 5,
+      "availability": "clone-only",
+      "generationSafeSubstitutes": [
+        "brand.placeholderMark",
+        "asset.userSupplied"
+      ],
+      "generatedModeGuidance": "The clone's own placeholder wordmark (Nimbus) belongs to clone mode. A generation-mode page names its own brand in the top-level `brand` object and uses brand.placeholderMark or an operator-supplied mark (asset.userSupplied); it never reuses, restyles or imitates the Nimbus wordmark, and never must-reuse-exact it."
     },
     "placeholder.neutral": {
       "generationPolicy": "may-generate-new",
@@ -88,14 +98,23 @@
       "files": [],
       "reason": "A neutral surface-coloured slot with a short grey label (Placeholder.jsx without src). Contains no third-party content. A generator may also supply a NEWLY generated, original image under generated/ for this role.",
       "usageSites": [
-        "src/components/KikiTabs.jsx:124-124",
-        "src/components/VideoSection.jsx:21-21",
-        "src/components/Nav.jsx:122-122",
-        "src/components/Hero.jsx:42-42"
+        "src/components/CaseStudyCarousel.jsx:106-106",
+        "src/components/EnterpriseSlider.jsx:123-123",
+        "src/components/Footer.jsx:178-178",
+        "src/components/Footer.jsx:228-228",
+        "src/components/Footer.jsx:229-229",
+        "src/components/Footer.jsx:233-233",
+        "src/components/Hero.jsx:115-115",
+        "src/components/Hero.jsx:142-142",
+        "src/components/KikiTabs.jsx:76-76",
+        "src/components/KikiTabs.jsx:109-109",
+        "src/components/Nav.jsx:268-268",
+        "src/components/Nav.jsx:288-288"
       ],
       "usedBySections": [
         "article.cs-content-article",
         "article.cs-platform-body",
+        "article.cs-platform-header",
         "conversion.contact-form",
         "conversion.content-pricing",
         "conversion.glossary-cta",
@@ -166,7 +185,11 @@
         "story.header-image-legacy",
         "story.wow-2col",
         "story.zoom-statement"
-      ]
+      ],
+      "usageSiteCount": 132,
+      "availability": "generation-safe",
+      "generationSafeSubstitutes": [],
+      "generatedModeGuidance": "Safe in both modes: a neutral surface-coloured slot with a short grey label. Its label must be original, generic text (no source brand, customer or product name)."
     },
     "logo.customer": {
       "generationPolicy": "must-not-reuse",
@@ -191,12 +214,20 @@
       ],
       "reason": "Real third-party customer trademarks (e.g. Volvo, Burger King, Vodafone, British Airways, Krispy Kreme) copied by the user from their saved page of the original site, for local reference only. Never emit, copy, trace, recolour or imitate them; never invent a fake-real customer mark. Generated pages render primitive.logo-placeholder (grey 'LOGO' text) and the slot is filled only after a human supplies licensed logos.",
       "usageSites": [
-        "src/components/LogoStrip.jsx:23-23",
-        "src/components/Results.jsx:27-27",
-        "src/components/CaseStudyCarousel.jsx:79-79"
+        "src/components/CaseStudyCarousel.jsx:9-9",
+        "src/components/LogoStrip.jsx:3-3",
+        "src/components/LogoStrip.jsx:8-8",
+        "src/components/LogoStrip.jsx:9-9",
+        "src/components/Results.jsx:6-6",
+        "src/components/sections/IntegrationsHeader.jsx:35-35",
+        "src/components/sections/LogosHeroOverlap.jsx:21-21",
+        "src/components/sections/MentoringHeader.jsx:30-30",
+        "src/components/sections/PlatformHero.jsx:9-9",
+        "src/components/sections/ReviewsGrid.jsx:12-12",
+        "src/components/sections/WowContentHero.jsx:178-178"
       ],
       "usedBySections": [
-        "article.cs-platform-body",
+        "article.cs-platform-header",
         "conversion.content-pricing",
         "hero.content-overview",
         "hero.integrations-header",
@@ -222,7 +253,14 @@
         "proof.reviews-slider",
         "proof.testimonial-card-legacy",
         "shell.nav"
-      ]
+      ],
+      "usageSiteCount": 11,
+      "availability": "blocked-for-generation",
+      "generationSafeSubstitutes": [
+        "logo.placeholderCompany",
+        "placeholder.neutral"
+      ],
+      "generatedModeGuidance": "Real customer logos (Volvo, Burger King, Vodafone ...) and the clone's own fictional customer marks are never used in generation mode. Use logo.placeholderCompany (an original mark of a fictional company) or the neutral slot."
     },
     "logo.aiVendor": {
       "generationPolicy": "must-not-reuse",
@@ -236,11 +274,18 @@
       ],
       "reason": "Real AI vendors' trademarks. Never emit or imitate. Generated pages render neutral slots.",
       "usageSites": [
-        "src/components/Footer.jsx:139-139"
+        "src/components/Footer.jsx:176-176"
       ],
       "usedBySections": [
         "shell.footer"
-      ]
+      ],
+      "usageSiteCount": 1,
+      "availability": "blocked-for-generation",
+      "generationSafeSubstitutes": [
+        "placeholder.neutral",
+        "asset.userSupplied"
+      ],
+      "generatedModeGuidance": "Third-party AI vendor marks (ChatGPT, Perplexity, Gemini, Claude) are never emitted. Render the neutral slot, or an operator-supplied mark the operator is licensed to use."
     },
     "badge.review": {
       "generationPolicy": "must-not-fabricate",
@@ -253,9 +298,14 @@
       ],
       "reason": "Real review-site badges carrying real ratings and scores (G2, Capterra, Software Advice). Reusing them misattributes a real company's ratings; fabricating a look-alike invents a rating that was never awarded. Neither is allowed: render neutral slots only.",
       "usageSites": [
-        "src/components/Hero.jsx:65-65",
-        "src/components/Footer.jsx:191-191",
-        "src/components/Footer.jsx:192-192"
+        "src/components/Footer.jsx:228-228",
+        "src/components/Footer.jsx:229-229",
+        "src/components/Hero.jsx:19-19",
+        "src/components/sections/ContactForm.jsx:7-7",
+        "src/components/sections/DemoHero.jsx:36-36",
+        "src/components/sections/HeaderImageLegacy.jsx:10-10",
+        "src/components/sections/PricingHero.jsx:227-227",
+        "src/components/sections/WowContentHero.jsx:409-409"
       ],
       "usedBySections": [
         "conversion.contact-form",
@@ -265,7 +315,14 @@
         "hero.wow-content",
         "shell.footer",
         "story.header-image-legacy"
-      ]
+      ],
+      "usageSiteCount": 8,
+      "availability": "blocked-for-generation",
+      "generationSafeSubstitutes": [
+        "badge.placeholder",
+        "placeholder.neutral"
+      ],
+      "generatedModeGuidance": "Real review-site badges (G2, Capterra, Software Advice) carry real ratings. In generation mode use badge.placeholder: a neutral badge with no review-site name, no score and no star rating presented as real."
     },
     "badge.award": {
       "generationPolicy": "must-not-fabricate",
@@ -279,13 +336,20 @@
       ],
       "reason": "Real award shields issued to the original company. Never reuse; never fabricate an award.",
       "usageSites": [
-        "src/components/Footer.jsx:198-198"
+        "src/components/sections/WowBento.jsx:380-380"
       ],
       "usedBySections": [
         "product.grid-cards-legacy",
         "product.wow-bento",
         "shell.footer"
-      ]
+      ],
+      "usageSiteCount": 1,
+      "availability": "blocked-for-generation",
+      "generationSafeSubstitutes": [
+        "badge.placeholder",
+        "placeholder.neutral"
+      ],
+      "generatedModeGuidance": "Real award shields are never reused or imitated; use badge.placeholder (neutral, no award name, no issuer) or the neutral slot."
     },
     "photo.person": {
       "generationPolicy": "must-not-fabricate",
@@ -297,7 +361,11 @@
       ],
       "reason": "A real, named person's photograph (the original testimonial author) and a strip of real headshots. Never reuse a real person's likeness and never synthesise a photo presented as a real testimonial giver. Render the neutral 80x80 slot.",
       "usageSites": [
-        "src/components/Results.jsx:45-45"
+        "src/components/Results.jsx:22-22",
+        "src/components/sections/DemoHero.jsx:51-51",
+        "src/components/sections/LogosHeroOverlap.jsx:41-41",
+        "src/components/sections/MentoringHeader.jsx:64-64",
+        "src/components/sections/WowContentHero.jsx:31-31"
       ],
       "usedBySections": [
         "article.cs-content-article",
@@ -331,7 +399,14 @@
         "story.grid-split-legacy",
         "story.header-image-legacy",
         "story.wow-2col"
-      ]
+      ],
+      "usageSiteCount": 5,
+      "availability": "blocked-for-generation",
+      "generationSafeSubstitutes": [
+        "person.fictional",
+        "placeholder.neutral"
+      ],
+      "generatedModeGuidance": "Never a real person's likeness and never the clone's named testimonial people. Use person.fictional (an illustrated or initials avatar of an invented person, never photoreal and never presented as a real customer) or the neutral slot."
     },
     "photo.event": {
       "generationPolicy": "must-not-reuse",
@@ -351,7 +426,14 @@
         "product.capability-slider",
         "product.wow-bento",
         "story.company-news"
-      ]
+      ],
+      "usageSiteCount": 1,
+      "availability": "blocked-for-generation",
+      "generationSafeSubstitutes": [
+        "illustration.generated",
+        "placeholder.neutral"
+      ],
+      "generatedModeGuidance": "Real event photography with real people is never reused; use an original generated illustration or the neutral slot."
     },
     "photo.brand": {
       "generationPolicy": "must-not-reuse",
@@ -366,11 +448,12 @@
       ],
       "reason": "Real customers' brand / retail photography. Never reuse or imitate.",
       "usageSites": [
-        "src/components/CaseStudyCarousel.jsx:77-77"
+        "src/components/CaseStudyCarousel.jsx:9-9"
       ],
       "usedBySections": [
         "article.cs-content-article",
         "article.cs-platform-body",
+        "article.cs-platform-header",
         "hero.layout2-media",
         "hero.wow-content",
         "index.blog-featured",
@@ -387,7 +470,14 @@
         "story.company-news",
         "story.grid-split-legacy",
         "story.wow-2col"
-      ]
+      ],
+      "usageSiteCount": 1,
+      "availability": "blocked-for-generation",
+      "generationSafeSubstitutes": [
+        "illustration.generated",
+        "placeholder.neutral"
+      ],
+      "generatedModeGuidance": "Real customers' brand / retail photography is never reused; use an original generated illustration or the neutral slot."
     },
     "product.screenshot": {
       "generationPolicy": "must-not-reuse",
@@ -407,9 +497,8 @@
       ],
       "reason": "The original company's real, proprietary product UI screenshots and montages. Never reuse, trace or imitate. Generated pages render neutral placeholder slots with geometry-only labels (e.g. 'Product UI 670:600').",
       "usageSites": [
-        "src/components/Hero.jsx:91-91",
-        "src/components/ProductTabs.jsx:89-89",
-        "src/components/EnterpriseSlider.jsx:78-78",
+        "src/components/EnterpriseSlider.jsx:8-8",
+        "src/components/Hero.jsx:52-52",
         "src/components/Statement.jsx:38-38"
       ],
       "usedBySections": [
@@ -446,7 +535,14 @@
         "product.why-assistant-tabs",
         "product.wow-bento",
         "story.zoom-statement"
-      ]
+      ],
+      "usageSiteCount": 3,
+      "availability": "blocked-for-generation",
+      "generationSafeSubstitutes": [
+        "screenshot.placeholder",
+        "placeholder.neutral"
+      ],
+      "generatedModeGuidance": "The original's proprietary product UI is never reused or traced; use screenshot.placeholder (a newly drawn UI of the generated product with original labels) or the neutral slot."
     },
     "product.video": {
       "generationPolicy": "must-not-reuse",
@@ -455,8 +551,18 @@
       "files": [],
       "reason": "The original's product videos (assistant chat UI loops; the YouTube product tour). They exist only as CDN URLs in asset-manifest.json and were never copied locally; the clone renders neutral placeholders and makes no network request. Never embed, reuse or imitate.",
       "usageSites": [
-        "src/components/KikiTabs.jsx:125-125",
-        "src/components/VideoSection.jsx:21-21"
+        "src/components/KikiTabs.jsx:78-78",
+        "src/components/KikiTabs.jsx:112-112",
+        "src/components/VideoSection.jsx:43-43",
+        "src/components/VideoSection.jsx:58-58",
+        "src/components/VideoSection.jsx:64-64",
+        "src/components/sections/CaseStudyVideo.jsx:42-42",
+        "src/components/sections/CaseStudyVideo.jsx:49-49",
+        "src/components/sections/CompanyHeader.jsx:91-91",
+        "src/components/sections/CsPlatformBody.jsx:200-200",
+        "src/components/sections/CsPlatformBody.jsx:309-309",
+        "src/components/sections/CustomVideo.jsx:41-41",
+        "src/components/sections/HeaderGridCard.jsx:58-58"
       ],
       "usedBySections": [
         "article.cs-platform-body",
@@ -474,7 +580,14 @@
         "proof.reviews-grid",
         "story.brand-video",
         "story.custom-video"
-      ]
+      ],
+      "usageSiteCount": 24,
+      "availability": "blocked-for-generation",
+      "generationSafeSubstitutes": [
+        "screenshot.placeholder",
+        "placeholder.neutral"
+      ],
+      "generatedModeGuidance": "The original's product videos are never embedded or imitated; render a still placeholder (screenshot.placeholder) or the neutral slot. No embed URL exists in the schema (VIDEO_STAYS_PLACEHOLDER)."
     },
     "stock.photo": {
       "generationPolicy": "may-reuse-licensed",
@@ -576,17 +689,24 @@
       "licenseFile": "public/stock/CREDITS.md",
       "reason": "Stock stand-ins the clone's Placeholder paints into EMPTY labelled slots (ui / people / learn / city / video / avatar lists, chosen deterministically by label keyword). Logo, badge, rating, award, icon, QR, wordmark, flag and currency slots never get stock (NO_STOCK). Unsplash License: free to use and replace.",
       "usageSites": [
-        "src/components/shared/Placeholder.jsx:13-19",
+        "src/components/Layout.jsx:6-6",
+        "src/components/Layout.jsx:47-47",
+        "src/components/Layout.jsx:51-51",
+        "src/components/Layout.jsx:54-54",
+        "src/components/shared/Placeholder.jsx:13-13",
         "src/components/shared/Placeholder.jsx:21-21",
+        "src/components/shared/Placeholder.jsx:30-30",
+        "src/components/shared/Placeholder.jsx:32-32",
         "src/components/shared/Placeholder.jsx:55-55",
-        "src/components/Layout.jsx:47-59",
-        "src/stock/stockMap.js:6-8"
+        "src/stock/stockMap.js:6-6",
+        "src/stock/stockMap.js:8-8"
       ],
       "selection": "Two layers: Placeholder.jsx paints a label-keyword default (STOCK lists) and marks every stock-eligible slot with data-stock-slot; after render, Layout.jsx applies src/stock/stockMap.js (STOCK_MAP[route][i] = pool photo id for the i-th [data-stock-slot] in <main>, SQUARE_IDS use the -sq crop) through a MutationObserver -- background-image only, geometry unchanged. verify_all.py::check_asset_coverage checks that every id in STOCK_MAP / SQUARE_IDS resolves to a file in public/stock.",
       "allowedOnFields": "media fields that also allow product.screenshot, product.video, photo.brand or photo.event, and purely decorative placeholder-only fields; NEVER logo/badge/award/AI-vendor fields and NEVER photo.person fields (deliberately stricter than the clone, whose Placeholder also paints square stock crops into avatar slots).",
       "usedBySections": [
         "article.cs-content-article",
         "article.cs-platform-body",
+        "article.cs-platform-header",
         "conversion.glossary-cta",
         "hero.assistant-video",
         "hero.center-legacy",
@@ -635,7 +755,372 @@
         "story.custom-video",
         "story.grid-split-legacy",
         "story.zoom-statement"
+      ],
+      "usageSiteCount": 11,
+      "availability": "clone-only",
+      "generationSafeSubstitutes": [
+        "illustration.generated",
+        "asset.userSupplied",
+        "placeholder.neutral"
+      ],
+      "generatedModeGuidance": "The 91 Unsplash stock photos in public/stock/ are the clone's licensed stand-ins (credited in public/stock/CREDITS.md). A generation-mode page does not reuse the clone's picture set: it uses an original generated illustration, an operator-supplied image or the neutral slot."
+    },
+    "asset.userSupplied": {
+      "generationPolicy": "may-reuse-licensed",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": false,
+      "files": [],
+      "reason": "An image, logo or video still that the operator of the generated site supplies and is licensed to use (their own brand mark, product UI, team photo with consent). Referenced by assetRef under generated/; never a file from the source project.",
+      "availability": "generation-safe",
+      "generationSafeSubstitutes": [],
+      "generatedModeGuidance": "Only files the operator owns or licenses; never a file copied from this clone's public/ folders or the original site.",
+      "usageSites": [],
+      "usageSiteCount": 0,
+      "usedBySections": [
+        "article.cs-content-article",
+        "article.cs-platform-body",
+        "article.cs-platform-header",
+        "conversion.contact-form",
+        "conversion.content-pricing",
+        "conversion.glossary-cta",
+        "hero.assistant-video",
+        "hero.center-legacy",
+        "hero.company-video",
+        "hero.content-overview",
+        "hero.demo-form",
+        "hero.global-header-legacy",
+        "hero.header-grid-card",
+        "hero.integrations-header",
+        "hero.layout2-media",
+        "hero.logos-overlap",
+        "hero.mentoring-software",
+        "hero.platform",
+        "hero.pricing-calculator",
+        "hero.split-visual",
+        "hero.wow-content",
+        "index.blog-featured",
+        "index.blog-filter",
+        "index.cs-content-list",
+        "index.cs-content-related",
+        "index.cs-filter-grid",
+        "index.events-past",
+        "index.guides",
+        "index.integration-filter",
+        "index.topics-grid",
+        "product.assistant-feature-tabs",
+        "product.assistant-tabs",
+        "product.autotabs-group",
+        "product.capability-slider",
+        "product.feature-bento",
+        "product.feature-rows-legacy",
+        "product.feature-tabs",
+        "product.grid-cards-legacy",
+        "product.included-tabs",
+        "product.integrations-visual",
+        "product.layout03-tabs",
+        "product.release-block",
+        "product.sector-tabs",
+        "product.solution-tabs",
+        "product.split-autotabs",
+        "product.split-tabs",
+        "product.sticky-tabs",
+        "product.tabs-horizontal-legacy",
+        "product.two-col-features",
+        "product.why-assistant-tabs",
+        "product.wow-bento",
+        "proof.case-results",
+        "proof.case-study-carousel",
+        "proof.case-study-video",
+        "proof.centred-quote",
+        "proof.flip-logos",
+        "proof.logo-row",
+        "proof.results-proof",
+        "proof.results-stats",
+        "proof.reviews-grid",
+        "proof.reviews-slider",
+        "proof.testimonial",
+        "proof.testimonial-card-legacy",
+        "proof.testimonial-quote",
+        "shell.footer",
+        "shell.nav",
+        "story.brand-video",
+        "story.company-news",
+        "story.custom-video",
+        "story.grid-split-legacy",
+        "story.header-image-legacy",
+        "story.wow-2col",
+        "story.zoom-statement"
       ]
+    },
+    "illustration.generated": {
+      "generationPolicy": "may-generate-new",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": false,
+      "files": [],
+      "reason": "A newly generated, original illustration or abstract visual (no real people, no real brands, no imitation of the source imagery).",
+      "availability": "generation-safe",
+      "generationSafeSubstitutes": [],
+      "generatedModeGuidance": "Generate new art; no real people, no logos, no recreation of the source's photos or screenshots.",
+      "usageSites": [],
+      "usageSiteCount": 0,
+      "usedBySections": [
+        "article.cs-content-article",
+        "article.cs-platform-body",
+        "article.cs-platform-header",
+        "conversion.glossary-cta",
+        "hero.assistant-video",
+        "hero.center-legacy",
+        "hero.company-video",
+        "hero.content-overview",
+        "hero.global-header-legacy",
+        "hero.header-grid-card",
+        "hero.integrations-header",
+        "hero.layout2-media",
+        "hero.logos-overlap",
+        "hero.platform",
+        "hero.pricing-calculator",
+        "hero.split-visual",
+        "hero.wow-content",
+        "index.blog-featured",
+        "index.blog-filter",
+        "index.events-past",
+        "index.guides",
+        "index.integration-filter",
+        "index.topics-grid",
+        "product.assistant-feature-tabs",
+        "product.assistant-tabs",
+        "product.autotabs-group",
+        "product.capability-slider",
+        "product.feature-bento",
+        "product.feature-rows-legacy",
+        "product.feature-tabs",
+        "product.grid-cards-legacy",
+        "product.included-tabs",
+        "product.integrations-visual",
+        "product.layout03-tabs",
+        "product.release-block",
+        "product.sector-tabs",
+        "product.solution-tabs",
+        "product.split-autotabs",
+        "product.split-tabs",
+        "product.sticky-tabs",
+        "product.tabs-horizontal-legacy",
+        "product.why-assistant-tabs",
+        "product.wow-bento",
+        "proof.case-study-carousel",
+        "proof.case-study-video",
+        "proof.reviews-grid",
+        "proof.reviews-slider",
+        "proof.testimonial-card-legacy",
+        "story.brand-video",
+        "story.company-news",
+        "story.custom-video",
+        "story.grid-split-legacy",
+        "story.wow-2col",
+        "story.zoom-statement"
+      ]
+    },
+    "screenshot.placeholder": {
+      "generationPolicy": "may-generate-new",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": false,
+      "files": [],
+      "reason": "A placeholder product screen of the GENERATED product: a newly drawn UI with original labels and fictional data, or a neutral still for a video slot.",
+      "availability": "generation-safe",
+      "generationSafeSubstitutes": [],
+      "generatedModeGuidance": "Draw a new UI; never reproduce, trace or restyle the source product's screens or videos, and use fictional data only.",
+      "usageSites": [],
+      "usageSiteCount": 0,
+      "usedBySections": [
+        "article.cs-platform-body",
+        "conversion.glossary-cta",
+        "hero.assistant-video",
+        "hero.company-video",
+        "hero.content-overview",
+        "hero.header-grid-card",
+        "hero.integrations-header",
+        "hero.layout2-media",
+        "hero.logos-overlap",
+        "hero.mentoring-software",
+        "hero.platform",
+        "hero.pricing-calculator",
+        "hero.split-visual",
+        "hero.wow-content",
+        "index.blog-featured",
+        "index.blog-filter",
+        "index.guides",
+        "index.topics-grid",
+        "product.assistant-feature-tabs",
+        "product.assistant-tabs",
+        "product.autotabs-group",
+        "product.capability-slider",
+        "product.feature-bento",
+        "product.feature-rows-legacy",
+        "product.feature-tabs",
+        "product.grid-cards-legacy",
+        "product.included-tabs",
+        "product.integrations-visual",
+        "product.layout03-tabs",
+        "product.release-block",
+        "product.split-autotabs",
+        "product.split-tabs",
+        "product.sticky-tabs",
+        "product.two-col-features",
+        "product.why-assistant-tabs",
+        "product.wow-bento",
+        "proof.case-study-video",
+        "proof.reviews-grid",
+        "story.brand-video",
+        "story.custom-video",
+        "story.zoom-statement"
+      ]
+    },
+    "person.fictional": {
+      "generationPolicy": "may-generate-new",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": false,
+      "files": [],
+      "reason": "An avatar of an invented person: illustrated or initials, never photoreal, never presented as a real customer or employee.",
+      "availability": "generation-safe",
+      "generationSafeSubstitutes": [],
+      "generatedModeGuidance": "Invented names and illustrated/initials avatars only; never a real person, never a source testimonial name, never a photoreal face.",
+      "usageSites": [],
+      "usageSiteCount": 0,
+      "usedBySections": [
+        "article.cs-content-article",
+        "article.cs-platform-body",
+        "conversion.content-pricing",
+        "hero.center-legacy",
+        "hero.content-overview",
+        "hero.demo-form",
+        "hero.integrations-header",
+        "hero.logos-overlap",
+        "hero.mentoring-software",
+        "hero.platform",
+        "hero.wow-content",
+        "index.blog-featured",
+        "product.autotabs-group",
+        "product.included-tabs",
+        "product.release-block",
+        "product.split-autotabs",
+        "product.tabs-horizontal-legacy",
+        "product.two-col-features",
+        "product.why-assistant-tabs",
+        "product.wow-bento",
+        "proof.centred-quote",
+        "proof.results-proof",
+        "proof.reviews-grid",
+        "proof.reviews-slider",
+        "proof.testimonial",
+        "proof.testimonial-card-legacy",
+        "proof.testimonial-quote",
+        "story.company-news",
+        "story.grid-split-legacy",
+        "story.header-image-legacy",
+        "story.wow-2col"
+      ]
+    },
+    "logo.placeholderCompany": {
+      "generationPolicy": "may-generate-new",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": false,
+      "files": [],
+      "reason": "A placeholder logo of a fictional company (an original wordmark of an invented name), for customer-logo rows and case-study marks.",
+      "availability": "generation-safe",
+      "generationSafeSubstitutes": [],
+      "generatedModeGuidance": "Invent the company; never a real company's name or mark and never one of the clone's fictional customers.",
+      "usageSites": [],
+      "usageSiteCount": 0,
+      "usedBySections": [
+        "article.cs-platform-header",
+        "conversion.content-pricing",
+        "hero.content-overview",
+        "hero.integrations-header",
+        "hero.layout2-media",
+        "hero.logos-overlap",
+        "hero.mentoring-software",
+        "hero.platform",
+        "hero.pricing-calculator",
+        "hero.wow-content",
+        "index.cs-content-list",
+        "index.cs-content-related",
+        "index.cs-filter-grid",
+        "product.capability-slider",
+        "product.why-assistant-tabs",
+        "proof.case-results",
+        "proof.case-study-carousel",
+        "proof.case-study-video",
+        "proof.flip-logos",
+        "proof.logo-row",
+        "proof.results-proof",
+        "proof.results-stats",
+        "proof.reviews-grid",
+        "proof.reviews-slider",
+        "proof.testimonial-card-legacy",
+        "shell.nav"
+      ]
+    },
+    "badge.placeholder": {
+      "generationPolicy": "may-generate-new",
+      "exposedAsPageSpecField": true,
+      "realThirdParty": false,
+      "files": [],
+      "reason": "A neutral placeholder badge for review/award slots: no review-site or award-body name, no score, no stars presented as a real rating.",
+      "availability": "generation-safe",
+      "generationSafeSubstitutes": [],
+      "generatedModeGuidance": "Never name a real review site or award, never show a score as if it were awarded.",
+      "usageSites": [],
+      "usageSiteCount": 0,
+      "usedBySections": [
+        "conversion.contact-form",
+        "hero.demo-form",
+        "hero.pricing-calculator",
+        "hero.split-visual",
+        "hero.wow-content",
+        "product.grid-cards-legacy",
+        "product.wow-bento",
+        "shell.footer",
+        "story.header-image-legacy"
+      ]
+    },
+    "brand.placeholderMark": {
+      "generationPolicy": "may-generate-new",
+      "exposedAsPageSpecField": false,
+      "realThirdParty": false,
+      "files": [],
+      "reason": "The generated page's own brand mark: a newly designed placeholder mark for the brand named in the PageSpec `brand` object. Settable only through brand.markRole.",
+      "availability": "generation-safe",
+      "generationSafeSubstitutes": [],
+      "generatedModeGuidance": "Design a new mark for the generated brand; never the Nimbus wordmark or the original's marks.",
+      "usageSites": [],
+      "usageSiteCount": 0,
+      "usedBySections": []
+    },
+    "url.placeholder": {
+      "generationPolicy": "may-generate-new",
+      "exposedAsPageSpecField": false,
+      "realThirdParty": false,
+      "files": [],
+      "reason": "Placeholder links: hosts on the reserved .example / .invalid domains only (RFC 2606/6761). Not a media role; documents the URL rule GENERATION_MODE_URL enforces on every string.",
+      "availability": "generation-safe",
+      "generationSafeSubstitutes": [],
+      "generatedModeGuidance": "Every URL-like string in a generation-mode page must be on an .example or .invalid host; never a source host, CDN, form or embed endpoint.",
+      "usageSites": [],
+      "usageSiteCount": 0,
+      "usedBySections": []
+    },
+    "copy.original": {
+      "generationPolicy": "may-generate-new",
+      "exposedAsPageSpecField": false,
+      "realThirdParty": false,
+      "files": [],
+      "reason": "Original copy written for the generated brand. Not a media role; documents the copy rules (GENERATION_MODE_COPY / _CLAIM / _CTA) the validator enforces on every string.",
+      "availability": "generation-safe",
+      "generationSafeSubstitutes": [],
+      "generatedModeGuidance": "Write new copy; no 5-word run shared with the source copy, no source statistics, prices or CTA strings.",
+      "usageSites": [],
+      "usageSiteCount": 0,
+      "usedBySections": []
     }
   },
   "unreferencedReferenceFiles": {
@@ -661,5 +1146,16 @@
     "unreferenced": 12,
     "note": "hero-avatars.png is listed under photo.person AND as unreferenced (the clone draws CSS circles instead).",
     "publicStock": 91
-  }
+  },
+  "availabilityEnum": [
+    "clone-only",
+    "generation-safe",
+    "blocked-for-generation"
+  ],
+  "availabilityMeaning": {
+    "clone-only": "Usable only in mode=clone (the clone's own brand / licensed set). mode=generation must use a generationSafeSubstitutes role.",
+    "generation-safe": "Usable in both modes.",
+    "blocked-for-generation": "Real third-party or proprietary material. Renders only as a neutral placeholder in clone mode and is rejected outright in mode=generation (GENERATION_MODE_* asset rules); use a generationSafeSubstitutes role."
+  },
+  "availabilityNote": "Pinned in code, independently of this file, in BOTH extraction/verify_all.py (pinned-availability check) and schema/semantic_validate.py (PINNED_AVAILABILITY): editing this registry alone cannot loosen a role. A real logo/wordmark is never must-reuse-exact in generation mode (brand.wordmark is clone-only)."
 }

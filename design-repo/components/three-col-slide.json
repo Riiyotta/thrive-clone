@@ -1,6 +1,7 @@
 {
   "id": "component.three-col-slide",
   "kind": "component",
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "name": "Three-up slide",
   "composes": [

@@ -4,6 +4,17 @@
   "name": "Footer card",
   "purpose": "Site map, AI-assistant links, ratings/awards, compliance line and legal links.",
   "category": "shell",
+  "source": {
+    "id": "Footer.div@172",
+    "tag": "div",
+    "file": "src/components/Footer.jsx",
+    "lines": "172-273"
+  },
+  "semantic": {
+    "id": "shell.footer",
+    "category": "shell"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/Footer.jsx",
   "content": {
@@ -22,13 +33,15 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "logo.aiVendor",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "logo.aiVendor",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -108,13 +121,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "badge.review",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "badge.placeholder",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "badge.review",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "badge.placeholder",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -150,13 +167,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "badge.award",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "badge.placeholder",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "badge.award",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "badge.placeholder",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -406,7 +427,9 @@
     }
   ],
   "assetRoles": [
+    "asset.userSupplied",
     "badge.award",
+    "badge.placeholder",
     "badge.review",
     "logo.aiVendor",
     "placeholder.neutral"

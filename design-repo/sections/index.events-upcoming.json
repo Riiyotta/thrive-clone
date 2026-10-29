@@ -4,6 +4,17 @@
   "name": "Upcoming events + subscribe",
   "purpose": "Shows where the company will be in person next and invites visitors to join the events mailing list.",
   "category": "index",
+  "source": {
+    "id": "EventsUpcoming.section[data-section=events-upcoming]",
+    "tag": "section",
+    "file": "src/components/sections/EventsUpcoming.jsx",
+    "lines": "18-58"
+  },
+  "semantic": {
+    "id": "index.events-upcoming",
+    "category": "index"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/EventsUpcoming.jsx",
   "description": "Hairline-bordered block on the legacy \"green\" theme: centred serif 4rem H2, a 3-column list (1 at 767) of upcoming-event link cards (date chip with green gradient and left rule, semibold event name, \"Register today ›\"), then the shared newsletter callout (heading, sub line, static email field + Subscribe button). The live CMS had a single event.",

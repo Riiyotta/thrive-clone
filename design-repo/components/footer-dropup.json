@@ -1,6 +1,8 @@
 {
   "id": "component.footer-dropup",
   "kind": "component",
+  "retrievalEligible": false,
+  "retrievalReason": "Runtime popup: the footer legal/language drop-up list opened by a click; utility UI, not page content.",
   "designSystem": "marketing",
   "name": "Legal drop-up",
   "composes": [],

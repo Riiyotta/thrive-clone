@@ -4,6 +4,17 @@
   "name": "Integrations hero card with logos and split intro",
   "purpose": "Open the integrations directory with the H1 and demo CTA, show customer logos, then introduce the directory below with a split H2.",
   "category": "hero",
+  "source": {
+    "id": "IntegrationsHeader.section[data-section=integrations-header]",
+    "tag": "section",
+    "file": "src/components/sections/IntegrationsHeader.jsx",
+    "lines": "44-107"
+  },
+  "semantic": {
+    "id": "hero.integrations-header",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/IntegrationsHeader.jsx",
   "description": "Green legacy styling (/lms/integrations): a hairline-bordered 2-column card (copy: eyebrow tag, serif 3.8rem/1.1 H1, 18px paragraph, green pill button + 3 overlapping avatars and a users line | full-height visual, 3:2 <=991), one column <=767. Below: a centred logo lead line + 6 logos, then a split header (heading-h2 left, grey paragraph right; stacked <=991).",
@@ -41,13 +52,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "photo.person"
+          "photo.person",
+          "person.fictional",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -90,14 +105,20 @@
         "x-allowedRoles": [
           "placeholder.neutral",
           "product.screenshot",
-          "stock.photo"
+          "stock.photo",
+          "screenshot.placeholder",
+          "illustration.generated",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -133,13 +154,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "logo.customer"
+          "logo.customer",
+          "logo.placeholderCompany",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "logo.customer"
+              "logo.customer",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -444,10 +469,15 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "logo.customer",
+    "logo.placeholderCompany",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

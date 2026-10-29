@@ -4,6 +4,17 @@
   "name": "Two-column story block",
   "purpose": "Introduces one programme theme with a headline, a short framing lead and supporting copy beside a single illustrative image.",
   "category": "story",
+  "source": {
+    "id": "Wow2col.section[data-section=wow2col]",
+    "tag": "section",
+    "file": "src/components/sections/Wow2col.jsx",
+    "lines": "19-47"
+  },
+  "semantic": {
+    "id": "story.wow-2col",
+    "category": "story"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/Wow2col.jsx",
   "description": "A 2-column row in container-medium: the text column has the H2 pinned to the top and, pinned to the bottom (4rem minimum gap), a large 24px lead (optionally held to 28rem) and an 18px grey paragraph; the right column is a 1:1 dark rounded image card. Stacks at <=991 on /mentoring (stackTab) or <=767 by default, with a 20rem minimum image height. Used four times on /mentoring, each followed by a plain marquee.",
@@ -36,14 +47,20 @@
         "x-allowedRoles": [
           "photo.person",
           "photo.brand",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "person.fictional",
+          "illustration.generated",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "photo.person",
               "photo.brand",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "person.fictional",
+              "illustration.generated",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -181,6 +198,9 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
+    "person.fictional",
     "photo.brand",
     "photo.person",
     "placeholder.neutral"

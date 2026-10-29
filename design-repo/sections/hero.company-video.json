@@ -4,6 +4,17 @@
   "name": "Company hero over full-viewport background video",
   "purpose": "Open the company page with a full-screen brand moment: the mission H1, a one-line lead and demo / ask-AI CTAs.",
   "category": "hero",
+  "source": {
+    "id": "CompanyHeader.header[data-section=company-header]",
+    "tag": "header",
+    "file": "src/components/sections/CompanyHeader.jsx",
+    "lines": "68-93"
+  },
+  "semantic": {
+    "id": "hero.company-video",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/CompanyHeader.jsx",
   "description": "Full-viewport header (/company; min-h 100svh, max 60rem) with a background-video slot under a 50% black wash and a bottom-up #00030a gradient; white centred content sits at the bottom: serif 4rem/1.1 H1 (2.5rem <=767), 20px lead, primary button and a dark 'ask AI' button with an icon track. Buttons wrap and stretch <=479.",
@@ -43,14 +54,20 @@
         "x-allowedRoles": [
           "placeholder.neutral",
           "product.video",
-          "stock.photo"
+          "stock.photo",
+          "screenshot.placeholder",
+          "illustration.generated",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
               "product.video",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -238,8 +255,11 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

@@ -4,6 +4,17 @@
   "name": "Pricing hero with plan calculator",
   "purpose": "Open the pricing page with the H1 and let a visitor size the plan by team size and currency, then book a demo or explore what is included.",
   "category": "hero",
+  "source": {
+    "id": "PricingHero.section[data-section=pricing-hero]",
+    "tag": "section",
+    "file": "src/components/sections/PricingHero.jsx",
+    "lines": "272-352"
+  },
+  "semantic": {
+    "id": "hero.pricing-calculator",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/PricingHero.jsx",
   "description": "Centred column (/pricing): eyebrow chip, heading-h2-sized H1, grey intro and 3 review badges; a 'We have [learners] learners' custom dropdown; a plan card (currency dropdown top-right, plan eyebrow, lead, large serif price computed from the selected bracket, primary CTA + dark button that opens a right-hand feature drawer, check list); under the card a results ticker that steps through one stat row at a time. The drawer (hidden <=479) has a title, intro, tab buttons and cross-fading screenshot panes. Card contents stack <=479.",
@@ -36,13 +47,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "badge.review"
+          "badge.review",
+          "badge.placeholder",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "badge.review"
+              "badge.review",
+              "badge.placeholder",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -147,13 +162,17 @@
               "additionalProperties": false,
               "x-allowedRoles": [
                 "placeholder.neutral",
-                "logo.customer"
+                "logo.customer",
+                "logo.placeholderCompany",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "placeholder.neutral",
-                    "logo.customer"
+                    "logo.customer",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -234,14 +253,20 @@
                   "x-allowedRoles": [
                     "placeholder.neutral",
                     "product.screenshot",
-                    "stock.photo"
+                    "stock.photo",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "placeholder.neutral",
                         "product.screenshot",
-                        "stock.photo"
+                        "stock.photo",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -545,10 +570,15 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "badge.placeholder",
     "badge.review",
+    "illustration.generated",
     "logo.customer",
+    "logo.placeholderCompany",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

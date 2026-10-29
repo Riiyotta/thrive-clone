@@ -1,6 +1,6 @@
 {
   "$comment": "The closed list of what an AI generator may set. GENERATED from the section contracts (2.0.0: 94 sections) and re-derived from schema/pagespec.schema.json by extraction/verify_all.py::check_allowlist_schema, which compares EVERY settable path (not just top-level keys). Anything absent is not settable.",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "globalRules": [
     "33 templates cover the 58 real routes (templates/templates.json). Do not invent templates or routes; a route outside a template's measured routes is allowed but flagged.",
     "Set only the paths listed under settableProperties. Everything else (layout, tokens, button variants, breakpoints) is contract-owned.",
@@ -15,7 +15,8 @@
   ],
   "tokenOverridePolicy": {
     "perInstanceOverrides": false,
-    "note": "No PageSpec field exists for token overrides; nothing to validate at the PageSpec layer."
+    "pageLevelTokenSlots": "tokens/llm/token-policy.json pageSpecTokenSlots",
+    "note": "Page-level tokens go through the closed PageSpec `tokens` slots (catalog paths only, TOKEN_* rules). No node carries a per-instance style or token override."
   },
   "sections": {
     "article.cs-content-article": {
@@ -113,7 +114,9 @@
           "assetRoles": [
             "placeholder.neutral",
             "photo.brand",
-            "stock.photo"
+            "stock.photo",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "sections[].blocks[].figure.image.assetRole": {
@@ -153,7 +156,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "quote.avatar.assetRole": {
@@ -170,34 +175,193 @@
         "quote.avatar.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "article.cs-platform-body": {
       "contractFile": "sections/article.cs-platform-body.json",
       "category": "article",
       "allowedMotionPatterns": [
-        "scroll.charColorScrub"
+        "none"
       ],
-      "reducedMotionFallback": "instant-final-state",
+      "reducedMotionFallback": "none",
       "requiredContentFields": [
-        "logo",
-        "title",
-        "heroImage",
-        "cards",
         "tocLabel",
         "sections",
         "testimonialLabel",
         "testimonial",
         "sidebarCta",
-        "video",
-        "cta"
+        "video"
+      ],
+      "settableProperties": {
+        "tocLabel": {
+          "settable": true,
+          "maxWords": 5
+        },
+        "sections": {
+          "settable": true
+        },
+        "sections[]": {
+          "settable": true
+        },
+        "sections[].title": {
+          "settable": true,
+          "maxWords": 15
+        },
+        "sections[].paragraphs": {
+          "settable": true
+        },
+        "sections[].paragraphs[]": {
+          "settable": true
+        },
+        "sections[].paragraphs[].text": {
+          "settable": true,
+          "maxWords": 118
+        },
+        "sections[].paragraphs[].linkPhrases": {
+          "settable": true
+        },
+        "sections[].paragraphs[].linkPhrases[]": {
+          "settable": true,
+          "maxWords": 18
+        },
+        "sections[].image": {
+          "settable": true,
+          "assetRoles": [
+            "placeholder.neutral",
+            "photo.brand",
+            "stock.photo",
+            "illustration.generated",
+            "asset.userSupplied"
+          ]
+        },
+        "sections[].image.assetRole": {
+          "settable": true
+        },
+        "sections[].image.placeholderLabel": {
+          "settable": true,
+          "maxWords": 6
+        },
+        "sections[].image.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "sections[].image.assetRef": {
+          "settable": true
+        },
+        "testimonialLabel": {
+          "settable": true,
+          "maxWords": 2
+        },
+        "testimonial": {
+          "settable": true
+        },
+        "testimonial.quote": {
+          "settable": true,
+          "maxWords": 43
+        },
+        "testimonial.name": {
+          "settable": true,
+          "maxWords": 3
+        },
+        "testimonial.role": {
+          "settable": true,
+          "maxWords": 13
+        },
+        "testimonial.avatar": {
+          "settable": true,
+          "assetRoles": [
+            "placeholder.neutral",
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
+          ]
+        },
+        "testimonial.avatar.assetRole": {
+          "settable": true
+        },
+        "testimonial.avatar.placeholderLabel": {
+          "settable": true,
+          "maxWords": 6
+        },
+        "testimonial.avatar.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "testimonial.avatar.assetRef": {
+          "settable": true
+        },
+        "sidebarCta": {
+          "settable": true
+        },
+        "sidebarCta.text": {
+          "settable": true,
+          "maxWords": 13
+        },
+        "sidebarCta.label": {
+          "settable": true,
+          "maxWords": 5
+        },
+        "video": {
+          "settable": true
+        },
+        "video.title": {
+          "settable": true,
+          "maxWords": 15
+        },
+        "video.media": {
+          "settable": true,
+          "assetRoles": [
+            "placeholder.neutral",
+            "product.video",
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
+          ]
+        },
+        "video.media.assetRole": {
+          "settable": true
+        },
+        "video.media.placeholderLabel": {
+          "settable": true,
+          "maxWords": 6
+        },
+        "video.media.alt": {
+          "settable": true,
+          "maxWords": 10
+        },
+        "video.media.assetRef": {
+          "settable": true
+        },
+        "video.caption": {
+          "settable": true,
+          "maxWords": 38
+        }
+      },
+      "retrievalEligible": true
+    },
+    "article.cs-platform-header": {
+      "contractFile": "sections/article.cs-platform-header.json",
+      "category": "article",
+      "allowedMotionPatterns": [
+        "none"
+      ],
+      "reducedMotionFallback": "none",
+      "requiredContentFields": [
+        "logo",
+        "title",
+        "heroImage",
+        "cards"
       ],
       "settableProperties": {
         "logo": {
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "logo.customer"
+            "logo.customer",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "logo.assetRole": {
@@ -223,7 +387,9 @@
           "assetRoles": [
             "placeholder.neutral",
             "photo.brand",
-            "stock.photo"
+            "stock.photo",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "heroImage.assetRole": {
@@ -267,156 +433,9 @@
         "cards[].linkLabel": {
           "settable": true,
           "maxWords": 4
-        },
-        "tocLabel": {
-          "settable": true,
-          "maxWords": 5
-        },
-        "sections": {
-          "settable": true
-        },
-        "sections[]": {
-          "settable": true
-        },
-        "sections[].title": {
-          "settable": true,
-          "maxWords": 15
-        },
-        "sections[].paragraphs": {
-          "settable": true
-        },
-        "sections[].paragraphs[]": {
-          "settable": true
-        },
-        "sections[].paragraphs[].text": {
-          "settable": true,
-          "maxWords": 118
-        },
-        "sections[].paragraphs[].linkPhrases": {
-          "settable": true
-        },
-        "sections[].paragraphs[].linkPhrases[]": {
-          "settable": true,
-          "maxWords": 18
-        },
-        "sections[].image": {
-          "settable": true,
-          "assetRoles": [
-            "placeholder.neutral",
-            "photo.brand",
-            "stock.photo"
-          ]
-        },
-        "sections[].image.assetRole": {
-          "settable": true
-        },
-        "sections[].image.placeholderLabel": {
-          "settable": true,
-          "maxWords": 6
-        },
-        "sections[].image.alt": {
-          "settable": true,
-          "maxWords": 10
-        },
-        "sections[].image.assetRef": {
-          "settable": true
-        },
-        "testimonialLabel": {
-          "settable": true,
-          "maxWords": 2
-        },
-        "testimonial": {
-          "settable": true
-        },
-        "testimonial.quote": {
-          "settable": true,
-          "maxWords": 43
-        },
-        "testimonial.name": {
-          "settable": true,
-          "maxWords": 3
-        },
-        "testimonial.role": {
-          "settable": true,
-          "maxWords": 13
-        },
-        "testimonial.avatar": {
-          "settable": true,
-          "assetRoles": [
-            "placeholder.neutral",
-            "photo.person"
-          ]
-        },
-        "testimonial.avatar.assetRole": {
-          "settable": true
-        },
-        "testimonial.avatar.placeholderLabel": {
-          "settable": true,
-          "maxWords": 6
-        },
-        "testimonial.avatar.alt": {
-          "settable": true,
-          "maxWords": 10
-        },
-        "testimonial.avatar.assetRef": {
-          "settable": true
-        },
-        "sidebarCta": {
-          "settable": true
-        },
-        "sidebarCta.text": {
-          "settable": true,
-          "maxWords": 13
-        },
-        "sidebarCta.label": {
-          "settable": true,
-          "maxWords": 5
-        },
-        "video": {
-          "settable": true
-        },
-        "video.title": {
-          "settable": true,
-          "maxWords": 15
-        },
-        "video.media": {
-          "settable": true,
-          "assetRoles": [
-            "placeholder.neutral",
-            "product.video",
-            "stock.photo"
-          ]
-        },
-        "video.media.assetRole": {
-          "settable": true
-        },
-        "video.media.placeholderLabel": {
-          "settable": true,
-          "maxWords": 6
-        },
-        "video.media.alt": {
-          "settable": true,
-          "maxWords": 10
-        },
-        "video.media.assetRef": {
-          "settable": true
-        },
-        "video.caption": {
-          "settable": true,
-          "maxWords": 38
-        },
-        "cta": {
-          "settable": true
-        },
-        "cta.title": {
-          "settable": true,
-          "maxWords": 8
-        },
-        "cta.label": {
-          "settable": true,
-          "maxWords": 4
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "conversion.contact-form": {
       "contractFile": "sections/conversion.contact-form.json",
@@ -447,7 +466,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "badge.review"
+            "badge.review",
+            "badge.placeholder",
+            "asset.userSupplied"
           ]
         },
         "badges.assetRole": {
@@ -488,7 +509,8 @@
           "settable": true,
           "maxWords": 2
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "conversion.content-pricing": {
       "contractFile": "sections/conversion.content-pricing.json",
@@ -597,7 +619,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "logo.customer"
+            "logo.customer",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "testimonials[].logo.assetRole": {
@@ -630,7 +654,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "testimonials[].avatar.assetRole": {
@@ -647,7 +673,33 @@
         "testimonials[].avatar.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
+    },
+    "conversion.cs-platform-cta": {
+      "contractFile": "sections/conversion.cs-platform-cta.json",
+      "category": "conversion",
+      "allowedMotionPatterns": [
+        "scroll.charColorScrub"
+      ],
+      "reducedMotionFallback": "instant-final-state",
+      "requiredContentFields": [
+        "cta"
+      ],
+      "settableProperties": {
+        "cta": {
+          "settable": true
+        },
+        "cta.title": {
+          "settable": true,
+          "maxWords": 8
+        },
+        "cta.label": {
+          "settable": true,
+          "maxWords": 4
+        }
+      },
+      "retrievalEligible": true
     },
     "conversion.cta-strip": {
       "contractFile": "sections/conversion.cta-strip.json",
@@ -677,7 +729,8 @@
         "pricing",
         "spacer",
         "button"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "conversion.demo-cta": {
       "contractFile": "sections/conversion.demo-cta.json",
@@ -708,7 +761,8 @@
           "settable": true,
           "maxWords": 3
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "conversion.demo-form": {
       "contractFile": "sections/conversion.demo-form.json",
@@ -748,7 +802,8 @@
           "settable": true,
           "maxWords": 2
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "conversion.faq": {
       "contractFile": "sections/conversion.faq.json",
@@ -809,7 +864,8 @@
       },
       "variants": [
         "subpage"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "conversion.faq-empty": {
       "contractFile": "sections/conversion.faq-empty.json",
@@ -831,7 +887,8 @@
           "settable": true,
           "maxWords": 4
         }
-      }
+      },
+      "retrievalEligible": false
     },
     "conversion.faq-legacy": {
       "contractFile": "sections/conversion.faq-legacy.json",
@@ -875,7 +932,8 @@
         "items[].open": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "conversion.glossary-cta": {
       "contractFile": "sections/conversion.glossary-cta.json",
@@ -914,7 +972,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "product.screenshot",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "image.assetRole": {
@@ -931,7 +992,8 @@
         "image.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "conversion.pricing-plans-legacy": {
       "contractFile": "sections/conversion.pricing-plans-legacy.json",
@@ -992,7 +1054,8 @@
           "settable": true,
           "maxWords": 14
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "conversion.why-cta": {
       "contractFile": "sections/conversion.why-cta.json",
@@ -1014,7 +1077,8 @@
           "settable": true,
           "maxWords": 4
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "hero.assistant-video": {
       "contractFile": "sections/hero.assistant-video.json",
@@ -1086,7 +1150,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "product.video",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "video.assetRole": {
@@ -1103,7 +1170,8 @@
         "video.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "hero.center-legacy": {
       "contractFile": "sections/hero.center-legacy.json",
@@ -1145,7 +1213,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "avatars.assetRole": {
@@ -1173,7 +1243,9 @@
           "settable": true,
           "assetRoles": [
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "logo.assetRole": {
@@ -1194,7 +1266,8 @@
       "variants": [
         "services",
         "custom"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "hero.company-video": {
       "contractFile": "sections/hero.company-video.json",
@@ -1232,7 +1305,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "product.video",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "video.assetRole": {
@@ -1249,7 +1325,8 @@
         "video.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "hero.content-overview": {
       "contractFile": "sections/hero.content-overview.json",
@@ -1290,7 +1367,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "avatars.assetRole": {
@@ -1322,7 +1401,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "logo.customer"
+            "logo.customer",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "logos.assetRole": {
@@ -1379,7 +1460,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "feature.avatar.assetRole": {
@@ -1401,7 +1484,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "product.screenshot",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "feature.image.assetRole": {
@@ -1422,7 +1508,8 @@
           "settable": true,
           "maxWords": 5
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "hero.demo-form": {
       "contractFile": "sections/hero.demo-form.json",
@@ -1447,7 +1534,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "avatars.assetRole": {
@@ -1508,7 +1597,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "badge.review"
+            "badge.review",
+            "badge.placeholder",
+            "asset.userSupplied"
           ]
         },
         "badges.assetRole": {
@@ -1571,7 +1662,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "quotes[].avatar.assetRole": {
@@ -1588,7 +1681,8 @@
         "quotes[].avatar.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "hero.global-header-legacy": {
       "contractFile": "sections/hero.global-header-legacy.json",
@@ -1625,7 +1719,9 @@
           "settable": true,
           "assetRoles": [
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "logo.assetRole": {
@@ -1646,7 +1742,8 @@
       "variants": [
         "eyebrow",
         "logo"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "hero.header-grid-card": {
       "contractFile": "sections/hero.header-grid-card.json",
@@ -1689,7 +1786,10 @@
             "placeholder.neutral",
             "product.screenshot",
             "product.video",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "media.assetRole": {
@@ -1710,7 +1810,8 @@
       "variants": [
         "topics",
         "suites"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "hero.integrations-header": {
       "contractFile": "sections/hero.integrations-header.json",
@@ -1753,7 +1854,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "avatars.assetRole": {
@@ -1782,7 +1885,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "product.screenshot",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "visual.assetRole": {
@@ -1807,7 +1913,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "logo.customer"
+            "logo.customer",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "logos.assetRole": {
@@ -1835,7 +1943,8 @@
           "settable": true,
           "maxWords": 32
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "hero.layout2-media": {
       "contractFile": "sections/hero.layout2-media.json",
@@ -1862,7 +1971,10 @@
             "placeholder.neutral",
             "product.video",
             "photo.event",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "media.assetRole": {
@@ -1883,7 +1995,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "logo.customer"
+            "logo.customer",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "logo.assetRole": {
@@ -1923,7 +2037,8 @@
         "case-study",
         "company",
         "events"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "hero.logos-overlap": {
       "contractFile": "sections/hero.logos-overlap.json",
@@ -1948,7 +2063,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "avatars.assetRole": {
@@ -2000,7 +2117,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "quote.avatar.assetRole": {
@@ -2026,7 +2145,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "product.screenshot",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "visual.assetRole": {
@@ -2051,7 +2173,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "logo.customer"
+            "logo.customer",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "logos.assetRole": {
@@ -2071,7 +2195,8 @@
         "logos.slotCount": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "hero.mentoring-software": {
       "contractFile": "sections/hero.mentoring-software.json",
@@ -2099,7 +2224,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "photo.person",
-            "product.screenshot"
+            "product.screenshot",
+            "person.fictional",
+            "screenshot.placeholder",
+            "asset.userSupplied"
           ]
         },
         "image.assetRole": {
@@ -2120,7 +2248,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "avatars.assetRole": {
@@ -2173,7 +2303,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "logo.customer"
+            "logo.customer",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "logos.assetRole": {
@@ -2193,7 +2325,8 @@
         "logos.slotCount": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "hero.platform": {
       "contractFile": "sections/hero.platform.json",
@@ -2243,7 +2376,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "quote.avatar.assetRole": {
@@ -2269,7 +2404,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "product.screenshot",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "visual.assetRole": {
@@ -2294,7 +2432,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "logo.customer"
+            "logo.customer",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "logos.assetRole": {
@@ -2314,7 +2454,8 @@
         "logos.slotCount": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "hero.pricing-calculator": {
       "contractFile": "sections/hero.pricing-calculator.json",
@@ -2356,7 +2497,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "badge.review"
+            "badge.review",
+            "badge.placeholder",
+            "asset.userSupplied"
           ]
         },
         "badges.assetRole": {
@@ -2424,7 +2567,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "logo.customer"
+            "logo.customer",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "results[].logo.assetRole": {
@@ -2475,7 +2620,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "product.screenshot",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "drawer.tabs[].screenshot.assetRole": {
@@ -2492,7 +2640,8 @@
         "drawer.tabs[].screenshot.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "hero.split-visual": {
       "contractFile": "sections/hero.split-visual.json",
@@ -2517,7 +2666,9 @@
           "settable": true,
           "assetRoles": [
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "avatarStrip.assetRole": {
@@ -2546,7 +2697,9 @@
           "settable": true,
           "assetRoles": [
             "badge.review",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "badge.placeholder",
+            "asset.userSupplied"
           ]
         },
         "reviewBadges.assetRole": {
@@ -2579,7 +2732,10 @@
           "assetRoles": [
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "visual.assetRole": {
@@ -2606,7 +2762,8 @@
       },
       "variants": [
         "feature-detail"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "hero.wow-content": {
       "contractFile": "sections/hero.wow-content.json",
@@ -2657,7 +2814,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "quote.avatar.assetRole": {
@@ -2683,7 +2842,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "product.screenshot",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "visual.assetRole": {
@@ -2726,7 +2888,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "logo.customer"
+            "logo.customer",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "logos.assetRole": {
@@ -2767,7 +2931,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "avatars.assetRole": {
@@ -2811,7 +2977,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "badge.review"
+            "badge.review",
+            "badge.placeholder",
+            "asset.userSupplied"
           ]
         },
         "badges.assetRole": {
@@ -2843,7 +3011,8 @@
         "case-studies",
         "why",
         "whats-included"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "index.blog-featured": {
       "contractFile": "sections/index.blog-featured.json",
@@ -2901,7 +3070,10 @@
             "placeholder.neutral",
             "photo.brand",
             "product.screenshot",
-            "stock.photo"
+            "stock.photo",
+            "illustration.generated",
+            "screenshot.placeholder",
+            "asset.userSupplied"
           ]
         },
         "post.image.assetRole": {
@@ -2922,7 +3094,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "post.authorAvatar.assetRole": {
@@ -2964,7 +3138,8 @@
           "settable": true,
           "maxWords": 2
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "index.blog-filter": {
       "contractFile": "sections/index.blog-filter.json",
@@ -3023,7 +3198,10 @@
             "placeholder.neutral",
             "photo.brand",
             "product.screenshot",
-            "stock.photo"
+            "stock.photo",
+            "illustration.generated",
+            "screenshot.placeholder",
+            "asset.userSupplied"
           ]
         },
         "posts[].image.assetRole": {
@@ -3040,7 +3218,8 @@
         "posts[].image.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "index.cs-content-list": {
       "contractFile": "sections/index.cs-content-list.json",
@@ -3064,7 +3243,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "logo.customer"
+            "logo.customer",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "items[].logo.assetRole": {
@@ -3089,7 +3270,8 @@
           "settable": true,
           "maxWords": 3
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "index.cs-content-related": {
       "contractFile": "sections/index.cs-content-related.json",
@@ -3118,7 +3300,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "logo.customer"
+            "logo.customer",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "items[].logo.assetRole": {
@@ -3143,7 +3327,8 @@
           "settable": true,
           "maxWords": 3
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "index.cs-filter-grid": {
       "contractFile": "sections/index.cs-filter-grid.json",
@@ -3190,7 +3375,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "logo.customer"
+            "logo.customer",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "items[].logo.assetRole": {
@@ -3230,7 +3417,8 @@
           "settable": true,
           "maxWords": 9
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "index.events-past": {
       "contractFile": "sections/index.events-past.json",
@@ -3272,7 +3460,9 @@
           "assetRoles": [
             "placeholder.neutral",
             "photo.event",
-            "stock.photo"
+            "stock.photo",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "items[].image.assetRole": {
@@ -3293,7 +3483,8 @@
           "settable": true,
           "maxWords": 3
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "index.events-upcoming": {
       "contractFile": "sections/index.events-upcoming.json",
@@ -3356,7 +3547,8 @@
           "settable": true,
           "maxWords": 2
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "index.glossary": {
       "contractFile": "sections/index.glossary.json",
@@ -3420,7 +3612,8 @@
           "settable": true,
           "maxWords": 3
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "index.guides": {
       "contractFile": "sections/index.guides.json",
@@ -3478,7 +3671,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "product.screenshot",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "featured.cover.assetRole": {
@@ -3514,7 +3710,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "product.screenshot",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "guides[].cover.assetRole": {
@@ -3531,7 +3730,8 @@
         "guides[].cover.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "index.integration-filter": {
       "contractFile": "sections/index.integration-filter.json",
@@ -3580,7 +3780,9 @@
           "settable": true,
           "assetRoles": [
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "items[].logo.assetRole": {
@@ -3597,7 +3799,8 @@
         "items[].logo.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "index.topics-grid": {
       "contractFile": "sections/index.topics-grid.json",
@@ -3638,7 +3841,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "product.screenshot",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "items[].media.assetRole": {
@@ -3658,7 +3864,8 @@
       },
       "variants": [
         "topics"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "index.webinars-upcoming": {
       "contractFile": "sections/index.webinars-upcoming.json",
@@ -3705,7 +3912,8 @@
           "settable": true,
           "maxWords": 4
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "product.anchor-intro": {
       "contractFile": "sections/product.anchor-intro.json",
@@ -3730,7 +3938,8 @@
       "variants": [
         "solutions",
         "features"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.assistant-feature-tabs": {
       "contractFile": "sections/product.assistant-feature-tabs.json",
@@ -3776,7 +3985,10 @@
           "assetRoles": [
             "product.video",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "items[].media.assetRole": {
@@ -3793,7 +4005,8 @@
         "items[].media.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "product.assistant-tabs": {
       "contractFile": "sections/product.assistant-tabs.json",
@@ -3856,7 +4069,10 @@
           "assetRoles": [
             "product.video",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "tabs[].video.assetRole": {
@@ -3929,7 +4145,10 @@
           "assetRoles": [
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "tabs[].visual.assetRole": {
@@ -3950,7 +4169,8 @@
       "variants": [
         "image-slides",
         "video-slides"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.autotabs-group": {
       "contractFile": "sections/product.autotabs-group.json",
@@ -4001,7 +4221,10 @@
           "assetRoles": [
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "tabs[].media.assetRole": {
@@ -4041,7 +4264,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "quote.avatar.assetRole": {
@@ -4074,7 +4299,8 @@
         "platform",
         "enterprise",
         "mentoring"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.capability-slider": {
       "contractFile": "sections/product.capability-slider.json",
@@ -4108,7 +4334,10 @@
             "product.screenshot",
             "photo.event",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "slides[].image.assetRole": {
@@ -4140,7 +4369,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "slides[].logo.assetRole": {
@@ -4164,7 +4395,8 @@
       },
       "variants": [
         "case"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.card-slider-legacy": {
       "contractFile": "sections/product.card-slider-legacy.json",
@@ -4219,7 +4451,8 @@
         "journey",
         "library",
         "process"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.comparison-table": {
       "contractFile": "sections/product.comparison-table.json",
@@ -4318,7 +4551,8 @@
         "platform",
         "enterprise",
         "vendor"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.explore-empty": {
       "contractFile": "sections/product.explore-empty.json",
@@ -4348,7 +4582,8 @@
           "settable": true,
           "maxWords": 4
         }
-      }
+      },
+      "retrievalEligible": false
     },
     "product.feature-bento": {
       "contractFile": "sections/product.feature-bento.json",
@@ -4418,7 +4653,10 @@
             "product.screenshot",
             "photo.brand",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "cards[].media.assetRole": {
@@ -4435,7 +4673,8 @@
         "cards[].media.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "product.feature-rows-legacy": {
       "contractFile": "sections/product.feature-rows-legacy.json",
@@ -4479,7 +4718,10 @@
             "placeholder.neutral",
             "product.screenshot",
             "photo.brand",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "rows[].media.assetRole": {
@@ -4505,7 +4747,8 @@
         "impact",
         "service",
         "services"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.feature-tabs": {
       "contractFile": "sections/product.feature-tabs.json",
@@ -4565,7 +4808,10 @@
           "assetRoles": [
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "tabs[].visual.assetRole": {
@@ -4588,7 +4834,8 @@
       },
       "variants": [
         "subpage"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.features-intro": {
       "contractFile": "sections/product.features-intro.json",
@@ -4610,7 +4857,8 @@
           "settable": true,
           "maxWords": 34
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "product.grid-cards-legacy": {
       "contractFile": "sections/product.grid-cards-legacy.json",
@@ -4684,7 +4932,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "badge.award"
+            "badge.award",
+            "badge.placeholder",
+            "asset.userSupplied"
           ]
         },
         "badges.assetRole": {
@@ -4713,7 +4963,10 @@
           "assetRoles": [
             "placeholder.neutral",
             "product.screenshot",
-            "stock.photo"
+            "stock.photo",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "rows[].cards[].media.assetRole": {
@@ -4737,7 +4990,8 @@
         "stats",
         "awards",
         "content"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.included-tabs": {
       "contractFile": "sections/product.included-tabs.json",
@@ -4781,7 +5035,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "quote.avatar.assetRole": {
@@ -4817,7 +5073,10 @@
           "assetRoles": [
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "slides[].media.assetRole": {
@@ -4838,7 +5097,8 @@
           "settable": true,
           "maxWords": 5
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "product.integrations-visual": {
       "contractFile": "sections/product.integrations-visual.json",
@@ -4874,7 +5134,10 @@
           "assetRoles": [
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "media.assetRole": {
@@ -4896,7 +5159,8 @@
         "mid-market",
         "enterprise",
         "features"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.layout03-tabs": {
       "contractFile": "sections/product.layout03-tabs.json",
@@ -4965,7 +5229,10 @@
           "assetRoles": [
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "tabs[].media.assetRole": {
@@ -4988,7 +5255,10 @@
             "product.screenshot",
             "product.video",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "paneMedia.assetRole": {
@@ -5010,7 +5280,8 @@
         "image",
         "video",
         "video-compact"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.learn-grid": {
       "contractFile": "sections/product.learn-grid.json",
@@ -5040,7 +5311,8 @@
           "settable": true,
           "maxWords": 8
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "product.platform-intro": {
       "contractFile": "sections/product.platform-intro.json",
@@ -5072,7 +5344,8 @@
           "settable": true,
           "maxWords": 14
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "product.release-block": {
       "contractFile": "sections/product.release-block.json",
@@ -5136,7 +5409,10 @@
             "product.video",
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "media.visual.assetRole": {
@@ -5182,7 +5458,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "items[].quote.avatar.assetRole": {
@@ -5218,7 +5496,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "quote.avatar.assetRole": {
@@ -5235,7 +5515,8 @@
         "quote.avatar.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "product.sector-tabs": {
       "contractFile": "sections/product.sector-tabs.json",
@@ -5281,7 +5562,9 @@
           "assetRoles": [
             "photo.brand",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "paneMedia.assetRole": {
@@ -5317,7 +5600,9 @@
           "assetRoles": [
             "photo.brand",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "cards[].media.assetRole": {
@@ -5338,7 +5623,8 @@
       "variants": [
         "industries",
         "topics"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.solution-tabs": {
       "contractFile": "sections/product.solution-tabs.json",
@@ -5395,7 +5681,9 @@
           "assetRoles": [
             "photo.brand",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "tabs[].media.assetRole": {
@@ -5416,7 +5704,8 @@
           "settable": true,
           "maxWords": 3
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "product.split-autotabs": {
       "contractFile": "sections/product.split-autotabs.json",
@@ -5478,7 +5767,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "header.quote.avatar.assetRole": {
@@ -5522,7 +5813,10 @@
           "assetRoles": [
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "slides[].media.assetRole": {
@@ -5562,7 +5856,8 @@
           "settable": true,
           "maxWords": 7
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "product.split-tabs": {
       "contractFile": "sections/product.split-tabs.json",
@@ -5631,7 +5926,10 @@
             "product.video",
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "tabs[].media.assetRole": {
@@ -5652,7 +5950,8 @@
       "variants": [
         "base",
         "reversed"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.sticky-tabs": {
       "contractFile": "sections/product.sticky-tabs.json",
@@ -5743,7 +6042,10 @@
           "assetRoles": [
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "panels[].tabs[].media.assetRole": {
@@ -5768,7 +6070,8 @@
       "variants": [
         "solutions",
         "features"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "product.tabs-horizontal-legacy": {
       "contractFile": "sections/product.tabs-horizontal-legacy.json",
@@ -5821,7 +6124,10 @@
           "assetRoles": [
             "photo.person",
             "photo.brand",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "tabs[].media.assetRole": {
@@ -5838,7 +6144,8 @@
         "tabs[].media.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "product.two-col-features": {
       "contractFile": "sections/product.two-col-features.json",
@@ -5906,7 +6213,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "rows[].avatar.assetRole": {
@@ -5928,7 +6237,10 @@
           "assetRoles": [
             "photo.person",
             "product.screenshot",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "screenshot.placeholder",
+            "asset.userSupplied"
           ]
         },
         "rows[].image.assetRole": {
@@ -5945,7 +6257,8 @@
         "rows[].image.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "product.why-assistant-tabs": {
       "contractFile": "sections/product.why-assistant-tabs.json",
@@ -6020,7 +6333,10 @@
           "assetRoles": [
             "product.video",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "slides[].media.assetRole": {
@@ -6064,7 +6380,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "quote.avatar.assetRole": {
@@ -6104,7 +6422,10 @@
           "assetRoles": [
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "tabs[].media.assetRole": {
@@ -6175,7 +6496,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "results.cards[].logo.assetRole": {
@@ -6215,7 +6538,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "closingQuote.avatar.assetRole": {
@@ -6236,7 +6561,8 @@
           "settable": true,
           "maxWords": 7
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "product.wow-bento": {
       "contractFile": "sections/product.wow-bento.json",
@@ -6281,7 +6607,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "quote.avatar.assetRole": {
@@ -6309,7 +6637,10 @@
           "assetRoles": [
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "cards[].media.assetRole": {
@@ -6380,7 +6711,9 @@
           "assetRoles": [
             "photo.event",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "eventPhoto.assetRole": {
@@ -6401,7 +6734,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "teamPhoto.assetRole": {
@@ -6430,7 +6765,9 @@
           "settable": true,
           "assetRoles": [
             "badge.award",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "badge.placeholder",
+            "asset.userSupplied"
           ]
         },
         "awards.assetRole": {
@@ -6473,7 +6810,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "closing.avatar.assetRole": {
@@ -6497,7 +6836,8 @@
         "release",
         "included",
         "why"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "proof.case-results": {
       "contractFile": "sections/proof.case-results.json",
@@ -6535,7 +6875,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "cards[].logo.assetRole": {
@@ -6568,7 +6910,8 @@
           "settable": true,
           "maxWords": 6
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "proof.case-study-carousel": {
       "contractFile": "sections/proof.case-study-carousel.json",
@@ -6606,7 +6949,9 @@
           "assetRoles": [
             "photo.brand",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "slides[].photo.assetRole": {
@@ -6627,7 +6972,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "slides[].logo.assetRole": {
@@ -6676,7 +7023,8 @@
       },
       "variants": [
         "subpage"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "proof.case-study-video": {
       "contractFile": "sections/proof.case-study-video.json",
@@ -6700,7 +7048,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "logo.assetRole": {
@@ -6723,7 +7073,10 @@
             "photo.brand",
             "product.video",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "screenshot.placeholder",
+            "asset.userSupplied"
           ]
         },
         "still.assetRole": {
@@ -6754,7 +7107,8 @@
           "settable": true,
           "maxWords": 33
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "proof.centred-quote": {
       "contractFile": "sections/proof.centred-quote.json",
@@ -6790,7 +7144,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "avatar.assetRole": {
@@ -6811,7 +7167,8 @@
           "settable": true,
           "maxWords": 10
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "proof.cs-content-stats": {
       "contractFile": "sections/proof.cs-content-stats.json",
@@ -6867,7 +7224,8 @@
         "topics[].icon": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "proof.flip-logos": {
       "contractFile": "sections/proof.flip-logos.json",
@@ -6888,7 +7246,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "logos.assetRole": {
@@ -6908,7 +7268,8 @@
         "logos.slotCount": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "proof.logo-row": {
       "contractFile": "sections/proof.logo-row.json",
@@ -6929,7 +7290,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "logos.assetRole": {
@@ -6958,7 +7321,8 @@
       },
       "variants": [
         "subpage"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "proof.results-proof": {
       "contractFile": "sections/proof.results-proof.json",
@@ -7019,7 +7383,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "cards[].logo.assetRole": {
@@ -7068,7 +7434,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "quote.logo.assetRole": {
@@ -7101,7 +7469,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "quote.avatar.assetRole": {
@@ -7132,7 +7502,8 @@
           "settable": true,
           "maxWords": 5
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "proof.results-stats": {
       "contractFile": "sections/proof.results-stats.json",
@@ -7160,7 +7531,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "cards[].logo.assetRole": {
@@ -7221,7 +7594,8 @@
       },
       "variants": [
         "subpage"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "proof.reviews-grid": {
       "contractFile": "sections/proof.reviews-grid.json",
@@ -7244,7 +7618,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "logos.assetRole": {
@@ -7286,7 +7662,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "reviews[].logo.assetRole": {
@@ -7308,7 +7686,9 @@
           "assetRoles": [
             "photo.brand",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "reviews[].image.assetRole": {
@@ -7329,7 +7709,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "reviews[].avatar.assetRole": {
@@ -7375,7 +7757,10 @@
           "assetRoles": [
             "product.video",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "video.video.assetRole": {
@@ -7392,7 +7777,8 @@
         "video.video.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "proof.reviews-slider": {
       "contractFile": "sections/proof.reviews-slider.json",
@@ -7436,7 +7822,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "slides[].logo.assetRole": {
@@ -7458,7 +7846,9 @@
           "assetRoles": [
             "photo.brand",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "slides[].image.assetRole": {
@@ -7479,7 +7869,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "slides[].avatar.assetRole": {
@@ -7500,7 +7892,8 @@
           "settable": true,
           "maxWords": 5
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "proof.stats-countup": {
       "contractFile": "sections/proof.stats-countup.json",
@@ -7561,7 +7954,8 @@
           "settable": true,
           "maxWords": 2
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "proof.testimonial": {
       "contractFile": "sections/proof.testimonial.json",
@@ -7599,7 +7993,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "author.avatar.assetRole": {
@@ -7620,7 +8016,8 @@
           "settable": true,
           "maxWords": 6
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "proof.testimonial-card-legacy": {
       "contractFile": "sections/proof.testimonial-card-legacy.json",
@@ -7648,7 +8045,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "logo.assetRole": {
@@ -7681,7 +8080,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "avatar.assetRole": {
@@ -7702,7 +8103,9 @@
           "settable": true,
           "assetRoles": [
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "background.assetRole": {
@@ -7719,7 +8122,8 @@
         "background.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "proof.testimonial-quote": {
       "contractFile": "sections/proof.testimonial-quote.json",
@@ -7762,7 +8166,9 @@
           "settable": true,
           "assetRoles": [
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "avatar.assetRole": {
@@ -7791,7 +8197,8 @@
         "mid-market",
         "enterprise",
         "kiki"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "shell.footer": {
       "contractFile": "sections/shell.footer.json",
@@ -7820,7 +8227,8 @@
           "settable": true,
           "assetRoles": [
             "logo.aiVendor",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "asset.userSupplied"
           ]
         },
         "aiLinks.assetRole": {
@@ -7868,7 +8276,9 @@
           "settable": true,
           "assetRoles": [
             "badge.review",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "badge.placeholder",
+            "asset.userSupplied"
           ]
         },
         "ratingBadges.assetRole": {
@@ -7892,7 +8302,9 @@
           "settable": true,
           "assetRoles": [
             "badge.award",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "badge.placeholder",
+            "asset.userSupplied"
           ]
         },
         "awardBadges.assetRole": {
@@ -7954,7 +8366,8 @@
           "settable": true,
           "maxWords": 3
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "shell.nav": {
       "contractFile": "sections/shell.nav.json",
@@ -8024,7 +8437,9 @@
           "settable": true,
           "assetRoles": [
             "logo.customer",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "logo.placeholderCompany",
+            "asset.userSupplied"
           ]
         },
         "menus[].columns[].customers[].icon.assetRole": {
@@ -8049,7 +8464,8 @@
           "settable": true,
           "maxWords": 4
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "story.brand-video": {
       "contractFile": "sections/story.brand-video.json",
@@ -8079,7 +8495,10 @@
           "assetRoles": [
             "product.video",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "video.assetRole": {
@@ -8131,7 +8550,8 @@
       },
       "variants": [
         "subpage"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "story.company-news": {
       "contractFile": "sections/story.company-news.json",
@@ -8169,7 +8589,10 @@
             "photo.brand",
             "photo.event",
             "photo.person",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "illustration.generated",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "featured.image.assetRole": {
@@ -8212,7 +8635,8 @@
           "settable": true,
           "maxWords": 18
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "story.custom-video": {
       "contractFile": "sections/story.custom-video.json",
@@ -8245,7 +8669,10 @@
           "assetRoles": [
             "product.video",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "thumbnail.assetRole": {
@@ -8262,7 +8689,8 @@
         "thumbnail.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "story.grid-split-legacy": {
       "contractFile": "sections/story.grid-split-legacy.json",
@@ -8299,7 +8727,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "avatar.assetRole": {
@@ -8337,7 +8767,9 @@
           "assetRoles": [
             "placeholder.neutral",
             "photo.brand",
-            "stock.photo"
+            "stock.photo",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "media.assetRole": {
@@ -8373,7 +8805,9 @@
           "assetRoles": [
             "placeholder.neutral",
             "photo.brand",
-            "stock.photo"
+            "stock.photo",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "cards[].media.assetRole": {
@@ -8396,7 +8830,8 @@
         "text",
         "image",
         "suites"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "story.header-image-legacy": {
       "contractFile": "sections/story.header-image-legacy.json",
@@ -8424,7 +8859,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "badge.review"
+            "badge.review",
+            "badge.placeholder",
+            "asset.userSupplied"
           ]
         },
         "badges.assetRole": {
@@ -8448,7 +8885,9 @@
           "settable": true,
           "assetRoles": [
             "placeholder.neutral",
-            "photo.person"
+            "photo.person",
+            "person.fictional",
+            "asset.userSupplied"
           ]
         },
         "media.assetRole": {
@@ -8465,7 +8904,8 @@
         "media.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "story.marquee": {
       "contractFile": "sections/story.marquee.json",
@@ -8533,7 +8973,8 @@
       "variants": [
         "header",
         "plain"
-      ]
+      ],
+      "retrievalEligible": true
     },
     "story.scroll-quote": {
       "contractFile": "sections/story.scroll-quote.json",
@@ -8560,7 +9001,8 @@
           "settable": true,
           "maxWords": 4
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "story.wow-2col": {
       "contractFile": "sections/story.wow-2col.json",
@@ -8593,7 +9035,10 @@
           "assetRoles": [
             "photo.person",
             "photo.brand",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "person.fictional",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "image.assetRole": {
@@ -8610,7 +9055,8 @@
         "image.assetRef": {
           "settable": true
         }
-      }
+      },
+      "retrievalEligible": true
     },
     "story.zoom-statement": {
       "contractFile": "sections/story.zoom-statement.json",
@@ -8630,7 +9076,10 @@
           "assetRoles": [
             "product.screenshot",
             "stock.photo",
-            "placeholder.neutral"
+            "placeholder.neutral",
+            "screenshot.placeholder",
+            "illustration.generated",
+            "asset.userSupplied"
           ]
         },
         "visual.assetRole": {
@@ -8658,7 +9107,8 @@
           "settable": true,
           "maxWords": 16
         }
-      }
+      },
+      "retrievalEligible": true
     }
   },
   "primitives": {
@@ -8727,84 +9177,146 @@
   },
   "components": {
     "loop-carousel": {
-      "contractFile": "components/loop-carousel.json"
+      "contractFile": "components/loop-carousel.json",
+      "retrievalEligible": true
     },
     "autoplay-controller": {
-      "contractFile": "components/autoplay-controller.json"
+      "contractFile": "components/autoplay-controller.json",
+      "retrievalEligible": true
     },
     "nav-dropdown-panel": {
-      "contractFile": "components/nav-dropdown-panel.json"
+      "contractFile": "components/nav-dropdown-panel.json",
+      "retrievalEligible": false
     },
     "mobile-menu-panel": {
-      "contractFile": "components/mobile-menu-panel.json"
+      "contractFile": "components/mobile-menu-panel.json",
+      "retrievalEligible": false
     },
     "feature-slide": {
-      "contractFile": "components/feature-slide.json"
+      "contractFile": "components/feature-slide.json",
+      "retrievalEligible": true
     },
     "three-col-slide": {
-      "contractFile": "components/three-col-slide.json"
+      "contractFile": "components/three-col-slide.json",
+      "retrievalEligible": true
     },
     "stat-card": {
-      "contractFile": "components/stat-card.json"
+      "contractFile": "components/stat-card.json",
+      "retrievalEligible": true
     },
     "testimonial-block": {
-      "contractFile": "components/testimonial-block.json"
+      "contractFile": "components/testimonial-block.json",
+      "retrievalEligible": true
     },
     "highlight-slide": {
-      "contractFile": "components/highlight-slide.json"
+      "contractFile": "components/highlight-slide.json",
+      "retrievalEligible": true
     },
     "faq-item": {
-      "contractFile": "components/faq-item.json"
+      "contractFile": "components/faq-item.json",
+      "retrievalEligible": true
     },
     "placeholder-form": {
-      "contractFile": "components/placeholder-form.json"
+      "contractFile": "components/placeholder-form.json",
+      "retrievalEligible": true
     },
     "footer-link-column": {
-      "contractFile": "components/footer-link-column.json"
+      "contractFile": "components/footer-link-column.json",
+      "retrievalEligible": true
     },
     "footer-dropup": {
-      "contractFile": "components/footer-dropup.json"
+      "contractFile": "components/footer-dropup.json",
+      "retrievalEligible": false
     },
     "badge-row": {
-      "contractFile": "components/badge-row.json"
+      "contractFile": "components/badge-row.json",
+      "retrievalEligible": true
     }
   },
   "assetRoles": {
     "brand.wordmark": {
-      "generationPolicy": "must-reuse-exact"
+      "generationPolicy": "must-reuse-exact",
+      "availability": "clone-only"
     },
     "placeholder.neutral": {
-      "generationPolicy": "may-generate-new"
+      "generationPolicy": "may-generate-new",
+      "availability": "generation-safe"
     },
     "logo.customer": {
-      "generationPolicy": "must-not-reuse"
+      "generationPolicy": "must-not-reuse",
+      "availability": "blocked-for-generation"
     },
     "logo.aiVendor": {
-      "generationPolicy": "must-not-reuse"
+      "generationPolicy": "must-not-reuse",
+      "availability": "blocked-for-generation"
     },
     "badge.review": {
-      "generationPolicy": "must-not-fabricate"
+      "generationPolicy": "must-not-fabricate",
+      "availability": "blocked-for-generation"
     },
     "badge.award": {
-      "generationPolicy": "must-not-fabricate"
+      "generationPolicy": "must-not-fabricate",
+      "availability": "blocked-for-generation"
     },
     "photo.person": {
-      "generationPolicy": "must-not-fabricate"
+      "generationPolicy": "must-not-fabricate",
+      "availability": "blocked-for-generation"
     },
     "photo.event": {
-      "generationPolicy": "must-not-reuse"
+      "generationPolicy": "must-not-reuse",
+      "availability": "blocked-for-generation"
     },
     "photo.brand": {
-      "generationPolicy": "must-not-reuse"
+      "generationPolicy": "must-not-reuse",
+      "availability": "blocked-for-generation"
     },
     "product.screenshot": {
-      "generationPolicy": "must-not-reuse"
+      "generationPolicy": "must-not-reuse",
+      "availability": "blocked-for-generation"
     },
     "product.video": {
-      "generationPolicy": "must-not-reuse"
+      "generationPolicy": "must-not-reuse",
+      "availability": "blocked-for-generation"
     },
     "stock.photo": {
-      "generationPolicy": "may-reuse-licensed"
+      "generationPolicy": "may-reuse-licensed",
+      "availability": "clone-only"
+    },
+    "asset.userSupplied": {
+      "generationPolicy": "may-reuse-licensed",
+      "availability": "generation-safe"
+    },
+    "illustration.generated": {
+      "generationPolicy": "may-generate-new",
+      "availability": "generation-safe"
+    },
+    "screenshot.placeholder": {
+      "generationPolicy": "may-generate-new",
+      "availability": "generation-safe"
+    },
+    "person.fictional": {
+      "generationPolicy": "may-generate-new",
+      "availability": "generation-safe"
+    },
+    "logo.placeholderCompany": {
+      "generationPolicy": "may-generate-new",
+      "availability": "generation-safe"
+    },
+    "badge.placeholder": {
+      "generationPolicy": "may-generate-new",
+      "availability": "generation-safe"
+    },
+    "brand.placeholderMark": {
+      "generationPolicy": "may-generate-new",
+      "availability": "generation-safe"
+    },
+    "url.placeholder": {
+      "generationPolicy": "may-generate-new",
+      "availability": "generation-safe"
+    },
+    "copy.original": {
+      "generationPolicy": "may-generate-new",
+      "availability": "generation-safe"
     }
   },
   "pinnedAssetPolicies": {
@@ -8820,10 +9332,10 @@
     "stock.photo": "may-reuse-licensed"
   },
   "counts": {
-    "sections": 94,
+    "sections": 96,
     "primitives": 10,
     "components": 14,
-    "assetRoles": 12,
+    "assetRoles": 21,
     "settablePropertyPaths": 1791
   }
 }

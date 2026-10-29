@@ -4,6 +4,17 @@
   "name": "Full-bleed scroll-zoom visual + centred statement",
   "purpose": "A cinematic pause: the product montage zooms into place on scroll, then a short manifesto.",
   "category": "story",
+  "source": {
+    "id": "Statement.section[data-section=statement]",
+    "tag": "section",
+    "file": "src/components/Statement.jsx",
+    "lines": "34-60"
+  },
+  "semantic": {
+    "id": "story.zoom-statement",
+    "category": "story"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/Statement.jsx",
   "content": {
@@ -16,14 +27,20 @@
         "x-allowedRoles": [
           "product.screenshot",
           "stock.photo",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "screenshot.placeholder",
+          "illustration.generated",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "product.screenshot",
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -110,8 +127,11 @@
     }
   ],
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "composes": [

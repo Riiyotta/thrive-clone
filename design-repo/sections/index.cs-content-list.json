@@ -4,6 +4,17 @@
   "name": "Content case study list",
   "purpose": "Lists every content-library customer story as a scannable grid so a visitor can pick one to read.",
   "category": "index",
+  "source": {
+    "id": "CsContentList.section[data-section=cs-content-list]",
+    "tag": "section",
+    "file": "src/components/sections/CsContentList.jsx",
+    "lines": "27-57"
+  },
+  "semantic": {
+    "id": "index.cs-content-list",
+    "category": "index"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/CsContentList.jsx",
   "description": "Unfiltered CMS-style grid on the content (\"yellow\") legacy theme: 3 columns (2 at 767 and below, 1 at 479 and below) of hairline-bordered link cards, each with a customer logo top-left, a short summary and a \"Learn more ›\" label at the bottom. Sits under the page's legacy header; carries no heading of its own.",
@@ -23,13 +34,17 @@
               "additionalProperties": false,
               "x-allowedRoles": [
                 "placeholder.neutral",
-                "logo.customer"
+                "logo.customer",
+                "logo.placeholderCompany",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "placeholder.neutral",
-                    "logo.customer"
+                    "logo.customer",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -170,7 +185,9 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
     "logo.customer",
+    "logo.placeholderCompany",
     "placeholder.neutral"
   ]
 }

@@ -4,6 +4,17 @@
   "name": "Glossary demo CTA card",
   "purpose": "Convert glossary readers into demo or free-content visitors with a dark branded card closing the glossary page.",
   "category": "conversion",
+  "source": {
+    "id": "GlossaryCta.div[data-section=glossary-cta]",
+    "tag": "div",
+    "file": "src/components/sections/GlossaryCta.jsx",
+    "lines": "27-51"
+  },
+  "semantic": {
+    "id": "conversion.glossary-cta",
+    "category": "conversion"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/GlossaryCta.jsx",
   "description": "Oldest-system block (fixed 16px root) on /resources/lms-glossary: an 80rem container holding a #1b1b1b rounded (10px) card. Centred stack of the Nimbus wordmark, a 2.5rem (1.875rem <=767) H2, one line of white 1.25rem copy and two small green pill-less buttons side by side (stacked <=767), then a wide 1300:582 product image filling the card bottom. The card rises and fades in once when it enters the viewport.",
@@ -52,14 +63,20 @@
         "x-allowedRoles": [
           "placeholder.neutral",
           "product.screenshot",
-          "stock.photo"
+          "stock.photo",
+          "screenshot.placeholder",
+          "illustration.generated",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -271,8 +288,11 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

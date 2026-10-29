@@ -4,6 +4,17 @@
   "name": "Count-up company stats",
   "purpose": "Conveys company scale at a glance with three headline numbers that count up as they come into view.",
   "category": "proof",
+  "source": {
+    "id": "StatsResults.section@48",
+    "tag": "section",
+    "file": "src/pages/company/StatsResults.jsx",
+    "lines": "48-81"
+  },
+  "semantic": {
+    "id": "proof.stats-countup",
+    "category": "proof"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/pages/company/StatsResults.jsx",
   "description": "Page-local block on /company: a small (24px, 20px mob) Inter H2 with one italic phrase and a grey lead, centred, then three square dark stat cards in a row, each with a label + short line at the top and a big number with suffix at the bottom. At <=767 the three 18.75rem squares stay in one row and scroll sideways (hidden scrollbar), as on the original.",

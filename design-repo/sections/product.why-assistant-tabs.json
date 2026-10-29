@@ -4,6 +4,17 @@
   "name": "Why-us assistant tabs (four-part story block)",
   "purpose": "Makes the \"why choose us\" case in one sequence: pitch the assistant, show its roles, show the platform areas, then prove it with results and a big quote.",
   "category": "product",
+  "source": {
+    "id": "WhyKikitabs.div[data-section=why-kikitabs]",
+    "tag": "div",
+    "file": "src/components/sections/WhyKikitabs.jsx",
+    "lines": "77-283"
+  },
+  "semantic": {
+    "id": "product.why-assistant-tabs",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/WhyKikitabs.jsx",
   "description": "Four stacked blocks in one component (only /company/why-nimbus): (1) left-aligned balanced H2 with an italic phrase, grey intro and primary button; (2) a tab row above a loop slider of 5 slides (white lead-in + grey run-on copy, a 1:1 video placeholder bleeding right); (3) a split header (H2 | italic quote card with avatar) over split-layout tabs (large text tabs with green chip on the left, a fading screenshot pane bleeding right, per-tab paragraph + dark button); (4) centred results header with an italic word, a 4-up grid of stat cards (logo, big stat, sentence with the customer name as link), a big centred quote with stacked avatar and a primary CTA. <=991 results go 2-up and the split header stacks; <=767 the split tabs become a scrolling row over a 60dvh pane; <=479 cards are 1-up.",
@@ -99,14 +110,20 @@
               "x-allowedRoles": [
                 "product.video",
                 "stock.photo",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "screenshot.placeholder",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "product.video",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -182,13 +199,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "photo.person",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -256,14 +277,20 @@
               "x-allowedRoles": [
                 "product.screenshot",
                 "stock.photo",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "screenshot.placeholder",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "product.screenshot",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -389,13 +416,17 @@
                   "additionalProperties": false,
                   "x-allowedRoles": [
                     "logo.customer",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "logo.customer",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -471,13 +502,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "photo.person",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -796,11 +831,16 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "logo.customer",
+    "logo.placeholderCompany",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral",
     "product.screenshot",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

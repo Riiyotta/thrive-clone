@@ -4,6 +4,17 @@
   "name": "Layout03 vertical tabs (Nova roles)",
   "purpose": "Presents the AI assistant's roles as expandable vertical tabs beside a media pane, under a centred pitch with a CTA.",
   "category": "product",
+  "source": {
+    "id": "Layout03Tabs.section[data-section=layout03-tabs]",
+    "tag": "section",
+    "file": "src/components/sections/Layout03Tabs.jsx",
+    "lines": "179-186"
+  },
+  "semantic": {
+    "id": "product.layout03-tabs",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/Layout03Tabs.jsx",
   "description": "Centred H2 + grey paragraph + primary button, then a two-column grid: a vertical list of tab cards (inactive 72px tall showing only the label; the current one expands to show its paragraph) and a pane on the right. `variant` (same content shape): 'image' (/lms/small-business, /lms/corporate-lms; container-large, .3fr/1fr, screenshot anchored bottom-right), 'video' (/lms/enterprise; container-medium, .5fr/1fr, centred 30rem 1:1.1 video), 'video-compact' (/whats-included; like video without section padding, 2.5rem header gap). <=767 two equal columns with 48px tabs; <=479 single column, the pane hides and each tab shows its own screenshot under its text.",
@@ -101,14 +112,20 @@
               "x-allowedRoles": [
                 "product.screenshot",
                 "stock.photo",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "screenshot.placeholder",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "product.screenshot",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -149,7 +166,10 @@
           "product.screenshot",
           "product.video",
           "stock.photo",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "screenshot.placeholder",
+          "illustration.generated",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
@@ -157,7 +177,10 @@
               "product.screenshot",
               "product.video",
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -451,9 +474,12 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.screenshot",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "variants": [

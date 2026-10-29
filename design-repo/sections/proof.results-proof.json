@@ -4,6 +4,17 @@
   "name": "Results proof grid with quote",
   "purpose": "Backs the company's claims with three logo-attributed outcome stats and a short customer quote, then converts.",
   "category": "proof",
+  "source": {
+    "id": "ProofResults.section@79",
+    "tag": "section",
+    "file": "src/pages/company/ProofResults.jsx",
+    "lines": "79-81"
+  },
+  "semantic": {
+    "id": "proof.results-proof",
+    "category": "proof"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/pages/company/ProofResults.jsx",
   "description": "Page-local block: centred serif H2 with one italic word and a grey lead, then a 4-column grid (2 cols <=991, 1 col <=479) of three dark stat cards (customer logo, big stat, grey outcome line with an italic phrase) plus a translucent quote card (logo, 6rem-padded quote, small round avatar with name/role). It ends either with a green CTA card (text + dark button, /company) or a centred primary button row (/whats-included). Unlike the homepage Results block it carries the quote card and the CTA.",
@@ -92,13 +103,17 @@
               "additionalProperties": false,
               "x-allowedRoles": [
                 "logo.customer",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "logo.placeholderCompany",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "logo.customer",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -187,13 +202,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "logo.customer",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "logo.customer",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "logo.placeholderCompany",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -241,13 +260,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "photo.person",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -556,7 +579,10 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
     "logo.customer",
+    "logo.placeholderCompany",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral"
   ]

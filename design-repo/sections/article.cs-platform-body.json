@@ -2,151 +2,26 @@
   "id": "article.cs-platform-body",
   "kind": "section",
   "name": "Case study body (platform)",
-  "purpose": "Tells one platform customer story end to end: who the customer is, the headline result, the key numbers, the narrative, a customer quote and a closing demo call to action.",
+  "purpose": "Tell the customer story: a sticky table of contents beside the narrative chapters, a customer quote and a captioned video.",
   "category": "article",
+  "source": {
+    "id": "CsPlatformBody.div@223",
+    "tag": "div",
+    "file": "src/components/sections/CsPlatformBody.jsx",
+    "lines": "223-315"
+  },
+  "semantic": {
+    "id": "article.cs-platform-body",
+    "category": "article"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/CsPlatformBody.jsx",
-  "description": "One long section that is the whole case-study-platform template body: an opening block (customer logo top-left, serif H1 bottom-left over a radial-masked hero image, play-video ring icon on the right), a row of 4 info cards (4 columns, 1 column at tablet and below: two stat cards, a challenge-tag card and an integrations-chip card, the last stat card carrying a \"See how\" anchor link), then a two-column body with a sticky left TOC (section titles + Testimonial entry, scroll-spy highlight, sidebar demo card; the sidebar is hidden at 479 and below) beside the article (H2 + rich paragraphs per section, optional inline image), a testimonial card, a serif video heading with a video placeholder and caption, and finally a centred serif CTA heading with a button. Because it carries the page H1, the template has no separate hero section.",
+  "description": "Article body of the case-study-platform template: a two-column layout with a sticky left TOC (section titles + Testimonial entry, scroll-spy highlight, sidebar demo card; the sidebar is hidden at 479 and below) beside the article (H2 + rich paragraphs per chapter, optional inline image), a testimonial card, and a serif video heading with a video placeholder and caption. The page's header (logo, H1, info cards) and closing CTA are separate sections (article.cs-platform-header, conversion.cs-platform-cta).",
   "content": {
     "type": "object",
     "additionalProperties": false,
     "properties": {
-      "logo": {
-        "type": "object",
-        "additionalProperties": false,
-        "x-allowedRoles": [
-          "placeholder.neutral",
-          "logo.customer"
-        ],
-        "properties": {
-          "assetRole": {
-            "enum": [
-              "placeholder.neutral",
-              "logo.customer"
-            ]
-          },
-          "placeholderLabel": {
-            "type": "string",
-            "minLength": 1,
-            "maxWords": 6,
-            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
-          },
-          "alt": {
-            "type": "string",
-            "minLength": 1,
-            "maxWords": 10
-          },
-          "assetRef": {
-            "type": "string",
-            "pattern": "^generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)$",
-            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
-          }
-        },
-        "required": [
-          "assetRole"
-        ],
-        "note": "Customer logo slot (LogoPlaceholder); the clone writes the customer name as the placeholder label."
-      },
-      "title": {
-        "type": "string",
-        "minLength": 1,
-        "maxWords": 18,
-        "note": "Page H1 (serif). Real copy leads with \"How <Customer>\".",
-        "measuredLongestRealInstance": "14 words in the clone's own placeholder copy"
-      },
-      "heroImage": {
-        "type": "object",
-        "additionalProperties": false,
-        "x-allowedRoles": [
-          "placeholder.neutral",
-          "photo.brand",
-          "stock.photo"
-        ],
-        "properties": {
-          "assetRole": {
-            "enum": [
-              "placeholder.neutral",
-              "photo.brand",
-              "stock.photo"
-            ]
-          },
-          "placeholderLabel": {
-            "type": "string",
-            "minLength": 1,
-            "maxWords": 6,
-            "note": "Label drawn inside the neutral placeholder slot (Placeholder.jsx label prop)."
-          },
-          "alt": {
-            "type": "string",
-            "minLength": 1,
-            "maxWords": 10
-          },
-          "assetRef": {
-            "type": "string",
-            "pattern": "^(generated/[a-z0-9][a-z0-9-]*\\.(webp|avif|png|jpg|svg|mp4)|stock/[0-9]+(-sq)?\\.jpg)$",
-            "note": "ONLY for roles whose generationPolicy is may-generate-new (ASSET_REF_FORBIDDEN_FOR_PROTECTED_ROLE). Must point at a NEWLY generated file under generated/ -- never /assets/, public/assets/ or a URL. The 56 files in the source project's public/assets/ are the user's local reference copies of the original site's imagery and are never valid here."
-          }
-        },
-        "required": [
-          "assetRole"
-        ],
-        "note": "Radial-masked image behind the H1."
-      },
-      "cards": {
-        "type": "array",
-        "minItems": 4,
-        "items": {
-          "type": "object",
-          "additionalProperties": false,
-          "properties": {
-            "type": {
-              "enum": [
-                "stat",
-                "tags",
-                "integrations"
-              ]
-            },
-            "label": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 8,
-              "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
-            },
-            "value": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 2,
-              "note": "Only for type \"stat\": the big number (e.g. \"150,000\", \"14%\").",
-              "measuredLongestRealInstance": "1 words in the clone's own placeholder copy"
-            },
-            "tags": {
-              "type": "array",
-              "minItems": 1,
-              "items": {
-                "type": "string",
-                "minLength": 1,
-                "maxWords": 4,
-                "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
-              },
-              "maxItems": 5,
-              "note": "Only for type \"tags\" (challenge chips) and \"integrations\" (integration chips)."
-            },
-            "linkLabel": {
-              "type": "string",
-              "minLength": 1,
-              "maxWords": 4,
-              "note": "Optional in-page link under a stat card (jumps to section 3).",
-              "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
-            }
-          },
-          "required": [
-            "type",
-            "label"
-          ]
-        },
-        "maxItems": 4,
-        "note": "Always 4 info cards in the real pages: stat, tags, integrations, stat (+ link)."
-      },
       "tocLabel": {
         "type": "string",
         "minLength": 1,
@@ -206,14 +81,18 @@
               "x-allowedRoles": [
                 "placeholder.neutral",
                 "photo.brand",
-                "stock.photo"
+                "stock.photo",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "placeholder.neutral",
                     "photo.brand",
-                    "stock.photo"
+                    "stock.photo",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -281,13 +160,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "photo.person"
+                  "photo.person",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -358,14 +241,20 @@
             "x-allowedRoles": [
               "placeholder.neutral",
               "product.video",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
                   "product.video",
-                  "stock.photo"
+                  "stock.photo",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -402,42 +291,15 @@
           "media",
           "caption"
         ]
-      },
-      "cta": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "title": {
-            "type": "string",
-            "minLength": 1,
-            "maxWords": 8,
-            "measuredLongestRealInstance": "6 words in the clone's own placeholder copy"
-          },
-          "label": {
-            "type": "string",
-            "minLength": 1,
-            "maxWords": 4,
-            "measuredLongestRealInstance": "3 words in the clone's own placeholder copy"
-          }
-        },
-        "required": [
-          "title",
-          "label"
-        ]
       }
     },
     "required": [
-      "logo",
-      "title",
-      "heroImage",
-      "cards",
       "tocLabel",
       "sections",
       "testimonialLabel",
       "testimonial",
       "sidebarCta",
-      "video",
-      "cta"
+      "video"
     ]
   },
   "constraints": {
@@ -446,154 +308,15 @@
   },
   "motion": {
     "allowedPatterns": [
-      "scroll.charColorScrub"
+      "none"
     ],
-    "reducedMotionFallback": "instant-final-state",
-    "measuredFrom": "src/components/sections/CsPlatformBody.jsx:177-179",
+    "reducedMotionFallback": "none",
+    "measuredFrom": "src/components/sections/CsPlatformBody.jsx:235-235",
     "sourceImplementsReducedMotion": false,
     "reducedMotionNote": "The schema REQUIRES this fallback on every generated node. Neither the original site nor the clone implements prefers-reduced-motion; this is a generation-time requirement, not a description of the source.",
-    "note": "Closing CTA: SplitText chars of the heading scrub from #00030a to white (scrub .8, start clamp(top 90%), end clamp(bottom 60%)), then the button block rises from yPercent 100 / opacity 0 at timeline position .65. TOC links change background/colour over .2s on hover and when the scroll-spy marks the active section. No load motion.",
-    "alsoMeasuredFrom": [
-      "src/components/sections/CsPlatformBody.jsx:235-235"
-    ]
+    "note": "No section motion. TOC links change background/colour over .2s on hover and when the scroll-spy marks the active chapter (link-level colour transition, primitive behaviour like the button hover)."
   },
   "responsive": [
-    {
-      "breakpoint": "tab",
-      "query": "max-width: 991px",
-      "breakpoints": [
-        "tab",
-        "mob",
-        "xs"
-      ],
-      "kinds": [
-        "sizing",
-        "spacing"
-      ],
-      "changes": "h-auto -> tab:h-[15rem] -> xs:h-auto; mob:p-[1.5rem]",
-      "tailwind": [
-        "tab:h-[15rem] mob:p-[1.5rem] xs:h-auto"
-      ],
-      "measuredFrom": "src/components/sections/CsPlatformBody.jsx:89-89",
-      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
-    },
-    {
-      "breakpoint": "xs",
-      "query": "max-width: 479px",
-      "breakpoints": [
-        "xs"
-      ],
-      "kinds": [
-        "spacing"
-      ],
-      "changes": "gap-y-[4rem] -> xs:gap-y-[2rem]",
-      "tailwind": [
-        "xs:gap-y-[2rem]"
-      ],
-      "measuredFrom": "src/components/sections/CsPlatformBody.jsx:91-91",
-      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
-    },
-    {
-      "breakpoint": "tab",
-      "query": "max-width: 991px",
-      "breakpoints": [
-        "tab"
-      ],
-      "kinds": [
-        "sizing"
-      ],
-      "changes": "w-[10rem] -> tab:w-[6rem]",
-      "tailwind": [
-        "tab:w-[6rem]"
-      ],
-      "measuredFrom": "src/components/sections/CsPlatformBody.jsx:144-144",
-      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
-    },
-    {
-      "breakpoint": "tab",
-      "query": "max-width: 991px",
-      "breakpoints": [
-        "tab",
-        "mob"
-      ],
-      "kinds": [
-        "spacing"
-      ],
-      "changes": "py-[5rem] -> tab:py-[4rem] -> mob:py-[3rem]",
-      "tailwind": [
-        "tab:py-[4rem] mob:py-[3rem]"
-      ],
-      "measuredFrom": "src/components/sections/CsPlatformBody.jsx:188-188",
-      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
-    },
-    {
-      "breakpoint": "mob",
-      "query": "max-width: 767px",
-      "breakpoints": [
-        "mob",
-        "xs"
-      ],
-      "kinds": [
-        "spacing",
-        "layout"
-      ],
-      "changes": "mob:gap-x-[2rem]; xs:flex-col",
-      "tailwind": [
-        "mob:gap-x-[2rem] xs:flex-col"
-      ],
-      "measuredFrom": "src/components/sections/CsPlatformBody.jsx:190-190",
-      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
-    },
-    {
-      "breakpoint": "ultra",
-      "query": "min-width: 1920px",
-      "breakpoints": [
-        "ultra",
-        "tab",
-        "xs"
-      ],
-      "kinds": [
-        "sizing"
-      ],
-      "changes": "min-h-[60vh] -> ultra:min-h-[40vh] -> tab:min-h-[50vh] -> xs:min-h-[40vh]",
-      "tailwind": [
-        "ultra:min-h-[40vh] tab:min-h-[50vh] xs:min-h-[40vh]"
-      ],
-      "measuredFrom": "src/components/sections/CsPlatformBody.jsx:191-191",
-      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
-    },
-    {
-      "breakpoint": "tab",
-      "query": "max-width: 991px",
-      "breakpoints": [
-        "tab"
-      ],
-      "kinds": [
-        "typography"
-      ],
-      "changes": "text-[1.1rem] -> tab:text-[0.7rem]",
-      "tailwind": [
-        "tab:text-[0.7rem]"
-      ],
-      "measuredFrom": "src/components/sections/CsPlatformBody.jsx:192-192",
-      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
-    },
-    {
-      "breakpoint": "tab",
-      "query": "max-width: 991px",
-      "breakpoints": [
-        "tab"
-      ],
-      "kinds": [
-        "layout"
-      ],
-      "changes": "grid-cols-4 -> tab:grid-cols-1",
-      "tailwind": [
-        "tab:grid-cols-1"
-      ],
-      "measuredFrom": "src/components/sections/CsPlatformBody.jsx:216-216",
-      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
-    },
     {
       "breakpoint": "mob",
       "query": "max-width: 767px",
@@ -644,37 +367,19 @@
       ],
       "measuredFrom": "src/components/sections/CsPlatformBody.jsx:229-229",
       "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
-    },
-    {
-      "breakpoint": "xs",
-      "query": "max-width: 479px",
-      "breakpoints": [
-        "xs"
-      ],
-      "kinds": [
-        "layout"
-      ],
-      "changes": "xs:flex-col",
-      "tailwind": [
-        "xs:flex-col"
-      ],
-      "measuredFrom": "src/components/sections/CsPlatformBody.jsx:326-326",
-      "derivation": "auto: breakpoint-prefixed classes on the cited line, paired with their unprefixed base"
     }
   ],
   "composes": [
     "primitive.button",
-    "primitive.placeholder-media",
-    "primitive.logo-placeholder"
+    "primitive.placeholder-media"
   ],
-  "measuredFrom": "src/components/sections/CsPlatformBody.jsx:129-338",
+  "measuredFrom": "src/components/sections/CsPlatformBody.jsx:222-315",
   "iaSectionId": "article.cs-platform-body",
   "evidenceNotes": [
     "Per-route copy is generated by prose()/phrase() in src/pages/content/caseStudyPlatformData.js; the sample was evaluated with node from that file. Labels not set per route (tocLabel, testimonialLabel, sidebarCta, cta) come from the component DEFAULTS.",
     "Route paragraphs carry no inline links; only the component DEFAULTS use [[link]] markers (up to 4 in one paragraph), so the rich budget follows the defaults.",
     "Section `image` is a boolean in code (renders Placeholder \"Inline image\"); modelled as an optional media slot.",
-    "/case-study/customer-3 passes logoSizeClassName for a tall square logo (layout knob, not modelled).",
-    "CLONE_SPEC_PAGES.md §E lists a CSS `icon-anim-anim` 3s icon bob on cs-platform-body; the clone code has no such animation (the play icon is static)."
+    "R6 decomposition (repository 3.0.0): split from the former single article.cs-platform-body (one section = the whole article, measured 4813px = 65% of /case-study/customer-1 at 1440px) along the component's own content boundaries."
   ],
   "observedOn": [
     "/case-study/customer-1",
@@ -685,19 +390,22 @@
   ],
   "compatibility": {
     "recommendedAfter": [
-      "shell.nav"
+      "article.cs-platform-header"
     ],
     "recommendedBefore": [
-      "product.capability-slider"
+      "conversion.cs-platform-cta"
     ],
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
-    "logo.customer",
+    "asset.userSupplied",
+    "illustration.generated",
+    "person.fictional",
     "photo.brand",
     "photo.person",
     "placeholder.neutral",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

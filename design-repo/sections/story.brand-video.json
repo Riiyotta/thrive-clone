@@ -4,6 +4,17 @@
   "name": "Product video placeholder + descriptive paragraph",
   "purpose": "A short product tour slot plus a plain-language description paragraph.",
   "category": "story",
+  "source": {
+    "id": "VideoSection.section[data-section=video]",
+    "tag": "section",
+    "file": "src/components/VideoSection.jsx",
+    "lines": "47-79"
+  },
+  "semantic": {
+    "id": "story.brand-video",
+    "category": "story"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/VideoSection.jsx",
   "content": {
@@ -36,14 +47,20 @@
             "x-allowedRoles": [
               "product.video",
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "product.video",
                   "stock.photo",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -154,14 +171,20 @@
             "x-allowedRoles": [
               "product.video",
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "product.video",
                   "stock.photo",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -249,8 +272,11 @@
     }
   ],
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "composes": [

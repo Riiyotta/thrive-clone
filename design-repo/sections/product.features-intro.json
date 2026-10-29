@@ -4,6 +4,17 @@
   "name": "Features intro header",
   "purpose": "Frames the feature catalogue that follows with a left-aligned heading and one-paragraph overview.",
   "category": "product",
+  "source": {
+    "id": "FeaturesIntro.section[data-section=features-intro]",
+    "tag": "section",
+    "file": "src/components/sections/FeaturesIntro.jsx",
+    "lines": "12-28"
+  },
+  "semantic": {
+    "id": "product.features-intro",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/FeaturesIntro.jsx",
   "description": "Left-aligned header only: H2 (max 42rem), a 1rem spacer and a grey paragraph (max 36rem) inside container-large > container-medium. No media, no CTA. Only on /lms/features, directly above the anchor intro + sticky tabs.",

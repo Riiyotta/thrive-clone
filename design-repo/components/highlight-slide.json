@@ -1,6 +1,7 @@
 {
   "id": "component.highlight-slide",
   "kind": "component",
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "name": "Case-study highlight slide",
   "composes": [

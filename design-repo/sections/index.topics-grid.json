@@ -4,6 +4,17 @@
   "name": "Topic library grid",
   "purpose": "Let visitors browse the content library by topic through a grid of linked topic cards under a centred heading.",
   "category": "index",
+  "source": {
+    "id": "TopicsGrid.section[data-section=topics-grid]",
+    "tag": "section",
+    "file": "src/components/sections/TopicsGrid.jsx",
+    "lines": "69-115"
+  },
+  "semantic": {
+    "id": "index.topics-grid",
+    "category": "index"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/TopicsGrid.jsx",
   "description": "Legacy content (yellow) theme: a centred serif 4rem H2 header in a side-hairline frame over a 3-col grid (1 col <=767) of hairline link cards, each with a 20px/500 title, grey copy and a 3:2 topic image; hover reveals a dotted radial-gradient texture instantly. The component also has a 'suites' variant (split header + button + 6 sector cards) but no real page uses it; only 'topics' (/content/topics) is live and modelled.",
@@ -51,14 +62,20 @@
               "x-allowedRoles": [
                 "placeholder.neutral",
                 "product.screenshot",
-                "stock.photo"
+                "stock.photo",
+                "screenshot.placeholder",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "placeholder.neutral",
                     "product.screenshot",
-                    "stock.photo"
+                    "stock.photo",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -335,8 +352,11 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "variants": [

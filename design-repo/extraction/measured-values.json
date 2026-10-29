@@ -52,7 +52,7 @@
     {
       "group": "ia",
       "claim": "IA: the homepage template lists results-stats + testimonial (one Results.jsx) and demo-form + footer (one Footer.jsx)",
-      "measuredFrom": "ia.json:613-621",
+      "measuredFrom": "ia.json:625-633",
       "keywords": [
         "\"proof.results-stats\"",
         "\"proof.testimonial\"",
@@ -64,7 +64,7 @@
     {
       "group": "ia",
       "claim": "IA: Results.jsx implements two sections",
-      "measuredFrom": "ia.json:485-489",
+      "measuredFrom": "ia.json:497-501",
       "keywords": [
         "\"proof.results-stats\": {",
         "\"implementedBy\": \"src/components/Results.jsx\""
@@ -1361,7 +1361,7 @@
     },
     {
       "group": "motion",
-      "claim": "article.cs-platform-body motion (scroll.charColorScrub): measured values for start: 'clamp(top 90%)', end: 'clamp(bottom 60%)', scrub: 0.8, stagger: { amount: 0.5 }, yPercent: 100, opacity: 0",
+      "claim": "conversion.cs-platform-cta motion (scroll.charColorScrub): measured values for start: 'clamp(top 90%)', end: 'clamp(bottom 60%)', scrub: 0.8, stagger: { amount: 0.5 }, yPercent: 100, opacity: 0",
       "measuredFrom": "src/components/sections/CsPlatformBody.jsx:177-179",
       "keywords": [
         "start: 'clamp(top 90%)', end: 'clamp(bottom 60%)', scrub: 0.8",
@@ -1371,7 +1371,7 @@
     },
     {
       "group": "motion",
-      "claim": "article.cs-platform-body motion (scroll.charColorScrub): measured values for transition-[background-color,color] duration-200",
+      "claim": "article.cs-platform-body motion (none; TOC link colour transition, primitive-level): measured values for transition-[background-color,color] duration-200",
       "measuredFrom": "src/components/sections/CsPlatformBody.jsx:235-235",
       "keywords": [
         "transition-[background-color,color] duration-200"
@@ -1856,5 +1856,2534 @@
         "30s linear infinite"
       ]
     }
-  ]
+  ],
+  "sectionHeights": {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "tool": "playwright chromium (headless), extraction/measure_sections.mjs",
+    "measuredAt": "2026-10-29",
+    "build": "npm ci + npx vite build --outDir <scratch>/dist, served by npx vite preview --port 5713",
+    "method": "First route of each template, scrolled top to bottom and back to trigger viewport-enter content, then every direct element child of <main> measured (getBoundingClientRect height). shell.nav is position:fixed (inFlow false, takes no page height); the footer CTA block (conversion.demo-cta / conversion.demo-form) is measured inside <footer>; shell.footer is the rest of <footer>. One element holding two nodes is recorded once with both ids (sections[]); one element split into several sections (R6) records each part (parts are measured inside the element). Empty spacer divs (<= 80px, no children) are recorded under spacers and count toward the page only.",
+    "templates": {
+      "home": {
+        "route": "/",
+        "pageHeightPx": 11729,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 80,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.split-visual"
+            ],
+            "heightPx": 680,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.logo-row"
+            ],
+            "heightPx": 234,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.feature-tabs"
+            ],
+            "heightPx": 961,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.assistant-tabs"
+            ],
+            "heightPx": 1096,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.capability-slider"
+            ],
+            "heightPx": 1021,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.results-stats",
+              "proof.testimonial"
+            ],
+            "heightPx": 1143,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.zoom-statement"
+            ],
+            "heightPx": 1010,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.scroll-quote"
+            ],
+            "heightPx": 342,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.case-study-carousel"
+            ],
+            "heightPx": 1300,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.brand-video"
+            ],
+            "heightPx": 1191,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 806,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-form"
+            ],
+            "heightPx": 786,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1023,
+            "inFlow": true
+          }
+        ]
+      },
+      "feature-detail": {
+        "route": "/lms/features/lms-homepage",
+        "pageHeightPx": 8488,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.split-visual"
+            ],
+            "heightPx": 811,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.logo-row"
+            ],
+            "heightPx": 306,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.feature-tabs"
+            ],
+            "heightPx": 1194,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.cta-strip"
+            ],
+            "heightPx": 157,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.brand-video"
+            ],
+            "heightPx": 969,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.reviews-slider"
+            ],
+            "heightPx": 968,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 576,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.assistant-tabs"
+            ],
+            "heightPx": 1660,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "case-study-platform": {
+        "route": "/case-study/customer-1",
+        "pageHeightPx": 7380,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "article.cs-platform-header"
+            ],
+            "heightPx": 1068,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "article.cs-platform-body"
+            ],
+            "heightPx": 3514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.cs-platform-cta"
+            ],
+            "heightPx": 231,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.capability-slider"
+            ],
+            "heightPx": 843,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "case-study-content": {
+        "route": "/case-studies-contents/customer-6",
+        "pageHeightPx": 4986,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.layout2-media"
+            ],
+            "heightPx": 750,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.cs-content-stats"
+            ],
+            "heightPx": 348,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "article.cs-content-article"
+            ],
+            "heightPx": 1551,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "index.cs-content-related"
+            ],
+            "heightPx": 613,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "content-catalogue": {
+        "route": "/content/topics",
+        "pageHeightPx": 7824,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.header-grid-card"
+            ],
+            "heightPx": 464,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.flip-logos"
+            ],
+            "heightPx": 194,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "index.topics-grid"
+            ],
+            "heightPx": 3355,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.reviews-slider"
+            ],
+            "heightPx": 968,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq-legacy"
+            ],
+            "heightPx": 1119,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "lms": {
+        "route": "/lms",
+        "pageHeightPx": 15712,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.platform"
+            ],
+            "heightPx": 852,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.platform-intro"
+            ],
+            "heightPx": 298,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.assistant-tabs"
+            ],
+            "heightPx": 1079,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.testimonial-quote"
+            ],
+            "heightPx": 408,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.assistant-tabs"
+            ],
+            "heightPx": 1039,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.testimonial-quote"
+            ],
+            "heightPx": 467,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.autotabs-group"
+            ],
+            "heightPx": 1833,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.feature-tabs"
+            ],
+            "heightPx": 1100,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.feature-tabs"
+            ],
+            "heightPx": 1100,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.testimonial-quote"
+            ],
+            "heightPx": 701,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.feature-bento"
+            ],
+            "heightPx": 1277,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.results-stats",
+              "proof.centred-quote"
+            ],
+            "heightPx": 1283,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.comparison-table"
+            ],
+            "heightPx": 999,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 1290,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "lms-small-business": {
+        "route": "/lms/small-business",
+        "pageHeightPx": 11665,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.wow-content"
+            ],
+            "heightPx": 745,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.logo-row"
+            ],
+            "heightPx": 167,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.wow-bento"
+            ],
+            "heightPx": 1712,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.assistant-tabs"
+            ],
+            "heightPx": 1306,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.layout03-tabs"
+            ],
+            "heightPx": 1209,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.results-stats",
+              "proof.centred-quote"
+            ],
+            "heightPx": 1221,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.marquee"
+            ],
+            "heightPx": 852,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.wow-bento"
+            ],
+            "heightPx": 1126,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.cta-strip"
+            ],
+            "heightPx": 227,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 1315,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "lms-corporate": {
+        "route": "/lms/corporate-lms",
+        "pageHeightPx": 9611,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 80,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.wow-content"
+            ],
+            "heightPx": 160,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "hero.logos-overlap"
+            ],
+            "heightPx": 837,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.split-autotabs"
+            ],
+            "heightPx": 885,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.layout03-tabs"
+            ],
+            "heightPx": 1233,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.testimonial-quote"
+            ],
+            "heightPx": 333,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.results-stats"
+            ],
+            "heightPx": 772,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.two-col-features"
+            ],
+            "heightPx": 1328,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.integrations-visual"
+            ],
+            "heightPx": 627,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.reviews-slider"
+            ],
+            "heightPx": 969,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 1026,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 474,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1023,
+            "inFlow": true
+          }
+        ]
+      },
+      "lms-enterprise": {
+        "route": "/lms/enterprise",
+        "pageHeightPx": 13911,
+        "spacerPx": 96,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 80,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.wow-content"
+            ],
+            "heightPx": 742,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.split-autotabs"
+            ],
+            "heightPx": 941,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.layout03-tabs"
+            ],
+            "heightPx": 1142,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.autotabs-group"
+            ],
+            "heightPx": 1670,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.results-stats",
+              "proof.centred-quote"
+            ],
+            "heightPx": 1147,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.two-col-features"
+            ],
+            "heightPx": 1410,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.split-autotabs"
+            ],
+            "heightPx": 1609,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.integrations-visual"
+            ],
+            "heightPx": 708,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.testimonial-quote"
+            ],
+            "heightPx": 294,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.cta-strip"
+            ],
+            "heightPx": 44,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.comparison-table"
+            ],
+            "heightPx": 903,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 1500,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 474,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1023,
+            "inFlow": true
+          }
+        ]
+      },
+      "lms-solutions": {
+        "route": "/lms/solutions",
+        "pageHeightPx": 12722,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.wow-content"
+            ],
+            "heightPx": 462,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.logo-row"
+            ],
+            "heightPx": 219,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.anchor-intro"
+            ],
+            "heightPx": 49,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.sticky-tabs"
+            ],
+            "heightPx": 5273,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.testimonial-quote"
+            ],
+            "heightPx": 430,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.sector-tabs"
+            ],
+            "heightPx": 1647,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.case-study-carousel"
+            ],
+            "heightPx": 1415,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 1487,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "lms-professional-services": {
+        "route": "/lms/professional-services",
+        "pageHeightPx": 8197,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.center-legacy"
+            ],
+            "heightPx": 597,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.results-stats"
+            ],
+            "heightPx": 621,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.header-image-legacy"
+            ],
+            "heightPx": 704,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.grid-split-legacy"
+            ],
+            "heightPx": 431,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.tabs-horizontal-legacy"
+            ],
+            "heightPx": 668,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.grid-split-legacy"
+            ],
+            "heightPx": 286,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.feature-rows-legacy"
+            ],
+            "heightPx": 980,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.grid-cards-legacy"
+            ],
+            "heightPx": 1217,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.reviews-slider"
+            ],
+            "heightPx": 968,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "lms-impact": {
+        "route": "/lms/impact",
+        "pageHeightPx": 9016,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.layout2-media"
+            ],
+            "heightPx": 751,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.flip-logos"
+            ],
+            "heightPx": 194,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.feature-rows-legacy"
+            ],
+            "heightPx": 1730,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.grid-cards-legacy"
+            ],
+            "heightPx": 855,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.card-slider-legacy"
+            ],
+            "heightPx": 1004,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.grid-cards-legacy"
+            ],
+            "heightPx": 667,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.grid-cards-legacy"
+            ],
+            "heightPx": 501,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.grid-split-legacy"
+            ],
+            "heightPx": 498,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.pricing-plans-legacy"
+            ],
+            "heightPx": 1090,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "lms-integrations": {
+        "route": "/lms/integrations",
+        "pageHeightPx": 9967,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.integrations-header"
+            ],
+            "heightPx": 1147,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "index.integration-filter"
+            ],
+            "heightPx": 4753,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.reviews-slider"
+            ],
+            "heightPx": 968,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq-legacy"
+            ],
+            "heightPx": 1375,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "lms-spring-release": {
+        "route": "/lms/spring-release",
+        "pageHeightPx": 15460,
+        "spacerPx": 17,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.wow-content"
+            ],
+            "heightPx": 1653,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.logo-row"
+            ],
+            "heightPx": 211,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.release-block"
+            ],
+            "heightPx": 1281,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.release-block"
+            ],
+            "heightPx": 1469,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.release-block"
+            ],
+            "heightPx": 1691,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.release-block"
+            ],
+            "heightPx": 1383,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.release-block"
+            ],
+            "heightPx": 1578,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.release-block"
+            ],
+            "heightPx": 1544,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.wow-bento"
+            ],
+            "heightPx": 2034,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 874,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "lms-demo-platform": {
+        "route": "/lms/demo-platform",
+        "pageHeightPx": 4374,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.demo-form"
+            ],
+            "heightPx": 949,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.logo-row"
+            ],
+            "heightPx": 133,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.results-stats"
+            ],
+            "heightPx": 663,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 859,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "pricing": {
+        "route": "/pricing",
+        "pageHeightPx": 7482,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.pricing-calculator"
+            ],
+            "heightPx": 1449,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.reviews-grid"
+            ],
+            "heightPx": 2279,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.content-pricing"
+            ],
+            "heightPx": 1454,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 576,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "lms-features": {
+        "route": "/lms/features",
+        "pageHeightPx": 13573,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 80,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.wow-content"
+            ],
+            "heightPx": 521,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.logo-row"
+            ],
+            "heightPx": 129,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.features-intro"
+            ],
+            "heightPx": 296,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.anchor-intro"
+            ],
+            "heightPx": 45,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.sticky-tabs"
+            ],
+            "heightPx": 7334,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.integrations-visual"
+            ],
+            "heightPx": 768,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.testimonial-quote"
+            ],
+            "heightPx": 476,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.cta-strip"
+            ],
+            "heightPx": 44,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.case-study-carousel"
+            ],
+            "heightPx": 1159,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 1161,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 474,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1023,
+            "inFlow": true
+          }
+        ]
+      },
+      "nova": {
+        "route": "/nova",
+        "pageHeightPx": 11936,
+        "spacerPx": 52,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.assistant-video"
+            ],
+            "heightPx": 1059,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.logo-row"
+            ],
+            "heightPx": 306,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.assistant-feature-tabs"
+            ],
+            "heightPx": 852,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.assistant-feature-tabs"
+            ],
+            "heightPx": 797,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.cta-strip"
+            ],
+            "heightPx": 46,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.testimonial-quote"
+            ],
+            "heightPx": 474,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.split-tabs"
+            ],
+            "heightPx": 968,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.comparison-table"
+            ],
+            "heightPx": 1372,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.autotabs-group"
+            ],
+            "heightPx": 1833,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.brand-video"
+            ],
+            "heightPx": 1204,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 915,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "lms-mentoring-software": {
+        "route": "/lms/mentoring-software",
+        "pageHeightPx": 8878,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.mentoring-software"
+            ],
+            "heightPx": 1293,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.autotabs-group"
+            ],
+            "heightPx": 1582,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.split-tabs"
+            ],
+            "heightPx": 1208,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.case-study-video"
+            ],
+            "heightPx": 962,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.brand-video"
+            ],
+            "heightPx": 981,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.cta-strip"
+            ],
+            "heightPx": 174,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 1093,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "content-overview": {
+        "route": "/content",
+        "pageHeightPx": 9679,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.content-overview"
+            ],
+            "heightPx": 1731,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.sector-tabs"
+            ],
+            "heightPx": 957,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.solution-tabs"
+            ],
+            "heightPx": 1138,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.grid-cards-legacy"
+            ],
+            "heightPx": 1827,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.reviews-slider"
+            ],
+            "heightPx": 968,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq-legacy"
+            ],
+            "heightPx": 1334,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "content-service": {
+        "route": "/content/service",
+        "pageHeightPx": 4748,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.layout2-media"
+            ],
+            "heightPx": 751,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.flip-logos"
+            ],
+            "heightPx": 194,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.feature-rows-legacy"
+            ],
+            "heightPx": 990,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.card-slider-legacy"
+            ],
+            "heightPx": 760,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.testimonial-card-legacy"
+            ],
+            "heightPx": 329,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "content-custom": {
+        "route": "/content/custom-content",
+        "pageHeightPx": 6133,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.center-legacy"
+            ],
+            "heightPx": 647,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.flip-logos"
+            ],
+            "heightPx": 194,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.custom-video"
+            ],
+            "heightPx": 966,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.testimonial-card-legacy"
+            ],
+            "heightPx": 301,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.learn-grid"
+            ],
+            "heightPx": 660,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.card-slider-legacy"
+            ],
+            "heightPx": 873,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 767,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "mentoring": {
+        "route": "/mentoring",
+        "pageHeightPx": 8015,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 80,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.wow-content"
+            ],
+            "heightPx": 511,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.logo-row"
+            ],
+            "heightPx": 160,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.wow-2col"
+            ],
+            "heightPx": 706,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.marquee"
+            ],
+            "heightPx": 162,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.wow-2col"
+            ],
+            "heightPx": 706,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.marquee"
+            ],
+            "heightPx": 162,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.wow-2col"
+            ],
+            "heightPx": 706,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.marquee"
+            ],
+            "heightPx": 162,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.wow-2col"
+            ],
+            "heightPx": 706,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.marquee"
+            ],
+            "heightPx": 162,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.wow-bento"
+            ],
+            "heightPx": 833,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 1477,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 474,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1023,
+            "inFlow": true
+          }
+        ]
+      },
+      "case-studies-lms": {
+        "route": "/case-studies/lms",
+        "pageHeightPx": 9876,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.wow-content"
+            ],
+            "heightPx": 838,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "index.cs-filter-grid"
+            ],
+            "heightPx": 5611,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.case-results"
+            ],
+            "heightPx": 756,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 920,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "case-studies-content": {
+        "route": "/case-studies/content",
+        "pageHeightPx": 3455,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.global-header-legacy"
+            ],
+            "heightPx": 418,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "index.cs-content-list"
+            ],
+            "heightPx": 1312,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "company": {
+        "route": "/company",
+        "pageHeightPx": 10241,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.company-video"
+            ],
+            "heightPx": 917,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.logo-row"
+            ],
+            "heightPx": 129,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.stats-countup"
+            ],
+            "heightPx": 663,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.two-col-features"
+            ],
+            "heightPx": 1517,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.results-proof"
+            ],
+            "heightPx": 921,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "story.company-news"
+            ],
+            "heightPx": 994,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.case-study-carousel"
+            ],
+            "heightPx": 1396,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "hero.layout2-media"
+            ],
+            "heightPx": 750,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 834,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-form"
+            ],
+            "heightPx": 857,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1140,
+            "inFlow": true
+          }
+        ]
+      },
+      "company-why": {
+        "route": "/company/why-nimbus",
+        "pageHeightPx": 9615,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 80,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.wow-content"
+            ],
+            "heightPx": 719,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.logo-row"
+            ],
+            "heightPx": 105,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.why-assistant-tabs"
+            ],
+            "heightPx": 2959,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.wow-bento"
+            ],
+            "heightPx": 1801,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.why-cta"
+            ],
+            "heightPx": 134,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.case-study-carousel"
+            ],
+            "heightPx": 1300,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 766,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 474,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1023,
+            "inFlow": true
+          }
+        ]
+      },
+      "whats-included": {
+        "route": "/whats-included",
+        "pageHeightPx": 6809,
+        "spacerPx": 64,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 80,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.wow-content"
+            ],
+            "heightPx": 463,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.logo-row"
+            ],
+            "heightPx": 64,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.included-tabs"
+            ],
+            "heightPx": 1191,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "product.layout03-tabs"
+            ],
+            "heightPx": 833,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.results-proof"
+            ],
+            "heightPx": 790,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.reviews-slider"
+            ],
+            "heightPx": 896,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 868,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 474,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1023,
+            "inFlow": true
+          }
+        ]
+      },
+      "contact-us": {
+        "route": "/contact-us",
+        "pageHeightPx": 5605,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.global-header-legacy"
+            ],
+            "heightPx": 380,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.logo-row"
+            ],
+            "heightPx": 254,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.contact-form"
+            ],
+            "heightPx": 1169,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "proof.case-study-carousel"
+            ],
+            "heightPx": 1415,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.faq"
+            ],
+            "heightPx": 662,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "events-webinars": {
+        "route": "/resources/events-webinars",
+        "pageHeightPx": 17367,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "hero.layout2-media"
+            ],
+            "heightPx": 750,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "index.events-upcoming"
+            ],
+            "heightPx": 838,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "index.webinars-upcoming"
+            ],
+            "heightPx": 277,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "index.events-past"
+            ],
+            "heightPx": 13777,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "blog-and-news": {
+        "route": "/resources/blog-and-news",
+        "pageHeightPx": 8024,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 87,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "index.blog-featured"
+            ],
+            "heightPx": 1090,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "index.blog-filter"
+            ],
+            "heightPx": 5209,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 514,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1141,
+            "inFlow": true
+          }
+        ]
+      },
+      "guides": {
+        "route": "/resources/guides",
+        "pageHeightPx": 4424,
+        "spacerPx": 30,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 80,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "index.guides"
+            ],
+            "heightPx": 2833,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 474,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1023,
+            "inFlow": true
+          }
+        ]
+      },
+      "lms-glossary": {
+        "route": "/resources/lms-glossary",
+        "pageHeightPx": 7253,
+        "spacerPx": 0,
+        "units": [
+          {
+            "sections": [
+              "shell.nav"
+            ],
+            "heightPx": 80,
+            "inFlow": false
+          },
+          {
+            "sections": [
+              "index.glossary"
+            ],
+            "heightPx": 4915,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.glossary-cta"
+            ],
+            "heightPx": 777,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "conversion.demo-cta"
+            ],
+            "heightPx": 474,
+            "inFlow": true
+          },
+          {
+            "sections": [
+              "shell.footer"
+            ],
+            "heightPx": 1023,
+            "inFlow": true
+          }
+        ]
+      }
+    }
+  }
 }

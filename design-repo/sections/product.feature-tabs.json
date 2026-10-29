@@ -4,6 +4,17 @@
   "name": "Click tabs with bleeding product pane",
   "purpose": "Walk through the platform's pillars one at a time; each tab swaps a product visual and a short pitch with its own CTA.",
   "category": "product",
+  "source": {
+    "id": "ProductTabs.section[data-section=tabs]",
+    "tag": "section",
+    "file": "src/components/ProductTabs.jsx",
+    "lines": "81-158"
+  },
+  "semantic": {
+    "id": "product.feature-tabs",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/ProductTabs.jsx",
   "content": {
@@ -90,14 +101,20 @@
                   "x-allowedRoles": [
                     "product.screenshot",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "product.screenshot",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -203,14 +220,20 @@
                   "x-allowedRoles": [
                     "product.screenshot",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "product.screenshot",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -391,8 +414,11 @@
     }
   ],
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "composes": [

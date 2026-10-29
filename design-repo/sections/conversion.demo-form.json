@@ -4,6 +4,17 @@
   "name": "Demo-request block (static form placeholder)",
   "purpose": "Final conversion ask: wordmark, heading, one line of copy and a demo-request form. Opens the <footer> element.",
   "category": "conversion",
+  "source": {
+    "id": "Footer.div@160",
+    "tag": "div",
+    "file": "src/components/Footer.jsx",
+    "lines": "160-167"
+  },
+  "semantic": {
+    "id": "conversion.demo-form",
+    "category": "conversion"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/Footer.jsx",
   "content": {
@@ -118,7 +129,7 @@
     "/",
     "/company"
   ],
-  "measuredFrom": "src/components/Footer.jsx:122-130",
+  "measuredFrom": "src/components/Footer.jsx:160-167",
   "iaSectionId": "conversion.demo-form",
   "specMeasuredFrom": "CLONE_SPEC.md:452-456"
 }

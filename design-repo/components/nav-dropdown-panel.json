@@ -1,6 +1,8 @@
 {
   "id": "component.nav-dropdown-panel",
   "kind": "component",
+  "retrievalEligible": false,
+  "retrievalReason": "Runtime overlay: the desktop navigation dropdown panel shown on hover; navigation chrome, not page content.",
   "designSystem": "marketing",
   "name": "Desktop dropdown panel",
   "composes": [],

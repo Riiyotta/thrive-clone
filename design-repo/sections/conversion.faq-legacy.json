@@ -4,6 +4,17 @@
   "name": "Legacy grid-lines FAQ",
   "purpose": "Answer the objections a visitor still has at the bottom of a content or integrations page, in an accordion framed by legacy theme grid lines.",
   "category": "conversion",
+  "source": {
+    "id": "FaqLegacy.section[data-section=faq-legacy]",
+    "tag": "section",
+    "file": "src/components/sections/FaqLegacy.jsx",
+    "lines": "146-190"
+  },
+  "semantic": {
+    "id": "conversion.faq-legacy",
+    "category": "conversion"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/FaqLegacy.jsx",
   "description": "Relume-style 'grid lines' FAQ in container-large: a centred header cell (42rem wide, bordered left/right) with a pill eyebrow and a 3rem (2rem <=767) H2, then a single-column 42rem accordion of bordered rows (bold 1.25rem question cell + a separate square plus-icon cell), then a bottom spacer cell with a centre line (12rem; omitted for the green theme). The `theme` prop picks the line/open colours: 'olive' (/content/topics, /content/sector-suites), 'olive-items' (/content: item lines also olive) and 'green' (/lms/integrations: no top border, no bottom spacer). Outer side borders drop at <=991; one item can be open on load.",

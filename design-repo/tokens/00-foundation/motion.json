@@ -34,7 +34,7 @@
     "none": "GSAP ease none (scrubbed timeline)",
     "tailwind-default": "Tailwind's default transition timing cubic-bezier(0.4, 0, 0.2, 1), applied where the clone sets a duration class but no ease class"
   },
-  "easingMeasuredFrom": "tailwind.config.js:89-91",
+  "easingMeasuredFrom": "tailwind.config.js:113-116",
   "reducedMotionFallbacks": {
     "none": "Nothing to reduce.",
     "instant-toggle": "Switch open/closed or active state immediately, without the transition.",
@@ -66,6 +66,8 @@
       "measuredFrom": "CLONE_SPEC.md:509-509",
       "usedBy": [
         "article.cs-content-article",
+        "article.cs-platform-body",
+        "article.cs-platform-header",
         "conversion.contact-form",
         "conversion.cta-strip",
         "conversion.demo-cta",
@@ -343,7 +345,7 @@
       "end": "clamp(bottom 500)",
       "measuredFrom": "src/components/QuoteHighlight.jsx:23-29",
       "usedBy": [
-        "article.cs-platform-body",
+        "conversion.cs-platform-cta",
         "story.scroll-quote"
       ],
       "alsoMeasuredFrom": [

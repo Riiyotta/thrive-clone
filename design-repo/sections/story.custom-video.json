@@ -4,6 +4,17 @@
   "name": "Custom content video block",
   "purpose": "Sells the bespoke content studio with a headline, a watch CTA and a video thumbnail beside an explanatory paragraph.",
   "category": "story",
+  "source": {
+    "id": "CustomVideo.section[data-section=custom-video]",
+    "tag": "section",
+    "file": "src/components/sections/CustomVideo.jsx",
+    "lines": "16-51"
+  },
+  "semantic": {
+    "id": "story.custom-video",
+    "category": "story"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/CustomVideo.jsx",
   "description": "Legacy green-theme hairline block (left and bottom borders only) in container-large: a header with a 64px serif H2 (max 42rem) and a green pill button, then a bordered 2-column grid of a 16:9 video lightbox thumbnail (right hairline) and a 20px paragraph. One column at <=767, with the paragraph moved above the thumbnail at <=479. Used once, on /content/custom-content.",
@@ -36,14 +47,20 @@
         "x-allowedRoles": [
           "product.video",
           "stock.photo",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "screenshot.placeholder",
+          "illustration.generated",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "product.video",
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -237,8 +254,11 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

@@ -4,6 +4,17 @@
   "name": "Legacy alternating feature rows",
   "purpose": "Explain a service or programme step by step as alternating text-and-image rows inside a legacy hairline frame.",
   "category": "product",
+  "source": {
+    "id": "FeatureTwoColLegacy.section[data-section=feature-2col-legacy]",
+    "tag": "section",
+    "file": "src/components/sections/FeatureTwoColLegacy.jsx",
+    "lines": "74-128"
+  },
+  "semantic": {
+    "id": "product.feature-rows-legacy",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/FeatureTwoColLegacy.jsx",
   "description": "A bordered stack of 2-column rows (`.section_feature_2-col`): text cell + 3:2 image cell alternating sides, hairline between rows; <=767 rows stack with the text cell first. One component with `variant`: 'impact' (/lms/impact; centred legacy H2 header, rows on a 16px gap, text = H3 28px + paragraph vertically centred), 'service' (/content/service; no header, no top hairline, gapless stretched cells with long paragraphs) and 'services' (/lms/professional-services; no header, 16px gap, text = H4-size 32px title + paragraph + legacy CTA).",
@@ -59,7 +70,10 @@
                     "placeholder.neutral",
                     "product.screenshot",
                     "photo.brand",
-                    "stock.photo"
+                    "stock.photo",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
@@ -67,7 +81,10 @@
                         "placeholder.neutral",
                         "product.screenshot",
                         "photo.brand",
-                        "stock.photo"
+                        "stock.photo",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -153,7 +170,10 @@
                     "placeholder.neutral",
                     "product.screenshot",
                     "photo.brand",
-                    "stock.photo"
+                    "stock.photo",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
@@ -161,7 +181,10 @@
                         "placeholder.neutral",
                         "product.screenshot",
                         "photo.brand",
-                        "stock.photo"
+                        "stock.photo",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -246,7 +269,10 @@
                     "placeholder.neutral",
                     "product.screenshot",
                     "photo.brand",
-                    "stock.photo"
+                    "stock.photo",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
@@ -254,7 +280,10 @@
                         "placeholder.neutral",
                         "product.screenshot",
                         "photo.brand",
-                        "stock.photo"
+                        "stock.photo",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -471,9 +500,12 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "photo.brand",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "variants": [

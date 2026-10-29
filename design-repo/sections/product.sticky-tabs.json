@@ -4,6 +4,17 @@
   "name": "Sticky anchor tabs over autotab panels",
   "purpose": "Lets visitors jump between the main solution/feature areas of a long page via a sticky anchor bar, each area presenting its sub-capabilities in a tabbed slider.",
   "category": "product",
+  "source": {
+    "id": "StickyTabs.div[data-section=sticky-tabs]",
+    "tag": "div",
+    "file": "src/components/sections/StickyTabs.jsx",
+    "lines": "306-338"
+  },
+  "semantic": {
+    "id": "product.sticky-tabs",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/StickyTabs.jsx",
   "description": "One component with a `variant` prop: 'solutions' (/lms/solutions) and 'features' (/lms/features). A sticky (top 0, z 999) bar of equal anchor pills (green when its panel is in view, scroll-spy) sits over a stack of panels; each panel is a header plus a tab row ABOVE a loop slider whose slides hold one paragraph, a fixed primary button ('Learn more' on solutions, 'Explore' on features) and a clipped product shot. 'solutions' headers are eyebrow + H4-style heading + paragraph beside a bordered stat card (40%); its bar sits in a 45.25rem container and its 5th anchor targets the sector-tabs block further down. 'features' headers are eyebrow / title / paragraph, bar in container-medium. <=767 the anchor bar and tab rows scroll horizontally (200px pills, 150px at <=479) and the stat card stacks under the copy.",
@@ -140,14 +151,20 @@
                         "x-allowedRoles": [
                           "product.screenshot",
                           "stock.photo",
-                          "placeholder.neutral"
+                          "placeholder.neutral",
+                          "screenshot.placeholder",
+                          "illustration.generated",
+                          "asset.userSupplied"
                         ],
                         "properties": {
                           "assetRole": {
                             "enum": [
                               "product.screenshot",
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "screenshot.placeholder",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ]
                           },
                           "placeholderLabel": {
@@ -295,14 +312,20 @@
                         "x-allowedRoles": [
                           "product.screenshot",
                           "stock.photo",
-                          "placeholder.neutral"
+                          "placeholder.neutral",
+                          "screenshot.placeholder",
+                          "illustration.generated",
+                          "asset.userSupplied"
                         ],
                         "properties": {
                           "assetRole": {
                             "enum": [
                               "product.screenshot",
                               "stock.photo",
-                              "placeholder.neutral"
+                              "placeholder.neutral",
+                              "screenshot.placeholder",
+                              "illustration.generated",
+                              "asset.userSupplied"
                             ]
                           },
                           "placeholderLabel": {
@@ -613,8 +636,11 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "variants": [

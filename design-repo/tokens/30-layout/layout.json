@@ -2,21 +2,21 @@
   "id": "tokens.layout",
   "designSystem": "marketing",
   "pageWrapper": {
-    "className": "bg-page pt-[64px]",
-    "note": "The wrapper itself carries 64px top padding, so the hero section starts at y=64 (pixel-audit correction; CLONE_SPEC only mentions the hero's own padding).",
-    "measuredFrom": "src/App.jsx:17-17"
+    "className": "bg-page (bg-content-bg on content-theme routes) overflow-x-clip pt-[4rem]",
+    "note": "The wrapper itself carries 4rem (64px at the 16px root) top padding, so the hero section starts at y=64 (pixel-audit correction; CLONE_SPEC only mentions the hero's own padding). The wrapper moved from App.jsx into components/Layout.jsx when the router was added.",
+    "measuredFrom": "src/components/Layout.jsx:67-67"
   },
   "paddingGlobal": {
     "$value": "32px sides (20px <=767)",
-    "measuredFrom": "src/index.css:29-31"
+    "measuredFrom": "src/index.css:45-47"
   },
   "containerMedium": {
     "$value": "max-width 1120px, centred",
-    "measuredFrom": "src/index.css:32-34"
+    "measuredFrom": "src/index.css:48-50"
   },
   "containerLarge": {
     "$value": "max-width 1344px, padding-top 16px",
-    "measuredFrom": "src/index.css:35-37"
+    "measuredFrom": "src/index.css:51-53"
   },
   "sectionPadding": {
     "small": "48px vertical (32 <=767)",
@@ -32,6 +32,6 @@
   },
   "navHeight": {
     "$value": "64px bar inside a 16px-top container (80 total)",
-    "measuredFrom": "src/components/Nav.jsx:182-182"
+    "measuredFrom": "src/components/Nav.jsx:341-341"
   }
 }

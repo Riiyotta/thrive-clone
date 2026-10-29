@@ -4,6 +4,17 @@
   "name": "Scroll-scrubbed per-letter highlight quote",
   "purpose": "An analyst-style quote that lights up letter by letter as the reader scrolls through it.",
   "category": "story",
+  "source": {
+    "id": "QuoteHighlight.section[data-section=quote]",
+    "tag": "section",
+    "file": "src/components/QuoteHighlight.jsx",
+    "lines": "35-54"
+  },
+  "semantic": {
+    "id": "story.scroll-quote",
+    "category": "story"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/QuoteHighlight.jsx",
   "content": {

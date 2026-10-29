@@ -4,6 +4,17 @@
   "name": "Split autotabs (text | image slider, tabs below)",
   "purpose": "Presents 4-5 platform pillars or service stages as a tabbed slider of text-plus-image slides under a configurable header, optionally closed by a big customer quote and CTA.",
   "category": "product",
+  "source": {
+    "id": "SplitAutotabs.section[data-section=split-autotabs]",
+    "tag": "section",
+    "file": "src/pages/platform/SplitAutotabs.jsx",
+    "lines": "48-87"
+  },
+  "semantic": {
+    "id": "product.split-autotabs",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/pages/platform/SplitAutotabs.jsx",
   "description": "Page-local block (/lms/corporate-lms once, /lms/enterprise twice). A header slot (H2 alone; H2 | grey intro with an inline link; or eyebrow + H2 | italic quote card with avatar) sits above a loop slider whose slides are split 47%/47%: a 20px title, grey paragraph and optional arrow text-link on the left, a square/1440:1289 product image on the right (stacked <=767). The tab row sits BELOW the slider (equal 4.75rem tabs; <=767 two per row, 3.5rem). An optional closing node follows the slider: on the enterprise services instance a big centred 32px quote with stacked avatar and a centred primary button.",
@@ -93,13 +104,17 @@
                 "additionalProperties": false,
                 "x-allowedRoles": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ],
                 "properties": {
                   "assetRole": {
                     "enum": [
                       "photo.person",
-                      "placeholder.neutral"
+                      "placeholder.neutral",
+                      "person.fictional",
+                      "asset.userSupplied"
                     ]
                   },
                   "placeholderLabel": {
@@ -180,14 +195,20 @@
               "x-allowedRoles": [
                 "product.screenshot",
                 "stock.photo",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "screenshot.placeholder",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "product.screenshot",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -372,9 +393,13 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

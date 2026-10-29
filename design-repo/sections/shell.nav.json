@@ -4,6 +4,17 @@
   "name": "Fixed transparent nav with centre pill dropdowns",
   "purpose": "Persistent wayfinding and the always-visible demo CTA; hides the product menu behind a hamburger at <=991.",
   "category": "shell",
+  "source": {
+    "id": "Nav.nav@338",
+    "tag": "nav",
+    "file": "src/components/Nav.jsx",
+    "lines": "338-465"
+  },
+  "semantic": {
+    "id": "shell.nav",
+    "category": "shell"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/Nav.jsx",
   "content": {
@@ -108,13 +119,17 @@
                               "additionalProperties": false,
                               "x-allowedRoles": [
                                 "logo.customer",
-                                "placeholder.neutral"
+                                "placeholder.neutral",
+                                "logo.placeholderCompany",
+                                "asset.userSupplied"
                               ],
                               "properties": {
                                 "assetRole": {
                                   "enum": [
                                     "logo.customer",
-                                    "placeholder.neutral"
+                                    "placeholder.neutral",
+                                    "logo.placeholderCompany",
+                                    "asset.userSupplied"
                                   ]
                                 },
                                 "placeholderLabel": {
@@ -262,7 +277,9 @@
     }
   ],
   "assetRoles": [
+    "asset.userSupplied",
     "logo.customer",
+    "logo.placeholderCompany",
     "placeholder.neutral"
   ],
   "composes": [
@@ -274,7 +291,7 @@
   "compatibility": {
     "recommendedAfter": [],
     "recommendedBefore": [
-      "article.cs-platform-body",
+      "article.cs-platform-header",
       "hero.assistant-video",
       "hero.center-legacy",
       "hero.company-video",
@@ -355,7 +372,7 @@
     "/resources/lms-glossary",
     "/whats-included"
   ],
-  "measuredFrom": "src/components/Nav.jsx:144-290",
+  "measuredFrom": "src/components/Nav.jsx:338-465",
   "iaSectionId": "shell.nav",
   "specMeasuredFrom": "CLONE_SPEC.md:107-154"
 }

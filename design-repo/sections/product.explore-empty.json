@@ -4,6 +4,18 @@
   "name": "Explore-features empty state",
   "purpose": "Keep the 'explore further features' closing block on feature pages whose CMS feature list is empty: the header and link to all features stay, the slider is replaced by empty bars.",
   "category": "product",
+  "source": {
+    "id": "ExploreEmpty.section[data-section=kiki]",
+    "tag": "section",
+    "file": "src/pages/features/FeatureDetail.jsx",
+    "lines": "81-95"
+  },
+  "semantic": {
+    "id": "product.explore-empty",
+    "category": "product"
+  },
+  "retrievalEligible": false,
+  "retrievalReason": "CMS empty state of the explore-features slider (empty bars) rendered only when the feature list is empty; utility fallback, not content.",
   "designSystem": "marketing",
   "implementedBy": "src/pages/features/FeatureDetail.jsx > ExploreEmpty",
   "description": "Page-local CMS empty state of the feature-page autotabs block (data-section 'kiki', data-variant 'empty'), padding 5rem top (3rem mob) / 2rem bottom. Top: the shared ExploreHeader in container-medium (28rem column: 1.5rem H2 and a primary 'see every feature' button, then a 2rem spacer). Below, inside the doubled gutter, two stacked full-width #dddddd bars each reading 'No items found.' (0.5rem gap). No tabs, slides or images.",

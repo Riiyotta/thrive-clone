@@ -78,6 +78,7 @@
     "home": {
       "id": "home",
       "name": "Marketing homepage",
+      "family": "home",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fixed-16px",
@@ -229,6 +230,7 @@
     "feature-detail": {
       "id": "feature-detail",
       "name": "Feature detail",
+      "family": "feature-detail",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -595,6 +597,7 @@
     "case-study-platform": {
       "id": "case-study-platform",
       "name": "Case study detail (platform)",
+      "family": "article",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -617,7 +620,19 @@
           "measuredFrom": "src/components/Layout.jsx:68-68"
         },
         {
+          "section": "article.cs-platform-header",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/CaseStudyPlatform.jsx:15-15"
+        },
+        {
           "section": "article.cs-platform-body",
+          "required": true,
+          "repeatable": false,
+          "measuredFrom": "src/pages/content/CaseStudyPlatform.jsx:15-15"
+        },
+        {
+          "section": "conversion.cs-platform-cta",
           "required": true,
           "repeatable": false,
           "measuredFrom": "src/pages/content/CaseStudyPlatform.jsx:15-15"
@@ -649,13 +664,15 @@
         "EnterpriseSlider"
       ],
       "notes": [
-        "No separate hero: CsPlatformBody renders the customer logo + H1 header itself (NO_HERO_TEMPLATES)."
+        "No separate hero: article.cs-platform-header (rendered by CsPlatformBody) carries the customer logo + H1 itself (NO_HERO_TEMPLATES).",
+        "CsPlatformBody renders three design-repo sections in one component call (header, body, closing CTA), split by the component's own content blocks (R6: a section may not hold the whole article)."
       ],
       "iaTemplateId": "template.case-study-platform"
     },
     "case-study-content": {
       "id": "case-study-content",
       "name": "Case study detail (content)",
+      "family": "article",
       "designSystem": "marketing",
       "theme": "nimbus-content",
       "rootFontSize": "fluid",
@@ -731,6 +748,7 @@
     "content-catalogue": {
       "id": "content-catalogue",
       "name": "Content catalogue (topics / sector suites)",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-content",
       "rootFontSize": "fluid",
@@ -847,6 +865,7 @@
     "lms": {
       "id": "lms",
       "name": "Platform overview",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -1024,6 +1043,7 @@
     "lms-small-business": {
       "id": "lms-small-business",
       "name": "Segment landing: small business",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -1171,6 +1191,7 @@
     "lms-corporate": {
       "id": "lms-corporate",
       "name": "Segment landing: mid-market",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fixed-16px",
@@ -1298,6 +1319,7 @@
     "lms-enterprise": {
       "id": "lms-enterprise",
       "name": "Segment landing: enterprise",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fixed-16px",
@@ -1457,6 +1479,7 @@
     "lms-solutions": {
       "id": "lms-solutions",
       "name": "Solutions index (sticky anchor tabs)",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -1575,6 +1598,7 @@
     "lms-professional-services": {
       "id": "lms-professional-services",
       "name": "Professional services (legacy grid system)",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -1694,6 +1718,7 @@
     "lms-impact": {
       "id": "lms-impact",
       "name": "Impact (legacy layout, pink theme)",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -1816,6 +1841,7 @@
     "lms-integrations": {
       "id": "lms-integrations",
       "name": "Integrations directory",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -1882,6 +1908,7 @@
     "lms-spring-release": {
       "id": "lms-spring-release",
       "name": "Release notes landing",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -1969,6 +1996,7 @@
     "lms-demo-platform": {
       "id": "lms-demo-platform",
       "name": "Book a demo",
+      "family": "conversion",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -2044,6 +2072,7 @@
     "pricing": {
       "id": "pricing",
       "name": "Pricing",
+      "family": "conversion",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -2115,6 +2144,7 @@
     "lms-features": {
       "id": "lms-features",
       "name": "Features index (sticky anchor tabs)",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fixed-16px",
@@ -2250,6 +2280,7 @@
     "nova": {
       "id": "nova",
       "name": "AI agent product page",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -2390,6 +2421,7 @@
     "lms-mentoring-software": {
       "id": "lms-mentoring-software",
       "name": "Mentoring software product page",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -2492,6 +2524,7 @@
     "content-overview": {
       "id": "content-overview",
       "name": "Content overview",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-content",
       "rootFontSize": "fluid",
@@ -2580,6 +2613,7 @@
     "content-service": {
       "id": "content-service",
       "name": "Content service (legacy layout)",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -2662,6 +2696,7 @@
     "content-custom": {
       "id": "content-custom",
       "name": "Custom content",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -2758,6 +2793,7 @@
     "mentoring": {
       "id": "mentoring",
       "name": "Mentoring programmes",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fixed-16px",
@@ -2904,6 +2940,7 @@
     "case-studies-lms": {
       "id": "case-studies-lms",
       "name": "Case study index (platform, filterable)",
+      "family": "index",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -2976,6 +3013,7 @@
     "case-studies-content": {
       "id": "case-studies-content",
       "name": "Case study index (content)",
+      "family": "index",
       "designSystem": "marketing",
       "theme": "nimbus-content",
       "rootFontSize": "fluid",
@@ -3033,6 +3071,7 @@
     "company": {
       "id": "company",
       "name": "Company",
+      "family": "company",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -3149,6 +3188,7 @@
     "company-why": {
       "id": "company-why",
       "name": "Why us",
+      "family": "company",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fixed-16px",
@@ -3251,6 +3291,7 @@
     "whats-included": {
       "id": "whats-included",
       "name": "What's included",
+      "family": "product-landing",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fixed-16px",
@@ -3350,6 +3391,7 @@
     "contact-us": {
       "id": "contact-us",
       "name": "Contact",
+      "family": "conversion",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -3435,6 +3477,7 @@
     "events-webinars": {
       "id": "events-webinars",
       "name": "Events & webinars index",
+      "family": "index",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -3504,6 +3547,7 @@
     "blog-and-news": {
       "id": "blog-and-news",
       "name": "Blog & news index",
+      "family": "index",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fluid",
@@ -3558,6 +3602,7 @@
     "guides": {
       "id": "guides",
       "name": "Guides index",
+      "family": "index",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fixed-16px",
@@ -3605,6 +3650,7 @@
     "lms-glossary": {
       "id": "lms-glossary",
       "name": "Glossary index",
+      "family": "index",
       "designSystem": "marketing",
       "theme": "nimbus-dark",
       "rootFontSize": "fixed-16px",
@@ -3656,5 +3702,57 @@
       ],
       "iaTemplateId": "template.lms-glossary"
     }
+  },
+  "templateFamilies": {
+    "value": {
+      "home": [
+        "home"
+      ],
+      "product-landing": [
+        "lms",
+        "lms-small-business",
+        "lms-corporate",
+        "lms-enterprise",
+        "lms-solutions",
+        "lms-professional-services",
+        "lms-impact",
+        "lms-integrations",
+        "lms-spring-release",
+        "lms-features",
+        "nova",
+        "lms-mentoring-software",
+        "mentoring",
+        "whats-included",
+        "content-overview",
+        "content-service",
+        "content-custom",
+        "content-catalogue"
+      ],
+      "feature-detail": [
+        "feature-detail"
+      ],
+      "conversion": [
+        "pricing",
+        "lms-demo-platform",
+        "contact-us"
+      ],
+      "article": [
+        "case-study-platform",
+        "case-study-content"
+      ],
+      "index": [
+        "case-studies-lms",
+        "case-studies-content",
+        "events-webinars",
+        "blog-and-news",
+        "guides",
+        "lms-glossary"
+      ],
+      "company": [
+        "company",
+        "company-why"
+      ]
+    },
+    "note": "Template families group templates by semantic purpose (R6). Each family has exactly one mode=generation example PageSpec (schema/examples/generated-<family>.pagespec.json); extraction/verify_all.py (generation-examples) checks this."
   }
 }

@@ -1,6 +1,7 @@
 {
   "id": "component.faq-item",
   "kind": "component",
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "name": "FAQ card",
   "composes": [

@@ -4,6 +4,17 @@
   "name": "Why-Nimbus closing CTA",
   "purpose": "Turn the reader of the company 'why us' story into a demo request with one centred heading and button.",
   "category": "conversion",
+  "source": {
+    "id": "WhyBlock.div[data-section=why-block]",
+    "tag": "div",
+    "file": "src/components/sections/WhyBlock.jsx",
+    "lines": "9-14"
+  },
+  "semantic": {
+    "id": "conversion.why-cta",
+    "category": "conversion"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/WhyBlock.jsx",
   "description": "A bare centred block (72rem max, margin 4rem top / 6rem bottom) holding a serif H2 and, 1rem below, a single primary button. No background or card. Side padding 1.5rem <=767 and 1rem <=479, where the button stretches to full width.",

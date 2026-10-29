@@ -1,9 +1,24 @@
 {
-  "pageSpecVersion": "1.0.0",
+  "pageSpecVersion": "2.0.0",
+  "mode": "clone",
   "route": "/case-study/customer-1",
   "template": "case-study-platform",
   "designSystem": "marketing",
   "theme": "nimbus-dark",
+  "tokens": {
+    "surface": "semantic.surface.page",
+    "text": "semantic.text.primary",
+    "accent": "semantic.accent.chip",
+    "border": "semantic.border.divider",
+    "fontHeading": "fontFamily.serif",
+    "fontBody": "fontFamily.sans",
+    "headingScale": "fontSize.h1",
+    "bodyScale": "fontSize.body",
+    "sectionPadding": "layout.sectionPadding.large",
+    "container": "layout.containerLarge",
+    "buttonRadius": "radius.pill",
+    "cardRadius": "radius.card"
+  },
   "nodes": [
     {
       "section": "shell.nav",
@@ -300,7 +315,7 @@
       }
     },
     {
-      "section": "article.cs-platform-body",
+      "section": "article.cs-platform-header",
       "content": {
         "logo": {
           "assetRole": "placeholder.neutral",
@@ -344,7 +359,16 @@
             "value": "14%",
             "linkLabel": "See how →"
           }
-        ],
+        ]
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "article.cs-platform-body",
+      "content": {
         "tocLabel": "In this case study",
         "sections": [
           {
@@ -415,7 +439,16 @@
             "placeholderLabel": "Video embed"
           },
           "caption": "Real feedback from the people using it every week. Over time the platform became the natural home for onboarding, product updates and everyday questions, replacing."
-        },
+        }
+      },
+      "motion": {
+        "pattern": "none",
+        "reducedMotionFallback": "none"
+      }
+    },
+    {
+      "section": "conversion.cs-platform-cta",
+      "content": {
         "cta": {
           "title": "What could you achieve with Nimbus?",
           "label": "Book a demo"

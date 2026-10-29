@@ -4,6 +4,17 @@
   "name": "AI assistant hero over a background-video stage",
   "purpose": "Introduce the AI assistant product with a cinematic video stage, the H1 and two CTAs (demo + ask an AI).",
   "category": "hero",
+  "source": {
+    "id": "KikiHeader.header[data-section=kiki-header]",
+    "tag": "header",
+    "file": "src/components/sections/KikiHeader.jsx",
+    "lines": "62-94"
+  },
+  "semantic": {
+    "id": "hero.assistant-video",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/KikiHeader.jsx",
   "description": "Full-width stage (/nova) 85vh tall (max 60rem) holding a centred 1440:500 background-video band; under it a centred block (max 42rem): serif 4rem/1.1 H1 with one italic word, grey intro with a bold phrase, and primary + dark buttons (the dark one carries an AI icon). <=767 the block is pulled up -12rem over the stage; <=479 the video band becomes 3:2, 15rem tall.",
@@ -112,14 +123,20 @@
         "x-allowedRoles": [
           "placeholder.neutral",
           "product.video",
-          "stock.photo"
+          "stock.photo",
+          "screenshot.placeholder",
+          "illustration.generated",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
               "product.video",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -393,8 +410,11 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

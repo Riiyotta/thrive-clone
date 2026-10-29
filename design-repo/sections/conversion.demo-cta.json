@@ -4,6 +4,17 @@
   "name": "Subpage demo CTA above the footer",
   "purpose": "Close every subpage with one last invitation to talk to the team, sending the visitor to the demo page with a single button.",
   "category": "conversion",
+  "source": {
+    "id": "Footer.div@149",
+    "tag": "div",
+    "file": "src/components/Footer.jsx",
+    "lines": "149-158"
+  },
+  "semantic": {
+    "id": "conversion.demo-cta",
+    "category": "conversion"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/Footer.jsx",
   "description": "The SUBPAGE_CTA block that Footer renders above the footer card when its real `variant` prop is 'subpage' (Layout.jsx passes 'subpage' on every route except '/' and '/company', which get the 'home' variant = conversion.demo-form). A centred 40rem column, gap 2rem: Nimbus wordmark, H2 whose last three words are italic, an 18px ink paragraph (max 32rem) and one green accent pill button linking to /lms/demo-platform; no form. Padding 3rem (1.5rem at <=479); the column simply narrows on smaller screens. It sits inside the <footer> element, directly above the shared footer card.",

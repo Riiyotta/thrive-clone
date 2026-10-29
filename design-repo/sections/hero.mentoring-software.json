@@ -4,6 +4,17 @@
   "name": "Mentoring software hero with wide image and load reveal",
   "purpose": "Open the mentoring product page with a wide hero image, the H1, the people-first pitch and video/demo CTAs, plus a customer-logo line.",
   "category": "hero",
+  "source": {
+    "id": "MentoringHeader.header[data-section=mentoring-header]",
+    "tag": "header",
+    "file": "src/components/sections/MentoringHeader.jsx",
+    "lines": "51-106"
+  },
+  "semantic": {
+    "id": "hero.mentoring-software",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/MentoringHeader.jsx",
   "description": "A wide hero image (150% of the container, 35rem tall, black-to-transparent top fade) pulled up -8rem under the nav, then a centred block overlapping it by 3rem: avatar strip + trust line, two-line serif H1 (h1 token), 20px grey copy (lead line + paragraph), brand-blue primary and dark buttons; then a logo lead line and 6 logos. <=767 the image becomes an in-flow 3:2 card with radius and buttons stack <=479.",
@@ -17,14 +28,20 @@
         "x-allowedRoles": [
           "placeholder.neutral",
           "photo.person",
-          "product.screenshot"
+          "product.screenshot",
+          "person.fictional",
+          "screenshot.placeholder",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
               "photo.person",
-              "product.screenshot"
+              "product.screenshot",
+              "person.fictional",
+              "screenshot.placeholder",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -54,13 +71,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "photo.person"
+          "photo.person",
+          "person.fictional",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -142,13 +163,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "logo.customer"
+          "logo.customer",
+          "logo.placeholderCompany",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "logo.customer"
+              "logo.customer",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -390,9 +415,13 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
     "logo.customer",
+    "logo.placeholderCompany",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral",
-    "product.screenshot"
+    "product.screenshot",
+    "screenshot.placeholder"
   ]
 }

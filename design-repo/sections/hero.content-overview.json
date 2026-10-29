@@ -4,6 +4,17 @@
   "name": "Content library hero with logo strip and 2-col feature",
   "purpose": "Open the content-library page with its sub-brand lockup, H1 and tour CTA, then prove it with customer logos and a why-choose-us feature with a quote.",
   "category": "hero",
+  "source": {
+    "id": "ContentHero.section[data-section=content-hero]",
+    "tag": "section",
+    "file": "src/components/sections/ContentHero.jsx",
+    "lines": "75-163"
+  },
+  "semantic": {
+    "id": "hero.content-overview",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/ContentHero.jsx",
   "description": "Legacy content ('yellow') theme, three parts (/content): (1) a hairline-framed centred hero: sub-brand lockup, serif 3.8rem H1, paragraph, yellow pill button + 3 overlapping avatars and a social line; (2) a one-line caption and 6-logo row; (3) a 2-column feature: serif 3.5rem H2, grey paragraphs with two inline links, quote card with avatar, name and role | square image card with a yellow button. The feature stacks <=767.",
@@ -42,13 +53,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "photo.person"
+          "photo.person",
+          "person.fictional",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -96,13 +111,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "logo.customer"
+          "logo.customer",
+          "logo.placeholderCompany",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "logo.customer"
+              "logo.customer",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -195,13 +214,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "photo.person"
+                  "photo.person",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -232,14 +255,20 @@
             "x-allowedRoles": [
               "placeholder.neutral",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
                   "product.screenshot",
-                  "stock.photo"
+                  "stock.photo",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -543,10 +572,15 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "logo.customer",
+    "logo.placeholderCompany",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

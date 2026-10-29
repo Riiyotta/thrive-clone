@@ -4,6 +4,17 @@
   "name": "Related client stories (content)",
   "purpose": "Keeps a reader moving through content-library case studies by linking three other customer stories at the end of one.",
   "category": "index",
+  "source": {
+    "id": "CsContentRelated.section[data-section=cs-content-related]",
+    "tag": "section",
+    "file": "src/components/sections/CsContentRelated.jsx",
+    "lines": "20-57"
+  },
+  "semantic": {
+    "id": "index.cs-content-related",
+    "category": "index"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/CsContentRelated.jsx",
   "description": "Hairline-bordered block on the content (\"yellow\") theme: a left-aligned serif 4rem H2 header row, then a 3-column grid (1 column at 767 and below) of fixed-aspect cards, each with a customer logo, a one-sentence summary and a \"Learn more ›\" link to that case study. Not a slider.",
@@ -29,13 +40,17 @@
               "additionalProperties": false,
               "x-allowedRoles": [
                 "placeholder.neutral",
-                "logo.customer"
+                "logo.customer",
+                "logo.placeholderCompany",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "placeholder.neutral",
-                    "logo.customer"
+                    "logo.customer",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -216,7 +231,9 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
     "logo.customer",
+    "logo.placeholderCompany",
     "placeholder.neutral"
   ]
 }

@@ -1,6 +1,7 @@
 {
   "id": "component.placeholder-form",
   "kind": "component",
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "name": "Static demo-form placeholder",
   "composes": [],

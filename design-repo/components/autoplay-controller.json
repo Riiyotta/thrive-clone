@@ -1,6 +1,7 @@
 {
   "id": "component.autoplay-controller",
   "kind": "component",
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "name": "Swiper-11-like autoplay (useAutoplay)",
   "composes": [

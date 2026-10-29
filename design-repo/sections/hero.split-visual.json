@@ -4,6 +4,17 @@
   "name": "Split hero with load reveal and bleeding product visual",
   "purpose": "State the value proposition above the fold and drive the primary demo CTA, backed by social proof.",
   "category": "hero",
+  "source": {
+    "id": "Hero.section[data-section=hero]",
+    "tag": "section",
+    "file": "src/components/Hero.jsx",
+    "lines": "73-153"
+  },
+  "semantic": {
+    "id": "hero.split-visual",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/Hero.jsx",
   "content": {
@@ -24,13 +35,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "stock.photo",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -75,13 +90,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "badge.review",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "badge.placeholder",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "badge.review",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "badge.placeholder",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -131,14 +150,20 @@
             "x-allowedRoles": [
               "product.screenshot",
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "product.screenshot",
                   "stock.photo",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -224,14 +249,20 @@
             "x-allowedRoles": [
               "product.screenshot",
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "product.screenshot",
                   "stock.photo",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -394,9 +425,13 @@
     }
   ],
   "assetRoles": [
+    "asset.userSupplied",
+    "badge.placeholder",
     "badge.review",
+    "illustration.generated",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "composes": [

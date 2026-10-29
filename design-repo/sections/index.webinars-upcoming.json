@@ -4,6 +4,17 @@
   "name": "Upcoming webinars list",
   "purpose": "Announces scheduled live webinars next to a short pitch for the series, falling back to an empty-state line when none are scheduled.",
   "category": "index",
+  "source": {
+    "id": "WebinarsUpcoming.section[data-section=webinars-upcoming]",
+    "tag": "section",
+    "file": "src/components/sections/WebinarsUpcoming.jsx",
+    "lines": "17-58"
+  },
+  "semantic": {
+    "id": "index.webinars-upcoming",
+    "category": "index"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/WebinarsUpcoming.jsx",
   "description": "Two-column hairline block on the legacy \"green\" theme (stacked at 767): left half is a sticky intro (pill eyebrow, 1.75rem heading, grey line of copy); right half lists upcoming webinars as bordered rows (date pill + semibold title). With no webinars it renders the CMS empty state, a grey #ddd box reading \"No items found.\", which is what the only real page shows.",

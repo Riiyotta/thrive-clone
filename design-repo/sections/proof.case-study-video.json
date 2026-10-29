@@ -4,6 +4,17 @@
   "name": "Case study video card",
   "purpose": "Proves a feature works with one named customer story told as a video card plus two supporting proof cards.",
   "category": "proof",
+  "source": {
+    "id": "CaseStudyVideo.section[data-section=case-study-video]",
+    "tag": "section",
+    "file": "src/components/sections/CaseStudyVideo.jsx",
+    "lines": "29-66"
+  },
+  "semantic": {
+    "id": "proof.case-study-video",
+    "category": "proof"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/CaseStudyVideo.jsx",
   "description": "A dark rounded video card (min 60vh inner, 50vh tab, 40vh <=479) with the customer logo top-left, a large spacer, the H2 story headline bottom-left and a 4rem round play button bottom-right, over a background video still faded out by a radial mask. Below it two stat/quote cards sit side by side (one column <=479), each with a 24px heading (48px <=991, 40px <=767) and a grey paragraph. Used once, on /lms/mentoring-software.",
@@ -22,13 +33,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "logo.customer",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "logo.placeholderCompany",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "logo.customer",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -59,7 +74,10 @@
           "photo.brand",
           "product.video",
           "stock.photo",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "illustration.generated",
+          "screenshot.placeholder",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
@@ -67,7 +85,10 @@
               "photo.brand",
               "product.video",
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "illustration.generated",
+              "screenshot.placeholder",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -353,10 +374,14 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "logo.customer",
+    "logo.placeholderCompany",
     "photo.brand",
     "placeholder.neutral",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

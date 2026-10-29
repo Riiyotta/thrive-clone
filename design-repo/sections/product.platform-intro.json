@@ -4,6 +4,17 @@
   "name": "Platform intro header (two forced lines)",
   "purpose": "Bridges the platform hero into the product tour with a centred two-line statement and a one-sentence promise.",
   "category": "product",
+  "source": {
+    "id": "PlatformIntroHeader.section[data-section=platform-intro-header]",
+    "tag": "section",
+    "file": "src/components/sections/PlatformIntroHeader.jsx",
+    "lines": "13-29"
+  },
+  "semantic": {
+    "id": "product.platform-intro",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/PlatformIntroHeader.jsx",
   "description": "Centred, shrink-to-fit header with no section padding: an H2 split into two lines by a forced break, then a grey paragraph also split into two lines by a forced break. No media or CTA. Only on /lms, between the platform hero and the first tabbed slider.",

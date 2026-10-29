@@ -4,6 +4,17 @@
   "name": "Short CTA strip",
   "purpose": "Give the visitor a mid-page nudge to book a demo (or explore further) between two content sections without a full CTA panel.",
   "category": "conversion",
+  "source": {
+    "id": "CtaStrip.section[data-section=cta-strip]",
+    "tag": "section",
+    "file": "src/components/sections/CtaStrip.jsx",
+    "lines": "21-27"
+  },
+  "semantic": {
+    "id": "conversion.cta-strip",
+    "category": "conversion"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/CtaStrip.jsx",
   "description": "One component with a `variant` prop. 'heading' (all 17 /lms/features/* routes, after the product tabs): centred one-line H2 (60rem max, balanced) over a primary button, margin 4rem top / 3rem bottom. 'pricing' (/lms/small-business): the same header inside padding-global/container-medium with a 0.5rem top margin and a 2rem spacer below. 'spacer' (/lms/mentoring-software): an empty 5rem (3rem <=767) padded block reproducing the original's empty section. 'button' (/lms/features with pullUp's -4rem top margin, /lms/enterprise; visually also the inline row on /nova): a lone centred primary button; buttons stack column-wise <=767.",

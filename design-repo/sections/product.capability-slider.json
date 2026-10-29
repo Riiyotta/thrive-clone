@@ -4,6 +4,17 @@
   "name": "Three-up autoplay slider with progress bullets",
   "purpose": "Reassure enterprise buyers (integrations, security, localisation, accessibility, partnership, community) in a skimmable auto-advancing row.",
   "category": "product",
+  "source": {
+    "id": "EnterpriseSlider.section[data-section=enterprise]",
+    "tag": "section",
+    "file": "src/components/EnterpriseSlider.jsx",
+    "lines": "97-149"
+  },
+  "semantic": {
+    "id": "product.capability-slider",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/EnterpriseSlider.jsx",
   "content": {
@@ -39,7 +50,10 @@
                     "product.screenshot",
                     "photo.event",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
@@ -47,7 +61,10 @@
                         "product.screenshot",
                         "photo.event",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -127,13 +144,17 @@
                   "additionalProperties": false,
                   "x-allowedRoles": [
                     "logo.customer",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "logo.customer",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -259,10 +280,14 @@
     }
   ],
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "logo.customer",
+    "logo.placeholderCompany",
     "photo.event",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "composes": [
@@ -274,7 +299,7 @@
   ],
   "compatibility": {
     "recommendedAfter": [
-      "article.cs-platform-body",
+      "conversion.cs-platform-cta",
       "product.assistant-tabs"
     ],
     "recommendedBefore": [

@@ -4,6 +4,17 @@
   "name": "Release-note feature block",
   "purpose": "Announces one headline capability of a release with a short pitch, a visual and a grid of the specific improvements it brings.",
   "category": "product",
+  "source": {
+    "id": "SpringGrid.section[data-section=spring-grid]",
+    "tag": "section",
+    "file": "src/components/sections/SpringGrid.jsx",
+    "lines": "139-167"
+  },
+  "semantic": {
+    "id": "product.release-block",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/SpringGrid.jsx",
   "description": "Repeated release-note block on /lms/spring-release (6 instances, alternating light #fafefe and page-black themes): a centred header (optional green 'New' pill, H2 with one italic word, body copy, optional button), an optional visual (a 150px looping-video strip under the header, or a product screenshot placed above or below the grid), a 4-column grid of feature items (bold title + text, optionally a customer credit with a 44px avatar; 2 cols <=991, stacked <=479 or <=767 for the wide grid), and an optional big 32px customer quote with a 3rem avatar. Spacers are 4rem / 3rem <=991 / 2rem <=767.",
@@ -96,7 +107,10 @@
               "product.video",
               "product.screenshot",
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
@@ -104,7 +118,10 @@
                   "product.video",
                   "product.screenshot",
                   "stock.photo",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -174,13 +191,17 @@
                   "additionalProperties": false,
                   "x-allowedRoles": [
                     "photo.person",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "person.fictional",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "photo.person",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "person.fictional",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -248,13 +269,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "photo.person",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -519,10 +544,14 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral",
     "product.screenshot",
     "product.video",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

@@ -4,6 +4,17 @@
   "name": "Sector / topic pill tabs (legacy)",
   "purpose": "Lets visitors pick their industry or topic from a row of pills and see a matching preview (one hero image, or a row of course cards).",
   "category": "product",
+  "source": {
+    "id": "Sectors.header[data-section=sectors]",
+    "tag": "header",
+    "file": "src/components/sections/Sectors.jsx",
+    "lines": "97-129"
+  },
+  "semantic": {
+    "id": "product.sector-tabs",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/Sectors.jsx",
   "description": "Legacy-theme block with a `variant` prop producing two different shapes. 'industries' (/lms/solutions, theme green, rendered with id=\"industries\" as the sticky-tabs 5th anchor target): centred serif H2 + grey paragraph, a wrapping row of pill tabs, then one full-width image pane with a bottom gradient, the selected tab name as a large serif label and a theme button. 'topics' (/content, theme yellow): side-hairline frame, eyebrow + H2, a row of 8px/0-radius tag tabs, then a row of 5 topic cards (portrait image + serif title; hover shows a frame and pattern) and an 'All Topics' button. <=767 cards wrap to 3-up, <=479 2-up and tab pills grow to fill rows.",
@@ -63,14 +74,18 @@
             "x-allowedRoles": [
               "photo.brand",
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "photo.brand",
                   "stock.photo",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -167,14 +182,18 @@
                   "x-allowedRoles": [
                     "photo.brand",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "photo.brand",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -480,6 +499,8 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "photo.brand",
     "placeholder.neutral",
     "stock.photo"

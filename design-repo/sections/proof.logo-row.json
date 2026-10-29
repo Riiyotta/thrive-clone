@@ -4,6 +4,17 @@
   "name": "Static customer logo row",
   "purpose": "Borrow credibility from recognisable customers immediately after the hero. Static: no marquee, no motion.",
   "category": "proof",
+  "source": {
+    "id": "LogoStrip.section[data-section=logos]",
+    "tag": "section",
+    "file": "src/components/LogoStrip.jsx",
+    "lines": "44-71"
+  },
+  "semantic": {
+    "id": "proof.logo-row",
+    "category": "proof"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/LogoStrip.jsx",
   "content": {
@@ -24,13 +35,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "logo.customer",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "logo.customer",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "logo.placeholderCompany",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -94,13 +109,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "logo.customer",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "logo.customer",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "logo.placeholderCompany",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -213,7 +232,9 @@
     }
   ],
   "assetRoles": [
+    "asset.userSupplied",
     "logo.customer",
+    "logo.placeholderCompany",
     "placeholder.neutral"
   ],
   "composes": [
@@ -275,7 +296,7 @@
     "/nova",
     "/whats-included"
   ],
-  "measuredFrom": "src/components/LogoStrip.jsx:12-34",
+  "measuredFrom": "src/components/LogoStrip.jsx:44-71",
   "iaSectionId": "proof.logo-row",
   "specMeasuredFrom": "CLONE_SPEC.md:197-211",
   "subpageUsage": "Same LogoStrip component as the homepage, configured per page by props (no explicit `variant` prop). Subpage instances differ from the homepage in: the heading may be null (no line at all), may sit inside the centred component above the logos (`headingPlacement=\"inside\"`) instead of above the container, the container may be small (45.25rem) instead of medium, and the row holds 5-8 neutral 'Logo' text placeholders instead of the six homepage logo files. At 1440 the logos sit in one row (space-between, gap 3rem, often wider than the container); at <=991 most pages wrap centred; at <=767 they wrap with justify-around. Used on the 17 /lms/features/* routes, /lms/solutions, /lms/small-business, /lms/demo-platform, /lms/spring-release, /lms/features, /nova, /mentoring, /company, /company/why-nimbus, /whats-included and /contact-us.",

@@ -4,6 +4,17 @@
   "name": "Wow content hero (10 page variants)",
   "purpose": "Open a one-off marketing page with its H1, a short pitch and the demo CTA, in the layout measured for that page.",
   "category": "hero",
+  "source": {
+    "id": "WowContentHero.section[data-section=wowcontent-hero]",
+    "tag": "section",
+    "file": "src/components/sections/WowContentHero.jsx",
+    "lines": "98-100"
+  },
+  "semantic": {
+    "id": "hero.wow-content",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/WowContentHero.jsx",
   "description": "One component with a `variant` prop that switches between ten measured layouts of the `.section_wowcontent` hero: split layouts (copy left, media right, stacking to one column <=767) for small-business, enterprise, features, mentoring, case-studies and why; centred single-column layouts for solutions, spring-release and whats-included; and an empty spacer for corporate. Routes: small-business /lms/small-business, corporate /lms/corporate-lms, enterprise /lms/enterprise, solutions /lms/solutions, spring-release /lms/spring-release, features /lms/features, mentoring /mentoring, case-studies /case-studies/lms, why /company/why-nimbus, whats-included /whats-included. The H1 is serif 3.8rem/1.15 (2.5rem <=767) except case-studies (heading-h2 size).",
@@ -73,13 +84,17 @@
                 "additionalProperties": false,
                 "x-allowedRoles": [
                   "placeholder.neutral",
-                  "photo.person"
+                  "photo.person",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ],
                 "properties": {
                   "assetRole": {
                     "enum": [
                       "placeholder.neutral",
-                      "photo.person"
+                      "photo.person",
+                      "person.fictional",
+                      "asset.userSupplied"
                     ]
                   },
                   "placeholderLabel": {
@@ -126,14 +141,20 @@
             "x-allowedRoles": [
               "placeholder.neutral",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
                   "product.screenshot",
-                  "stock.photo"
+                  "stock.photo",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -274,13 +295,17 @@
                 "additionalProperties": false,
                 "x-allowedRoles": [
                   "placeholder.neutral",
-                  "photo.person"
+                  "photo.person",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ],
                 "properties": {
                   "assetRole": {
                     "enum": [
                       "placeholder.neutral",
-                      "photo.person"
+                      "photo.person",
+                      "person.fictional",
+                      "asset.userSupplied"
                     ]
                   },
                   "placeholderLabel": {
@@ -327,14 +352,20 @@
             "x-allowedRoles": [
               "placeholder.neutral",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
                   "product.screenshot",
-                  "stock.photo"
+                  "stock.photo",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -371,13 +402,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "logo.customer"
+              "logo.customer",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "logo.customer"
+                  "logo.customer",
+                  "logo.placeholderCompany",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -528,14 +563,20 @@
             "x-allowedRoles": [
               "placeholder.neutral",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
                   "product.screenshot",
-                  "stock.photo"
+                  "stock.photo",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -624,14 +665,20 @@
             "x-allowedRoles": [
               "placeholder.neutral",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
                   "product.screenshot",
-                  "stock.photo"
+                  "stock.photo",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -678,13 +725,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "photo.person"
+                  "photo.person",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -756,13 +807,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "photo.person"
+                  "photo.person",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -851,14 +906,18 @@
             "x-allowedRoles": [
               "placeholder.neutral",
               "photo.brand",
-              "stock.photo"
+              "stock.photo",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
                   "photo.brand",
-                  "stock.photo"
+                  "stock.photo",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -907,13 +966,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "photo.person"
+                  "photo.person",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -994,13 +1057,17 @@
                 "additionalProperties": false,
                 "x-allowedRoles": [
                   "placeholder.neutral",
-                  "photo.person"
+                  "photo.person",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ],
                 "properties": {
                   "assetRole": {
                     "enum": [
                       "placeholder.neutral",
-                      "photo.person"
+                      "photo.person",
+                      "person.fictional",
+                      "asset.userSupplied"
                     ]
                   },
                   "placeholderLabel": {
@@ -1040,13 +1107,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "badge.review"
+              "badge.review",
+              "badge.placeholder",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "badge.review"
+                  "badge.review",
+                  "badge.placeholder",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -1089,14 +1160,20 @@
             "x-allowedRoles": [
               "placeholder.neutral",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
                   "product.screenshot",
-                  "stock.photo"
+                  "stock.photo",
+                  "screenshot.placeholder",
+                  "illustration.generated",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -1438,12 +1515,18 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "badge.placeholder",
     "badge.review",
+    "illustration.generated",
     "logo.customer",
+    "logo.placeholderCompany",
+    "person.fictional",
     "photo.brand",
     "photo.person",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "variants": [

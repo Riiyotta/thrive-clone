@@ -4,6 +4,17 @@
   "name": "Legacy testimonial card",
   "purpose": "Closes a legacy content page with one customer's endorsement of the content service, framed by their logo.",
   "category": "proof",
+  "source": {
+    "id": "TestimonialCardLegacy.section[data-section=testimonial-card-legacy]",
+    "tag": "section",
+    "file": "src/components/sections/TestimonialCardLegacy.jsx",
+    "lines": "19-60"
+  },
+  "semantic": {
+    "id": "proof.testimonial-card-legacy",
+    "category": "proof"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/TestimonialCardLegacy.jsx",
   "description": "A hairline-bordered card (legacy theme border colour) over a decorative full-bleed background image at 85% opacity, holding a 2-column grid: customer logo on the left, and on the right a body-size quote with a client row below (3.5rem round photo, semibold name, grey role). Padding 3.5rem/2.5rem, tightening per breakpoint; at <=767 it becomes one column and the client photo stacks above the name. Theme switches the legacy colour set (yellow on /content/service, green on /content/custom-content); the logo box is tall (5rem, 3rem at >=1440) or wide (2.5rem).",
@@ -31,13 +42,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "logo.customer",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "logo.placeholderCompany",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "logo.customer",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -85,13 +100,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "photo.person",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "person.fictional",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "photo.person",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "person.fictional",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -120,13 +139,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "stock.photo",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "illustration.generated",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "illustration.generated",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -388,7 +411,11 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "logo.customer",
+    "logo.placeholderCompany",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral",
     "stock.photo"

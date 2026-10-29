@@ -4,6 +4,17 @@
   "name": "Centred case-study carousel with stats",
   "purpose": "Proof through stories: one centred, enlarged case study at a time, with two headline stats and a read-more CTA.",
   "category": "proof",
+  "source": {
+    "id": "CaseStudyCarousel.section[data-section=highlight]",
+    "tag": "section",
+    "file": "src/components/CaseStudyCarousel.jsx",
+    "lines": "59-154"
+  },
+  "semantic": {
+    "id": "proof.case-study-carousel",
+    "category": "proof"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/CaseStudyCarousel.jsx",
   "content": {
@@ -46,14 +57,18 @@
                   "x-allowedRoles": [
                     "photo.brand",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "photo.brand",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -84,13 +99,17 @@
                   "additionalProperties": false,
                   "x-allowedRoles": [
                     "logo.customer",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "logo.customer",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -223,14 +242,18 @@
                   "x-allowedRoles": [
                     "photo.brand",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "photo.brand",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -260,13 +283,17 @@
                   "additionalProperties": false,
                   "x-allowedRoles": [
                     "logo.customer",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "logo.customer",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "logo.placeholderCompany",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -489,7 +516,10 @@
     }
   ],
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "logo.customer",
+    "logo.placeholderCompany",
     "photo.brand",
     "placeholder.neutral",
     "stock.photo"

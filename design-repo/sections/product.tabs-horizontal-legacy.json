@@ -4,6 +4,17 @@
   "name": "Horizontal tabs (legacy services)",
   "purpose": "Breaks a service offering into 5 stages the visitor can click through, each with a short pitch and a photo.",
   "category": "product",
+  "source": {
+    "id": "TabsHLegacy.section[data-section=tabs-h-legacy]",
+    "tag": "section",
+    "file": "src/components/sections/TabsHLegacy.jsx",
+    "lines": "29-77"
+  },
+  "semantic": {
+    "id": "product.tabs-horizontal-legacy",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/TabsHLegacy.jsx",
   "description": "Legacy hairline-framed block (/lms/professional-services, green colours hard-coded). A row of 5 equal tab links (24px labels); the current tab gets a green bottom border and a soft radial glow. Below, one pane split 50/50: 32px H3 + grey paragraph with one bold phrase | a photo (6.835:5.23). No section header. <=767 tabs wrap 2-up with 16px labels and the pane stacks with a 3:2 image.",
@@ -79,14 +90,20 @@
               "x-allowedRoles": [
                 "photo.person",
                 "photo.brand",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "person.fictional",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "photo.person",
                     "photo.brand",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "person.fictional",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -349,6 +366,9 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
+    "person.fictional",
     "photo.brand",
     "photo.person",
     "placeholder.neutral"

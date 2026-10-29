@@ -4,6 +4,17 @@
   "name": "Platform split hero with quote and logo row",
   "purpose": "Open the main platform page with the product promise, a customer quote as proof and the demo CTA, then a customer-logo strip.",
   "category": "hero",
+  "source": {
+    "id": "PlatformHero.section[data-section=platform-hero]",
+    "tag": "section",
+    "file": "src/components/sections/PlatformHero.jsx",
+    "lines": "28-81"
+  },
+  "semantic": {
+    "id": "hero.platform",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/PlatformHero.jsx",
   "description": "Split hero (/lms, pulled up -1rem): left column has a serif 3.8rem H1 (2.5rem <=479), grey intro, italic quote with 40px avatar, name and role + linked company, and a primary CTA; right column is a 1440:1339 product visual. Below, a centred one-line lead and an 8-slot logo row (flex space-between, max 60rem, wrapping and centring <=991). Columns stack <=767.",
@@ -59,13 +70,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "photo.person"
+                  "photo.person",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -111,14 +126,20 @@
         "x-allowedRoles": [
           "placeholder.neutral",
           "product.screenshot",
-          "stock.photo"
+          "stock.photo",
+          "screenshot.placeholder",
+          "illustration.generated",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -154,13 +175,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "logo.customer"
+          "logo.customer",
+          "logo.placeholderCompany",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "logo.customer"
+              "logo.customer",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -373,10 +398,15 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "logo.customer",
+    "logo.placeholderCompany",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

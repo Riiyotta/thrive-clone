@@ -34,8 +34,8 @@
   "literals": {
     "avatarBelow1440": {
       "$value": "6px 0",
-      "note": "Testimonial avatar corners below 1440 (top-left + bottom-right only).",
-      "measuredFrom": "src/components/Results.jsx:45-45"
+      "note": "Testimonial avatar corners below 1440 (top-left + bottom-right only). Source writes rounded-[0.375rem_0] (= 6px 0 at the 16px root), wide:rounded-avatar from 1440.",
+      "measuredFrom": "src/components/Results.jsx:103-103"
     }
   },
   "specMeasuredFrom": "CLONE_SPEC.md:44-50"

@@ -27,16 +27,26 @@ coherent.
   16 asset-coverage     every public/assets file is claimed by a role or listed unreferenced
   17 ia-alignment       section ids/order/implementedBy match the project's ia.json
   18 example-provenance every example's copy uses only words that occur in the clone's src/
-  19 adversarial        the full control + mutation suite
+  20 token-catalog      tokens/llm/token-catalog.json == a rebuild of the token files; token citations on-line; registered
+  21 token-policy       token-policy.json resolves against catalog, schema token slots and validator pins
+  22 pinned-availability every asset role holds the availability pinned here AND in semantic_validate.py
+  23 retrieval-pins     retrievalEligible on every section/component/allowlist entry == the pin (R8)
+  24 section-contracts  closed section-contract schema; source/semantic split; source ranges re-read (R7)
+  25 source-identity    schema/source-identity.json == a rebuild from the source (generation-mode patterns)
+  26 generation-examples one clean mode=generation example per template family (R4)
+  27 asset-usage        every role's usageSites == a re-derivation from the current source
+  28 wrapper-gate       extraction/wrapper_gate.py over the 1440px sectionHeights; thresholds pinned (R9)
+  29 design-policy      category + designPolicy binding, policy file, recomputed contentHash
+  30 adversarial        the full control + mutation suite
 
-Checks 11c, 11d and 14-18 need the sibling source project. With none present (a standalone
+Checks 11c, 11d, 14-18 and parts of 20, 21, 24, 25, 27 and 29 need the sibling source project. With none present (a standalone
 copy or an extracted zip) they WARN and skip rather than fail.
 
 Paths derive from __file__, never hardcoded.
 
 Usage:
     python3 verify_all.py                # everything
-    python3 verify_all.py --prove-drift  # inject one defect per scratch copy; each must be caught
+    python3 verify_all.py --prove-drift [--scratch DIR]  # = extraction/prove_drift.py: one defect per scratch copy, each caught
     python3 verify_all.py --cross-check  # diff the vendored validator against `jsonschema`, if installed
 """
 import json
@@ -46,6 +56,8 @@ import shutil
 import subprocess
 import sys
 import tempfile
+
+sys.dont_write_bytecode = True
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SOURCE_ROOT = os.path.dirname(REPO)   # the sibling project, when present
@@ -339,6 +351,10 @@ def actual_counts():
         "ledgerCitations": len(jload("extraction", "measured-values.json")["citations"]),
         "examples": len(example_files()),
         "themes": len([n for n in os.listdir(os.path.join(REPO, "tokens", "themes")) if n.endswith(".json")]),
+        "catalogTokens": len(jload("tokens", "llm", "token-catalog.json")["tokens"]),
+        "tokenSlots": len([k for k in jload("tokens", "llm", "token-policy.json")["pageSpecTokenSlots"] if not k.startswith("$")]),
+        "generationExamples": len([r for r in example_files() if jload(r).get("mode") == "generation"]),
+        "templateFamilies": len(jload("templates", "templates.json")["templateFamilies"]["value"]),
         "jsonFiles": len(all_json()),
         "files": len(all_files()),
     }
@@ -812,14 +828,15 @@ def check_example_provenance():
                 if w.lower() not in vocab:
                     missing.setdefault(w, rel)
 
-    exs = example_files()
+    exs = [rel for rel in example_files() if jload(rel).get("mode") == "clone"]
     for rel in exs:
-        walk(jload(rel), rel)
+        spec = jload(rel)
+        walk({"nodes": spec.get("nodes")}, rel)
     if missing:
         record("example-provenance", FAIL, "%d example word(s) not found in the clone's src/: %s"
                % (len(missing), sorted(missing.items())[:6]))
     else:
-        record("example-provenance", PASS, "all %d words of copy in %d examples occur in the clone's own src/" % (n, len(exs)))
+        record("example-provenance", PASS, "all %d words of copy in %d mode=clone examples occur in the clone's own src/ (generation examples are checked the other way round: generation-examples)" % (n, len(exs)))
 
 
 def check_adversarial():
@@ -852,13 +869,361 @@ def cross_check():
     return 0
 
 
+# --------------------------------------------------------------------------
+# 3.0.0 checks: tokens/llm catalog + policy, availability / retrieval pins, provenance (R7), section-contract
+# schema, generation-mode identity registry + examples, asset usage sites, wrapper gate (R9), design policy
+# --------------------------------------------------------------------------
+
+# Pinned here AND in schema/semantic_validate.py; check_pinned_availability fails if the two tables, or the
+# registry, disagree. Editing assets/asset-roles.json alone can never loosen a role.
+PINNED_AVAILABILITY = {
+    "brand.wordmark": "clone-only", "placeholder.neutral": "generation-safe",
+    "logo.customer": "blocked-for-generation", "logo.aiVendor": "blocked-for-generation",
+    "badge.review": "blocked-for-generation", "badge.award": "blocked-for-generation",
+    "photo.person": "blocked-for-generation", "photo.event": "blocked-for-generation",
+    "photo.brand": "blocked-for-generation", "product.screenshot": "blocked-for-generation",
+    "product.video": "blocked-for-generation", "stock.photo": "clone-only",
+    "asset.userSupplied": "generation-safe", "illustration.generated": "generation-safe",
+    "screenshot.placeholder": "generation-safe", "person.fictional": "generation-safe",
+    "logo.placeholderCompany": "generation-safe", "badge.placeholder": "generation-safe",
+    "brand.placeholderMark": "generation-safe", "url.placeholder": "generation-safe",
+    "copy.original": "generation-safe",
+}
+# R8 pin (same table as semantic_validate.RETRIEVAL_PINNED).
+RETRIEVAL_PINNED = {"conversion.faq-empty": False, "product.explore-empty": False, "mobile-menu-panel": False,
+                    "nav-dropdown-panel": False, "footer-dropup": False}
+# R9 thresholds (same values as extraction/wrapper_gate.py; compared there by check_wrapper_gate).
+WRAPPER_THRESHOLDS = {"VIEWPORT_WIDTH": 1440, "HERO_WARN_PX": 1800, "HERO_ERROR_PX": 3000,
+                      "SHARE_WARN": 0.50, "SHARE_ERROR": 0.60, "MIN_IN_FLOW_SECTIONS": 3}
+TOKEN_FILES = ("tokens/llm/token-catalog.json", "tokens/llm/token-policy.json")
+
+
+def _import(path_parts, name):
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(name, os.path.join(REPO, *path_parts))
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def check_token_catalog():
+    """token-catalog.json == a rebuild from the real token files; token citations land on their line;
+    both token files registered in the manifest with a recomputed count."""
+    btc = _import(("extraction", "build_token_catalog.py"), "build_token_catalog")
+    problems = []
+    built = btc.render(btc.build(REPO))
+    with open(os.path.join(REPO, *TOKEN_FILES[0].split("/")), encoding="utf-8") as fh:
+        if fh.read() != built:
+            problems.append("token-catalog.json differs from a rebuild of the token files (run extraction/build_token_catalog.py)")
+    man = jload("registry.manifest.json")
+    ep = man.get("entryPoints", {})
+    for key, rel in (("tokenCatalog", TOKEN_FILES[0]), ("tokenPolicy", TOKEN_FILES[1])):
+        if ep.get(key) != rel or rel not in ep.get("tokens", []):
+            problems.append("manifest entryPoints.%s / tokens[] does not register %s" % (key, rel))
+    cat = json.loads(built)
+    if man.get("counts", {}).get("catalogTokens") != cat["counts"]["tokens"]:
+        problems.append("manifest counts.catalogTokens %r != %d" % (man.get("counts", {}).get("catalogTokens"), cat["counts"]["tokens"]))
+    if source_present():
+        problems += btc.citation_problems(SOURCE_ROOT, cat)
+    if problems:
+        record("token-catalog", FAIL, problems[0])
+    else:
+        record("token-catalog", PASS, "%d tokens in %d categories rebuilt from the token files and matching; registered; citations on-line%s"
+               % (cat["counts"]["tokens"], len(cat["categories"]), "" if source_present() else " (source absent: line check skipped)"))
+
+
+def check_token_policy():
+    """token-policy.json resolves against the real catalog, the schema's token slots and the validator's pins."""
+    import semantic_validate as sv
+    cat = jload(*TOKEN_FILES[0].split("/"))
+    pol = jload(*TOKEN_FILES[1].split("/"))
+    schema = jload("schema", "pagespec.schema.json")
+    problems = []
+    cats = set(cat["categories"])
+    if set(pol["rawValueRestrictions"]) - {"$comment"} != cats:
+        problems.append("rawValueRestrictions keys %s != catalog categories %s" % (sorted(set(pol["rawValueRestrictions"]) - {"$comment"}), sorted(cats)))
+    slots = {k: v for k, v in pol["pageSpecTokenSlots"].items() if not k.startswith("$")}
+    sprops = schema["properties"]["tokens"]["properties"]
+    if set(slots) != set(sprops):
+        problems.append("policy slots %s != schema tokens properties %s" % (sorted(slots), sorted(sprops)))
+    if sorted(k for k, v in slots.items() if v["required"]) != sorted(schema["properties"]["tokens"]["required"]):
+        problems.append("required slots differ between policy and schema")
+    if schema["properties"]["tokens"].get("additionalProperties") is not False:
+        problems.append("schema tokens object is not closed")
+    for name, s in slots.items():
+        if s["kind"] not in cats:
+            problems.append("slot %s kind %r is not a catalog category" % (name, s["kind"]))
+        for p in s["allow"]:
+            t = cat["tokens"].get(p)
+            if t is None:
+                problems.append("slot %s allows unknown token %s" % (name, p))
+            elif s["kind"] != t["category"] and not (s["kind"] == "color" and t["category"] == "semanticColor"):
+                problems.append("slot %s (%s) allows %s of category %s" % (name, s["kind"], p, t["category"]))
+            if s.get("themeResolved") and not all(p in th["semanticTokens"] for th in cat["themes"].values()):
+                problems.append("themeResolved slot %s allows %s, which not every theme resolves" % (name, p))
+    tr = pol["themeRules"]
+    if sorted(tr["themes"]) != sorted(cat["themes"]) or sorted(tr["themes"]) != sorted(sv.PINNED_TOKEN_RULES["themes"]):
+        problems.append("themeRules.themes / catalog themes / PINNED_TOKEN_RULES disagree")
+    if sorted(schema["properties"]["theme"]["enum"]) != sorted(cat["themes"]):
+        problems.append("schema theme enum != catalog themes")
+    scope = {k: v["themes"] for k, v in tr["themeScope"].items()}
+    if scope != sv.PINNED_TOKEN_RULES["themeScope"] or tr["minTextContrast"] != sv.PINNED_TOKEN_RULES["minTextContrast"]:
+        problems.append("themeScope / minTextContrast differ from semantic_validate.PINNED_TOKEN_RULES")
+    for p in list(scope) + pol["notGenerationApproved"]:
+        if p not in cat["tokens"]:
+            problems.append("policy names unknown token %s" % p)
+    if set(pol["notGenerationApproved"]) != set(pol["notGenerationApprovedReason"]):
+        problems.append("every notGenerationApproved token needs a reason")
+    if source_present():
+        used = []
+        for root, _, files in os.walk(os.path.join(SOURCE_ROOT, "src")):
+            for n in files:
+                if n.endswith((".js", ".jsx", ".css")):
+                    used.append(open(os.path.join(root, n), encoding="utf-8").read())
+        text = "\n".join(used)
+        for p in [k for k, v in cat["tokens"].items() if v["category"] == "fontFamily"]:
+            short = p.split(".", 1)[1]
+            applied = re.search(r"font-%s(?![a-z0-9-])" % re.escape(short), text) is not None or (short == "sans" and "font-sans" in text)
+            if applied == (p in pol["notGenerationApproved"]):
+                problems.append("%s: applied-in-src=%s but notGenerationApproved=%s" % (p, applied, p in pol["notGenerationApproved"]))
+    if problems:
+        record("token-policy", FAIL, problems[0])
+    else:
+        record("token-policy", PASS, "%d slots, %d raw-value categories, %d theme scopes resolve against catalog, schema and validator pins"
+               % (len(slots), len(cats), len(scope)))
+
+
+def check_pinned_availability():
+    import semantic_validate as sv
+    reg = jload("assets", "asset-roles.json")
+    problems = []
+    if PINNED_AVAILABILITY != sv.PINNED_AVAILABILITY:
+        problems.append("verify_all.PINNED_AVAILABILITY != semantic_validate.PINNED_AVAILABILITY")
+    if set(reg["availabilityEnum"]) != {"clone-only", "generation-safe", "blocked-for-generation"}:
+        problems.append("availabilityEnum is not the closed three-value enum")
+    for role, want in PINNED_AVAILABILITY.items():
+        got = reg["roles"].get(role, {}).get("availability")
+        if got != want:
+            problems.append("%s availability %r, pinned %r" % (role, got, want))
+    for role in reg["roles"]:
+        if role not in PINNED_AVAILABILITY:
+            problems.append("%s has no pinned availability" % role)
+    if reg["roles"]["brand.wordmark"]["generationPolicy"] == "must-reuse-exact" and reg["roles"]["brand.wordmark"]["availability"] == "generation-safe":
+        problems.append("the wordmark would be must-reuse-exact in generation mode")
+    problems += [m for r, m in sv.registry_pin_problems(sv.load_registry()) if r == "PINNED_AVAILABILITY"]
+    schema = jload("schema", "pagespec.schema.json")
+    if sorted(schema["x-assetRoleEnum"]) != sorted(reg["roles"]):
+        problems.append("schema x-assetRoleEnum != registry roles")
+    if problems:
+        record("pinned-availability", FAIL, problems[0])
+    else:
+        record("pinned-availability", PASS, "%d roles hold their pinned availability (both validators agree); every non-safe role has generation-safe substitutes"
+               % len(PINNED_AVAILABILITY))
+
+
+def check_retrieval():
+    import semantic_validate as sv
+    problems = []
+    if RETRIEVAL_PINNED != sv.RETRIEVAL_PINNED:
+        problems.append("verify_all.RETRIEVAL_PINNED != semantic_validate.RETRIEVAL_PINNED")
+    problems += [m for r, m in sv.registry_pin_problems(sv.load_registry()) if r == "RETRIEVAL_ELIGIBILITY_PINNED"]
+    if problems:
+        record("retrieval-pins", FAIL, problems[0])
+    else:
+        record("retrieval-pins", PASS, "%d contracts carry retrievalEligible == pin (%d ineligible runtime/utility UI, reasons >= 30 chars), allowlist agrees"
+               % (len(contract_ids()["sections"]) + len(contract_ids()["components"]), len(RETRIEVAL_PINNED)))
+
+
+def check_section_contracts():
+    """R7: every section contract validates against the CLOSED schema/section-contract.schema.json; source and
+    semantic are split; every source range is re-read from the real file and the tag opens at the cited line."""
+    import _draft7
+    import semantic_validate as sv
+    schema = jload("schema", "section-contract.schema.json")
+    problems = []
+    unsupported = _draft7.check_schema(schema)
+    if unsupported:
+        problems.append("unsupported keywords in section-contract schema: %s" % unsupported)
+    if schema.get("additionalProperties") is not False:
+        problems.append("section-contract schema is not closed")
+    ids = contract_ids()["sections"]
+    for sid in ids:
+        c = jload("sections", "%s.json" % sid)
+        for where, msg in _draft7.validate(c, schema)[:1]:
+            problems.append("sections/%s.json %s %s" % (sid, where, msg))
+    problems += [m for r, m in sv.registry_pin_problems(sv.load_registry()) if r == "SECTION_TAXONOMY_PINNED"]
+    if source_present():
+        bsp = _import(("extraction", "build_section_provenance.py"), "build_section_provenance")
+        for sid in ids:
+            c = jload("sections", "%s.json" % sid)
+            s = c["source"]
+            path = os.path.join(SOURCE_ROOT, s["file"])
+            a, b = (int(x) for x in s["lines"].split("-"))
+            lines = _read(path)
+            if b > len(lines) or a < 1 or b < a:
+                problems.append("%s: source %s:%s out of range" % (sid, s["file"], s["lines"]))
+            elif not re.search(r"<%s\b" % re.escape(s["tag"]), lines[a - 1]):
+                problems.append("%s: <%s> does not open at %s:%d" % (sid, s["tag"], s["file"], a))
+        try:
+            want = bsp.build_all(REPO, SOURCE_ROOT)
+            stale = [k for k, (_, w) in want.items() if jload("sections", "%s.json" % k).get("source") != w["source"]]
+            if stale:
+                problems.append("source provenance stale vs a re-derivation from the source: %s" % stale[:3])
+        except Exception as exc:
+            problems.append("provenance re-derivation failed: %s" % exc)
+    if problems:
+        record("section-contracts", FAIL, problems[0])
+    else:
+        record("section-contracts", PASS, "%d contracts validate against the closed section-contract schema; source/semantic split%s"
+               % (len(ids), "; every source range re-read, tag opens at the cited line" if source_present() else " (source absent: ranges not re-read)"))
+
+
+def check_source_identity():
+    problems = []
+    ident = jload("schema", "source-identity.json")
+    cats = {t["category"] for t in ident["terms"]}
+    for need in ("BRAND", "CUSTOMER", "PERSON", "URL", "EMBED"):
+        if need not in cats:
+            problems.append("source-identity.json has no %s terms" % need)
+    if not ident["copy"]["hashes"] or not ident["claims"] or not ident["assetFiles"]:
+        problems.append("source-identity.json lacks copy shingles / claims / asset files")
+    for t in ident["terms"]:
+        if not t["evidence"]:
+            problems.append("term %r has no file:line evidence" % t["term"])
+    if source_present():
+        bsi = _import(("extraction", "build_source_identity.py"), "build_source_identity")
+        if bsi.build(SOURCE_ROOT, REPO) != ident:
+            problems.append("schema/source-identity.json differs from a rebuild from the source (run extraction/build_source_identity.py --write)")
+    if problems:
+        record("source-identity", FAIL, problems[0])
+    else:
+        record("source-identity", PASS, "%d terms (%s), %d claims, %d asset files, %d copy shingles%s"
+               % (len(ident["terms"]), ",".join(sorted(cats)), len(ident["claims"]), len(ident["assetFiles"]),
+                  len(ident["copy"]["hashes"]), "; rebuilt from source and matching" if source_present() else " (source absent: not rebuilt)"))
+
+
+def check_generation_examples():
+    """R4: one mode=generation example per template family, each passing schema + semantics with zero findings."""
+    import _draft7
+    import semantic_validate as sv
+    tpl = jload("templates", "templates.json")
+    fams = tpl["templateFamilies"]["value"]
+    problems = []
+    if sorted(t for ts in fams.values() for t in ts) != sorted(tpl["templates"]):
+        problems.append("templateFamilies does not cover every template exactly once")
+    for tid, t in tpl["templates"].items():
+        if tid not in fams.get(t.get("family"), []):
+            problems.append("%s.family %r disagrees with templateFamilies" % (tid, t.get("family")))
+    schema = jload("schema", "pagespec.schema.json")
+    reg = sv.load_registry()
+    seen = {}
+    for rel in example_files():
+        spec = jload(rel)
+        if spec.get("mode") != "generation":
+            continue
+        fam = tpl["templates"].get(spec.get("template"), {}).get("family")
+        seen.setdefault(fam, []).append(rel)
+        errs = _draft7.validate(spec, schema)
+        e2, w2 = sv.validate_spec(spec, reg)
+        if errs or e2:
+            problems.append("%s: %d schema / %d semantic error(s) %s" % (rel, len(errs), len(e2), (e2 or errs)[:1]))
+    for fam in fams:
+        if len(seen.get(fam, [])) != 1:
+            problems.append("family %s has %d generation example(s), needs exactly 1" % (fam, len(seen.get(fam, []))))
+    if problems:
+        record("generation-examples", FAIL, problems[0])
+    else:
+        record("generation-examples", PASS, "%d families, one mode=generation example each, all clean (0 schema, 0 semantic errors)" % len(fams))
+
+
+def check_asset_usage():
+    if not source_present():
+        record("asset-usage", WARN, "no sibling src/; usage sites not re-derived")
+        return
+    dau = _import(("extraction", "derive_asset_usage.py"), "derive_asset_usage")
+    reg = jload("assets", "asset-roles.json")
+    sites = dau.derive(reg["roles"], SOURCE_ROOT)
+    stale = [r for r, s in reg["roles"].items() if s.get("usageSites") != sites[r][:dau.MAX_SITES] or s.get("usageSiteCount") != len(sites[r])]
+    if stale:
+        record("asset-usage", FAIL, "usageSites stale vs the current source for %s (run extraction/derive_asset_usage.py --write)" % stale[:4])
+    else:
+        record("asset-usage", PASS, "usage sites of %d roles re-derived from the current source and matching" % len(reg["roles"]))
+
+
+def check_wrapper_gate():
+    wg = _import(("extraction", "wrapper_gate.py"), "wrapper_gate")
+    problems = []
+    for k, v in WRAPPER_THRESHOLDS.items():
+        if getattr(wg, k, None) != v:
+            problems.append("wrapper_gate.%s = %r, pinned %r" % (k, getattr(wg, k, None), v))
+    heights = jload("extraction", "measured-values.json").get("sectionHeights") or {}
+    errors, warns = wg.evaluate(heights, jload("extraction", "wrapper-whitelist.json"), jload("templates", "templates.json")["templates"])
+    problems += errors
+    if problems:
+        record("wrapper-gate", FAIL, problems[0])
+    else:
+        record("wrapper-gate", PASS, "%d templates measured at %dpx; 0 errors, %d warning(s) (%s)"
+               % (len(heights.get("templates", {})), heights["viewport"]["width"], len(warns), "; ".join(w.split(" (")[0] for w in warns[:3])))
+
+
+def policy_hash(pd=None):
+    import hashlib
+    pd = pd or jload("policy", "design-policy.json")
+    h = hashlib.sha256()
+    for f in pd["enforcedBy"]:
+        h.update(f.encode("utf-8") + b"\n")
+        with open(os.path.join(REPO, f), "rb") as fh:
+            h.update(fh.read())
+        h.update(b"\n")
+    return "sha256:" + h.hexdigest()
+
+
+def check_design_policy():
+    man = jload("registry.manifest.json")
+    problems = []
+    dp = man.get("designPolicy") or {}
+    if man.get("category") != "saas":
+        problems.append("manifest category %r != 'saas'" % man.get("category"))
+    if not os.path.exists(os.path.join(REPO, dp.get("ref", "-"))):
+        problems.append("designPolicy.ref %r does not exist" % dp.get("ref"))
+    else:
+        pd = jload(*dp["ref"].split("/"))
+        for k in ("policyId", "policyVersion", "commonIrVersion", "enforcementMode"):
+            if dp.get(k) != pd.get(k):
+                problems.append("designPolicy.%s %r != policy file %r" % (k, dp.get(k), pd.get(k)))
+        if (dp.get("policyId"), dp.get("policyVersion"), dp.get("commonIrVersion"), dp.get("enforcementMode")) != (
+                "n0-saas-design-constraints-common", "0.1.0", "0.5", "hard-and-soft"):
+            problems.append("binding is not n0-saas-design-constraints-common 0.1.0 / IR 0.5 / hard-and-soft")
+        if pd["classification"].get("isSaaS") is not True or not pd["classification"].get("evidence"):
+            problems.append("classification must record isSaaS true with evidence")
+        if pd["approval"].get("architectureDecisionRecorded") is not False or "agent attestation" not in pd["approval"].get("note", ""):
+            problems.append("approval must stay pending and say agent attestation")
+        for f in pd["enforcedBy"]:
+            if not os.path.exists(os.path.join(REPO, f)):
+                problems.append("enforcedBy %s missing" % f)
+        if not problems and dp.get("contentHash") != policy_hash(pd):
+            problems.append("designPolicy.contentHash %s != recomputed %s" % (dp.get("contentHash"), policy_hash(pd)))
+        if source_present():
+            for e in pd["classification"]["evidence"]:
+                m = CITE.match(e["cite"])
+                if not m or not os.path.exists(resolve(m.group(1))) or int(m.group(3)) > len(_read(resolve(m.group(1)))):
+                    problems.append("policy evidence %s does not resolve" % e["cite"])
+    if problems:
+        record("design-policy", FAIL, problems[0])
+    else:
+        record("design-policy", PASS, "category saas bound to %s %s (IR %s, %s); policy file present; contentHash matches"
+               % (dp["policyId"], dp["policyVersion"], dp["commonIrVersion"], dp["enforcementMode"]))
+
+
 CHECKS = [
     check_json_parse, check_no_abs_paths, check_no_images, check_self_contained, check_schema,
     check_schema_sections, check_allowlist_parity, check_allowlist_schema, check_version_parity,
     check_manifest_counts, check_readme_counts, check_route_coverage, check_route_sequences,
     check_route_source, check_template_composition, check_graph_validator_agreement,
     check_pinned_asset_policies, check_citations, check_responsive, check_asset_coverage,
-    check_ia_alignment, check_example_provenance, check_adversarial,
+    check_ia_alignment, check_example_provenance, check_token_catalog, check_token_policy,
+    check_pinned_availability, check_retrieval, check_section_contracts, check_source_identity,
+    check_generation_examples, check_asset_usage, check_wrapper_gate, check_design_policy, check_adversarial,
 ]
 
 
@@ -912,6 +1277,11 @@ def _stage_sources(tmp):
         os.makedirs(os.path.dirname(dst), exist_ok=True)
         shutil.copy2(src, dst)
     shutil.copytree(os.path.join(SOURCE_ROOT, "src"), os.path.join(tmp, "project", "src"), dirs_exist_ok=True)
+    # top-level evidence the 3.0.0 builders read (source identity, token citations, design-policy evidence)
+    for name in os.listdir(SOURCE_ROOT):
+        src = os.path.join(SOURCE_ROOT, name)
+        if os.path.isfile(src) and name.endswith((".html", ".md", ".json", ".js", ".mjs")):
+            shutil.copy2(src, os.path.join(tmp, "project", name))
     os.makedirs(os.path.join(tmp, "project", "public", "assets"), exist_ok=True)
     for sub in ("assets", "stock"):
         os.makedirs(os.path.join(tmp, "project", "public", sub), exist_ok=True)
@@ -922,7 +1292,7 @@ def _stage_sources(tmp):
     return True
 
 
-def prove_drift():
+def prove_drift(scratch=None):
     S = "sections/"
     cases = [
         ("phantom allowlist entry", "allowlist-parity", lambda d: _edit(d, "tokens/llm/component-allowlist.json",
@@ -998,6 +1368,7 @@ def prove_drift():
         ("schema accepts a live demo form", "adversarial", lambda d: _edit(d, "schema/pagespec.schema.json",
             lambda j: _loosen_form(j))),
     ]
+    cases += drift_cases_v3()
     print()
     print("=" * 78)
     print("DRIFT PROOF -- one defect per scratch copy; the matching check must FAIL")
@@ -1005,12 +1376,12 @@ def prove_drift():
     failures = 0
     staged_ok = None
     for label, expect, mutate in cases:
-        tmp = tempfile.mkdtemp(prefix="drift-")
+        tmp = tempfile.mkdtemp(prefix="drift-", dir=scratch)
         dest = os.path.join(tmp, "project", "design-repo")
         os.makedirs(os.path.dirname(dest))
         shutil.copytree(REPO, dest, ignore=shutil.ignore_patterns("__pycache__", ".DS_Store"))
         staged_ok = _stage_sources(tmp)
-        if not staged_ok and expect in ("citations", "responsive", "asset-coverage", "ia-alignment", "example-provenance",
+        if not staged_ok and expect in ("citations", "responsive", "asset-coverage", "ia-alignment", "example-provenance", "asset-usage",
                                          "route-source", "template-composition"):
             print("  %-64s SKIP (no source tree to stage)" % label[:64])
             shutil.rmtree(tmp, ignore_errors=True)
@@ -1029,7 +1400,7 @@ def prove_drift():
             print("      expected %r to FAIL; got: %s" % (expect, line.strip() or "(no line)"))
         shutil.rmtree(tmp, ignore_errors=True)
     # and the unmutated staged copy passes everything
-    tmp = tempfile.mkdtemp(prefix="drift-")
+    tmp = tempfile.mkdtemp(prefix="drift-", dir=scratch)
     dest = os.path.join(tmp, "project", "design-repo")
     os.makedirs(os.path.dirname(dest))
     shutil.copytree(REPO, dest, ignore=shutil.ignore_patterns("__pycache__", ".DS_Store"))
@@ -1069,6 +1440,83 @@ def _loosen_form(schema):
             b["then"]["properties"]["content"]["properties"]["form"]["properties"]["live"] = {"type": "boolean"}
 
 
+def _arg(argv, name):
+    return argv[argv.index(name) + 1] if name in argv and argv.index(name) + 1 < len(argv) else None
+
+
+def _drop_line(path, needle):
+    with open(path, encoding="utf-8") as handle:
+        lines = handle.read().split("\n")
+    keep = [l for l in lines if needle not in l]
+    assert len(keep) == len(lines) - 1, (path, needle)
+    with open(path, "w", encoding="utf-8") as handle:
+        handle.write("\n".join(keep))
+
+
+def _rm(root, rel):
+    os.remove(os.path.join(root, rel))
+
+
+def drift_cases_v3():
+    """3.0.0 drift cases: token catalog/policy, availability + retrieval pins, provenance, section-contract
+    schema, source identity, generation examples, asset usage, wrapper gate, design policy."""
+    S = "sections/"
+    SRC = lambda d, *p: os.path.join(d, "..", *p)
+    return [
+        ("token catalog hand-edited (a value changed)", "token-catalog", lambda d: _edit(d, "tokens/llm/token-catalog.json",
+            lambda j: j["tokens"]["color.ink"].update(value="#ffffff"))),
+        ("token file changed without rebuilding the catalog", "token-catalog", lambda d: _edit(d, "tokens/00-foundation/color.json",
+            lambda j: j["tokens"]["color.green"].update(**{"$value": "#22ffaa"}))),
+        ("token citation in range but on the wrong line (catalog rebuilt)", "token-catalog", lambda d: (
+            _edit(d, "tokens/00-foundation/radius.json", lambda j: j["tokens"]["radius.card"].update(measuredFrom="tailwind.config.js:20-20")),
+            subprocess.run([sys.executable, "-I", os.path.join(d, "extraction", "build_token_catalog.py")], capture_output=True))),
+        ("token policy dropped from the manifest", "token-catalog", lambda d: _edit(d, "registry.manifest.json",
+            lambda j: j["entryPoints"].pop("tokenPolicy"))),
+        ("token policy slot allows a token that does not exist", "token-policy", lambda d: _edit(d, "tokens/llm/token-policy.json",
+            lambda j: j["pageSpecTokenSlots"]["surface"]["allow"].append("semantic.surface.marble"))),
+        ("token policy themeScope loosened (yellow allowed on dark)", "token-policy", lambda d: _edit(d, "tokens/llm/token-policy.json",
+            lambda j: j["themeRules"]["themeScope"]["color.content-yellow"].update(themes=["nimbus-content", "nimbus-dark"]))),
+        ("unrendered font approved for generation", "token-policy", lambda d: _edit(d, "tokens/llm/token-policy.json",
+            lambda j: (j.update(notGenerationApproved=[]), j.update(notGenerationApprovedReason={})))),
+        ("registry availability flipped (logo.customer generation-safe)", "pinned-availability", lambda d: _edit(d, "assets/asset-roles.json",
+            lambda j: j["roles"]["logo.customer"].update(availability="generation-safe"))),
+        ("availability pin removed from the semantic validator", "pinned-availability",
+            lambda d: _drop_line(os.path.join(d, "schema", "semantic_validate.py"), '"logo.customer": "blocked-for-generation",')),
+        ("contract + allowlist retrieval flipped together", "retrieval-pins", lambda d: (
+            _edit(d, S + "conversion.faq-empty.json", lambda j: (j.update(retrievalEligible=True), j.pop("retrievalReason"))),
+            _edit(d, "tokens/llm/component-allowlist.json", lambda j: j["sections"]["conversion.faq-empty"].update(retrievalEligible=True)))),
+        ("retrieval pin removed from verify_all", "retrieval-pins",
+            lambda d: _sed(os.path.join(d, "extraction", "verify_all.py"), '"footer-dropup": False}', '}')),
+        ("section contract gains an undeclared key", "section-contracts", lambda d: _edit(d, S + "hero.platform.json",
+            lambda j: j.update(heroHeightPx=900))),
+        ("source range shifted onto the wrong line", "section-contracts", lambda d: _edit(d, S + "conversion.faq.json",
+            lambda j: j["source"].update(lines="100-127"))),
+        ("semantic taxonomy rewritten from wrapper naming", "section-contracts", lambda d: _edit(d, S + "proof.logo-row.json",
+            lambda j: j["semantic"].update(category="product"))),
+        ("source edited: provenance now stale", "section-contracts",
+            lambda d: _sed(SRC(d, "src", "components", "Faq.jsx"), "export default function Faq", "// moved\nexport default function Faq")),
+        ("source-identity registry hand-edited (brand term removed)", "source-identity", lambda d: _edit(d, "schema/source-identity.json",
+            lambda j: j.update(terms=[x for x in j["terms"] if x["term"] != "Nimbus"]))),
+        ("source gains a new named person", "source-identity",
+            lambda d: _sed(SRC(d, "src", "components", "Results.jsx"), "name: 'Jordan Ellis',", "name: 'Jordan Ellis-Okoro',")),
+        ("generation example for a family deleted", "generation-examples", lambda d: _rm(d, "schema/examples/generated-index.pagespec.json")),
+        ("generation example leaks the source brand", "generation-examples", lambda d: _edit(d, "schema/examples/generated-home.pagespec.json",
+            lambda j: j["brand"].update(name="Nimbus"))),
+        ("asset usage site stale after a source edit", "asset-usage",
+            lambda d: _sed(SRC(d, "src", "components", "Footer.jsx"), "export default function Footer", "// shifted\nexport default function Footer")),
+        ("measured heights missing for a template", "wrapper-gate", lambda d: _edit(d, "extraction/measured-values.json",
+            lambda j: j["sectionHeights"]["templates"].pop("pricing"))),
+        ("whitelist justification blanked", "wrapper-gate", lambda d: _edit(d, "extraction/wrapper-whitelist.json",
+            lambda j: j["entries"][0].update(justification=""))),
+        ("wrapper threshold loosened in code (3000 -> 9000)", "wrapper-gate",
+            lambda d: _sed(os.path.join(d, "extraction", "wrapper_gate.py"), "HERO_ERROR_PX = 3000", "HERO_ERROR_PX = 9000")),
+        ("design-policy contentHash stale after a rule edit", "design-policy", lambda d: _edit(d, "compatibility/graph.json",
+            lambda j: j["rules"][0].update(rule=j["rules"][0]["rule"] + " (edited)"))),
+        ("binding swapped to a non-SaaS policy id", "design-policy", lambda d: _edit(d, "registry.manifest.json",
+            lambda j: j["designPolicy"].update(policyId="consumer-service-marketplace-web"))),
+    ]
+
+
 def main(argv):
     print("=" * 78)
     print("design-repo verification")
@@ -1089,7 +1537,7 @@ def main(argv):
     print("%d checks | %d pass | %d warn | %d FAIL" % (len(results), len(results) - len(failed) - len(warned), len(warned), len(failed)))
     print("RESULT: %s" % ("FAIL" if failed or extra else "PASS"))
     if "--prove-drift" in argv:
-        extra = prove_drift() or extra
+        extra = prove_drift(_arg(argv, "--scratch")) or extra
     return 1 if (failed or extra) else 0
 
 

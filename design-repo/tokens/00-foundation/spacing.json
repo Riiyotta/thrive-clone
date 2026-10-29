@@ -6,7 +6,8 @@
     "space.4": {
       "$value": "4px",
       "usage": "H2 margin-top (every H2), dropdown column gap",
-      "measuredFrom": "src/index.css:39-39"
+      "measuredFrom": "src/index.css:56-56",
+      "note": "0.25rem = 4px at the 16px root (H2 margin-top)"
     },
     "space.8": {
       "$value": "8px",
@@ -52,7 +53,7 @@
   "paragraphMarginBottom": {
     "$value": "20px",
     "note": "Most paragraphs carry margin-bottom 20px (pixel-audit correction: 9x p.text-color-grey, 11x subdued-text, ... all mb=20px on the original).",
-    "measuredFrom": "src/components/ProductTabs.jsx:48-48"
+    "measuredFrom": "src/components/ProductTabs.jsx:143-143"
   },
   "specMeasuredFrom": "CLONE_SPEC.md:52-58"
 }

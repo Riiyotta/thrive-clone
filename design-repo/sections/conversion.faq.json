@@ -4,6 +4,17 @@
   "name": "Independent-toggle FAQ accordion",
   "purpose": "Answer the last objections (pricing, integrations, migration, differentiation, timeline) right before the footer CTA.",
   "category": "conversion",
+  "source": {
+    "id": "Faq.section[data-section=faq]",
+    "tag": "section",
+    "file": "src/components/Faq.jsx",
+    "lines": "114-127"
+  },
+  "semantic": {
+    "id": "conversion.faq",
+    "category": "conversion"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/Faq.jsx",
   "content": {

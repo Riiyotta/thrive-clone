@@ -4,6 +4,17 @@
   "name": "Large centred testimonial quote",
   "purpose": "Breaks up product storytelling with a single big customer endorsement, optionally handing off to a demo CTA.",
   "category": "proof",
+  "source": {
+    "id": "TestimonialQuote.div[data-section=testimonial-quote]",
+    "tag": "div",
+    "file": "src/components/sections/TestimonialQuote.jsx",
+    "lines": "148-157"
+  },
+  "semantic": {
+    "id": "proof.testimonial-quote",
+    "category": "proof"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/TestimonialQuote.jsx",
   "description": "One component with a `variant` prop: a 32px (28 tab / 24 mob) medium-weight quote in a 60rem column, above a stacked author block (avatar, name, grey role + linked or bold org). Variants only change spacing, alignment and avatar size: platform (/lms 1st, /lms/features, /lms/solutions with a centred button row below), platform-lg (/lms 2nd, 5rem top + 4rem bottom margin), section (/lms 3rd, 5rem/3rem section padding, button rendered inside the author block), mid-market (/lms/corporate-lms, bare left-aligned quote, 2rem top margin), enterprise (/lms/enterprise, centred quote with 2rem left pad, 1rem top margin), kiki (/nova, 6rem/5rem/3.5rem top pad, 3rem avatar). Avatar is a 5rem (3rem kiki) square with the site's 6px TL/BR tag corners below 1440 and fully round at >=1440.",
@@ -67,13 +78,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "photo.person",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "person.fictional",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "photo.person",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "person.fictional",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -375,6 +390,8 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral"
   ],

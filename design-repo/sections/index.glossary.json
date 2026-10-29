@@ -4,6 +4,17 @@
   "name": "Glossary index",
   "purpose": "Opens the glossary page and lets a visitor find a learning term by first letter, then read its short definition.",
   "category": "index",
+  "source": {
+    "id": "GlossaryIndex.section[data-section=glossary-index]",
+    "tag": "section",
+    "file": "src/components/sections/GlossaryIndex.jsx",
+    "lines": "50-121"
+  },
+  "semantic": {
+    "id": "index.glossary",
+    "category": "index"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/GlossaryIndex.jsx",
   "description": "Oldest-system block (fixed 16px root) carrying the page H1: centred serif H1, a multi-line intro and a static email sign-up row; an A-Z pill radio filter (\"All\" + 26 letters, filters terms by first letter) with a \"Showing N results.\" line; then a 3-column grid (2 at 991, 1 at 767) of rounded #1b1b1b term cards (\"What is X?\" heading, definition, \"Read more\" chip). Hovering a card dims the others to 50%.",

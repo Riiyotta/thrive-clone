@@ -1,0 +1,352 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://design-repo.local/thrive-clone/section-contract.schema.json",
+  "title": "Section contract (sections/*.json)",
+  "description": "CLOSED shape of every section contract. Provenance (`source`: what DOM/component renders it, traceable to a real file range) is separate from taxonomy (`semantic`: what the AI sees). retrievalEligible is a closed boolean; false needs a 30+ character retrievalReason. extraction/verify_all.py (section-contracts) validates every contract against this schema with the vendored draft-07 validator and re-reads every source range from the real file.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "kind",
+    "name",
+    "purpose",
+    "category",
+    "source",
+    "semantic",
+    "retrievalEligible",
+    "designSystem",
+    "implementedBy",
+    "content",
+    "constraints",
+    "motion",
+    "responsive",
+    "composes",
+    "measuredFrom",
+    "iaSectionId",
+    "observedOn",
+    "compatibility",
+    "assetRoles"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(shell|hero|proof|product|story|conversion|index|article)\\.[a-z0-9-]+$"
+    },
+    "kind": {
+      "const": "section"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "enum": [
+        "shell",
+        "hero",
+        "proof",
+        "product",
+        "story",
+        "conversion",
+        "index",
+        "article"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "tag",
+        "file",
+        "lines"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tag": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9]*$"
+        },
+        "file": {
+          "type": "string",
+          "pattern": "^src/[A-Za-z0-9_./-]+\\.(jsx|js)$"
+        },
+        "lines": {
+          "type": "string",
+          "pattern": "^\\d+-\\d+$"
+        }
+      }
+    },
+    "semantic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "category"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "shell",
+            "hero",
+            "proof",
+            "product",
+            "story",
+            "conversion",
+            "index",
+            "article"
+          ]
+        }
+      }
+    },
+    "retrievalEligible": {
+      "type": "boolean"
+    },
+    "retrievalReason": {
+      "type": "string",
+      "minLength": 30
+    },
+    "designSystem": {
+      "enum": [
+        "marketing"
+      ]
+    },
+    "implementedBy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "alsoImplementedBy": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "description": {
+      "type": "string"
+    },
+    "content": {
+      "type": "object"
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "maxPerPage": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxPerPageByVariant": {
+          "type": "object"
+        },
+        "maxPerPageDerivation": {
+          "type": "string"
+        },
+        "mustImmediatelyFollow": {},
+        "mustImmediatelyPrecede": {},
+        "mustBeFirst": {
+          "type": "boolean"
+        },
+        "mustBeLast": {
+          "type": "boolean"
+        },
+        "neighbourRuleId": {
+          "type": "string"
+        },
+        "notWrappedInPaddingGlobal": {
+          "type": "boolean"
+        }
+      }
+    },
+    "motion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowedPatterns",
+        "reducedMotionFallback"
+      ],
+      "properties": {
+        "allowedPatterns": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "none",
+              "nav.hoverMenus",
+              "hero.loadReveal",
+              "tabs.crossFade",
+              "carousel.dragLoop",
+              "carousel.autoplayOnView",
+              "scroll.zoomScrub",
+              "scroll.charColorScrub",
+              "carousel.centeredAutoplay",
+              "accordion.faq",
+              "footer.dropup",
+              "scroll.revealOnce",
+              "ticker.verticalLoop",
+              "stats.countUp",
+              "carousel.autoplayLoop",
+              "accordion.legacyHeight",
+              "marquee.cssLoop",
+              "tabs.fadeOutIn",
+              "carousel.pagedSlide",
+              "modal.drawerSlide",
+              "sticky.anchorTabs"
+            ]
+          }
+        },
+        "reducedMotionFallback": {
+          "enum": [
+            "none",
+            "instant-toggle",
+            "instant-final-state",
+            "instant-slide-change",
+            "autoplay-off-instant-slide-change",
+            "static-first-frame"
+          ]
+        },
+        "measuredFrom": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_./\\- >]+\\.(jsx|js|css|md|json|html):\\d+-\\d+$"
+        },
+        "alsoMeasuredFrom": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_./\\- >]+\\.(jsx|js|css|md|json|html):\\d+-\\d+$"
+          }
+        },
+        "sourceImplementsReducedMotion": {
+          "type": "boolean"
+        },
+        "note": {
+          "type": "string"
+        },
+        "reducedMotionNote": {
+          "type": "string"
+        }
+      }
+    },
+    "responsive": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "responsiveNote": {
+      "type": "string"
+    },
+    "composes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(primitive|component)\\.[a-z0-9-]+$"
+      }
+    },
+    "measuredFrom": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_./\\- >]+\\.(jsx|js|css|md|json|html):\\d+-\\d+$"
+    },
+    "specMeasuredFrom": {
+      "type": "string"
+    },
+    "iaSectionId": {
+      "type": "string"
+    },
+    "evidenceNotes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "observedOn": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^/"
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "recommendedAfter": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "recommendedBefore": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "assetRoles": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "brand.wordmark",
+          "placeholder.neutral",
+          "logo.customer",
+          "logo.aiVendor",
+          "badge.review",
+          "badge.award",
+          "photo.person",
+          "photo.event",
+          "photo.brand",
+          "product.screenshot",
+          "product.video",
+          "stock.photo",
+          "asset.userSupplied",
+          "illustration.generated",
+          "screenshot.placeholder",
+          "person.fictional",
+          "logo.placeholderCompany",
+          "badge.placeholder",
+          "brand.placeholderMark",
+          "url.placeholder",
+          "copy.original"
+        ]
+      }
+    },
+    "variants": {
+      "type": "array"
+    },
+    "subpageUsage": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "retrievalEligible": {
+            "const": false
+          }
+        },
+        "required": [
+          "retrievalEligible"
+        ]
+      },
+      "then": {
+        "required": [
+          "retrievalReason"
+        ]
+      }
+    }
+  ]
+}

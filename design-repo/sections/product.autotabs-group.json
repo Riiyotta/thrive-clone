@@ -4,6 +4,17 @@
   "name": "Autotabs group (tabbed product slider + quote)",
   "purpose": "Walks the visitor through 3-4 named product capabilities in a tab-driven slider, then closes the argument with a customer quote.",
   "category": "product",
+  "source": {
+    "id": "AutotabsGroup.section[data-section=autotabs-group]",
+    "tag": "section",
+    "file": "src/components/sections/AutotabsGroup.jsx",
+    "lines": "125-165"
+  },
+  "semantic": {
+    "id": "product.autotabs-group",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/AutotabsGroup.jsx",
   "description": "One component with a `variant` prop: 'platform' (/lms and /nova), 'enterprise' (/lms/enterprise), 'mentoring' (/lms/mentoring-software). Centred H2 + grey paragraph, then a row of equal tab buttons ABOVE a full-width loop slider whose slides hold a lead-in title + continuation copy and a 16:9 product screenshot; a centred customer quote closes the block (platform/enterprise reuse TestimonialQuote 'autotabs'/'autotabs-enterprise'; mentoring renders its own 24px quote with a small avatar row). 'platform' renders the slide title inline in white with grey copy run-on; 'enterprise' puts the title on its own line; 'mentoring' nests the slider in an extra padding wrapper and uses cover screenshots. <=767 the tab row wraps (200px tabs, 3.5rem tall); <=479 two tabs per row.",
@@ -64,14 +75,20 @@
                   "x-allowedRoles": [
                     "product.screenshot",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "product.screenshot",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -142,13 +159,17 @@
                 "additionalProperties": false,
                 "x-allowedRoles": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ],
                 "properties": {
                   "assetRole": {
                     "enum": [
                       "photo.person",
-                      "placeholder.neutral"
+                      "placeholder.neutral",
+                      "person.fictional",
+                      "asset.userSupplied"
                     ]
                   },
                   "placeholderLabel": {
@@ -269,14 +290,20 @@
                   "x-allowedRoles": [
                     "product.screenshot",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "product.screenshot",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -347,13 +374,17 @@
                 "additionalProperties": false,
                 "x-allowedRoles": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ],
                 "properties": {
                   "assetRole": {
                     "enum": [
                       "photo.person",
-                      "placeholder.neutral"
+                      "placeholder.neutral",
+                      "person.fictional",
+                      "asset.userSupplied"
                     ]
                   },
                   "placeholderLabel": {
@@ -452,14 +483,20 @@
                   "x-allowedRoles": [
                     "product.screenshot",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ],
                   "properties": {
                     "assetRole": {
                       "enum": [
                         "product.screenshot",
                         "stock.photo",
-                        "placeholder.neutral"
+                        "placeholder.neutral",
+                        "screenshot.placeholder",
+                        "illustration.generated",
+                        "asset.userSupplied"
                       ]
                     },
                     "placeholderLabel": {
@@ -530,13 +567,17 @@
                 "additionalProperties": false,
                 "x-allowedRoles": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ],
                 "properties": {
                   "assetRole": {
                     "enum": [
                       "photo.person",
-                      "placeholder.neutral"
+                      "placeholder.neutral",
+                      "person.fictional",
+                      "asset.userSupplied"
                     ]
                   },
                   "placeholderLabel": {
@@ -843,9 +884,13 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "variants": [

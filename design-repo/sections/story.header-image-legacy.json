@@ -4,6 +4,17 @@
   "name": "Legacy header with team image",
   "purpose": "Introduce the people behind a service: a large serif statement, supporting paragraph and review badges beside a square team photo.",
   "category": "story",
+  "source": {
+    "id": "HeaderImageLegacy.section[data-section=header-image-legacy]",
+    "tag": "section",
+    "file": "src/components/sections/HeaderImageLegacy.jsx",
+    "lines": "16-41"
+  },
+  "semantic": {
+    "id": "story.header-image-legacy",
+    "category": "story"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/HeaderImageLegacy.jsx",
   "description": "A hairline (#00251e, no top line) 2-column card with no gap: left cell holds a serif H2 (4rem/1.1 at every width), a 16px ink paragraph and a row of 4 review badges (h 4rem, 3rem <=479); right cell is a square team photo. Padding 5rem 2.5rem (3rem 1.5rem <=991, 1.5rem <=767); stacks to one column <=767. Not the page H1 (it follows the centred legacy hero on /lms/professional-services). No variants, no theme prop.",
@@ -30,13 +41,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "badge.review"
+          "badge.review",
+          "badge.placeholder",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "badge.review"
+              "badge.review",
+              "badge.placeholder",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -72,13 +87,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "photo.person"
+          "photo.person",
+          "person.fictional",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -199,7 +218,10 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "badge.placeholder",
     "badge.review",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral"
   ]

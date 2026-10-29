@@ -4,6 +4,17 @@
   "name": "What's-included tabbed slider",
   "purpose": "Shows every product module included in the plan, one slide per module, with a quote for reassurance and a demo CTA.",
   "category": "product",
+  "source": {
+    "id": "IncludedTabs.section@36",
+    "tag": "section",
+    "file": "src/pages/company/IncludedTabs.jsx",
+    "lines": "36-109"
+  },
+  "semantic": {
+    "id": "product.included-tabs",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/pages/company/IncludedTabs.jsx",
   "description": "Page-local block for /whats-included. Split header: H2 + grey lead on the left, an italic quote card (avatar, name, role) on the right (stacks <=767). Then a loop slider of full-width slides, each a large rounded panel with an offset 1440:873 product image, a bottom gradient and the module name (H3) + paragraph pinned bottom-left; the tab row sits BELOW the slider (4.75rem; <=767 two per row, 3.5rem). A centred primary CTA follows.",
@@ -53,13 +64,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "photo.person",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "photo.person",
-                  "placeholder.neutral"
+                  "placeholder.neutral",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -119,14 +134,20 @@
               "x-allowedRoles": [
                 "product.screenshot",
                 "stock.photo",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "screenshot.placeholder",
+                "illustration.generated",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "product.screenshot",
                     "stock.photo",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "screenshot.placeholder",
+                    "illustration.generated",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -397,9 +418,13 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

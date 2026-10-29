@@ -4,6 +4,17 @@
   "name": "Case study stat cards (content)",
   "purpose": "Gives a content-library case study its at-a-glance facts: one headline number plus the solutions and content topics the customer used.",
   "category": "proof",
+  "source": {
+    "id": "CsContentStats.section[data-section=cs-content-stats]",
+    "tag": "section",
+    "file": "src/components/sections/CsContentStats.jsx",
+    "lines": "56-107"
+  },
+  "semantic": {
+    "id": "proof.cs-content-stats",
+    "category": "proof"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/CsContentStats.jsx",
   "description": "Three hairline-bordered cards in a row (one column at 991 and below) on the content (\"yellow\") legacy theme: a dotted-texture card with a large yellow Source Serif stat and its label, a \"Solutions\" card with bordered chips, and a \"Topics used\" card with chips that optionally carry a check-circle icon. The stat number and solutions list rise in on scroll.",

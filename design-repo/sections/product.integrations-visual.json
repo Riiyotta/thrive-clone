@@ -4,6 +4,17 @@
   "name": "Integrations visual",
   "purpose": "Reassures buyers the platform plugs into their existing tools with a short pitch over a wide integrations strip image.",
   "category": "product",
+  "source": {
+    "id": "IntegrationsVisual.section[data-section=integrations-visual]",
+    "tag": "section",
+    "file": "src/components/sections/IntegrationsVisual.jsx",
+    "lines": "42-71"
+  },
+  "semantic": {
+    "id": "product.integrations-visual",
+    "category": "product"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/IntegrationsVisual.jsx",
   "description": "Centred H2 + grey paragraph above a wide 1440:410 integrations strip image (padded 1.5rem), optionally followed by a centred primary button. `variant` changes layout only: 'mid-market' (/lms/corporate-lms; 45.25rem container, button below the container), 'enterprise' (/lms/enterprise; same, no button), 'features' (/lms/features; 60rem container, 6rem spacer, larger 24px paragraph in 42rem, button row under the image).",
@@ -46,14 +57,20 @@
         "x-allowedRoles": [
           "product.screenshot",
           "stock.photo",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "screenshot.placeholder",
+          "illustration.generated",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "product.screenshot",
               "stock.photo",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -234,8 +251,11 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ],
   "variants": [

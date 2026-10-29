@@ -4,6 +4,17 @@
   "name": "Case study results strip",
   "purpose": "Summarises the customer-story index with five challenge-to-outcome stats, each attributed to a named customer, then sends readers to the demo.",
   "category": "proof",
+  "source": {
+    "id": "CaseStudyResults.div[data-section=results]",
+    "tag": "div",
+    "file": "src/pages/content/CaseStudiesLms.jsx",
+    "lines": "27-54"
+  },
+  "semantic": {
+    "id": "proof.case-results",
+    "category": "proof"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/pages/content/CaseStudiesLms.jsx > CaseStudyResults",
   "description": "Page-local function on /case-studies/lms: a centred H2 and grey paragraph in a 50rem column, then a single 6-track grid `repeat(5, min-content) 1fr` of five dark cards, each as wide as its stat (clipped by the page section on mobile rather than wrapping). Each card shows a brand-green challenge label, the customer logo, a 64px stat (48/40px on smaller breakpoints) and a grey result sentence ending in the linked customer name. A centred primary button follows. Differs from the shared Results block in grid behaviour, labels and the trailing customer link.",
@@ -42,13 +53,17 @@
               "additionalProperties": false,
               "x-allowedRoles": [
                 "logo.customer",
-                "placeholder.neutral"
+                "placeholder.neutral",
+                "logo.placeholderCompany",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
                   "enum": [
                     "logo.customer",
-                    "placeholder.neutral"
+                    "placeholder.neutral",
+                    "logo.placeholderCompany",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -255,7 +270,9 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
     "logo.customer",
+    "logo.placeholderCompany",
     "placeholder.neutral"
   ]
 }

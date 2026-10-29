@@ -4,6 +4,17 @@
   "name": "Split hero nested in an overlapping logos section",
   "purpose": "Carry the corporate page's H1, pitch, customer quote and demo CTA, followed by a customer-logo row, pulled up over the empty wow spacer above it.",
   "category": "hero",
+  "source": {
+    "id": "LogosHeroOverlap.section[data-section=logos-hero-overlap]",
+    "tag": "section",
+    "file": "src/components/sections/LogosHeroOverlap.jsx",
+    "lines": "31-96"
+  },
+  "semantic": {
+    "id": "hero.logos-overlap",
+    "category": "hero"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/LogosHeroOverlap.jsx",
   "description": "The `.section_wowlogos.is-neg-overlap` block on /lms/corporate-lms: pulled up -16rem (-10 / -8 / -6rem at 991 / 767 / 479) over the empty WowContentHero 'corporate' spacer. Split row: avatar strip + trust line, serif 3.8rem H1 (2.5rem <=479), grey paragraph, quote card (italic quote, avatar, name, role + linked company) and primary CTA | 1440:920 product visual; stacks <=767. Below: centred lead line + 7 logos.",
@@ -16,13 +27,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "photo.person"
+          "photo.person",
+          "person.fictional",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -101,13 +116,17 @@
             "additionalProperties": false,
             "x-allowedRoles": [
               "placeholder.neutral",
-              "photo.person"
+              "photo.person",
+              "person.fictional",
+              "asset.userSupplied"
             ],
             "properties": {
               "assetRole": {
                 "enum": [
                   "placeholder.neutral",
-                  "photo.person"
+                  "photo.person",
+                  "person.fictional",
+                  "asset.userSupplied"
                 ]
               },
               "placeholderLabel": {
@@ -153,14 +172,20 @@
         "x-allowedRoles": [
           "placeholder.neutral",
           "product.screenshot",
-          "stock.photo"
+          "stock.photo",
+          "screenshot.placeholder",
+          "illustration.generated",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
               "product.screenshot",
-              "stock.photo"
+              "stock.photo",
+              "screenshot.placeholder",
+              "illustration.generated",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -196,13 +221,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "placeholder.neutral",
-          "logo.customer"
+          "logo.customer",
+          "logo.placeholderCompany",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "placeholder.neutral",
-              "logo.customer"
+              "logo.customer",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -438,10 +467,15 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "logo.customer",
+    "logo.placeholderCompany",
+    "person.fictional",
     "photo.person",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }

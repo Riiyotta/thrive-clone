@@ -4,6 +4,17 @@
   "name": "Flip logo grid",
   "purpose": "Shows breadth of customers compactly by cycling sixteen logos through four animated cells.",
   "category": "proof",
+  "source": {
+    "id": "FlipLogos.section[data-section=flip-logos]",
+    "tag": "section",
+    "file": "src/components/sections/FlipLogos.jsx",
+    "lines": "61-89"
+  },
+  "semantic": {
+    "id": "proof.flip-logos",
+    "category": "proof"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/FlipLogos.jsx",
   "description": "Four logo cells in a row (2x2 at <=767) between side hairlines, each with legacy-theme borders. Every cell masks a 3rem-high window onto a vertical track of four logos, so 16 logos are shown four at a time. Once the section scrolls into view each track steps upward through its logos on a staggered, looping GSAP timeline. Geometry is identical on every route; only the legacy colour theme changes (yellow on /content/topics, /content/sector-suites and /content/service, pink on /lms/impact, green on /content/custom-content).",
@@ -24,13 +35,17 @@
         "additionalProperties": false,
         "x-allowedRoles": [
           "logo.customer",
-          "placeholder.neutral"
+          "placeholder.neutral",
+          "logo.placeholderCompany",
+          "asset.userSupplied"
         ],
         "properties": {
           "assetRole": {
             "enum": [
               "logo.customer",
-              "placeholder.neutral"
+              "placeholder.neutral",
+              "logo.placeholderCompany",
+              "asset.userSupplied"
             ]
           },
           "placeholderLabel": {
@@ -168,7 +183,9 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
     "logo.customer",
+    "logo.placeholderCompany",
     "placeholder.neutral"
   ]
 }

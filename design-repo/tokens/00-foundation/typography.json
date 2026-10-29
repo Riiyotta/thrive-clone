@@ -10,7 +10,7 @@
         500,
         600
       ],
-      "measuredFrom": "tailwind.config.js:38-38"
+      "measuredFrom": "tailwind.config.js:61-61"
     },
     "fontFamily.serif": {
       "$value": "\"Instrument Serif\", Instrumentserif, Georgia, sans-serif",
@@ -19,7 +19,7 @@
         "400 italic"
       ],
       "note": "H1 and every H2 are Instrument Serif 400 (declared 500 on the original, but only 400 exists).",
-      "measuredFrom": "tailwind.config.js:39-39"
+      "measuredFrom": "tailwind.config.js:62-62"
     },
     "loadedFrom": {
       "$value": "Google Fonts (Inter opsz,wght 24,400;24,500;24,600 + Instrument Serif ital 0;1)",
@@ -45,188 +45,188 @@
   },
   "body": {
     "$value": "18px / 25.2px, weight 400, colour ink; 17.6 / 24.64 at <=479",
-    "measuredFrom": "src/index.css:10-16"
+    "measuredFrom": "src/index.css:26-29"
   },
   "fontSize": {
     "fontSize.h1": {
       "size": "72px",
       "lineHeight": "82.8px",
-      "measuredFrom": "tailwind.config.js:52-52"
+      "measuredFrom": "tailwind.config.js:76-76"
     },
     "fontSize.h1-tab": {
       "size": "64px",
       "lineHeight": "73.6px",
-      "measuredFrom": "tailwind.config.js:53-53"
+      "measuredFrom": "tailwind.config.js:77-77"
     },
     "fontSize.h1-mob": {
       "size": "48px",
       "lineHeight": "55.2px",
-      "measuredFrom": "tailwind.config.js:54-54"
+      "measuredFrom": "tailwind.config.js:78-78"
     },
     "fontSize.h2": {
       "size": "64px",
       "lineHeight": "73.6px",
-      "measuredFrom": "tailwind.config.js:55-55"
+      "measuredFrom": "tailwind.config.js:79-79"
     },
     "fontSize.h2-mob": {
       "size": "56px",
       "lineHeight": "64.4px",
-      "measuredFrom": "tailwind.config.js:56-56"
+      "measuredFrom": "tailwind.config.js:80-80"
     },
     "fontSize.h2-xs": {
       "size": "40px",
       "lineHeight": "46px",
-      "measuredFrom": "tailwind.config.js:57-57"
+      "measuredFrom": "tailwind.config.js:81-81"
     },
     "fontSize.medium": {
       "size": "20px",
       "lineHeight": "28px",
-      "measuredFrom": "tailwind.config.js:58-58"
+      "measuredFrom": "tailwind.config.js:82-82"
     },
     "fontSize.medium-xs": {
       "size": "18px",
       "lineHeight": "25.2px",
-      "measuredFrom": "tailwind.config.js:59-59"
+      "measuredFrom": "tailwind.config.js:83-83"
     },
     "fontSize.para": {
       "size": "18.4px",
       "lineHeight": "25.76px",
-      "measuredFrom": "tailwind.config.js:60-60"
+      "measuredFrom": "tailwind.config.js:84-84"
     },
     "fontSize.body": {
       "size": "18px",
       "lineHeight": "25.2px",
-      "measuredFrom": "tailwind.config.js:61-61"
+      "measuredFrom": "tailwind.config.js:85-85"
     },
     "fontSize.body-xs": {
       "size": "17.6px",
       "lineHeight": "24.64px",
-      "measuredFrom": "tailwind.config.js:62-62"
+      "measuredFrom": "tailwind.config.js:86-86"
     },
     "fontSize.small": {
       "size": "14px",
       "lineHeight": "19.6px",
-      "measuredFrom": "tailwind.config.js:63-63"
+      "measuredFrom": "tailwind.config.js:87-87"
     },
     "fontSize.btn": {
       "size": "16px",
       "lineHeight": "16px",
-      "measuredFrom": "tailwind.config.js:64-64"
+      "measuredFrom": "tailwind.config.js:88-88"
     },
     "fontSize.btn-sm": {
       "size": "14.4px",
       "lineHeight": "16px",
-      "measuredFrom": "tailwind.config.js:65-65"
+      "measuredFrom": "tailwind.config.js:89-89"
     },
     "fontSize.btn-dark-sm": {
       "size": "14px",
       "lineHeight": "16px",
-      "measuredFrom": "tailwind.config.js:66-66"
+      "measuredFrom": "tailwind.config.js:90-90"
     },
     "fontSize.tab": {
       "size": "24px",
       "lineHeight": "33.6px",
-      "measuredFrom": "tailwind.config.js:67-67"
+      "measuredFrom": "tailwind.config.js:91-91"
     },
     "fontSize.tab-mob": {
       "size": "20px",
       "lineHeight": "28px",
-      "measuredFrom": "tailwind.config.js:68-68"
+      "measuredFrom": "tailwind.config.js:92-92"
     },
     "fontSize.kikitab": {
       "size": "18.4px",
       "lineHeight": "25.76px",
-      "measuredFrom": "tailwind.config.js:69-69"
+      "measuredFrom": "tailwind.config.js:93-93"
     },
     "fontSize.kikitab-xs": {
       "size": "16px",
       "lineHeight": "22.4px",
-      "measuredFrom": "tailwind.config.js:70-70"
+      "measuredFrom": "tailwind.config.js:94-94"
     },
     "fontSize.feature": {
       "size": "20px",
       "lineHeight": "25px",
-      "measuredFrom": "tailwind.config.js:71-71"
+      "measuredFrom": "tailwind.config.js:95-95"
     },
     "fontSize.slide": {
       "size": "16px",
       "lineHeight": "22.4px",
-      "measuredFrom": "tailwind.config.js:72-72"
+      "measuredFrom": "tailwind.config.js:96-96"
     },
     "fontSize.slide-mob": {
       "size": "20px",
       "lineHeight": "28px",
-      "measuredFrom": "tailwind.config.js:73-73"
+      "measuredFrom": "tailwind.config.js:97-97"
     },
     "fontSize.stat": {
       "size": "64px",
       "lineHeight": "64px",
-      "measuredFrom": "tailwind.config.js:74-74"
+      "measuredFrom": "tailwind.config.js:98-98"
     },
     "fontSize.stat-48": {
       "size": "48px",
       "lineHeight": "48px",
-      "measuredFrom": "tailwind.config.js:75-75"
+      "measuredFrom": "tailwind.config.js:99-99"
     },
     "fontSize.stat-40": {
       "size": "40px",
       "lineHeight": "40px",
-      "measuredFrom": "tailwind.config.js:76-76"
+      "measuredFrom": "tailwind.config.js:100-100"
     },
     "fontSize.xlarge": {
       "size": "32px",
       "lineHeight": "44.8px",
-      "measuredFrom": "tailwind.config.js:77-77"
+      "measuredFrom": "tailwind.config.js:101-101"
     },
     "fontSize.xlarge-mob": {
       "size": "24px",
       "lineHeight": "33.6px",
-      "measuredFrom": "tailwind.config.js:78-78"
+      "measuredFrom": "tailwind.config.js:102-102"
     },
     "fontSize.quote": {
       "size": "32px",
       "lineHeight": "38.4px",
-      "measuredFrom": "tailwind.config.js:79-79"
+      "measuredFrom": "tailwind.config.js:103-103"
     },
     "fontSize.quote-tab": {
       "size": "28px",
       "lineHeight": "33.6px",
-      "measuredFrom": "tailwind.config.js:80-80"
+      "measuredFrom": "tailwind.config.js:104-104"
     },
     "fontSize.quote-mob": {
       "size": "24px",
       "lineHeight": "28.8px",
-      "measuredFrom": "tailwind.config.js:81-81"
+      "measuredFrom": "tailwind.config.js:105-105"
     },
     "fontSize.faq": {
       "size": "20px",
       "lineHeight": "23px",
-      "measuredFrom": "tailwind.config.js:82-82"
+      "measuredFrom": "tailwind.config.js:106-106"
     },
     "fontSize.footer-head": {
       "size": "18.4px",
       "lineHeight": "21.16px",
-      "measuredFrom": "tailwind.config.js:83-83"
+      "measuredFrom": "tailwind.config.js:107-107"
     },
     "fontSize.footer-head-mob": {
       "size": "18px",
       "lineHeight": "20.7px",
-      "measuredFrom": "tailwind.config.js:84-84"
+      "measuredFrom": "tailwind.config.js:108-108"
     },
     "fontSize.footer-link": {
       "size": "16px",
       "lineHeight": "22.4px",
-      "measuredFrom": "tailwind.config.js:85-85"
+      "measuredFrom": "tailwind.config.js:109-109"
     },
     "fontSize.dd-title": {
       "size": "13.6px",
       "lineHeight": "19.04px",
-      "measuredFrom": "tailwind.config.js:86-86"
+      "measuredFrom": "tailwind.config.js:110-110"
     },
     "fontSize.dd-head": {
       "size": "12px",
       "lineHeight": "16.8px",
-      "measuredFrom": "tailwind.config.js:87-87"
+      "measuredFrom": "tailwind.config.js:111-111"
     },
     "h1": {
       "size": "4.5rem",

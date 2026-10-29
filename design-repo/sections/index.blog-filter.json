@@ -4,6 +4,17 @@
   "name": "Blog filter and post grid",
   "purpose": "Lets a reader browse every blog and news post, narrowing by category and sorting by date, and load more as they go.",
   "category": "index",
+  "source": {
+    "id": "BlogFilter.section[data-section=blog-filter]",
+    "tag": "section",
+    "file": "src/components/sections/BlogFilter.jsx",
+    "lines": "111-186"
+  },
+  "semantic": {
+    "id": "index.blog-filter",
+    "category": "index"
+  },
+  "retrievalEligible": true,
   "designSystem": "marketing",
   "implementedBy": "src/components/sections/BlogFilter.jsx",
   "description": "Hairline-bordered block on the legacy \"green\" theme. Left 20%: sticky \"Filter by category\" checkbox list (2-column grid at 991 and below, wrapping row at 479). Right 80%: a header row \"Showing N articles out of M\" with a Sort by dropdown (newest / oldest), a 2-column grid (1 at 479) of post cards (image, serif title, date and read-time pills) and a \"Load more\" pill that reveals 20 more. Client-side filtering, OR across ticked categories.",
@@ -74,7 +85,10 @@
                 "placeholder.neutral",
                 "photo.brand",
                 "product.screenshot",
-                "stock.photo"
+                "stock.photo",
+                "illustration.generated",
+                "screenshot.placeholder",
+                "asset.userSupplied"
               ],
               "properties": {
                 "assetRole": {
@@ -82,7 +96,10 @@
                     "placeholder.neutral",
                     "photo.brand",
                     "product.screenshot",
-                    "stock.photo"
+                    "stock.photo",
+                    "illustration.generated",
+                    "screenshot.placeholder",
+                    "asset.userSupplied"
                   ]
                 },
                 "placeholderLabel": {
@@ -374,9 +391,12 @@
     "note": "Derived from every real node sequence in templates/templates.json (incl. per-route sequences)."
   },
   "assetRoles": [
+    "asset.userSupplied",
+    "illustration.generated",
     "photo.brand",
     "placeholder.neutral",
     "product.screenshot",
+    "screenshot.placeholder",
     "stock.photo"
   ]
 }
